@@ -26,11 +26,11 @@
 
 ## Team Member 4:
 
-	Name: 		
+	Name:		Abdullah Shahryar Hameed Butt
 
-	Email:		
+	Email:		abdullah.butt@msn.com
 
-	Username:   
+	Username:   abdullahbutt
 
 ## Team Member 5:
 
@@ -43,5 +43,7 @@
 ## Team Member 6:
 
 	Name: 		
+
 	Email:		
+
 	Username:   
