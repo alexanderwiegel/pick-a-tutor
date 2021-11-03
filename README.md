@@ -34,11 +34,11 @@
 
 ## Team Member 5:
 
-	Name: 		
+	Name: 		Alexander Wiegel
 
-	Email:		
+	Email:		alexander.wiegel@informatik.hs-fulda.de
 
-	Username:   
+	Username:   alexanderwiegel
 
 ## Team Member 6:
 
