@@ -6,7 +6,7 @@
 
 	Email:		rakesh.kumar@informatik.hs-fulda.de
 
-	Username:  fdai6857
+	Username:  rakdman
 
 ## Team Member 2:
 
@@ -42,8 +42,8 @@
 
 ## Team Member 6:
 
-	Name: 		
+	Name: 		Ziad Khaled
 
-	Email:		
+	Email:		ziad.khaled@informatik.hs-fulda.de
 
-	Username:   
+	Username:   ziad-khaled
