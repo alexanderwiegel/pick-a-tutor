@@ -6,7 +6,7 @@
 
 	Email:		rakesh.kumar@informatik.hs-fulda.de
 
-	Username:  rakdman
+	Username:  	rakdman
 
 ## Team Member 2:
 
@@ -14,7 +14,7 @@
 
 	Email:		chahat.soni@informatik.hs-fulda.de
 
-	Username:  chahatsoni
+	Username:  	chahatsoni
 
 ## Team Member 3:
 
@@ -22,7 +22,7 @@
 
 	Email:		rextuz@gmail.com
 
-	Username:  rextuz
+	Username:  	rextuz
 
 ## Team Member 4:
 
@@ -30,7 +30,7 @@
 
 	Email:		abdullah.butt@msn.com
 
-	Username:   abdullahbutt
+	Username:   	abdullahbutt
 
 ## Team Member 5:
 
@@ -38,7 +38,7 @@
 
 	Email:		alexander.wiegel@informatik.hs-fulda.de
 
-	Username:   alexanderwiegel
+	Username:   	alexanderwiegel
 
 ## Team Member 6:
 
@@ -46,4 +46,4 @@
 
 	Email:		ziad.khaled@informatik.hs-fulda.de
 
-	Username:   ziad-khaled
+	Username:   	ziad-khaled
