@@ -44,7 +44,7 @@
 
 	Name: 		Ziad Khaled
 
-	Email:		ziad.khaled@informatik.hs-fulda.de
+	Email:		ziad.khaled-mohamed@informatik.hs-fulda.de
 
 	Username:   	ziad-khaled
 	
