@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  main_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'mysqluser'
+      MYSQL_PASSWORD: 'attic-humorous-stylishly'
+      MYSQL_ROOT_PASSWORD: 'attic-humorous-stylishly'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - main-db:/var/lib/mysql-main
+  test_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'mysqluser'
+      MYSQL_PASSWORD: 'attic-humorous-stylishly'
+      MYSQL_ROOT_PASSWORD: 'attic-humorous-stylishly'
+    ports:
+      - '3307:3307'
+    expose:
+      - '3307'
+    volumes:
+      - test-db:/var/lib/mysql-test
+volumes:
+  main-db:
+  test-db:
