@@ -1,5 +1,17 @@
-**/.vs/
-**/.idea/
-**/node_modules/
-**/package-lock\.json
-**/.DS_Store
+# Files
+*.log*
+*.pnp
+*.pnp.js
+*.swp
+.DS_Store
+.env*
+package-lock.json
+yarn.lock
+
+# Folders
+.expo/
+.idea/
+.vs/
+build/
+coverage/
+node_modules/
