@@ -1,6 +1,6 @@
 const app = require('express')();
 
-const PORT = 3000;
+const PORT = 3001;
 
 app.get('/', (req, res) => {
     res.send(`Hello world! Node.js version is ${process.version}`);
