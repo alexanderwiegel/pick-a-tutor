@@ -2,7 +2,7 @@ FROM node:16.13.0
 
 WORKDIR /usr/src/app
 
-COPY pick-a-tutor ./
+COPY backend ./
 RUN npm install
 
 EXPOSE 3000
