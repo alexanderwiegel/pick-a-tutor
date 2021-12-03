@@ -29,7 +29,7 @@ azureuser@GDSD:~$ node hello_world.js
 Hello world!
 ```
 
-## Connecting to the database
+## Connecting to the test database
 
 Connection to the MySQL database can be done using a MySQL client such as _MySQL workbench_ or via the command line client using the following command:
 

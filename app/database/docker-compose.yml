@@ -9,13 +9,14 @@ services:
       MYSQL_PASSWORD: 'attic-humorous-stylishly'
       MYSQL_ROOT_PASSWORD: 'attic-humorous-stylishly'
     ports:
-      - '3306:3306'
+      - '3307:3307'
     expose:
-      - '3306'
+      - '3307'
     volumes:
       - main-db:/var/lib/mysql-main
   test_db:
     image: mysql:8.0
+    stop_signal: SIGINT
     restart: always
     environment:
       MYSQL_DATABASE: 'db'
@@ -23,9 +24,9 @@ services:
       MYSQL_PASSWORD: 'attic-humorous-stylishly'
       MYSQL_ROOT_PASSWORD: 'attic-humorous-stylishly'
     ports:
-      - '3307:3307'
+      - '3306:3306'
     expose:
-      - '3307'
+      - '3306'
     volumes:
       - test-db:/var/lib/mysql-test
 volumes:
