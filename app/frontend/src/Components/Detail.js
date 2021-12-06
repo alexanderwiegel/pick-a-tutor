@@ -24,10 +24,10 @@ function Details(props) {
     }, []);
     const location = useLocation()
     return (
-        <div className='wrapper'>
+        <div className="wrapper">
             {/* <p>{location.state?.star} and {location.state?.search}</p> */}
             {
-                users.map(user => <Card name={`${user.first_name} ${user.last_name}`} subject={user.email}/>)
+                users.map(user => <Card name={`${user.firstName} ${user.lastName}`} subject={user.email}/>)
             }
         </div>
     );

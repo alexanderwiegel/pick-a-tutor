@@ -13,5 +13,8 @@ EXPOSE 3001
 # Copy sources
 COPY . .
 
+# Generate test DB table
+RUN node scripts/generate_db_users.js
+
 # Start the app
 CMD ["node", "index.js"]
