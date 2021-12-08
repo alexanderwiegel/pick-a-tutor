@@ -26,11 +26,17 @@ $ docker-compose down
 
 First you have to add your key to the server or use the common key (see `credentials/README.md`).
 
-Run the following command from the **top** directory of the project:
+Install `ansible` on your machine.
 
-```shell
-$ rsync -av --delete app/ azureuser@20.113.25.17:~/app/ --exclude='node_modules' && ssh azureuser@20.113.25.17 'cd ~/app/database && docker-compose up --build --detach' && ssh azureuser@20.113.25.17 'cd ~/app && docker-compose up --build --detach'
+Run the following command:
+
 ```
+$ ansible-playbook deploy.yml -i 20.113.25.17,
+```
+
+Make sure you did not miss the comma (`,`)!
+
+`deploy.yml` is located in `app/` directory. You can run the command from any folder but make sure that you pass the correct path to `deploy.yml`.
 
 # Database
 
