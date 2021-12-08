@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/users', (async (req, res) => {
-    res.json(await User.asJson());
+    res.json(await User.findAll());
 }))
 
 app.listen(PORT);

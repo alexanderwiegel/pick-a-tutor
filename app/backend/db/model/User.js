@@ -2,10 +2,6 @@ const {DataTypes, Model} = require('sequelize');
 const db = require('../db');
 
 class User extends Model {
-    static async asJson() {
-        let users = await this.findAll();
-        return JSON.parse(JSON.stringify(users));
-    }
 }
 
 User.init({
