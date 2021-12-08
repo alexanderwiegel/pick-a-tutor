@@ -17,9 +17,6 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    emailVerifiedAt: {
-        type: DataTypes.DATE,
-    },
     password: {
         type: DataTypes.STRING,
         allowNull: false
@@ -39,34 +36,15 @@ User.init({
     isAdmin: {
         type: DataTypes.BOOLEAN
     },
-    mobileCountryCode: {
-        type: DataTypes.STRING
-    },
-    mobileNumber: {
-        type: DataTypes.STRING
-    },
-    houseNumber: {
-        type: DataTypes.STRING
-    },
-    streetName: {
-        type: DataTypes.STRING
-    },
-    city: {
-        type: DataTypes.STRING
-    },
-    country: {
-        type: DataTypes.STRING
-    },
     status: {
-        type: DataTypes.STRING
+        type: DataTypes.BOOLEAN
     },
-    confirmationCode: {
-        type: DataTypes.INTEGER
-    }
 }, {
     sequelize: db,
     modelName: 'User',
-    tableName: 'users'
+    tableName: 'users',
+    timestamps: true,
+    paranoid: true
 });
 
 module.exports = User;
