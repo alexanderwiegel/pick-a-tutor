@@ -4,9 +4,11 @@ const TutorCourse = require('../db/model/TutorCourse');
 
 async function run() {
     // Recreate tables
-    await User.sync({force: true});
-    await Course.sync({force: true});
     await TutorCourse.sync({force: true});
+
+    // Do not need these because of ON_CASCADE:
+    // await Course.sync({force: true});
+    // await User.sync({force: true});
 
     /* Create rows */
 
@@ -99,7 +101,7 @@ async function run() {
     }).save();
 
     await TutorCourse.build({
-        courseId: 1,
+        courseId: 5,
         userId: 2,
         coursePricePerHour: 12
     }).save();
