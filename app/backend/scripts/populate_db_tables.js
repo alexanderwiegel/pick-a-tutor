@@ -1,10 +1,10 @@
-const User = require('../db/model/User');
-const Course = require('../db/model/Course');
-const TutorCourse = require('../db/model/TutorCourse');
+const User = require("../db/model/User");
+const Course = require("../db/model/Course");
+const TutorCourse = require("../db/model/TutorCourse");
 
 async function run() {
     // Recreate tables
-    await TutorCourse.sync({force: true});
+    await TutorCourse.sync({ force: true });
 
     // Do not need these because of ON_CASCADE:
     // await Course.sync({force: true});
@@ -13,11 +13,11 @@ async function run() {
     /* Create rows */
 
     await User.build({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'johndoe@example.com',
-        password: 'password',
-        dateOfBirth: new Date('05.08.1985'),
+        firstName: "John",
+        lastName: "Doe",
+        email: "johndoe@example.com",
+        password: "password",
+        dateOfBirth: new Date("05.08.1985"),
         gender: 0,
         isStudent: true,
         isTutor: true,
@@ -26,11 +26,11 @@ async function run() {
     }).save();
 
     await User.build({
-        firstName: 'Kyler',
-        lastName: 'Stark',
-        email: 'kylerstark@example.com',
-        password: 'password',
-        dateOfBirth: new Date('02.18.1990'),
+        firstName: "Kyler",
+        lastName: "Stark",
+        email: "kylerstark@example.com",
+        password: "password",
+        dateOfBirth: new Date("02.18.1990"),
         gender: 0,
         isStudent: false,
         isTutor: true,
@@ -39,11 +39,11 @@ async function run() {
     }).save();
 
     await User.build({
-        firstName: 'Johnny',
-        lastName: 'Doh',
-        email: 'johnnyd@example.com',
-        password: 'password',
-        dateOfBirth: new Date('08.05.1995'),
+        firstName: "Johnny",
+        lastName: "Doh",
+        email: "johnnyd@example.com",
+        password: "password",
+        dateOfBirth: new Date("08.05.1995"),
         gender: 0,
         isStudent: true,
         isTutor: false,
@@ -52,58 +52,58 @@ async function run() {
     }).save();
 
     await Course.build({
-        name: 'Java',
-        description: 'Java programming language course'
+        name: "Java",
+        description: "Java programming language course",
     }).save();
 
     await Course.build({
-        name: 'Python',
-        description: 'Python programming language course'
+        name: "Python",
+        description: "Python programming language course",
     }).save();
 
     await Course.build({
-        name: 'C#',
-        description: 'C# programming language course'
+        name: "C#",
+        description: "C# programming language course",
     }).save();
 
     await Course.build({
-        name: 'Deutsch A1',
-        description: 'German language for beginners'
+        name: "Deutsch A1",
+        description: "German language for beginners",
     }).save();
 
     await Course.build({
-        name: 'Deutsch A2',
-        description: 'German language for beginners'
+        name: "Deutsch A2",
+        description: "German language for beginners",
     }).save();
 
     await TutorCourse.build({
         courseId: 1,
         userId: 1,
-        coursePricePerHour: 14.99
+        coursePricePerHour: 14.99,
     }).save();
 
     await TutorCourse.build({
         courseId: 2,
         userId: 1,
-        coursePricePerHour: 12.99
+        coursePricePerHour: 12.99,
     }).save();
 
     await TutorCourse.build({
         courseId: 3,
         userId: 1,
-        coursePricePerHour: 10.99
+        coursePricePerHour: 10.99,
     }).save();
 
     await TutorCourse.build({
         courseId: 4,
         userId: 2,
-        coursePricePerHour: 10
+        coursePricePerHour: 10,
     }).save();
 
     await TutorCourse.build({
         courseId: 5,
         userId: 2,
-        coursePricePerHour: 12
+        coursePricePerHour: 12,
     }).save();
 
     /* Example of soft-delete:
@@ -112,4 +112,4 @@ async function run() {
     */
 }
 
-run().then(() => console.log('Database tables were recreated'));
+run().then(() => console.log("Database tables were recreated"));

@@ -1,5 +1,5 @@
 const express = require("express");
-const app = module.exports = express();
+const app = (module.exports = express());
 
 let courses = require("./courses");
 let tutors = require("./tutors");
