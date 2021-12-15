@@ -8,7 +8,7 @@ import {
     FloatingLabel,
     Image,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from 'yup';
@@ -26,6 +26,9 @@ let schema = yup.object().shape({
 });
 
 export default function Login() {
+
+  let navigate = useNavigate();
+
     return (
         <>
             <Container className="mt-6">
@@ -49,18 +52,20 @@ export default function Login() {
                             />
                             </a>
                         </div>
-                        <h2 class="text-center">Sign in to Pick-A-Tutor</h2>
+                        <h2 className="text-center">Sign in to Pick-A-Tutor</h2>
                         <br />
                         <Formik
                             initialValues={initialValues}
                             validationSchema={ schema }
                             onSubmit={async (values, actions) => {
                                  const data = await apiEndpoints.login(values);
-                                 console.log("this is response", data)
-                            }}
+                                 if(data.status === 200)
+                                 console.log(data)
+                                  navigate('/dashboard', { state: { message:data.data.message } })                            
+                                }}
                         >
                           {(props) => (
-                        <Form>
+                        <Form onSubmit={ props.handleSubmit }>
                             <FloatingLabel
                                 controlId="floatingInput"
                                 label="Email address"
@@ -69,6 +74,10 @@ export default function Login() {
                                 <Form.Control
                                     type="email"
                                     placeholder="name@example.com"
+
+                                name="email"
+                                onChange={ props.handleChange }
+                                value={ props.values.email }
                                 />
                             </FloatingLabel>
                             
@@ -80,6 +89,9 @@ export default function Login() {
                                 <Form.Control
                                     type="password"
                                     placeholder="Password"
+                                    name="password"
+                                    onChange={ props.handleChange }
+                                    value={ props.values.password }
                                 />
                             </FloatingLabel>
                             <div class="d-flex justify-content-end"><p>Forgot Password ?</p></div>

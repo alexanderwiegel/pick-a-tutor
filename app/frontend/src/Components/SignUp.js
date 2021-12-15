@@ -9,13 +9,11 @@ import {
     Image,
     InputGroup,
 } from "react-bootstrap";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import apiEndpoints from "./ApiEndpoints";
-import * as yup from 'yup';
-
+import * as yup from "yup";
 
 const initialValues = {
     firstName: "",
@@ -26,23 +24,32 @@ const initialValues = {
     gender: "",
     repeatPassword: "",
     role: "",
-    tnc: false
+    tnc: false,
 };
 
 let schema = yup.object().shape({
     firstName: yup.string().required("First name is required"),
     lastName: yup.string().required("Last name is required"),
-    email: yup.string().email("Enter valid email address").required("Email is required"),
+    email: yup
+        .string()
+        .email("Enter valid email address")
+        .required("Email is required"),
     dateOfBirth: yup.date().required("Date of birth is required"),
     password: yup.string().min(5, "Too short").required("Password is required"),
-    repeatPassword: yup.string().required("Repeate password is required").oneOf([yup.ref("password")], "Password must match"),
+    repeatPassword: yup
+        .string()
+        .required("Repeate password is required")
+        .oneOf([yup.ref("password")], "Password must match"),
     gender: yup.string().required("Gender is required"),
     role: yup.string().required("Role is required"),
-    tnc: yup.boolean().required("The terms and conditions must be accepted.").oneOf([true], "The terms and conditions must be accepted.")
-
-  });
+    tnc: yup
+        .boolean()
+        .required("The terms and conditions must be accepted.")
+        .oneOf([true], "The terms and conditions must be accepted."),
+});
 
 const SignUp = () => {
+    let navigate = useNavigate();
     return (
         <>
             <Container className="mt-6">
@@ -62,10 +69,12 @@ const SignUp = () => {
                         </div>
                         <Formik
                             initialValues={initialValues}
-                            validationSchema={ schema }
+                            validationSchema={schema}
                             onSubmit={async (values, actions) => {
-                                 const data = await apiEndpoints.register(values);
-                                 console.log("this is response", data)
+                                const data = await apiEndpoints.register(
+                                    values
+                                );
+                                navigate("/login");
                             }}
                         >
                             {(props) => (
@@ -85,6 +94,14 @@ const SignUp = () => {
                                                 value={props.values.firstName}
                                                 onChange={props.handleChange}
                                             />
+                                            <p
+                                                style={{
+                                                    fontSize: "12px",
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {props.errors?.firstName}
+                                            </p>
                                             <Form.Control.Feedback>
                                                 Looks good!
                                             </Form.Control.Feedback>
@@ -103,6 +120,15 @@ const SignUp = () => {
                                                 value={props.values.lastName}
                                                 onChange={props.handleChange}
                                             />
+                                            <p
+                                                style={{
+                                                    fontSize: "12px",
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {props.errors?.lastName}
+                                            </p>
+
                                             <Form.Control.Feedback>
                                                 Looks good!
                                             </Form.Control.Feedback>
@@ -123,10 +149,14 @@ const SignUp = () => {
                                                 value={props.values.email}
                                                 onChange={props.handleChange}
                                             />
-                                            <Form.Control.Feedback type="invalid">
-                                                Please provide a valid email
-                                                address.
-                                            </Form.Control.Feedback>
+                                            <p
+                                                style={{
+                                                    fontSize: "12px",
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {props.errors?.email}
+                                            </p>
                                         </Form.Group>
                                         <Form.Group
                                             as={Col}
@@ -149,10 +179,15 @@ const SignUp = () => {
                                                         props.handleChange
                                                     }
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please enter date of birth.
-                                                </Form.Control.Feedback>
                                             </InputGroup>
+                                            <p
+                                                style={{
+                                                    fontSize: "12px",
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {props.errors?.dateOfBirth}
+                                            </p>
                                         </Form.Group>
                                     </Row>
                                     <Row className="mb-2">
@@ -175,10 +210,15 @@ const SignUp = () => {
                                                         props.handleChange
                                                     }
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please enter a password.
-                                                </Form.Control.Feedback>
                                             </InputGroup>
+                                            <p
+                                                style={{
+                                                    fontSize: "12px",
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {props.errors?.password}
+                                            </p>
                                         </Form.Group>
                                         <Form.Group
                                             as={Col}
@@ -202,10 +242,19 @@ const SignUp = () => {
                                                         props.handleChange
                                                     }
                                                 />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please repeat your password.
-                                                </Form.Control.Feedback>
+                                                
                                             </InputGroup>
+                                            <p
+                                                    style={{
+                                                        fontSize: "12px",
+                                                        color: "red",
+                                                    }}
+                                                >
+                                                    {
+                                                        props.errors
+                                                            ?.repeatPassword
+                                                    }
+                                                </p>
                                         </Form.Group>
                                     </Row>
                                     <Row className="mb-2">
@@ -240,6 +289,14 @@ const SignUp = () => {
                                                     </option>
                                                 </Form.Select>
                                             </FloatingLabel>
+                                            <p
+                                                style={{
+                                                    fontSize: "12px",
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {props.errors?.gender}
+                                            </p>
                                         </Form.Group>
                                         <Form.Group as={Col} className="mb-3">
                                             <Form.Label
@@ -257,22 +314,46 @@ const SignUp = () => {
                                                 }}
                                             >
                                                 <label>
-                                                    <Field type="radio" name="role" value="Student" />
+                                                    <Field
+                                                        type="radio"
+                                                        name="role"
+                                                        value="Student"
+                                                    />
                                                     Student
                                                 </label>
                                                 <label>
-                                                <Field type="radio" name="role" value="Tutor" />
+                                                    <Field
+                                                        type="radio"
+                                                        name="role"
+                                                        value="Tutor"
+                                                    />
                                                     Tutor
                                                 </label>
                                             </div>
+                                            <p
+                                                style={{
+                                                    fontSize: "12px",
+                                                    color: "red",
+                                                }}
+                                            >
+                                                {props.errors?.role}
+                                            </p>
                                         </Form.Group>
                                     </Row>
                                     <Form.Group className="mb-3">
-                                            <label>
-                                                <Field type="checkbox" name="tnc" />
-                                                Agree to terms and conditions
-                                            </label>
+                                        <label>
+                                            <Field type="checkbox" name="tnc" />
+                                            Agree to terms and conditions
+                                        </label>
                                     </Form.Group>
+                                    <p
+                                        style={{
+                                            fontSize: "12px",
+                                            color: "red",
+                                        }}
+                                    >
+                                        {props.errors?.tnc}
+                                    </p>
                                     <Button
                                         type="submit"
                                         style={{ width: "100%" }}
@@ -280,31 +361,23 @@ const SignUp = () => {
                                         Sign Up
                                     </Button>
 
-                        <br />
-                        <br />
+                                    <br />
+                                    <br />
                                     <Button
-                            variant="outline-primary"
-                            type="submit"
-                            style={{ width: "100%", minheight: "70px" }}
-                            as={Link}
-                            to={"/login"}
-                        >
-                            Already have an account? Sign in.
-                        </Button>
-                                    <p>{ props.errors?.firstName } </p>
-                                    <p>{ props.errors?.lastName } </p>
-                                    <p>{ props.errors?.email } </p>
-                                    <p>{ props.errors?.dateOfBirth } </p>
-                                    <p>{ props.errors?.role } </p>
-                                    <p>{ props.errors?.password } </p>
-                                    <p>{ props.errors?.repeatPassword } </p>
-                                    <p>{ props.errors?.tnc } </p>
-                                    <p>{ props.errors?.gender } </p>
-                                    
+                                        variant="outline-primary"
+                                        type="submit"
+                                        style={{
+                                            width: "100%",
+                                            minheight: "70px",
+                                        }}
+                                        as={Link}
+                                        to={"/login"}
+                                    >
+                                        Already have an account? Sign in.
+                                    </Button>
                                 </Form>
                             )}
                         </Formik>
-
                     </Col>
                 </Row>
             </Container>
