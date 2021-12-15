@@ -10,7 +10,13 @@ app.get("/api/users", async (req, res) => {
 });
 
 app.post("/api/users", async (req, res) => {
-    console.log(req.body);
+    let existing_user = await User.findOne({
+        where: { email: req.body.email },
+    });
+    if (existing_user) {
+        res.json({ error: "User with this email is already registered" });
+        return;
+    }
     let user = User.build({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -20,7 +26,7 @@ app.post("/api/users", async (req, res) => {
         gender: 0,
         isStudent: true,
         isTutor: true,
-        isAdmin: true,
+        isAdmin: false,
         status: 0,
     });
     await user.save();

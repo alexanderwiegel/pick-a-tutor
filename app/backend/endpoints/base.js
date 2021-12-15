@@ -2,6 +2,7 @@ const express = require("express");
 const app = (module.exports = express());
 
 let courses = require("./courses");
+let login = require("./login");
 let tutors = require("./tutors");
 let users = require("./users");
 
@@ -12,5 +13,6 @@ app.use(function (req, res, next) {
 });
 
 app.use(courses);
+app.use(login);
 app.use(tutors);
 app.use(users);
