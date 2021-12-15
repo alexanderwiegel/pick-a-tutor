@@ -1,22 +1,22 @@
 import React from 'react';
-import Header from './Components/Header';
-import Feature from './Components/Feature';
-import About from './Components/About';
-import aboutimg from './images/Frame 19.png';
-import aboutimg2 from './images/background.png';
-import Search from './Components/Search';
-import Navbar from './Components/Navbar';
+import Details from './Components/Detail';
+import Login from './Components/Login';
+import PageTemplate from './Components/PageTemplate';
+import Home from './Components/Home';
+import SignUp from './Components/SignUp';
+import { BrowserRouter as Router, Routes, Route, Navigate, Switch, useLocation } from 'react-router-dom';
 
 
 function App() {
   return (
-      <div className='App'>
-        <Navbar />
-        <Header />
-        <Feature />
-        <About image = {aboutimg} title = 'Come with all your study needs.' button = 'Get the App' />
-        <Search />
-      </div>
+    <Router>
+        <Routes>
+          <Route path = '/' element = { <PageTemplate><Home /></ PageTemplate> } />
+          <Route exact path = '/login' element = { <Login /> } />
+          <Route exact path = '/signup' element = { <SignUp /> } />
+          <Route exact path = '/detail' element = { <PageTemplate><Details /></PageTemplate> } />
+        </Routes>
+    </Router>
   );
 }
 

@@ -1,36 +1,42 @@
-import React, {useEffect, useState} from 'react';
-import apiEndPoints from './ApiEndpoints';
-import {useLocation} from 'react-router-dom';
-import Card from './Card';
+import React, { useEffect, useState } from "react";
+import apiEndPoints from "./ApiEndpoints";
+import { useLocation } from "react-router-dom";
+import Card from "./Card";
 
 function Details(props) {
-    const [tutors, setTutors] = useState([]);
-    const [singleTutor, setSingleTutor] = useState([]);
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const location = useLocation();
 
-    const getUsers = async () => {
-        const data = await apiEndPoints.getTutorData()
-        setUsers(preVal => data.data)
-    }
+  const getUsers = async (subject) => {
+    const data = await apiEndPoints.getListofTutors(subject)
+    setUsers(preVal => data.data)
+  };
 
-    // const getSingleTutor = async() => {
-    //     const data = await apiEndPoints.getTutorData ( course, star )
-    //     getSingleTutor ( preVal => data.data )
-    // }
+  useEffect(() => {
+    setTimeout(() => {
+      getUsers(location.state?.search);
+      setTimeout(() => {
+        setLoading(preVal => false)
+      }, 200)
+    }, 500)
+  }, []);
 
-    useEffect(() => {
-        getUsers()
-        // getSingleTutor()
-    }, []);
-    const location = useLocation()
-    return (
-        <div className="wrapper">
-            {/* <p>{location.state?.star} and {location.state?.search}</p> */}
-            {
-                users.map(user => <Card name={`${user.firstName} ${user.lastName}`} subject={user.email}/>)
-            }
-        </div>
-    );
+  return (
+    <div className="wrapper">
+      {
+        loading &&
+          <h1>Fetching data...</h1>
+      }
+      { (users.length > 0 && !loading) && 
+          users.map(user => <Card courses={ user.Courses } name={ user.firstName } />)
+      }
+      {
+        (users.length === 0 && !loading) &&
+          <h1>No data found</h1>       
+      }
+    </div>
+  );
 }
 
 export default Details;

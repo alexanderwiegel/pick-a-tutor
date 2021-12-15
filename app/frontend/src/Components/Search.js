@@ -10,20 +10,22 @@ function Search () {
        <div className = 'search-input' >
             <input placeholder = 'Search here ...' style={{fontSize:'1rem'}} onChange= { (e) => setSearch(e.target.value) }/>
             
-            <select name="pets" onChange={ (e) => setStar(e.target.value)}>
+            {/* <select name="pets" onChange={ (e) => setStar(e.target.value)}>
                 <option value="0">Based on given Stars</option>
                 <option value="one">1 Star Rating</option>
                 <option value="two">2 Star Rating</option>
                 <option value="three">3 Star Rating</option>
                 <option value="four">4 Star Rating</option>
                 <option value="five">5 Star Rating</option>
-            </select>
+            </select> */}
             {/* <a href = './Detail' > Search </a> */}
             <Link to={'/detail' } state={{
-                star : star, search : search
-            }} >Search</Link>
+                // star : star, 
+                search : search
+            }} style={{textDecoration:'none'}}>Search</Link>
        </div>
-       <text>you selected {search} with star value {star} </text>
+       {/* <text>you selected {search} with star value {star} </text> */}
+       <text style={{ marginTop: '1%',color: '#ffffff',fontSize:'1rem'}}> © Copyright 2021 - Fulda University of Applied Sciences. All Rights Reserved.</text>
     </div>
     )
 }

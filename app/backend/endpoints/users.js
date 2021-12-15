@@ -21,7 +21,7 @@ app.post("/api/users", async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: "password",
+        password: req.body.password,
         dateOfBirth: new Date("05.08.1985"),
         gender: 0,
         isStudent: true,
