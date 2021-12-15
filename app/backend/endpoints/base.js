@@ -1,5 +1,6 @@
 const express = require("express");
 const app = (module.exports = express());
+const cors = require("cors");
 
 let courses = require("./courses");
 let login = require("./login");
@@ -11,6 +12,8 @@ app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     next();
 });
+app.use(cors());
+app.options("*", cors());
 
 app.use(courses);
 app.use(login);

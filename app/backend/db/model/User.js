@@ -1,7 +1,21 @@
 const { DataTypes, Model } = require("sequelize");
 const db = require("../db");
 
-class User extends Model {}
+class User extends Model {
+    static get GENDER() {
+        return {
+            get MALE() {
+                return 0;
+            },
+            get FEMALE() {
+                return 1;
+            },
+            get DIVERSE() {
+                return 2;
+            },
+        };
+    }
+}
 
 User.init(
     {

@@ -23,7 +23,7 @@ app.post("/api/users", async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         dateOfBirth: new Date("05.08.1985"),
-        gender: 0,
+        gender: User.GENDER.MALE,
         isStudent: true,
         isTutor: true,
         isAdmin: false,
