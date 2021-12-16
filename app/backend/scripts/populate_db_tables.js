@@ -1,14 +1,13 @@
 const User = require("../db/model/User");
 const Course = require("../db/model/Course");
 const TutorCourse = require("../db/model/TutorCourse");
+const db = require("../db/db");
+
+require("../db/associations");
 
 async function run() {
     // Recreate tables
-    await TutorCourse.sync({ force: true });
-
-    // Do not need these because of ON_CASCADE:
-    // await Course.sync({force: true});
-    // await User.sync({force: true});
+    await db.sync({ force: true });
 
     /* Create rows */
 
@@ -77,32 +76,32 @@ async function run() {
     }).save();
 
     await TutorCourse.build({
-        courseId: 1,
-        userId: 1,
+        CourseId: 1,
+        UserId: 1,
         coursePricePerHour: 14.99,
     }).save();
 
     await TutorCourse.build({
-        courseId: 2,
-        userId: 1,
+        CourseId: 2,
+        UserId: 1,
         coursePricePerHour: 12.99,
     }).save();
 
     await TutorCourse.build({
-        courseId: 3,
-        userId: 1,
+        CourseId: 3,
+        UserId: 1,
         coursePricePerHour: 10.99,
     }).save();
 
     await TutorCourse.build({
-        courseId: 4,
-        userId: 2,
+        CourseId: 4,
+        UserId: 2,
         coursePricePerHour: 10,
     }).save();
 
     await TutorCourse.build({
-        courseId: 5,
-        userId: 2,
+        CourseId: 5,
+        UserId: 2,
         coursePricePerHour: 12,
     }).save();
 

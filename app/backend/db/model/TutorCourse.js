@@ -7,19 +7,19 @@ class TutorCourse extends Model {}
 
 TutorCourse.init(
     {
-        courseId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: Course,
-                key: "id",
-            },
-        },
-        userId: {
+        UserId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
                 model: User,
+                key: "id",
+            },
+        },
+        CourseId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: Course,
                 key: "id",
             },
         },
