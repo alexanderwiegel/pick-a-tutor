@@ -134,7 +134,7 @@ async function run() {
     let user = await User.findOne({
         include: [
             UserProfile,
-            { model: Message, as: "send" },
+            { model: Message, as: "sent" },
             {
                 model: Message,
                 as: "received",

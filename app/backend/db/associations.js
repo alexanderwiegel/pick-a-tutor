@@ -8,7 +8,7 @@ User.belongsToMany(Course, { through: TutorCourse });
 Course.belongsToMany(User, { through: TutorCourse });
 
 User.hasMany(Message, {
-    as: "send",
+    as: "sent",
     foreignKey: "senderId",
 });
 User.hasMany(Message, {
