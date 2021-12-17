@@ -2,6 +2,8 @@ const Course = require("../db/model/Course");
 const Message = require("../db/model/Message");
 const TutorCourse = require("../db/model/TutorCourse");
 const User = require("../db/model/User");
+const UserProfile = require("../db/model/UserProfile");
+
 const db = require("../db/db");
 
 require("../db/associations");
@@ -107,22 +109,48 @@ async function run() {
     }).save();
 
     await Message.build({
+        UserId: 1,
         senderId: 1,
         recipientId: 2,
         message: "Hey, what's up?",
     }).save();
 
     await Message.build({
+        UserId: 2,
         senderId: 2,
         recipientId: 1,
-        parentId: 1,
         message: "All good",
     }).save();
 
+    await UserProfile.build({
+        UserId: 1,
+        profileImagePath: "profile_image_1639734254.jpg",
+        cvPath: "my_cv_1639734264.pdf",
+        description:
+            "I am a software engineer and I can help you with programming in different languages",
+    }).save();
+
+    /* Example of getting messages for the user
+    let user = await User.findOne({
+        include: [
+            UserProfile,
+            { model: Message, as: "send" },
+            {
+                model: Message,
+                as: "received",
+            },
+        ],
+    });
+    let message = await Message.findOne({
+        include: [
+            { model: User, as: "sender" },
+            { model: User, as: "recipient" },
+        ],
+    }); */
+
     /* Example of soft-delete:
     let user = await User.findOne({where: {firstName: 'John'}});
-    await user.destroy();
-    */
+    await user.destroy(); */
 }
 
 run().then(() => console.log("Database tables were recreated"));
