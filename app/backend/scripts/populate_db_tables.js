@@ -1,6 +1,7 @@
-const User = require("../db/model/User");
 const Course = require("../db/model/Course");
+const Message = require("../db/model/Message");
 const TutorCourse = require("../db/model/TutorCourse");
+const User = require("../db/model/User");
 const db = require("../db/db");
 
 require("../db/associations");
@@ -103,6 +104,19 @@ async function run() {
         CourseId: 5,
         UserId: 2,
         coursePricePerHour: 12,
+    }).save();
+
+    await Message.build({
+        senderId: 1,
+        recipientId: 2,
+        message: "Hey, what's up?",
+    }).save();
+
+    await Message.build({
+        senderId: 2,
+        recipientId: 1,
+        parentId: 1,
+        message: "All good",
     }).save();
 
     /* Example of soft-delete:
