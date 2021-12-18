@@ -2,13 +2,13 @@
 
 ## Connecting to the server
 
-Connection can be done via SSH using the private key `credentials/id_rsa`. This can be done with an SSH-client application for your Windows installation or in command line on Windows/Linux/Mac using the following command:
+Connection can be done via SSH using the private key `id_rsa`. This can be done with an SSH-client application for your Windows installation or in command line on Windows/Linux/Mac using the following command:
 
 ```
-$ ssh -i credentials/id_rsa azureuser@20.113.25.17
+$ ssh -i id_rsa azureuser@20.113.25.17
 ```
 
-`credentials/id_rsa.pub` is a public key that is deployed on the server.
+`id_rsa.pub` is a public key that is deployed on the server.
 
 There is an LTS version of Node.js installed on the server:
 
@@ -29,7 +29,7 @@ azureuser@GDSD:~$ node hello_world.js
 Hello world!
 ```
 
-## Connecting to the database
+## Connecting to the test database
 
 Connection to the MySQL database can be done using a MySQL client such as _MySQL workbench_ or via the command line client using the following command:
 

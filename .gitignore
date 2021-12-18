@@ -1,3 +1,17 @@
-Milestone0/SourceCode/.vs/
-Milestone0/SourceCode/node_modules/
-Milestone0/SourceCode/package-lock.json
+# Files
+*.log*
+*.pnp
+*.pnp.js
+*.swp
+.DS_Store
+.env*
+package-lock.json
+yarn.lock
+
+# Folders
+.expo/
+.idea/
+.vs/
+build/
+coverage/
+node_modules/
