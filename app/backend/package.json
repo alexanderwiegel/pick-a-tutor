@@ -1,0 +1,26 @@
+{
+  "name": "pick-a-tutor",
+  "version": "1.0.0",
+  "description": "Pick-a-Tutor backend package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexanderwiegel/gdsd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexanderwiegel/gdsd/issues"
+  },
+  "homepage": "https://github.com/alexanderwiegel/gdsd#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3",
+    "npx": "^10.2.2",
+    "sequelize": "^6.12.0-beta.1"
+  }
+}
