@@ -17,18 +17,39 @@ app.post("/api/users", async (req, res) => {
         res.json({ error: "User with this email is already registered" });
         return;
     }
+    let admin= false;
+    let student= false;
+    let tutor =false;
+    switch (req.body.role){
+        case "Admin": {
+            admin=true;
+            break;
+        }
+
+        case "Tutor":
+            {
+                tutor=true;
+                break;
+
+            }
+        case "Student" :{
+            student=true;
+            break;
+        }   
+
+    }
     let user = User.build({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password,
-        dateOfBirth: new Date("05.08.1985"),
-        gender: User.GENDER.MALE,
-        isStudent: true,
-        isTutor: true,
-        isAdmin: false,
+        dateOfBirth: req.body.dateOfBirth,
+        gender: req.body.gender,
+        isStudent: student,
+        isTutor: tutor,
+        isAdmin: admin,
         status: 0,
     });
-    await user.save();
+    await user.save(); 
     res.json(user);
 });

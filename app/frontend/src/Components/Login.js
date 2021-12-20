@@ -94,7 +94,7 @@ export default function Login() {
                                     value={ props.values.password }
                                 />
                             </FloatingLabel>
-                            <div class="d-flex justify-content-end"><p>Forgot Password ?</p></div>
+                            <div class="d-flex justify-content-end"><a href="/dashboard">Forgot Password ?</a></div>
                             <br />
                             
                             
