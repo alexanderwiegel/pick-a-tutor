@@ -13,8 +13,5 @@ EXPOSE 3001
 # Copy sources
 COPY . .
 
-# Generate test DB table
-RUN node scripts/populate_db_tables.js
-
 # Start the app
 CMD ["node", "index.js"]
