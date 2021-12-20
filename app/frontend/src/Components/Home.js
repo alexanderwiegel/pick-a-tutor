@@ -11,7 +11,7 @@ const Home = () => {
       <div className='App'>
         <Header />
         <Feature />
-        <About image = {aboutimg} title = 'Come with all your study needs.' button = 'Get the App' />
+        <About image = {aboutimg} title = 'Become an instructor' button = 'Teach Now' />
         <Search />
       </div>
     );
