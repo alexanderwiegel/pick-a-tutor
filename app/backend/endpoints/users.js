@@ -24,7 +24,9 @@ app.post("/api/users", async (req, res) => {
     });
 
     if (existing_user) {
-        res.json({ error: "User with this email is already registered" });
+        res.status(409).json({
+            error: "User with this email is already registered",
+        });
         return;
     }
 
@@ -49,7 +51,7 @@ app.post("/api/users", async (req, res) => {
     await user.save().catch((e) => {
         console.log(e);
     });
-    res.json(user);
+    res.status(200).json({ message: "Success" });
 });
 
 app.delete("/api/user/:email", async (req, res) => {
