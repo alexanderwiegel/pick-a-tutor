@@ -6,15 +6,15 @@ const User = require("../db/model/User");
 app.use(express.json());
 
 app.get("/api/users", async (req, res) => {
-    res.json(await User.findAll());
+    res.status(200).json(await User.findAll());
 });
 
 app.get("/api/user/:email", async (req, res) => {
     const user = await User.findOne({ where: { email: req.params.email } });
     if (user == null) {
-        res.json("User do not exists!");
+        res.status(401).json("User do not exists!");
     } else {
-        res.json(user);
+        res.status(200).json(user);
     }
 });
 
@@ -61,9 +61,9 @@ app.delete("/api/user/:email", async (req, res) => {
     } else {
         try {
             await user.destroy();
-            res.json("Success");
+            res.status(200).json("Success");
         } catch (e) {
-            res.json("Error");
+            res.status(401).json("Error");
         }
     }
 });

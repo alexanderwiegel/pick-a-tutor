@@ -21,10 +21,10 @@ app.post("/api/login", async (req, res) => {
 
             res.status(200).json({ email: req.body.email, token: token });
         } else {
-            res.status(403).json({ error: "Incorrect credentials!" });
+            res.status(401).json({ message: "Incorrect credentials!" });
         }
     } else
-        res.status(404).json({
-            error: "User is not found or email is incorrect",
+        res.status(401).json({
+            message: "User is not found or email is incorrect",
         });
 });
