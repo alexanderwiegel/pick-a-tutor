@@ -4,7 +4,7 @@
   "description": "Pick-a-Tutor backend package",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
     "mysql2": "^2.3.3",
     "npx": "^10.2.2",
     "sequelize": "^6.12.0-beta.1"
+  },
+  "devDependencies": {
+    "axios": "^0.24.0",
+    "jest": "^27.4.5"
   }
 }
