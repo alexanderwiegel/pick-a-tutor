@@ -4,7 +4,7 @@ const app = (module.exports = express());
 const Course = require("../db/model/Course");
 const {Sequelize} = require("sequelize");
 const {request, response} = require("express");
-const User = require("../db/model/User");
+//const User = require("../db/model/User");
 
 
 app.use(express.json());
@@ -55,6 +55,51 @@ app.post("/api/course", async (req,res) => {
         records: course.length,
         data: course
     })
+});
+
+//************* Update Existing Course ***************
+app.patch("/api/course/:id", async (req, res)=>{
+    const course = await Course.findOne({
+        //where: search(req.body.id, 'id')
+        where: { id: req.params.id }
+    });
+/*
+    res.json({
+        id: req.params.id,
+        name: req.body.name,
+        description: req.body.description,
+        test: "It's Awesome Samosas!",
+    });
+*/
+    if(course){
+        try{
+            await course.update({
+                name: req.body.name,
+                description: req.body.description
+            });
+            res.json({
+                success: true,
+                message: "Course '" + course.name + "' successfully updated",
+                records: course.length,
+            });
+        }
+        catch (e){
+            res.json({
+                success: false,
+                message: "Course " + course.name + " updation failed",
+                records: course.length,
+            });
+        }
+
+    }
+    else
+    {
+        res.json({
+            success: false,
+            message: "Provided course doesn't exist or is already deleted",
+        });
+    }
+
 });
 
 //************* Delete Existing Course ***************
