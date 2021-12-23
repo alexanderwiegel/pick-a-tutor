@@ -3,6 +3,8 @@ const app = (module.exports = express());
 const bcryptjs = require("bcryptjs");
 const User = require("../db/model/User");
 const search = require("../utils/search");
+const { Sequelize } = require("sequelize");
+const Op = Sequelize.Op;
 
 app.use(express.json());
 
@@ -10,7 +12,13 @@ app.use(express.json());
 
 app.get("/api/users", async (req, res) => {
     const users = await User.findAll({
-        where: search(req.query.search, "email"),
+        where: {
+            [Op.or]: [
+                search(req.query.search, "firstName"),
+                search(req.query.search, "lastName"),
+                search(req.query.search, "email"),
+            ],
+        },
     });
 
     res.json({
