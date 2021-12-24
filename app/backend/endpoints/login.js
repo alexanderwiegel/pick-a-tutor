@@ -1,15 +1,15 @@
 const bcryptjs = require("bcryptjs");
-const express = require("express");
-const app = (module.exports = express());
+// const express = require("express");
+// const app = (module.exports = express());
 
 const jwt = require("jsonwebtoken");
 const User = require("../db/model/User");
 
-app.use(express.json());
+// app.use(express.json());
 
 //************* Login and Generate Token for a user ***************
 
-app.post("/api/login", async (req, res) => {
+const loginuser = async (req, res, next) => {
     let existing_user = await User.findOne({
         where: {
             email: req.body.email,
@@ -17,9 +17,17 @@ app.post("/api/login", async (req, res) => {
     });
 
     if (existing_user) {
+        // *****Extract User Roles starts****
+        const payload = {
+            email: req.body.email,
+            isStudent: existing_user.isStudent,
+            isTutor: existing_user.isTutor,
+            isAdmin: existing_user.isAdmin,
+        };
+
         if (await bcryptjs.compare(req.body.password, existing_user.password)) {
             let email = req.body.email;
-            const token = jwt.sign(email, "privatekey");
+            const token = jwt.sign(payload, "privatekey", { expiresIn: "10d" });
 
             res.json({
                 success: true,
@@ -47,4 +55,6 @@ app.post("/api/login", async (req, res) => {
             success: false,
             message: "User doesn't exist or is already deleted",
         });
-});
+};
+
+exports.loginuser = loginuser;
