@@ -1,25 +1,22 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css"; 
-import CardComponentTutor from './CardComponentTutor';
-import CardComponent from './CardComponentSubject';
 import { Button } from 'react-bootstrap';
 import apiEndPoints from './ApiEndpoints';
-const SearchComponent = ({ category, setCategory, getUsers }) => {
+const SearchComponent = ({ category, setCategory }) => {
+    const [users, setUsers] = useState([])
     const [search, setSearch] = useState('');
     const [option,setOption] = useState(false);
+    const getUsers = async (subject = "") => {
+        const data = await apiEndPoints.getListofTutors(subject)
+        setUsers(preVal => data.data)
+      };
     const toggle = () =>{
         setOption(preVal => {
             setCategory(!preVal ? "tutor" : "course" )
             return !preVal
         })
     }
-    // const [users, setUsers] = useState([])
-    // const getUsers = async (subject) => {
-    //     const data = await apiEndPoints.getListofTutors(subject)
-    //     setUsers(preVal => data.data)
-    //   };
       useEffect(() => {
           getUsers(search)
       }, []);

@@ -20,11 +20,12 @@ app.post("/api/login", async (req, res) => {
             const token = jwt.sign(email, "privatekey");
 
             res.status(200).json({ email: req.body.email, token: token });
-        } else {
-            res.status(403).json({ error: "Incorrect credentials!" });
+        } 
+        else {
+            res.status(401).json({ error: "Incorrect credentials!" });
         }
     } else
-        res.status(404).json({
+        res.status(401).json({
             error: "User is not found or email is incorrect",
         });
 });

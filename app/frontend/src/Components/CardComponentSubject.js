@@ -1,15 +1,16 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Container } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-function CardComponent({ name, courses, searched_name="" }) {
-  console.log(courses)
+function CardComponent({ name, courses, searched_name=" " }) {
   return (
+      
         <Card
             style={{
                 width: "20rem",
                 fontSize: "1rem",
                 borderColor: "transparent",
+                minWidth:'270px'
             }}
         >
             <div
@@ -34,11 +35,15 @@ function CardComponent({ name, courses, searched_name="" }) {
                         fontSize: "1rem",
                     }}
                 >
-                    {searched_name.length > 0 ? (<p>{searched_name.toUpperCase()}</p>):(courses.map((course) => (
+                    {
+                        searched_name.trim().length > 0 
+                        ? <p>{searched_name.toUpperCase()}</p>
+                        :courses && courses.map((course) => (
                         <p style={{ paddingLeft: "2px", fontWeight: "bold" }}>
                             {course.name}
                         </p>
-                    )))}
+                    ))
+                    }
 
                     <hr />
                     <p style={{ marginLeft: "2px", paddingLeft: "4px" }}>20€/h</p>
@@ -58,12 +63,12 @@ function CardComponent({ name, courses, searched_name="" }) {
                     meet {name} <i class="bi bi-person-lines-fill" />
                 </Card.Text>
                 <Card.Text style={{fontSize:'0.7rem',marginTop:'-10px'}}>
-                    {courses.length > 0 &&
+                    {courses && courses.length > 0 &&
                       courses.map((course) =>
                         course.name.toLowerCase() === searched_name.toLowerCase() ? (
                             <p>{course.description}</p>
                         ) : (
-                            " "
+                            ""
                         )
                     )}
                 </Card.Text>

@@ -34,7 +34,8 @@ async function login(data) {
 }
 
 async function getListofTutors(subject) {
-    return await axiosInstance.get(`tutors?search=${subject}`)
+    console.log('Subject sent to api ', subject)
+    return await axiosInstance.get(`courses?search=${subject}`)
 }
 
 

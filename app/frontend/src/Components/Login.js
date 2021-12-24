@@ -7,6 +7,7 @@ import {
     Button,
     FloatingLabel,
     Image,
+    Alert
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
@@ -58,10 +59,20 @@ export default function Login() {
                             initialValues={initialValues}
                             validationSchema={ schema }
                             onSubmit={async (values, actions) => {
-                                 const data = await apiEndpoints.login(values);
-                                 if(data.status === 200)
-                                 console.log(data)
-                                  navigate('/dashboard', { state: { message:data.data.message } })                            
+                                apiEndpoints.login(values).then(data => {
+                                 console.log("data = ",data )
+                                 if(data.status === 200){
+                                 localStorage.setItem('user',true)
+                                 localStorage.setItem('token',data.data.token)
+                                  navigate('/dashboard')
+                                }
+                                else{
+                                    
+                                }
+                                }).catch( error => {
+                                    alert(error.response.data.error)
+                                })
+
                                 }}
                         >
                           {(props) => (
