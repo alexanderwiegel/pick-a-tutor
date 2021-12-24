@@ -13,6 +13,7 @@ const loginuser = async (req, res, next) => {
     let existing_user = await User.findOne({
         where: {
             email: req.body.email,
+            status: false,
         },
     });
 
@@ -27,7 +28,7 @@ const loginuser = async (req, res, next) => {
 
         if (await bcryptjs.compare(req.body.password, existing_user.password)) {
             let email = req.body.email;
-            const token = jwt.sign(payload, "privatekey", { expiresIn: "10d" });
+            const token = jwt.sign(payload, "privatekey", { expiresIn: "1d" });
 
             res.json({
                 success: true,
@@ -53,7 +54,7 @@ const loginuser = async (req, res, next) => {
     else
         res.json({
             success: false,
-            message: "User doesn't exist or is already deleted",
+            message: "User blocked or doesn't exist or is already deleted",
         });
 };
 
