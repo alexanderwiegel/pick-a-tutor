@@ -2,10 +2,9 @@ const express = require("express");
 const search = require("../utils/search");
 const app = (module.exports = express());
 const Course = require("../db/model/Course");
-const {Sequelize} = require("sequelize");
-const {request, response} = require("express");
+const { Sequelize } = require("sequelize");
+const { request, response } = require("express");
 //const User = require("../db/model/User");
-
 
 app.use(express.json());
 
@@ -14,38 +13,37 @@ app.use(express.json());
 app.get("/api/courses", async (req, res) => {
     //res.json(await Course.findAll({ where: search(req.query.search) }));
     const courses = await Course.findAll({
-        where: search(req.query.search, 'name')
+        where: search(req.query.search, "name"),
     });
     res.json({
         success: true,
         message: "List of all Courses",
         records: courses.length,
-        data: courses
-    })
+        data: courses,
+    });
 });
 
 //************* Create New Course ***************
 
-app.post("/api/course", async (req,res) => {
-
+app.post("/api/course", async (req, res) => {
     let existingCourse = await Course.findOne({
-               where: {name: req.body.name}
+        where: { name: req.body.name },
     });
-    if(existingCourse){
+    if (existingCourse) {
         res.json({
             success: false,
             message: "Course already exists",
             records: existingCourse.length,
-            data: existingCourse
-        })
+            data: existingCourse,
+        });
     }
 
     let course = Course.build({
         name: req.body.name,
-        description: req.body.description
+        description: req.body.description,
     });
 
-    await course.save().catch((e) =>{
+    await course.save().catch((e) => {
         console.log(e);
     });
 
@@ -53,17 +51,17 @@ app.post("/api/course", async (req,res) => {
         success: true,
         message: "Course Successfully Saved",
         records: course.length,
-        data: course
-    })
+        data: course,
+    });
 });
 
 //************* Update Existing Course ***************
-app.patch("/api/course/:id", async (req, res)=>{
+app.patch("/api/course/:id", async (req, res) => {
     const course = await Course.findOne({
         //where: search(req.body.id, 'id')
-        where: { id: req.params.id }
+        where: { id: req.params.id },
     });
-/*
+    /*
     res.json({
         id: req.params.id,
         name: req.body.name,
@@ -71,65 +69,56 @@ app.patch("/api/course/:id", async (req, res)=>{
         test: "It's Awesome Samosas!",
     });
 */
-    if(course){
-        try{
+    if (course) {
+        try {
             await course.update({
                 name: req.body.name,
-                description: req.body.description
+                description: req.body.description,
             });
             res.json({
                 success: true,
                 message: "Course '" + course.name + "' successfully updated",
                 records: course.length,
             });
-        }
-        catch (e){
+        } catch (e) {
             res.json({
                 success: false,
                 message: "Course " + course.name + " updation failed",
                 records: course.length,
             });
         }
-
-    }
-    else
-    {
+    } else {
         res.json({
             success: false,
             message: "Provided course doesn't exist or is already deleted",
         });
     }
-
 });
 
 //************* Delete Existing Course ***************
 
-app.delete("/api/course/:id", async (req,res)=>{
+app.delete("/api/course/:id", async (req, res) => {
     const course = await Course.findOne({
         //where: search(req.body.id, 'id')
-        where: { id: req.params.id }
+        where: { id: req.params.id },
     });
 
-    if(course){
-        try{
+    if (course) {
+        try {
             await course.destroy();
             res.json({
                 success: true,
                 message: "Course '" + course.name + "' successfully deleted",
                 records: course.length,
             });
-        }
-        catch (e){
+        } catch (e) {
             res.json({
                 success: false,
                 message: "Course " + course.name + " deletion failed",
                 records: course.length,
             });
         }
-
-    }
-    else
-    {
+    } else {
         res.json({
             success: false,
             message: "Provided course doesn't exist or is already deleted",
