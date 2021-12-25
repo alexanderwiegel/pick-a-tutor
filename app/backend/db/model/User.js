@@ -21,19 +21,19 @@ User.init(
     {
         firstName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         lastName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         dateOfBirth: {
             type: DataTypes.DATEONLY,
