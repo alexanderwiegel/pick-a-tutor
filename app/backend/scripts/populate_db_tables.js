@@ -78,6 +78,16 @@ async function run() {
         description: "German language for beginners",
     }).save();
 
+    await Course.build({
+        name: "2nd Level Java",
+        description: "Second Level Java Mate",
+    }).save();
+
+    await Course.build({
+        name: "3rd Level Advanced java",
+        description: "Third level Advanced Java",
+    }).save();
+
     await TutorCourse.build({
         CourseId: 1,
         UserId: 1,

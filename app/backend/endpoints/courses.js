@@ -2,16 +2,12 @@ const express = require("express");
 const search = require("../utils/search");
 const app = (module.exports = express());
 const Course = require("../db/model/Course");
-const { Sequelize } = require("sequelize");
-const { request, response } = require("express");
-//const User = require("../db/model/User");
 
 app.use(express.json());
 
 //************* Get List of All Courses & get one by "?search=" ***************
 
 app.get("/api/courses", async (req, res) => {
-    //res.json(await Course.findAll({ where: search(req.query.search) }));
     const courses = await Course.findAll({
         where: search(req.query.search, "name"),
     });
@@ -58,17 +54,8 @@ app.post("/api/course", async (req, res) => {
 //************* Update Existing Course ***************
 app.patch("/api/course/:id", async (req, res) => {
     const course = await Course.findOne({
-        //where: search(req.body.id, 'id')
         where: { id: req.params.id },
     });
-    /*
-    res.json({
-        id: req.params.id,
-        name: req.body.name,
-        description: req.body.description,
-        test: "It's Awesome Samosas!",
-    });
-*/
     if (course) {
         try {
             await course.update({
