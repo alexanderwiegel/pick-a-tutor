@@ -120,6 +120,7 @@ const updateuser = async (req, res, next) => {
 
     var token = req.headers["authorization"];
     var decoded = jwtdecode(token);
+    // console.log(decoded);
 
     if (decoded.email == req.params.email || decoded.isAdmin == true) {
         if (user) {
