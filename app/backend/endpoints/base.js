@@ -9,6 +9,8 @@ let login = require("./login");
 
 let customrouter = require("./customrouter");
 
+require("../db/associations");
+
 /* Add headers that allow access to the resource */
 app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
