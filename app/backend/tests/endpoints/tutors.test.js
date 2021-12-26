@@ -3,11 +3,16 @@ const app = require("../../endpoints/base");
 const User = require("../../db/model/User");
 const request = supertest(app);
 
+const encodedPassword =
+    "$2a$10$Uvz5XZSYwv/Weix3feQvreyFmVL9XjJzvDBfDSzjDcFWvbl3VDkEW";
+
+let loginData = {};
+
 let user1 = User.build({
     firstName: "student1",
     lastName: "student1",
     email: "user1@example.com",
-    password: "password",
+    password: encodedPassword,
     dateOfBirth: new Date("02.18.1990"),
     gender: User.GENDER.MALE,
     isStudent: true,
@@ -19,7 +24,7 @@ let tutor1 = User.build({
     firstName: "some_tutor",
     lastName: "some_tutor",
     email: "tutor1@example.com",
-    password: "password",
+    password: encodedPassword,
     dateOfBirth: new Date("02.18.1990"),
     gender: User.GENDER.MALE,
     isStudent: false,
@@ -31,7 +36,7 @@ let tutor2 = User.build({
     firstName: "other_tutor",
     lastName: "other_tutor",
     email: "tutor2@example.com",
-    password: "password",
+    password: encodedPassword,
     dateOfBirth: new Date("02.18.1990"),
     gender: User.GENDER.MALE,
     isStudent: false,
@@ -43,6 +48,13 @@ beforeEach(async () => {
     await user1.save();
     await tutor1.save();
     await tutor2.save();
+
+    let response = await request.post("/api/login").send({
+        email: "user1@example.com",
+        password: "password",
+    });
+    loginData.email = response.body.email;
+    loginData.token = response.body.token;
 });
 
 afterEach(async () => {
@@ -52,7 +64,9 @@ afterEach(async () => {
 });
 
 test("GET all tutors", async () => {
-    let response = await request.get("/api/tutors");
+    let response = await request
+        .get("/api/tutors")
+        .send({ token: loginData.token });
 
     let firstNames = [];
     response.body.data.forEach((e) => firstNames.push(e.firstName));
@@ -63,7 +77,9 @@ test("GET all tutors", async () => {
 });
 
 test("GET tutors with 'some' in their name", async () => {
-    let response = await request.get("/api/tutors?search=some");
+    let response = await request
+        .get("/api/tutors?search=some")
+        .send({ token: loginData.token });
 
     let firstNames = [];
     response.body.data.forEach((e) => firstNames.push(e.firstName));
@@ -73,7 +89,9 @@ test("GET tutors with 'some' in their name", async () => {
 });
 
 test("GET tutors with 'tutor' in their name", async () => {
-    let response = await request.get("/api/tutors?search=tutor");
+    let response = await request
+        .get("/api/tutors?search=tutor")
+        .send({ token: loginData.token });
 
     let firstNames = [];
     response.body.data.forEach((e) => firstNames.push(e.firstName));
