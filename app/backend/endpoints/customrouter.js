@@ -20,10 +20,10 @@ router.post("/login", login.loginuser);
 
 //*******Courses Routes*******
 router.get("/courses",courses.getAllCourses);
-router.post("/course",courses.postApiCourse);
-router.patch("/course/:id",courses.updateCourse);
-router.delete("/course/:id",courses.courseDelete);
-router.post("/course/:id",courses.courseCreate);
+router.post("/course",authadmin,courses.postApiCourse);
+router.patch("/course/:id",authadmin,courses.updateCourse);
+router.delete("/course/:id",authadmin,courses.courseDelete);
+router.post("/course/:id",authadmin,courses.courseCreate);
 //*******Tutor Courses Routes*******
 //router.get("get_tutor_courses", tutorCourses.getTutorCourses);
 //*******Admin Routes*******
