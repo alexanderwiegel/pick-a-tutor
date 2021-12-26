@@ -3,6 +3,8 @@ const router = express.Router();
 const login = require("./login");
 const tutors = require("./tutors");
 const users = require("./users");
+const courses = require("./courses");
+//const tutorCourses = require("./tutorcourses");
 const authadmin = require("../auth/checkauth_admin");
 const authstudent = require("../auth/checkauth_student");
 const authgeneral = require("../auth/checkauth_general");
@@ -17,9 +19,13 @@ router.delete("/users/:email", authgeneral, users.deleteuser);
 router.post("/login", login.loginuser);
 
 //*******Courses Routes*******
-
+router.get("/courses",courses.getAllCourses);
+router.post("/course",courses.postApiCourse);
+router.patch("/course/:id",courses.updateCourse);
+router.delete("/course/:id",courses.courseDelete);
+router.post("/course/:id",courses.courseCreate);
 //*******Tutor Courses Routes*******
-
+//router.get("get_tutor_courses", tutorCourses.getTutorCourses);
 //*******Admin Routes*******
 
 //*******Tutor Routes*******
