@@ -28,7 +28,7 @@ function Navbar() {
         <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Home</Link>
         </li>
         <li>
-        <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Courses</Link>
+        <Link to="/courses" style={{textDecoration:'none', fontFamily:'inherit'}}>Courses</Link>
         </li>
         <li>
         <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Tutors</Link>
