@@ -3,7 +3,6 @@
 const bcryptjs = require("bcryptjs");
 const User = require("../db/model/User");
 const search = require("../utils/search");
-// const auth = require("../auth/check-auth");
 const { Sequelize } = require("sequelize");
 const jwtdecode = require("jwt-decode");
 const Op = Sequelize.Op;
