@@ -131,36 +131,3 @@ const courseDelete = async (req, res) => {
 exports.courseDelete = courseDelete;
 
 //************* Delete Existing Course ***************
-
-const courseCreate = async (req, res) => {
-//app.post("/api/course", async (req, res) => {
-    let existingCourse = await Course.findOne({
-        where: { name: req.body.name },
-    });
-    if (existingCourse) {
-        res.json({
-            success: false,
-            message: "Course already exists",
-            records: existingCourse.length,
-            data: existingCourse,
-        });
-    }
-
-    let course = Course.build({
-        name: req.body.name,
-        description: req.body.description,
-    });
-
-    await course.save().catch((e) => {
-        console.log(e);
-    });
-
-    res.json({
-        success: true,
-        message: "Course Successfully Saved",
-        records: course.length,
-        data: course,
-    });
-};
-
-exports.courseCreate = courseCreate;
