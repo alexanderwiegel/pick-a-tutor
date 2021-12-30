@@ -31,37 +31,16 @@ function Navbar() {
 
 
   const logout = () => {
-    console.log("localstorage = ",localStorage)
       return localStorage.removeItem("user","token");
   }
 
-  if (!checkToken(localStorage.getItem('token'))) {
+
+  
+
+  if (user) {
+      {console.log("Token =",checkToken(localStorage.getItem('token'))=== null)}
       return (
         <nav className={nav ? "nav active" : "nav"}>
-        <a href={"/"} className="logo" style={{ flexDirection: "row" }}>
-          <img src={logo} alt="" />
-        </a>
-        <input type="checkbox" className="menu-btn" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn">
-          <span className="nav-icon"></span>
-        </label>
-        <ul className="menu">
-          <li>
-          <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Home</Link>
-          </li>
-          <li>
-          <Link to="/detail" style={{textDecoration:'none', fontFamily:'inherit'}}>Browse</Link>
-          </li>
-          <li>
-            <Link to="/login" style={{textDecoration:'none', fontFamily:'inherit'}}>Login</Link>
-          </li>
-        </ul>
-      </nav>
-      )
-  }
-   {
-     return (
-      <nav className={nav ? "nav active" : "nav"}>
       <a href={"/"} className="logo" style={{ flexDirection: "row" }}>
         <img src={logo} alt="" />
       </a>
@@ -84,6 +63,31 @@ function Navbar() {
         </li>
       </ul>
     </nav>
+      )
+  }
+   {
+     {console.log("Token in else ",checkToken(localStorage.getItem('token'))=== null)}
+     return (
+      <nav className={nav ? "nav active" : "nav"}>
+        <a href={"/"} className="logo" style={{ flexDirection: "row" }}>
+          <img src={logo} alt="" />
+        </a>
+        <input type="checkbox" className="menu-btn" id="menu-btn" />
+        <label className="menu-icon" for="menu-btn">
+          <span className="nav-icon"></span>
+        </label>
+        <ul className="menu">
+          <li>
+          <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Home</Link>
+          </li>
+          <li>
+          <Link to="/detail" style={{textDecoration:'none', fontFamily:'inherit'}}>Browse</Link>
+          </li>
+          <li>
+            <Link to="/login" style={{textDecoration:'none', fontFamily:'inherit'}}>Login</Link>
+          </li>
+        </ul>
+      </nav>
       )
   }
 

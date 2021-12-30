@@ -60,7 +60,6 @@ export default function Login() {
                             validationSchema={ schema }
                             onSubmit={async (values, actions) => {
                                 apiEndpoints.login(values).then(data => {
-                                 console.log("data = ",data )
                                  if(data.status === 200){
                                  localStorage.setItem('user',true)
                                  localStorage.setItem('token',data.data.token)

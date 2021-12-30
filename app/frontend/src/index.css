@@ -640,24 +640,36 @@ select:hover {
 }
 
 .side-bar{
-  width: 300px;
+  width: 200px;
 }
 
 #filter{
   display: none;
 }
 
+.hide{
+  display:none;
+  cursor:pointer;
+}
+
 @media (max-width: 600px) {
   .side-bar{
     position: fixed;
-    margin-left: -300px;
-    background-color: red;
+    margin-left: -200px;
+    background-color: rgb(248,249,250);
     left: 0;
     top: 0;
     z-index: 99;
     bottom: 0;
     transition: all ease-in-out 0.3s;
   }
+  .cv-btn{
+    width:50%!important;
+  }
+  .hide{
+    display:block;
+  }
+
   #filter:checked + .container > .detail-page > .side-bar{
     margin-left: 0px;
   }
