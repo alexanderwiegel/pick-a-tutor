@@ -53,6 +53,7 @@ export default function Login() {
               validationSchema={schema}
               onSubmit={async (values, actions) => {
                 const data = await apiEndpoints.login(values);
+                // TODO: navigate to "Approvals" if credentials belong to admin
                 if (data.status === 200) {
                   console.log(data)
                   if (values.role === "Student")

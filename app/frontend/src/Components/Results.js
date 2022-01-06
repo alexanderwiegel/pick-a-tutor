@@ -3,7 +3,7 @@ import apiEndPoints from "./ApiEndpoints";
 import { useLocation } from "react-router-dom";
 import Card from "./Card";
 
-function Details(props) {
+function Results(props) {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const location = useLocation();
@@ -39,4 +39,4 @@ function Details(props) {
   );
 }
 
-export default Details;
+export default Results;

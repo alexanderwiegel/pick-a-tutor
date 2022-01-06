@@ -22,8 +22,10 @@ function Navbar() {
         <label className="menu-icon" for="menu-btn">
           <span className="nav-icon"></span>
         </label>
+        {/* TODO: change menu items based on role (and therefore login status) */}
         <ul className="menu">
           <li>
+            {/* TODO: link to LandingPage or Home or TutorProfile or Approvals */}
             <Link to="/" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
           </li>
           <li>
@@ -33,6 +35,7 @@ function Navbar() {
             <Link to="/" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Tutors</Link>
           </li>
           <li>
+            {/* TODO: show "Logout" when user is already logged in */}
             <Link to="/login" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Login</Link>
           </li>
         </ul>
