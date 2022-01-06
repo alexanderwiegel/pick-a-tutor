@@ -14,7 +14,6 @@ function Navbar() {
   window.addEventListener("scroll", changeBackground);
   return (
     <>
-      <p style={{ position: 'fixed', alignItems: 'center', justifyContent: 'center', backgroundColor: 'red' }}>Fulda University</p>
       <nav className={nav ? "nav active" : "nav"}>
         <a href={"/"} className="logo" style={{ flexDirection: "row" }}>
           <img src={logo} alt="" />
