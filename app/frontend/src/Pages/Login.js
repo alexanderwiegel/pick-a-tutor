@@ -53,9 +53,12 @@ export default function Login() {
               validationSchema={schema}
               onSubmit={async (values, actions) => {
                 const data = await apiEndpoints.login(values);
-                if (data.status === 200)
+                if (data.status === 200) {
                   console.log(data)
-                navigate('/dashboard', { state: { message: data.data.message } })
+                  if (values.role === "Student")
+                    navigate("/home", { state: { message: data.data.message } });
+                  else navigate("/tutorProfile");
+                }
               }}
             >
               {(props) => (
@@ -88,7 +91,7 @@ export default function Login() {
                       value={props.values.password}
                     />
                   </FloatingLabel>
-                  <div class="d-flex justify-content-end"><p>Forgot Password ?</p></div>
+                  <div class="d-flex justify-content-end"><p>Forgot Password?</p></div>
                   <br />
 
 

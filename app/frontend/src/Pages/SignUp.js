@@ -74,7 +74,12 @@ const SignUp = () => {
                 const data = await apiEndpoints.register(
                   values
                 );
-                navigate("/login");
+                if (data.status === 200) {
+                  console.log(data)
+                  if (values.role === "Student")
+                    navigate("/home", { state: { message: data.data.message } });
+                  else navigate("/tutorProfile");
+                }
               }}
             >
               {(props) => (
