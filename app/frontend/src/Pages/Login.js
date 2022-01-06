@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from 'yup';
-import apiEndpoints from "./ApiEndpoints";
+import apiEndpoints from "../Components/ApiEndpoints";
 
 const initialValues = {
   email: "",

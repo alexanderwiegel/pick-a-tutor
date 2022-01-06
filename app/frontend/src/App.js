@@ -1,9 +1,9 @@
 import React from 'react';
 import Details from './Components/Detail';
-import Login from './Components/Login';
+import Login from './Pages/Login';
 import PageTemplate from './Components/PageTemplate';
-import Home from './Components/Home';
-import SignUp from './Components/SignUp';
+import Home from './Pages/Home';
+import SignUp from './Pages/SignUp';
 import Dashboard from './Components/Dashboard';
 import { BrowserRouter as Router, Routes, Route, Navigate, Switch, useLocation } from 'react-router-dom';
 

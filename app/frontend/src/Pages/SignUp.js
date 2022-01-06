@@ -12,7 +12,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
-import apiEndpoints from "./ApiEndpoints";
+import apiEndpoints from "../Components/ApiEndpoints";
 import * as yup from "yup";
 
 const initialValues = {
