@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:3001/api"
+  baseURL: "http://127.0.0.1:3001/api"
 })
 
 // async function getTutorData(course, star) {
@@ -10,50 +10,50 @@ const axiosInstance = axios.create({
 // }
 
 async function getTutorData() {
-    return await axiosInstance.get(`tutors`)
+  return await axiosInstance.get(`tutors`)
 }
 
 async function register(data) {
-    return await axiosInstance.post(`/users`,{
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
-        dateOfBirth: data.dateOfBirth,
-        gender: data.gender,
-    })
+  return await axiosInstance.post(`/users`, {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    password: data.password,
+    dateOfBirth: data.dateOfBirth,
+    gender: data.gender,
+  })
 }
 
 async function login(data) {
-    return await axiosInstance.post(`/login`,{
-        email:data.email,
-        password:data.password
-    })
+  return await axiosInstance.post(`/login`, {
+    email: data.email,
+    password: data.password
+  })
 }
 
 async function getListofTutors(subject) {
-    return await axiosInstance.get(`tutors?search=${subject}`)
+  return await axiosInstance.get(`tutors?search=${subject}`)
 }
 
 
 async function getSingleTutorData() {
-    return await axiosInstance.get('users')
+  return await axiosInstance.get('users')
 }
 
-async function getPostDetail (postId) {
-    return await axiosInstance.get(`posts/${postId}`)
+async function getPostDetail(postId) {
+  return await axiosInstance.get(`posts/${postId}`)
 }
 
-async function getPosts () {
-    return await axiosInstance.get('posts')
+async function getPosts() {
+  return await axiosInstance.get('posts')
 }
 
-async function postPosts (data) {
-    return await axiosInstance.post('add_post', data)
+async function postPosts(data) {
+  return await axiosInstance.post('add_post', data)
 }
 
 const apiEndPoints = {
-    postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login
+  postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login
 }
 
 export default apiEndPoints

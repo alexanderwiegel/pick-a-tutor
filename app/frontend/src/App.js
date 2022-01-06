@@ -11,13 +11,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Switch, useLocation }
 function App() {
   return (
     <Router>
-        <Routes>
-          <Route path = '/' element = { <PageTemplate><Home /></ PageTemplate> } />
-          <Route exact path = '/login' element = { <Login /> } />
-          <Route exact path = '/signup' element = { <SignUp /> } />
-          <Route exact path = '/detail' element = { <PageTemplate><Details /></PageTemplate> } />
-          <Route exact path = '/dashboard' element = { <PageTemplate><Dashboard /></PageTemplate> } />
-        </Routes>
+      <Routes>
+        <Route path='/' element={<PageTemplate><Home /></ PageTemplate>} />
+        <Route exact path='/login' element={<Login />} />
+        <Route exact path='/signup' element={<SignUp />} />
+        <Route exact path='/detail' element={<PageTemplate><Details /></PageTemplate>} />
+        <Route exact path='/dashboard' element={<PageTemplate><Dashboard /></PageTemplate>} />
+      </Routes>
     </Router>
   );
 }
