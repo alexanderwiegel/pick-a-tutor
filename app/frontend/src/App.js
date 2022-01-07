@@ -9,6 +9,7 @@ import TutorProfile from './Pages/TutorProfile';
 import Users from './Pages/Users';
 import Approvals from './Pages/Approvals';
 import Messages from './Pages/Messages';
+import Footer from './Components/Footer';
 
 import { BrowserRouter as Router, Routes, Route, Navigate, Switch, useLocation } from 'react-router-dom';
 
@@ -22,7 +23,7 @@ function App() {
         <Route exact path='/signup' element={<SignUp />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/home' element={<PageTemplate><Home /></PageTemplate>} />
-        <Route exact path='/results' element={<PageTemplate><Results /></PageTemplate>} />
+        <Route exact path='/results' element={<PageTemplate><Results /><Footer /></PageTemplate>} />
         <Route exact path='/tutorProfile' element={<PageTemplate><TutorProfile /></PageTemplate>} />
         <Route exact path='/users' element={<PageTemplate><Users /></PageTemplate>} />
         <Route exact path='/approvals' element={<PageTemplate><Approvals /></PageTemplate>} />

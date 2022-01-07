@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,600&family=Roboto:wght@100;700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
+
+.toggle-button{
+  border: none;
+  background-color: #11686b;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  width: 200px;
+  height: 35px;
+  justify-content: center;
+    align-items: center;
+    margin: auto 10px;
+    font-weight: 500;
+}
+
+.toggle-close{
+  background-color: #ffffff;
+  color:#11686b;
+}
+
 body {
   margin: 0px;
   padding: 0px;
@@ -340,6 +361,12 @@ nav .menu-btn,
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
 }
 
+
+#page-content-wrapper {
+  min-width: 0;
+  width: 100%;
+}
+
 #search {
   background-color: #00b7ff;
   display: flex;
@@ -468,12 +495,12 @@ select:hover {
   .cv-btn {
     margin-left: 27%;
     margin-top: 20px;
+    width:auto;
   }
   #about {
     justify-content: center;
     padding-top: 0px;
     text-align: center;
-
     margin-top: 0px;
   }
   .about-text {

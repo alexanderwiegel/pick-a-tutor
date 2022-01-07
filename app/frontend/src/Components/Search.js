@@ -25,7 +25,7 @@ function Search() {
         }} style={{ textDecoration: 'none' }}>Search</Link>
       </div>
       {/* <text>you selected {search} with star value {star} </text> */}
-      <text style={{ marginTop: '1%', color: '#ffffff', fontSize: '1rem' }}> © Copyright 2021 - Fulda University of Applied Sciences. All Rights Reserved.</text>
+      <text style={{ marginTop: '1%', color: '#ffffff', fontSize: '1rem' }}> © Copyright 2021 - {new Date().getFullYear()} - Fulda University of Applied Sciences. All Rights Reserved.</text>
     </div>
   )
 }

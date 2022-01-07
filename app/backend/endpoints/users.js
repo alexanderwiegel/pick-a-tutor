@@ -58,6 +58,7 @@ const createuser = async (req, res, next) => {
         });
         return;
     }
+<<<<<<< HEAD
 
     let data = [
         req.body.firstName ?? "Undefined",
@@ -221,3 +222,41 @@ const deleteuser = async (req, res, next) => {
 };
 
 exports.deleteuser = deleteuser;
+=======
+    let admin= false;
+    let student= false;
+    let tutor =false;
+    switch (req.body.role){
+        case "Admin": {
+            admin=true;
+            break;
+        }
+
+        case "Tutor":
+            {
+                tutor=true;
+                break;
+
+            }
+        case "Student" :{
+            student=true;
+            break;
+        }   
+
+    }
+    let user = User.build({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        dateOfBirth: req.body.dateOfBirth,
+        gender: req.body.gender,
+        isStudent: student,
+        isTutor: tutor,
+        isAdmin: admin,
+        status: 0,
+    });
+    await user.save(); 
+    res.json(user);
+});
+>>>>>>> 1d578d1366a221d278a5c10325a5a0dcbeb8d6ee
