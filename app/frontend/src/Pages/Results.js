@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import apiEndPoints from "./ApiEndpoints";
+import apiEndPoints from "../Components/ApiEndpoints";
 import { useLocation } from "react-router-dom";
-import CardComponentSubject from "./CardComponentSubject";
-import CardComponentTutor from "./CardComponentTutor";
-import SearchComponent from "./SearchComponent";
+import CardComponentSubject from "../Components/CardComponentSubject";
+import CardComponentTutor from "../Components/CardComponentTutor";
+import SearchComponent from "../Components/SearchComponent";
 
 function Results(props) {
   const [users, setUsers] = useState([])
