@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../images/logos/Tutor.png";
-import { Link } from 'react-router-dom';
+import MenuItem from './MenuItem.js';
 
 function Navbar() {
   const [nav, setnav] = useState(false);
@@ -14,29 +14,24 @@ function Navbar() {
   window.addEventListener("scroll", changeBackground);
   return (
     <>
-    <nav className={nav ? "nav active" : "nav"}>
-      <a href={"/"} className="logo" style={{ flexDirection: "row" }}>
-        <img src={logo} alt="" />
-      </a>
-      <input type="checkbox" className="menu-btn" id="menu-btn" />
-      <label className="menu-icon" for="menu-btn">
-        <span className="nav-icon"></span>
-      </label>
-      <ul className="menu">
-        <li>
-        <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Home</Link>
-        </li>
-        <li>
-        <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Courses</Link>
-        </li>
-        <li>
-        <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Tutors</Link>
-        </li>
-        <li>
-          <Link to="/login" style={{textDecoration:'none', fontFamily:'inherit'}}>Login</Link>
-        </li>
-      </ul>
-    </nav>
+      <nav className={nav ? "nav active" : "nav"}>
+        <a href={"/"} className="logo" style={{ flexDirection: "row" }}>
+          <img src={logo} alt="" />
+        </a>
+        <input type="checkbox" className="menu-btn" id="menu-btn" />
+        <label className="menu-icon" for="menu-btn">
+          <span className="nav-icon"></span>
+        </label>
+        {/* TODO: change menu items based on role (and therefore login status) */}
+        <ul className="menu">
+          {/* TODO: link to LandingPage or Home or TutorProfile or Approvals */}
+          <MenuItem name="home" />
+          <MenuItem name="courses" />
+          <MenuItem name="tutors" />
+          {/* TODO: show "Logout" when user is already logged in */}
+          <MenuItem name="login" />
+        </ul>
+      </nav>
     </>
   );
 }
