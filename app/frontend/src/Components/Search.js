@@ -19,7 +19,7 @@ function Search() {
                 <option value="five">5 Star Rating</option>
             </select> */}
         {/* <a href = './Detail' > Search </a> */}
-        <Link to={'/detail'} state={{
+        <Link to={'/results'} state={{
           // star : star, 
           search: search
         }} style={{ textDecoration: 'none' }}>Search</Link>
