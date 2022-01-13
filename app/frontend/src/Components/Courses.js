@@ -1,14 +1,35 @@
-import React from 'react';
-import Header from './Header';
-import Search from './Search';
+import React from "react";
+import Header from "./Header";
+import Search from "./Search";
+import ReviewsFilter from "./ReviewsFilter";
+import PricesFilter from "./PricesFilter";
+import { Button, Container, Row, Col } from "react-bootstrap";
 
-const Courses = () => {
-    return (
-      <div className='App'>
-        <Search />
-        
-      </div>
-    );
-};
+class Courses extends React.Component {
+    render() {
+        return (
+            <div>
+                <Container fluid>
+                    <Row>
+                        {/* Search filters */}
+                        <Col md={3}>
+                            
+                            <ReviewsFilter></ReviewsFilter>
+                            <PricesFilter></PricesFilter>
+                            <Button variant="primary" style={{margin: '10px'}}>Apply</Button>
+                        </Col>
+
+                        {/* Search Results */}
+                        <Col md={9}></Col>
+                        <div class="row">
+                            <div class="col-md-3 order-md-first"></div>
+                            <div class="col-md-9 order-md-last"></div>
+                        </div>
+                    </Row>
+                </Container>
+            </div>
+        );
+    }
+}
 
 export default Courses;
