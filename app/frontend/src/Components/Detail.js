@@ -26,14 +26,14 @@ function Details(props) {
     <div className="wrapper">
       {
         loading &&
-          <h1>Fetching data...</h1>
+        <h1>Fetching data...</h1>
       }
-      { (users.length > 0 && !loading) && 
-          users.map(user => <Card courses={ user.Courses } name={ user.firstName } />)
+      {(users.length > 0 && !loading) &&
+        users.map(user => <Card courses={user.Courses} name={user.firstName} />)
       }
       {
         (users.length === 0 && !loading) &&
-          <h1>No data found</h1>       
+        <h1>No data found</h1>
       }
     </div>
   );
