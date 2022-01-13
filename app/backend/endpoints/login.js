@@ -20,6 +20,7 @@ const loginuser = async (req, res, next) => {
     if (existing_user) {
         // *****Extract User Roles starts****
         const payload = {
+            id: existing_user.id,
             email: req.body.email,
             isStudent: existing_user.isStudent,
             isTutor: existing_user.isTutor,
