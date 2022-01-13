@@ -7,7 +7,6 @@ function CardComponent({ name, courses, searched_name=" " }) {
       
         <Card
             style={{
-                width: "20rem",
                 fontSize: "1rem",
                 borderColor: "transparent",
                 minWidth:'270px'

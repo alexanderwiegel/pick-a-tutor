@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import { Button } from 'react-bootstrap';
 import apiEndPoints from './ApiEndpoints';
+
 const SearchComponent = ({ category, setCategory }) => {
     const [users, setUsers] = useState([])
     const [search, setSearch] = useState('');
@@ -29,16 +30,9 @@ const SearchComponent = ({ category, setCategory }) => {
             {/* course=False tutor=True */}
         </button>
             <input placeholder = 'Search here ...' style={{fontSize:'1rem'}} onChange= { (e) => setSearch(e.target.value) }/>
-            <Button style={{
-                        margin:'auto 10px',
-                        borderRadius:' 20px',
-                        backgroundColor:'#00b7ff',
-                        borderColor:'#00b7ff'
-                    }} 
-                    onClick={() => getUsers(search)} 
-                    >
-                Search
-            </Button>
+            <div onClick={() => getUsers(search)} style={{display:'grid',alignContent:'center'}}>
+            <i class="bi bi-search" style={{fontSize:'1.5rem',margin:'5px',paddingRight:'10px', hover:'pointer'}} />
+            </div>
        </div>
        </div>
     );
