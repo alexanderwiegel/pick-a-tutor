@@ -1,4 +1,5 @@
 const Review = require("../db/model/Review");
+const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
 //************* Approve or Reject Review based on Id and reportReviewStatus" ***************
 
@@ -18,23 +19,23 @@ const approvereview = async (req, res, next) => {
                 rating: req.body.rating ?? review.rating,
                 reportReviewStatus: req.body.reportReviewStatus,
             });
-            res.json({
-                success: true,
-                message: "Review id " + review.id + " successfully updated",
-                records: review.length,
-            });
+            res.json(
+                new SuccessfulResponse(
+                    "Review id " + review.id + " successfully updated",
+                    review
+                )
+            );
         } catch (e) {
-            res.json({
-                success: false,
-                message: "Review id " + review.id + " updation failed" + e,
-                records: review.length,
-            });
+            res.json(
+                new FailedResponse(
+                    "Review id " + review.id + " update failed" + e
+                )
+            );
         }
     } else {
-        res.json({
-            success: false,
-            message: "No review exists with provided review id",
-        });
+        res.json(
+            new FailedResponse("No review exists with provided review id")
+        );
     }
 };
 
