@@ -28,6 +28,19 @@ async function run() {
     }).save();
 
     await User.build({
+        firstName: "John",
+        lastName: "Doe",
+        email: "johndoe@example.com",
+        password: "password",
+        dateOfBirth: new Date("05.08.1985"),
+        gender: User.GENDER.MALE,
+        isStudent: true,
+        isTutor: true,
+        isAdmin: true,
+        status: 0,
+    }).save();
+
+    await User.build({
         firstName: "Kyler",
         lastName: "Stark",
         email: "kylerstark@example.com",
@@ -138,6 +151,13 @@ async function run() {
         cvPath: "my_cv_1639734264.pdf",
         description:
             "I am a software engineer and I can help you with programming in different languages",
+    }).save();
+
+    await User.build({
+        userId: 30,
+        fileTitle: "Image",
+        filePath: "/userdirectory/1/",
+        approvalStatus: "PendingApproval",
     }).save();
 
     /* Example of getting messages for the user
