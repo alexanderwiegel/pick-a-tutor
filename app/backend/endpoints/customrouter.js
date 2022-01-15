@@ -14,6 +14,7 @@ const userprofilefiles = require("./userprofilefiles");
 const studentenrolledcourses = require("./studentenrolledcourses");
 const CourseAdditionalInfo = require("./courseadditionalinfo");
 const Review = require("./review");
+const TutorOfMonth = require("./tutorofmonth");
 
 //*******Users Routes*******
 router.get("/users", users.getallusers);
@@ -44,6 +45,9 @@ router.get("/tutors", tutors.getAllTutors);
 router.post("/tutors", tutors.createTutor);
 router.patch("/tutors/:email", authgeneral, users.updateuser);
 router.delete("/tutors/:email", authgeneral, users.deleteuser);
+
+//*******Tutor Of Month Route*******
+router.get("/tutorofmonth", TutorOfMonth.tutorofmonth);
 
 //*******Review Routes*******
 router.patch("/approvereview/:id", authgeneral, Review.approvereview);
