@@ -4,6 +4,7 @@ const TutorCourse = require("./model/TutorCourse");
 const User = require("./model/User");
 const UserProfile = require("./model/UserProfile");
 const Review = require("./model/Review");
+const UserProfileFiles = require("./model/UserProfileFiles");
 
 User.belongsToMany(Course, { through: TutorCourse });
 Course.belongsToMany(User, { through: TutorCourse });
@@ -22,6 +23,9 @@ Message.belongsTo(User, { as: "recipient" });
 User.hasOne(UserProfile);
 UserProfile.belongsTo(User);
 
+TutorCourse.User = TutorCourse.belongsTo(User);
+TutorCourse.Course =  TutorCourse.belongsTo(Course);
+
 TutorCourse.hasMany(Review, {
     foreignKey: "courseId",
 });
@@ -38,3 +42,20 @@ User.hasMany(Review, {
 });
 Review.belongsTo(User, { as: "student" });
 Review.belongsTo(User, { as: "tutor" });
+
+// Added by Rakesh Starts
+
+// User.hasMany(UserProfileFiles, {
+//     as: "user_profile_files",
+//     foreignKey: "id",
+// });
+
+// UserProfileFiles.belongsTo(User, { as: "profile_file" });
+
+const StudentEnrolledCourses = require("./model/StudentEnrolledCourses");
+
+// TutorCourse.hasMany(StudentEnrolledCourses, { foreignKey: "tutorCourseId" });
+
+// StudentEnrolledCourses.hasOne(TutorCourse, { foreignKey: "CourseId" });
+
+// Added by Rakesh Ends

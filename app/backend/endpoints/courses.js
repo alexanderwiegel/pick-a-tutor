@@ -11,7 +11,7 @@ const { request, response } = require("express");
 //************* Get List of All Courses & get one by "?search=" ***************
 
 const getAllCourses = async (req, res, next) => {
-//app.get("/api/courses", async (req, res) => {
+    //app.get("/api/courses", async (req, res) => {
     //res.json(await Course.findAll({ where: search(req.query.search) }));
     const courses = await Course.findAll({
         where: search(req.query.search, "name"),
@@ -28,7 +28,7 @@ exports.getAllCourses = getAllCourses;
 //************* Create New Course ***************
 
 const postApiCourse = async (req, res) => {
-//app.post("/api/course", async (req, res) => {
+    //app.post("/api/course", async (req, res) => {
     let existingCourse = await Course.findOne({
         where: { name: req.body.name },
     });
@@ -39,8 +39,7 @@ const postApiCourse = async (req, res) => {
             records: existingCourse.length,
             data: existingCourse,
         });
-    }
-    else{
+    } else {
         let course = Course.build({
             name: req.body.name,
             description: req.body.description,
@@ -57,14 +56,13 @@ const postApiCourse = async (req, res) => {
             data: course,
         });
     }
-
 };
 
 exports.postApiCourse = postApiCourse;
 
 //************* Update Existing Course ***************
 const updateCourse = async (req, res) => {
-//app.patch("/api/course/:id", async (req, res) => {
+    //app.patch("/api/course/:id", async (req, res) => {
     const course = await Course.findOne({
         //where: search(req.body.id, 'id')
         where: { id: req.params.id },
@@ -99,7 +97,7 @@ exports.updateCourse = updateCourse;
 //************* Delete Existing Course ***************
 
 const courseDelete = async (req, res) => {
-//app.delete("/api/course/:id", async (req, res) => {
+    //app.delete("/api/course/:id", async (req, res) => {
     const course = await Course.findOne({
         //where: search(req.body.id, 'id')
         where: { id: req.params.id },
