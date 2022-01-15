@@ -6,10 +6,10 @@ import Home from './Components/Home';
 import SignUp from './Components/SignUp';
 import Dashboard from './Components/Dashboard';
 import Courses from './Components/Courses';
-import TutorProfile from './Components/TutorProfile'
+import TutorProfile from './Views/TutorProfileStudentView'
 import Footer from './Components/Footer';
 import { BrowserRouter as Router, Routes, Route, Navigate, Switch, useLocation } from 'react-router-dom';
-import CourseDetails from './Components/CourseDetails';
+import CourseDetails from './Views/CourseDetailsStudentView';
 
 
 function App() {
