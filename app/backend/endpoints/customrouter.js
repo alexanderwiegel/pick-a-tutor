@@ -10,6 +10,7 @@ const authadmin = require("../auth/checkauth_admin");
 const authstudent = require("../auth/checkauth_student");
 const authtutor = require("../auth/checkauth_tutor");
 const authgeneral = require("../auth/checkauth_general");
+const userprofilefiles = require("./userprofilefiles");
 
 //*******Users Routes*******
 router.get("/users", users.getallusers);
@@ -21,17 +22,17 @@ router.delete("/users/:email", authgeneral, users.deleteuser);
 router.post("/login", login.loginuser);
 
 //*******Courses Routes*******
-router.get("/courses",courses.getAllCourses);
-router.post("/course",authadmin,courses.postApiCourse);
-router.patch("/course/:id",authadmin,courses.updateCourse);
-router.delete("/course/:id",authadmin,courses.courseDelete);
+router.get("/courses", courses.getAllCourses);
+router.post("/course", authadmin, courses.postApiCourse);
+router.patch("/course/:id", authadmin, courses.updateCourse);
+router.delete("/course/:id", authadmin, courses.courseDelete);
 
 //*******Tutor Courses Routes*******
 router.get("/all_courses", tutorCourses.getAllCourses);
 router.get("/tutor_courses", tutorCourses.getTutorCourses);
-router.post("/tutor_course",authtutor, tutorCourses.postTutorCourse);
-router.patch("/tutor_course/:id",authtutor,tutorCourses.updateTutorCourse);
-router.delete("/tutor_course/:id",authtutor,tutorCourses.deleteTutorCourse);
+router.post("/tutor_course", authtutor, tutorCourses.postTutorCourse);
+router.patch("/tutor_course/:id", authtutor, tutorCourses.updateTutorCourse);
+router.delete("/tutor_course/:id", authtutor, tutorCourses.deleteTutorCourse);
 
 //*******Admin Routes*******
 
@@ -40,5 +41,42 @@ router.get("/tutors", tutors.getAllTutors);
 router.post("/tutors", tutors.createTutor);
 router.patch("/tutors/:email", authgeneral, users.updateuser);
 router.delete("/tutors/:email", authgeneral, users.deleteuser);
+
+//*******User Profile Files Routes*******
+router.get(
+    "/getallprofilefilesbyuserid/:userId",
+    authgeneral,
+    userprofilefiles.getallbyuserid
+);
+router.get(
+    "/getallprofilefilesbyfileid/:fileId",
+    authgeneral,
+    userprofilefiles.getallbyfileid
+);
+router.get(
+    "/getallprofilefilesbystatus/:approvalStatus",
+    authgeneral,
+    userprofilefiles.getallbystatus
+);
+router.get(
+    "/getallprofilefilesbyuserstatus/:userId/:approvalStatus",
+    authgeneral,
+    userprofilefiles.getallbyuserfilestatus
+);
+router.post(
+    "/createprofilefile",
+    authgeneral,
+    userprofilefiles.createuserprofilefile
+);
+router.patch(
+    "/updateprofilefile/:fileId",
+    authgeneral,
+    userprofilefiles.updateuserprofilefile
+);
+router.delete(
+    "/deleteuserprofilefile/:fileId",
+    authgeneral,
+    userprofilefiles.deleteuserprofilefile
+);
 
 module.exports = router;
