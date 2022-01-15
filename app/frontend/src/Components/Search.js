@@ -18,14 +18,12 @@ function Search() {
                 <option value="four">4 Star Rating</option>
                 <option value="five">5 Star Rating</option>
             </select> */}
-        {/* <a href = './Detail' > Search </a> */}
-        <Link to={'/detail'} state={{
-          // star : star, 
-          search: search
-        }} style={{ textDecoration: 'none' }}>Search</Link>
-      </div>
-      {/* <text>you selected {search} with star value {star} </text> */}
-      <text style={{ marginTop: '1%', color: '#ffffff', fontSize: '1rem' }}> © Copyright 2021 - Fulda University of Applied Sciences. All Rights Reserved.</text>
+            {/* <a href = './Detail' > Search </a> */}
+            <Link to={'/browse' } state={{
+                // star : star, 
+                search : search
+            }} style={{textDecoration:'none'}}>Search</Link>
+       </div>
     </div>
   )
 }
