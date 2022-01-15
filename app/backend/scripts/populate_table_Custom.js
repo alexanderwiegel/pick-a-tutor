@@ -1,24 +1,57 @@
-const Course = require("../db/model/Course");
-const Message = require("../db/model/Message");
-const TutorCourse = require("../db/model/TutorCourse");
-const User = require("../db/model/User");
-const UserProfile = require("../db/model/UserProfile");
+// const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
+// const TutorCourse = require("../db/model/TutorCourse");
+// const CourseAdditionalInfo = require("../db/model/CourseAdditionalInfo");
+const Review = require("../db/model/Review");
+// const db = require("../db/db");
 
-const db = require("../db/db");
-
-require("../db/associations");
+// require("../db/associations");
 
 async function run() {
     // Recreate tables
-    await db.sync({ force: true });
-
-    await User.build({
-        userId: 1,
-        fileTitle: "Image",
-        filePath: "/userdirectory/1/",
-        approvalStatus: "PendingApproval",
-    }).save();
-
+    // await StudentEnrolledCourses.sync();
+    // await CourseAdditionalInfo.sync();
+    // await Review.sync();
+    // await Review.build({
+    //     studentId: 1,
+    //     tutorId: 1,
+    //     courseId: 1,
+    //     rating: 1,
+    //     reportReviewStatus: 1,
+    // }).save();
+    // await Review.build({
+    //     studentId: 1,
+    //     tutorId: 1,
+    //     courseId: 1,
+    //     rating: 3,
+    //     reportReviewStatus: 1,
+    // }).save();
+    // await Review.build({
+    //     studentId: 1,
+    //     tutorId: 1,
+    //     courseId: 1,
+    //     rating: 5,
+    //     reportReviewStatus: 1,
+    // }).save();
+    // await Review.build({
+    //     studentId: 1,
+    //     tutorId: 2,
+    //     courseId: 1,
+    //     rating: 8,
+    //     reportReviewStatus: 1,
+    // }).save();
+    // await Review.build({
+    //     studentId: 1,
+    //     tutorId: 2,
+    //     courseId: 1,
+    //     rating: 1,
+    //     reportReviewStatus: 1,
+    // }).save();
+    // await db.sync();
+    // await StudentEnrolledCourses.build({
+    //     tutorCourseId: 1,
+    //     userId: 1,
+    //     enrolledStatus: 1,
+    // }).save();
     /* Example of getting messages for the user
     let user = await User.findOne({
         include: [
@@ -36,7 +69,6 @@ async function run() {
             { model: User, as: "recipient" },
         ],
     }); */
-
     /* Example of soft-delete:
     let user = await User.findOne({where: {firstName: 'John'}});
     await user.destroy(); */
