@@ -1,8 +1,9 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import CourseCard from "../Components/CourseCard";
+import { FileMedical } from "react-bootstrap-icons";
 
 class TutorProfileStudentView extends React.Component {
     render() {
@@ -24,8 +25,7 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
                 },
                 {
                     id: 1,
@@ -35,8 +35,7 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
                 },
                 {
                     id: 1,
@@ -46,8 +45,7 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
                 },
                 {
                     id: 1,
@@ -57,8 +55,7 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
                 },
                 {
                     id: 1,
@@ -68,8 +65,7 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
                 },
                 {
                     id: 1,
@@ -79,8 +75,7 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
                 },
                 {
                     id: 1,
@@ -90,8 +85,7 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
                 },
                 {
                     id: 1,
@@ -101,8 +95,29 @@ class TutorProfileStudentView extends React.Component {
                     rating: 4.5,
                     numOfReviews: 235,
                     price: 20,
-                    img:
-                        "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                    img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
+                },
+            ],
+            files: [
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
+                },
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
+                },
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
+                },
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
                 },
             ],
         };
@@ -137,63 +152,22 @@ class TutorProfileStudentView extends React.Component {
                 <div className="row mb-2">
                     <div className="col">
                         <h3>Files</h3>
-                        <ul className="list-group list-group-flush">
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File1.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File2.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File3.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File4.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File5.pdf
-                            </a>
-                        </ul>
+                        <ListGroup variant="flush">
+                            {tutor.files.map((file) => (
+                                <ListGroup.Item>
+                                    <a
+                                        href=""
+                                        download={file.path}
+                                        className="list-group-item"
+                                    >
+                                        {file.name}
+                                    </a>
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
                     </div>
                 </div>
-                {/*  <li class="list-group-item">
-                                <div class="card" style={{ width: "18rem" }}>
-                                    <img
-                                        src="https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg"
-                                        class="card-img-top"
-                                        alt="..."
-                                    />
-                                    <div class="card-body">
-                                        <h5 class="card-title">Course Name</h5>
-                                        <p class="card-text">
-                                            Course description
-                                        </p>
-                                        <a href="#" class="btn btn-outline-primary">
-                                            View course
-                                        </a>
-                                    </div>
-                                </div>
-                            </li> */}
+
                 <div className="row mb-2">
                     <Container>
                         <h1>Courses</h1>
@@ -207,7 +181,6 @@ class TutorProfileStudentView extends React.Component {
                                     course={course}
                                 />
                             ))}
-        
                         </Container>
                     </Container>
                     <br />
