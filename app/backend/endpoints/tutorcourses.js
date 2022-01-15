@@ -4,8 +4,8 @@ const TutorCourse = require("../db/model/TutorCourse");
 const search = require("../utils/search");
 // const auth = require("../auth/check-auth");
 const { Sequelize } = require("sequelize");
+//const jwt = require("jsonwebtoken");
 const jwtdecode = require("jwt-decode");
-const jwt = require("jsonwebtoken");
 const Op = Sequelize.Op;
 
 //****************** Get All Courses of All Tutors *******************
@@ -51,9 +51,9 @@ const postTutorCourse = async(req,res) => {
 
     var courseId = 0;
 
-    var token = req.headers.authorization.split(" ")[2]; // Bearer Token
-    const decodedToken = jwt.verify(token, "privatekey");
-    const userId = decodedToken.id;
+    var token = req.headers["authorization"];
+    var decoded = jwtdecode(token);
+    const userId = decoded.id;
 
     const existingCourse = await Course.findOne({
         //where: search(req.query.search, "id"),
