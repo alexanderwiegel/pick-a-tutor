@@ -6,7 +6,7 @@ const UserProfile = require("../db/model/UserProfile");
 
 const db = require("../db/db");
 
-require("../db/associations");
+// require("../db/associations");
 
 async function run() {
     // Recreate tables

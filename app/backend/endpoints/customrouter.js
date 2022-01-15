@@ -11,6 +11,8 @@ const authstudent = require("../auth/checkauth_student");
 const authtutor = require("../auth/checkauth_tutor");
 const authgeneral = require("../auth/checkauth_general");
 const userprofilefiles = require("./userprofilefiles");
+const studentenrolledcourses = require("./studentenrolledcourses");
+const CourseAdditionalInfo = require("./courseadditionalinfo");
 
 //*******Users Routes*******
 router.get("/users", users.getallusers);
@@ -79,4 +81,64 @@ router.delete(
     userprofilefiles.deleteuserprofilefile
 );
 
+//*******StudentEnrollerCourses Routes*******
+router.get(
+    "/enrolledstudentcourses",
+    authgeneral,
+    studentenrolledcourses.getAllStudentCourses
+);
+router.post(
+    "/enrollstudent",
+    authgeneral,
+    studentenrolledcourses.createStudentCourse
+);
+
+router.patch(
+    "/updateenrolledcoursestatus",
+    authgeneral,
+    studentenrolledcourses.updateStudentCourse
+);
+router.delete(
+    "/deletestudentcourse",
+    authgeneral,
+    studentenrolledcourses.deleteStudentCourse
+);
+
 module.exports = router;
+
+//*******Course Additional Files Routes*******
+// router.get(
+//     "/getallcoursefilesbyuserid/:userId",
+//     authgeneral,
+//     userprofilefiles.getallbyuserid
+// );
+// router.get(
+//     "/getallprofilefilesbyfileid/:fileId",
+//     authgeneral,
+//     userprofilefiles.getallbyfileid
+// );
+// router.get(
+//     "/getallprofilefilesbystatus/:approvalStatus",
+//     authgeneral,
+//     userprofilefiles.getallbystatus
+// );
+// router.get(
+//     "/getallprofilefilesbyuserstatus/:userId/:approvalStatus",
+//     authgeneral,
+//     userprofilefiles.getallbyuserfilestatus
+// );
+router.post(
+    "/createcoursefile",
+    authgeneral,
+    CourseAdditionalInfo.createusercoursefile
+);
+// router.patch(
+//     "/updateprofilefile/:fileId",
+//     authgeneral,
+//     userprofilefiles.updateuserprofilefile
+// );
+// router.delete(
+//     "/deleteuserprofilefile/:fileId",
+//     authgeneral,
+//     userprofilefiles.deleteuserprofilefile
+// );

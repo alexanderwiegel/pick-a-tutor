@@ -49,4 +49,10 @@ Review.belongsTo(User, { as: "tutor" });
 
 // UserProfileFiles.belongsTo(User, { as: "profile_file" });
 
+const StudentEnrolledCourses = require("./model/StudentEnrolledCourses");
+
+// TutorCourse.hasMany(StudentEnrolledCourses, { foreignKey: "tutorCourseId" });
+
+// StudentEnrolledCourses.hasOne(TutorCourse, { foreignKey: "CourseId" });
+
 // Added by Rakesh Ends

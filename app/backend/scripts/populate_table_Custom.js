@@ -1,23 +1,23 @@
-const Course = require("../db/model/Course");
-const Message = require("../db/model/Message");
-const TutorCourse = require("../db/model/TutorCourse");
-const User = require("../db/model/User");
-const UserProfile = require("../db/model/UserProfile");
+// const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
+// const TutorCourse = require("../db/model/TutorCourse");
+const CourseAdditionalInfo = require("../db/model/CourseAdditionalInfo");
 
-const db = require("../db/db");
+// const db = require("../db/db");
 
-require("../db/associations");
+// require("../db/associations");
 
 async function run() {
     // Recreate tables
-    await db.sync({ force: true });
 
-    await User.build({
-        userId: 1,
-        fileTitle: "Image",
-        filePath: "/userdirectory/1/",
-        approvalStatus: "PendingApproval",
-    }).save();
+    // await StudentEnrolledCourses.sync();
+    await CourseAdditionalInfo.sync();
+    // await db.sync();
+
+    // await StudentEnrolledCourses.build({
+    //     tutorCourseId: 1,
+    //     userId: 1,
+    //     enrolledStatus: 1,
+    // }).save();
 
     /* Example of getting messages for the user
     let user = await User.findOne({
