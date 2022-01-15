@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require("sequelize");
+const {DataTypes, Model} = require("sequelize");
 const db = require("../db");
 const User = require("./User");
 const TutorCourse = require("./TutorCourse");
@@ -50,6 +50,9 @@ Review.init(
         reportReviewComments: {
             type: DataTypes.TEXT,
             defaultValue: "",
+        },
+        reporterId: {
+            type: DataTypes.INTEGER,
         },
         reportReviewStatus: {
             type: DataTypes.TINYINT,

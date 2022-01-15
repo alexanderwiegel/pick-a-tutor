@@ -1,5 +1,6 @@
 const Review = require("../db/model/Review");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
+const jwt = require("jsonwebtoken");
 
 const getReviews = async (req, res) => {
     try {
@@ -34,8 +35,12 @@ const addReview = async (req, res) => {
 const reportReview = async (req, res) => {
     try {
         let review = await Review.findOne({ where: { id: req.params.id } });
+        let token = req.headers.authorization.split(" ")[2]; // Bearer Token
+        let decodedToken = jwt.verify(token, "privatekey");
+
         review.reportReview = Review.REPORTED;
         review.reportComments = req.body.reportComments;
+        review.reporterId = decodedToken.id;
         await review.save();
         res.json(new SuccessfulResponse("Review reported", [review]));
     } catch (e) {
