@@ -3,7 +3,12 @@ const db = require("../db");
 const User = require("./User");
 const TutorCourse = require("./TutorCourse");
 
-class Review extends Model {}
+class Review extends Model {
+    static NOT_REPORTED = 0;
+    static REPORTED = 1;
+    static REPORT_APPROVED = 0;
+    static REPORT_REJECTED = 1;
+}
 
 Review.init(
     {
@@ -40,7 +45,7 @@ Review.init(
         },
         reportReview: {
             type: DataTypes.TINYINT,
-            defaultValue: 0,
+            defaultValue: this.NOT_REPORTED,
         },
         reportReviewComments: {
             type: DataTypes.TEXT,
@@ -48,7 +53,7 @@ Review.init(
         },
         reportReviewStatus: {
             type: DataTypes.TINYINT,
-            defaultValue: 0,
+            defaultValue: this.REPORT_APPROVED,
         },
     },
     {

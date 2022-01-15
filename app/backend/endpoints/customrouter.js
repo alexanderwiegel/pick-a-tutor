@@ -35,8 +35,6 @@ router.post("/tutor_course",authtutor, tutorCourses.postTutorCourse);
 router.patch("/tutor_course/:id",authtutor,tutorCourses.updateTutorCourse);
 router.delete("/tutor_course/:id",authtutor,tutorCourses.deleteTutorCourse);
 
-//*******Admin Routes*******
-
 //*******Tutor Routes*******
 router.get("/tutors", tutors.getAllTutors);
 router.post("/tutors", tutors.createTutor);
@@ -44,7 +42,9 @@ router.patch("/tutors/:email", authgeneral, users.updateuser);
 router.delete("/tutors/:email", authgeneral, users.deleteuser);
 
 //*******Review Routes*******
+router.get("/reviews", reviews.getReviews);
 router.post("/reviews", authstudent, reviews.addReview);
 router.patch("/reviews/:id", authadmin, reviews.approvereview);
+router.patch("/reviews/:id/report", authgeneral, reviews.reportReview);
 
 module.exports = router;

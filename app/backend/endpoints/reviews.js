@@ -1,21 +1,46 @@
 const Review = require("../db/model/Review");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
+const getReviews = async (req, res) => {
+    try {
+        let reviews = await Review.findAll({
+            where: {
+                courseId: req.body.courseId,
+            },
+        });
+        res.json(new SuccessfulResponse("Reviews", reviews));
+    } catch (e) {
+        res.json(new FailedResponse(e.message));
+    }
+};
+
 const addReview = async (req, res) => {
-    let review = Review.build({
-        studentId: req.body.studentId,
-        tutorId: req.body.tutorId,
-        courseId: req.body.courseId,
-        rating: req.body.rating,
-        ratingComments: req.body.ratingComments,
-    });
-    console.log("Created review:" + review);
-    res.json(new SuccessfulResponse("Review created", [review]));
+    try {
+        let review = Review.build({
+            studentId: req.body.studentId,
+            tutorId: req.body.tutorId,
+            courseId: req.body.courseId,
+            rating: req.body.rating,
+            ratingComments: req.body.ratingComments,
+        });
+        await review.save();
+        console.log("Created review: " + review);
+        res.json(new SuccessfulResponse("Review created", [review]));
+    } catch (e) {
+        res.json(new FailedResponse(e.message));
+    }
 };
 
 const reportReview = async (req, res) => {
-    let review = await Review.findOne({ where: { id: req.params.id } });
-    // TODO
+    try {
+        let review = await Review.findOne({ where: { id: req.params.id } });
+        review.reportReview = Review.REPORTED;
+        review.reportComments = req.body.reportComments;
+        await review.save();
+        res.json(new SuccessfulResponse("Review reported", [review]));
+    } catch (e) {
+        res.json(new FailedResponse(e.message));
+    }
 };
 
 //************* Approve or Reject Review based on Id and reportReviewStatus" ***************
@@ -56,4 +81,4 @@ const approvereview = async (req, res, next) => {
     }
 };
 
-module.exports = { addReview, approvereview };
+module.exports = { getReviews, addReview, reportReview, approvereview };
