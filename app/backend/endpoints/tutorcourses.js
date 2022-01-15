@@ -51,9 +51,13 @@ const postTutorCourse = async(req,res) => {
 
     var courseId = 0;
 
+    var token = req.headers.authorization.split(" ")[2]; // Bearer Token
+    const decodedToken = jwt.verify(token, "privatekey");
+    const userId = decodedToken.id;
+
     const existingCourse = await Course.findOne({
         //where: search(req.query.search, "id"),
-        where: search(req.body.name, "name"),
+        where: {"name": req.body.name},
     });
 
     if (existingCourse){
@@ -66,6 +70,22 @@ const postTutorCourse = async(req,res) => {
             data: existingCourse,
         });
 */
+        const existingTutorCourse = await TutorCourse.findOne({
+            where: {
+                [Op.and] : [
+                    {"UserId": userId},
+                    {"CourseId": courseId},
+                ]
+            },
+        });
+        if(existingTutorCourse){
+            return res.json({
+                success: false,
+                message: "Course already exists for tutor",
+                records: existingTutorCourse.length,
+                data: existingTutorCourse,
+            });
+        }
     }
     else {
         let course = Course.build({
@@ -80,10 +100,6 @@ const postTutorCourse = async(req,res) => {
 
         courseId = course.id;
     }
-    var token = req.headers.authorization.split(" ")[2]; // Bearer Token
-
-    const decodedToken = jwt.verify(token, "privatekey");
-    const UserID = decodedToken.id;
 /*
     res.json({
         success: true,
@@ -92,7 +108,7 @@ const postTutorCourse = async(req,res) => {
     });
 */
     let tutorCourse = TutorCourse.build({
-        UserId: UserID,
+        UserId: userId,
         CourseId: courseId,
         coursePricePerHour: req.body.coursePricePerHour,
         isFull: 0
@@ -108,7 +124,7 @@ const postTutorCourse = async(req,res) => {
         console.log(e);
     });
 
-    res.json({
+    return res.json({
         success: true,
         message: "Tutor Course " + req.body.name + " Created",
         records: tutorCourse.length,
