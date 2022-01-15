@@ -18,7 +18,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"yes21@example.com\",\r\n    \"password\":\"password\"\r\n}",
+							"raw": "{\r\n    \"email\":\"kylerstark@example.com\",\r\n    \"password\":\"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -499,7 +499,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=1&course_id=1",
+							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -512,11 +512,7 @@
 							"query": [
 								{
 									"key": "tutor_id",
-									"value": "1"
-								},
-								{
-									"key": "course_id",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -562,7 +558,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpc1N0dWRlbnQiOnRydWUsImlzVHV0b3IiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDUzOTgzOSwiZXhwIjoxNjQwNjI2MjM5fQ.HOBWeD-LzEjep371uBpU4-hAY84HLvvG9FkJxcdEYes",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJreWxlcnN0YXJrQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50IjpmYWxzZSwiaXNUdXRvciI6dHJ1ZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjI2MzU5NSwiZXhwIjoxNjQyMzQ5OTk1fQ.ia0lSfwAH0qbOa5yO7_Z9BKxtz8mWm8BCD0_nsbqMjg",
 									"type": "string"
 								}
 							]
@@ -571,7 +567,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"PHP OOP3\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}",
+							"raw": "{\r\n        \"name\": \"6th Level Java\",\r\n        \"coursePricePerHour\": 15.50\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -628,6 +624,76 @@
 								"api",
 								"tutor_course",
 								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/reviews?courseId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "courseId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Review by Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjI2NDYzOSwiZXhwIjoxNjQyMzUxMDM5fQ.QNRAbdyzZQrPZQcPQBPsbGV2kFQ3RWdd6SQzloaBp7s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"studentId\": 3,\r\n        \"tutorId\": 2,\r\n        \"courseId\": 4,\r\n        \"rating\": 5,\r\n        \"ratingComments\": \"The teacher is amazing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"reviews"
 							]
 						}
 					},

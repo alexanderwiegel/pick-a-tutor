@@ -3,10 +3,11 @@ const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 const jwt = require("jsonwebtoken");
 
 const getReviews = async (req, res) => {
+
     try {
         let reviews = await Review.findAll({
             where: {
-                courseId: req.body.courseId,
+                courseId: req.query.courseId,
             },
         });
         res.json(new SuccessfulResponse("Reviews", reviews));
