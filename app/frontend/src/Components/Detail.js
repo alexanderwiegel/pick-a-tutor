@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import CardComponent from "./CardComponentSubject";
 import CardComponentTutor from "./CardComponentTutor";
 import SearchComponent from "./SearchComponent";
-import {Container,ToggleButton,Row, Col, FloatingLabel, Form} from 'react-bootstrap';
+import {Container,ToggleButton,Row, Col, FloatingLabel, Form, Button} from 'react-bootstrap';
 import Sort from "./Sort";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -21,6 +21,10 @@ function Details(props) {
     console.log('In detail ',data)
     setUsers(preVal => data.data)
   };
+
+  // const getResults = asnyc() =>{
+  //   const data = await apiEndPoints.getFilterResults()
+  // }
 
   const _setCategory = (value) => {
     setCategory(preVal => value)
@@ -46,7 +50,9 @@ function Details(props) {
     <Container>
     <div className="detail-page">
       <div className="side-bar">
-        <label for="filter" className='hide'><i class="bi bi-x-lg" /></label>
+        <br/>
+        <label for="filter" className='hide' style={{marginLeft:'10px'}}><i class="bi bi-x-circle-fill" style={{height:'20px',width:'20px'}}></i></label>
+        <br/>
         <h3>Rating Filters</h3>
         <hr/>
         
@@ -205,32 +211,47 @@ function Details(props) {
     </FloatingLabel>
    </Col>
 </Row>
+<br />
+<Container>
+  <Row>
+    <div class="col text-center">
+    {/* onClick={getResults()} */}
+    <Button style={{backgroundColor:'#00b7ff',borderColor:'#00b7ff',width:'100%'}}>Apply Filters</Button>
+    </div>
+  </Row>
+</Container>
+<br/>
+<br/>
       </div>
-      <Sort/>
-      <div className="main-content">
-        <div className="wrapper" style={{justifyContent:'space-evenly'}}>
-          {
-            loading &&
-              <h1>Fetching data...</h1>
-          }
-          
-          { (users.length > 0 && !loading) && 
-              users.map(user => {
-                
-                if(category === "course")
-                  return <CardComponent courses={ user.Courses } 
-                                    name={ user.firstName } 
-                                    searched_name={location.state?.search} />
-                return <CardComponentTutor courses={ user } 
-                                    name={ user.firstName } 
-                                    searched_name={location.state?.search} />
-                }
-              )
-          }
-          {
-            (users.length === 0 && !loading) &&
-              <h1>No data found</h1>       
-          }
+      <div style={{ width: "100%" }}>
+        <div style={{  display: "flex", justifyContent: "flex-end" }}>
+          <Sort/>
+        </div>
+        <div className="main-content">
+          <div className="wrapper" style={{justifyContent:'space-evenly'}}>
+            {
+              loading &&
+                <h1>Fetching data...</h1>
+            }
+            
+            { (users.length > 0 && !loading) && 
+                users.map(user => {
+                  
+                  if(category === "course")
+                    return <CardComponent courses={ user.Courses } 
+                                      name={ user.firstName } 
+                                      searched_name={location.state?.search} />
+                  return <CardComponentTutor courses={ user } 
+                                      name={ user.firstName } 
+                                      searched_name={location.state?.search} />
+                  }
+                )
+            }
+            {
+              (users.length === 0 && !loading) &&
+                <h1>No data found</h1>       
+            }
+          </div>
         </div>
       </div>
     </div>

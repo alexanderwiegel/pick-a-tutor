@@ -18,8 +18,8 @@ class Toggle extends React.Component {
             ? <div onClick={()=>this.setState({isLow: true}) }><i class="bi bi-arrow-up" style={{fontSize:'1.2rem'}}></i></div>
             : <div onClick={()=>this.setState({isLow: false}) }><i class="bi bi-arrow-down" style={{fontSize:'1.2rem'}}></i></div>
           }
-          &nbsp;&nbsp;{this.props.name}{console.log("is low =",this.state.isLow)}
         </a>
+        &nbsp;&nbsp;{this.props.name}{console.log("is low =",this.state.isLow)}
         </div>
       );
     }

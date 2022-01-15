@@ -31,7 +31,7 @@ const SearchComponent = ({ category, setCategory }) => {
         </button>
             <input placeholder = 'Search here ...' style={{fontSize:'1rem'}} onChange= { (e) => setSearch(e.target.value) }/>
             <div onClick={() => getUsers(search)} style={{display:'grid',alignContent:'center'}}>
-            <i class="bi bi-search" style={{fontSize:'1.5rem',margin:'5px',paddingRight:'10px', hover:'pointer'}} />
+            <i class="bi bi-search" style={{fontSize:'1.5rem',margin:'5px',paddingRight:'10px', cursor:'pointer'}} />
             </div>
        </div>
        </div>
