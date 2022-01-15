@@ -13,6 +13,7 @@ const authgeneral = require("../auth/checkauth_general");
 const userprofilefiles = require("./userprofilefiles");
 const studentenrolledcourses = require("./studentenrolledcourses");
 const CourseAdditionalInfo = require("./courseadditionalinfo");
+const Review = require("./review");
 
 //*******Users Routes*******
 router.get("/users", users.getallusers);
@@ -43,6 +44,10 @@ router.get("/tutors", tutors.getAllTutors);
 router.post("/tutors", tutors.createTutor);
 router.patch("/tutors/:email", authgeneral, users.updateuser);
 router.delete("/tutors/:email", authgeneral, users.deleteuser);
+
+//*******Review Routes*******
+router.patch("/approvereview/:id", authgeneral, Review.approvereview);
+router.delete("/deleteReview/:id", authgeneral, Review.deleteReview);
 
 //*******User Profile Files Routes*******
 router.get(

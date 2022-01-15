@@ -1,7 +1,7 @@
 // const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
 // const TutorCourse = require("../db/model/TutorCourse");
-const CourseAdditionalInfo = require("../db/model/CourseAdditionalInfo");
-
+// const CourseAdditionalInfo = require("../db/model/CourseAdditionalInfo");
+const Review = require("../db/model/Review");
 // const db = require("../db/db");
 
 // require("../db/associations");
@@ -10,7 +10,17 @@ async function run() {
     // Recreate tables
 
     // await StudentEnrolledCourses.sync();
-    await CourseAdditionalInfo.sync();
+    // await CourseAdditionalInfo.sync();
+    // await Review.sync();
+
+    await Review.build({
+        studentId: 1,
+        tutorId: 1,
+        courseId: 1,
+        rating: 1,
+        reportReviewStatus: 1,
+    }).save();
+
     // await db.sync();
 
     // await StudentEnrolledCourses.build({
