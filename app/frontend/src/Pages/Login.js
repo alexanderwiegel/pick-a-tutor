@@ -63,7 +63,7 @@ export default function Login() {
                                  if(data.status === 200){
                                  localStorage.setItem('user',true)
                                  localStorage.setItem('token',data.data.token)
-                                  navigate('/dashboard')
+                                  navigate('/home')
                                 }
                                 else{
                                     
