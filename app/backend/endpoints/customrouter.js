@@ -107,38 +107,38 @@ router.delete(
 module.exports = router;
 
 //*******Course Additional Files Routes*******
-// router.get(
-//     "/getallcoursefilesbyuserid/:userId",
-//     authgeneral,
-//     userprofilefiles.getallbyuserid
-// );
-// router.get(
-//     "/getallprofilefilesbyfileid/:fileId",
-//     authgeneral,
-//     userprofilefiles.getallbyfileid
-// );
-// router.get(
-//     "/getallprofilefilesbystatus/:approvalStatus",
-//     authgeneral,
-//     userprofilefiles.getallbystatus
-// );
-// router.get(
-//     "/getallprofilefilesbyuserstatus/:userId/:approvalStatus",
-//     authgeneral,
-//     userprofilefiles.getallbyuserfilestatus
-// );
+router.get(
+    "/getallbytutorcourse/:tutorId/:courseId",
+    authgeneral,
+    CourseAdditionalInfo.getallbyTutorCourse
+);
+router.get(
+    "/getallcoursefilesbyfileid/:fileId",
+    authgeneral,
+    CourseAdditionalInfo.getallbyfileid
+);
+router.get(
+    "/getallcoursefilesbystatus/:approvalStatus",
+    authgeneral,
+    CourseAdditionalInfo.getallbystatus
+);
+router.get(
+    "/getallcoursefilesbytutor",
+    authgeneral,
+    CourseAdditionalInfo.getallbytutor
+);
 router.post(
     "/createcoursefile",
     authgeneral,
     CourseAdditionalInfo.createusercoursefile
 );
-// router.patch(
-//     "/updateprofilefile/:fileId",
-//     authgeneral,
-//     userprofilefiles.updateuserprofilefile
-// );
-// router.delete(
-//     "/deleteuserprofilefile/:fileId",
-//     authgeneral,
-//     userprofilefiles.deleteuserprofilefile
-// );
+router.patch(
+    "/updatecoursefile/:fileId",
+    authgeneral,
+    CourseAdditionalInfo.updatcoursefile
+);
+router.delete(
+    "/deletecoursefile/:fileId",
+    authgeneral,
+    CourseAdditionalInfo.deletecoursefile
+);

@@ -5,7 +5,7 @@ const jwtdecode = require("jwt-decode");
 
 //************* Get List of All course files based on tutorId and courseId" ***************
 
-const getallbyuserid = async (req, res, next) => {
+const getallbyTutorCourse = async (req, res, next) => {
     const courseadditionalinfo = await CourseAdditionalInfo.findAll({
         where: { tutorId: req.params.tutorId, courseId: req.params.courseId },
     });
@@ -18,7 +18,7 @@ const getallbyuserid = async (req, res, next) => {
     });
 };
 
-exports.getallbyuserid = getallbyuserid;
+exports.getallbyTutorCourse = getallbyTutorCourse;
 
 //************* Get specific course file based on file id(id) " ***************
 
@@ -54,26 +54,28 @@ const getallbystatus = async (req, res, next) => {
 
 exports.getallbystatus = getallbystatus;
 
-//************* Get all course file based on user id, courseId and file approval status " ***************
+//************* Get all course file based on TutorId " ***************
 
-const getallbyuserfilestatus = async (req, res, next) => {
+const getallbytutor = async (req, res, next) => {
+    var token = req.headers["authorization"];
+    var decoded = jwtdecode(token);
+    var tutorId = decoded.id;
+
     const courseadditionalinfo = await CourseAdditionalInfo.findAll({
         where: {
-            tutorId: req.params.tutorId,
-            courseId: req.params.courseId,
-            approvalStatus: req.params.approvalStatus,
+            tutorId: tutorId,
         },
     });
 
     res.json({
         success: true,
-        message: "User course File",
+        message: "Course Files",
         records: courseadditionalinfo.length,
         data: courseadditionalinfo,
     });
 };
 
-exports.getallbyuserfilestatus = getallbyuserfilestatus;
+exports.getallbytutor = getallbytutor;
 
 //************* Create course file ***************
 
@@ -104,9 +106,9 @@ const createusercoursefile = async (req, res, next) => {
 
 exports.createusercoursefile = createusercoursefile;
 
-//************* Update Existing course file ***************
+//************* Update Existing course file with file id ***************
 
-const updateusercoursefile = async (req, res, next) => {
+const updatcoursefile = async (req, res, next) => {
     const usercoursefile = await CourseAdditionalInfo.findOne({
         where: { id: req.params.fileId },
     });
@@ -114,10 +116,8 @@ const updateusercoursefile = async (req, res, next) => {
     if (usercoursefile) {
         try {
             await usercoursefile.update({
-                tutorId: req.body.tutorId,
-                courseId: req.body.courseId,
-                fileTitle: req.body.fileTitle,
-                filePath: req.body.filePath,
+                fileTitle: req.body.fileTitle ?? usercoursefile.fileTitle,
+                filePath: req.body.filePath ?? usercoursefile.filePath,
                 approvalStatus: req.body.approvalStatus,
             });
             res.json({
@@ -147,11 +147,11 @@ const updateusercoursefile = async (req, res, next) => {
     }
 };
 
-exports.updateusercoursefile = updateusercoursefile;
+exports.updatcoursefile = updatcoursefile;
 
 //************* Delete Existing course file ***************
 
-const deleteusercoursefile = async (req, res, next) => {
+const deletecoursefile = async (req, res, next) => {
     const usercoursefile = await CourseAdditionalInfo.findOne({
         where: { id: req.params.fileId },
     });
@@ -185,4 +185,4 @@ const deleteusercoursefile = async (req, res, next) => {
     }
 };
 
-exports.deleteusercoursefile = deleteusercoursefile;
+exports.deletecoursefile = deletecoursefile;
