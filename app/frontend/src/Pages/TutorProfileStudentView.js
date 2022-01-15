@@ -1,9 +1,16 @@
 import React from "react";
-import { Container, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
+import {
+    Container,
+    Row,
+    Col,
+    ListGroup,
+    ListGroupItem,
+    Button,
+    Image,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import CourseCard from "../Components/CourseCard";
-import { FileMedical } from "react-bootstrap-icons";
 
 class TutorProfileStudentView extends React.Component {
     render() {
@@ -14,6 +21,7 @@ class TutorProfileStudentView extends React.Component {
             link: "/tutors/3434",
             img: "https://pngimg.com/uploads/teacher/teacher_PNG24.png",
             rating: 4.0,
+            numOfReviews: (895),
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam condimentum, diam nec accumsan egestas, odio nisl tempus dolor, vitae aliquam dui nunc eget ipsum. Aenean vitae est maximus, aliquam ligula non, placerat lacus. Nunc varius eleifend diam nec luctus. Fusce quis condimentum diam. Maecenas viverra condimentum ipsum et feugiat. Donec eget tortor vitae nisi vulputate pellentesque. Pellentesque vel nisi accumsan, faucibus lacus eu, ultrices eros. Integer mattis odio eu egestas fermentum. Donec tempor, metus ut gravida pulvinar, erat nisi fermentum mauris, at pharetra enim arcu eu nunc. Nullam posuere eleifend leo id lacinia. Suspendisse accumsan, arcu in sodales congue, ex dolor gravida sapien, quis posuere turpis mi sed lorem. Nam a nibh sed augue bibendum consectetur. Aliquam feugiat placerat ex ut auctor. ",
             courses: [
@@ -123,33 +131,44 @@ class TutorProfileStudentView extends React.Component {
         };
 
         return (
-            <div className="container">
-                <div className="row mb-2">
-                    <div className="col-md-5">
-                        <img
+            <Container>
+                <Row style={{ marginTop: " 1rem" }}>
+                    <Col md={5}>
+                        <Image
                             src={tutor.img}
-                            className="img-fluid img-thumbnail float-right"
-                            alt="Responsive image"
-                            style={{ height: "500px", width: "650px" }}
+                            fluid={true}
+                            thumbnail={true}
+                            className="floatRight"
+                            alt="tutor image"
+                            style={{ height: "400px", width: "600px" }}
                         />
-                    </div>
-                    <div className="col-md-7">
+                    </Col>
+                    <Col md={7} className="flexColumn">
                         <h3>{tutor.firstName + " " + tutor.lastName}</h3>
-                        <br />
-                        {tutor.rating}{" "}
-                        <i
-                            className="bi bi-star-fill"
-                            style={{ color: "#ffff00" }}
-                        ></i>
-                    </div>
-                </div>
-                <div className="row mb-2">
+                        <h6>
+                            {tutor.rating}{" "}
+                            <i
+                                className="bi bi-star-fill"
+                                style={{ color: "#ffff00" }}
+                            /> ({tutor.numOfReviews})
+
+
+                        </h6>
+                        <Button
+                            variant="outline-primary"
+                            style={{ margin: "5px" }}
+                        >
+                            Contact
+                        </Button>{" "}
+                    </Col>
+                </Row>
+                <Row style={{ marginTop: " 1rem" }}>
                     <div className="col">
                         <h3>Description</h3>
                         <p>{tutor.description}</p>
                     </div>
-                </div>
-                <div className="row mb-2">
+                </Row>
+                <Row style={{ marginTop: " 1rem" }}>
                     <div className="col">
                         <h3>Files</h3>
                         <ListGroup variant="flush">
@@ -166,13 +185,10 @@ class TutorProfileStudentView extends React.Component {
                             ))}
                         </ListGroup>
                     </div>
-                </div>
+                </Row>
 
-                <div className="row mb-2">
-                    <Container>
-                        <h1>Courses</h1>
-                        <hr />
-                    </Container>
+                <Row style={{ marginTop: " 1rem" }}>
+                    <h1>Courses</h1>
                     <Container style={{ overflowX: "scroll" }}>
                         <Container style={{ display: "flex" }}>
                             {tutor.courses.map((course) => (
@@ -183,9 +199,8 @@ class TutorProfileStudentView extends React.Component {
                             ))}
                         </Container>
                     </Container>
-                    <br />
-                </div>
-            </div>
+                </Row>
+            </Container>
         );
     }
 }
