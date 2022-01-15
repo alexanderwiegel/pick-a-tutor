@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from './Header';
-import Feature from './Feature';
-import About from './About';
+import Header from '../Components/Header';
+import Feature from '../Components/Feature';
+import About from '../Components/About';
 import aboutimg from '../images/Frame 19.png';
-import Search from './Search';
-import Navbar from './Navbar';
+import Search from '../Components/Search';
+import Navbar from '../Components/Navbar';
 
-const Home = () => {
+const LandingPage = () => {
     return (
       <div className='App'>
         <Header />
@@ -17,4 +17,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default LandingPage;

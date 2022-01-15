@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import apiEndPoints from "./ApiEndpoints";
+import apiEndPoints from "../Components/ApiEndpoints";
 import { useLocation } from "react-router-dom";
-import CardComponent from "./CardComponentSubject";
-import CardComponentTutor from "./CardComponentTutor";
-import SearchComponent from "./SearchComponent";
+import CardComponent from "../Components/CardComponentSubject";
+import CardComponentTutor from "../Components/CardComponentTutor";
+import SearchComponent from "../Components/SearchComponent";
 import {Container,ToggleButton,Row, Col, FloatingLabel, Form, Button} from 'react-bootstrap';
-import Sort from "./Sort";
+import Sort from "../Components/Sort";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-function Details(props) {
+function Browse(props) {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState("course")
@@ -260,4 +260,4 @@ function Details(props) {
   );
 }
 
-export default Details;
+export default Browse;

@@ -50,13 +50,13 @@ function Navbar() {
       </label>
       <ul className="menu">
         <li>
-        <Link to="/dashboard" style={{textDecoration:'none', fontFamily:'inherit'}}>Home</Link>
+        <Link to="/home" style={{textDecoration:'none', fontFamily:'inherit'}}>Home</Link>
         </li>
         <li>
-        <Link to="/detail" style={{textDecoration:'none', fontFamily:'inherit'}}>Browse</Link>
+        <Link to="/browse" style={{textDecoration:'none', fontFamily:'inherit'}}>Browse</Link>
         </li>
         <li>
-        <Link to="" style={{textDecoration:'none', fontFamily:'inherit'}}>Messages</Link>
+        <Link to="/messages" style={{textDecoration:'none', fontFamily:'inherit'}}>Messages</Link>
         </li>
         <li>
           <Link to="/login" onClick={logout} style={{textDecoration:'none', fontFamily:'inherit'}}>Logout</Link>
@@ -81,7 +81,7 @@ function Navbar() {
           <Link to="/" style={{textDecoration:'none', fontFamily:'inherit'}}>Home</Link>
           </li>
           <li>
-          <Link to="/detail" style={{textDecoration:'none', fontFamily:'inherit'}}>Browse</Link>
+          <Link to="/browse" style={{textDecoration:'none', fontFamily:'inherit'}}>Browse</Link>
           </li>
           <li>
             <Link to="/login" style={{textDecoration:'none', fontFamily:'inherit'}}>Login</Link>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
-import SearchComponent from './SearchComponent';
-import CardComponent from './CardComponentSubject';
-import apiEndPoints from './ApiEndpoints';
+import SearchComponent from '../Components/SearchComponent';
+import CardComponent from '../Components/CardComponentSubject';
+import apiEndPoints from '../Components/ApiEndpoints';
 import { Container } from 'react-bootstrap';
 
-const Dashboard = () => {
+const Home = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [category, setCategory] = useState("course");
@@ -86,4 +86,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Home;
