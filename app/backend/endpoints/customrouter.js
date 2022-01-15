@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
+
 const login = require("./login");
+const reviews = require("./reviews");
 const tutors = require("./tutors");
 const users = require("./users");
 const courses = require("./courses");
 const tutorCourses = require("./tutorcourses");
-//const tutorCourses = require("./tutorcourses");
+
 const authadmin = require("../auth/checkauth_admin");
 const authstudent = require("../auth/checkauth_student");
 const authtutor = require("../auth/checkauth_tutor");
@@ -37,8 +39,6 @@ router.get("/tutor_courses", tutorCourses.getTutorCourses);
 router.post("/tutor_course", authtutor, tutorCourses.postTutorCourse);
 router.patch("/tutor_course/:id", authtutor, tutorCourses.updateTutorCourse);
 router.delete("/tutor_course/:id", authtutor, tutorCourses.deleteTutorCourse);
-
-//*******Admin Routes*******
 
 //*******Tutor Routes*******
 router.get("/tutors", tutors.getAllTutors);
@@ -113,7 +113,11 @@ router.delete(
     studentenrolledcourses.deleteStudentCourse
 );
 
-module.exports = router;
+//*******Review Routes*******
+router.get("/reviews", reviews.getReviews);
+router.post("/reviews", authstudent, reviews.addReview);
+router.patch("/reviews/:id", authadmin, reviews.approvereview);
+router.patch("/reviews/:id/report", authgeneral, reviews.reportReview);
 
 //*******Course Additional Files Routes*******
 router.get(
@@ -151,3 +155,5 @@ router.delete(
     authgeneral,
     CourseAdditionalInfo.deletecoursefile
 );
+
+module.exports = router;
