@@ -4,11 +4,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 
 
-function CardComponentTutor({ name, courses, searched_name }) {
+function CardComponentTutor({ name, courses, searched_name="" }) {
+    console.log('courses = ',courses)
     return (
         <Card
             style={{
-                width: "20rem",
                 fontSize: "1rem",
                 borderColor: "transparent",
             }}
@@ -53,21 +53,21 @@ function CardComponentTutor({ name, courses, searched_name }) {
                         display:'flex'
                     }}
                 >
-                    {courses.map((course) => (
+                    {/* {courses.map((course) => (
                         <p style={{ paddingLeft: "2px", fontWeight: "bold" }}>
                             {course.name}
                         </p>
-                    ))}
+                    ))} */}
                 </Card.Text>
                 <Card.Text style={{fontSize:'0.7rem',marginTop:'-10px'}}>
-                    {courses.map((course) =>
+                    {/* {courses.map((course) =>
                         course.name.toLowerCase() ===
                         searched_name.toLowerCase() ? (
                             <p>{course.description}</p>
                         ) : (
                             " "
                         )
-                    )}
+                    )} */}
                 </Card.Text>
                 <div className="d-flex justify-content-center">
                     <Button

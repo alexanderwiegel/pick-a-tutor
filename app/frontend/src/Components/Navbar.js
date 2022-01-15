@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../images/logos/Tutor.png";
 import MenuItem from './MenuItem.js';
 
 function Navbar() {
   const [nav, setnav] = useState(false);
+  const [user, setUser] = useState({});
   const changeBackground = () => {
     if (window.scrollY >= 50) {
       setnav(true);
@@ -11,6 +12,7 @@ function Navbar() {
       setnav(false);
     }
   };
+  const checkToken = useVerifyToken();
   window.addEventListener("scroll", changeBackground);
   return (
     <>
