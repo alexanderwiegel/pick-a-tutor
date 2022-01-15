@@ -2,45 +2,54 @@ const User = require("../db/model/User");
 const Course = require("../db/model/Course");
 const TutorCourse = require("../db/model/TutorCourse");
 const search = require("../utils/search");
-// const auth = require("../auth/check-auth");
 const { Sequelize } = require("sequelize");
-//const jwt = require("jsonwebtoken");
-const jwtdecode = require("jwt-decode");
+const jwtDecode = require("jwt-decode");
 const Op = Sequelize.Op;
 
-//****************** Get All Courses of All Tutors *******************
-const getAllCourses = async(req,res) => {
-/*
-    const tutorCourses = await TutorCourse.findAll({
-        where: search(req.query.search, "CourseId"),
-        include: [Course]
-    });
-
-    res.json({
-        success: true,
-        message: "List of all Courses",
-        records: tutorCourses.length,
-        data: tutorCourses,
-    });
-*/
-    res.json({
-        success: true,
-        message: "List of all Courses",
-    });
-
-};
-
-//****************** Get All Courses of Requested Tutor ONLY **************
-exports.getAllCourses = getAllCourses;
+//****************** Get All Courses of All Tutors OR Get All Courses of Requested Tutor ONLY **************
 
 const getTutorCourses = async(req, res) => {
 
-    res.json({
-        success: true,
-        message: "List of all Tutor Courses",
-        //records: courses.length,
-        //data: courses,
-    });
+    var tutorCourses = '';
+
+    if(req.query.tutor_id){
+        tutorCourses = await TutorCourse.findAll({
+            where : {
+                "UserId" : req.query.tutor_id
+            },
+            include: [Course,User]
+        });
+    }
+    else {
+        tutorCourses = await TutorCourse.findAll({ include: [Course,User] });
+    }
+    if(tutorCourses){
+        if(tutorCourses.length == 0){
+            return res.json({
+                success: false,
+                message: "No courses available yet!",
+                //records: courses.length,
+                //data: courses,
+            });
+        }
+        else {
+            return res.json({
+                success: true,
+                message: tutorCourses.length + " courses found",
+                records: tutorCourses.length,
+                data: tutorCourses,
+            });
+        }
+
+    }
+    else {
+        return res.json({
+            success: false,
+            message: "No courses available yet",
+            //records: courses.length,
+            //data: courses,
+        });
+    }
 };
 
 exports.getTutorCourses = getTutorCourses;
@@ -52,7 +61,7 @@ const postTutorCourse = async(req,res) => {
     var courseId = 0;
 
     var token = req.headers["authorization"];
-    var decoded = jwtdecode(token);
+    var decoded = jwtDecode(token);
     const userId = decoded.id;
 
     const existingCourse = await Course.findOne({
@@ -77,6 +86,7 @@ const postTutorCourse = async(req,res) => {
                     {"CourseId": courseId},
                 ]
             },
+            include: [Course,User]
         });
         if(existingTutorCourse){
             return res.json({

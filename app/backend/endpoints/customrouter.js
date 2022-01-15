@@ -27,7 +27,7 @@ router.patch("/course/:id",authadmin,courses.updateCourse);
 router.delete("/course/:id",authadmin,courses.courseDelete);
 
 //*******Tutor Courses Routes*******
-router.get("/all_courses", tutorCourses.getAllCourses);
+//******** Get All courses of all tutors or by passing "tutor_id" in parameter, get ONLY one tutor's courses *********
 router.get("/tutor_courses", tutorCourses.getTutorCourses);
 router.post("/tutor_course",authtutor, tutorCourses.postTutorCourse);
 router.patch("/tutor_course/:id",authtutor,tutorCourses.updateTutorCourse);

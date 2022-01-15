@@ -22,6 +22,9 @@ Message.belongsTo(User, { as: "recipient" });
 User.hasOne(UserProfile);
 UserProfile.belongsTo(User);
 
+TutorCourse.User = TutorCourse.belongsTo(User);
+TutorCourse.Course =  TutorCourse.belongsTo(Course);
+
 TutorCourse.hasMany(Review, {
     foreignKey: "courseId",
 });
