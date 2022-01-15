@@ -1,6 +1,23 @@
 const Review = require("../db/model/Review");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
+const addReview = async (req, res) => {
+    let review = Review.build({
+        studentId: req.body.studentId,
+        tutorId: req.body.tutorId,
+        courseId: req.body.courseId,
+        rating: req.body.rating,
+        ratingComments: req.body.ratingComments,
+    });
+    console.log("Created review:" + review);
+    res.json(new SuccessfulResponse("Review created", [review]));
+};
+
+const reportReview = async (req, res) => {
+    let review = await Review.findOne({ where: { id: req.params.id } });
+    // TODO
+};
+
 //************* Approve or Reject Review based on Id and reportReviewStatus" ***************
 
 const approvereview = async (req, res, next) => {
@@ -39,4 +56,4 @@ const approvereview = async (req, res, next) => {
     }
 };
 
-exports.approvereview = approvereview;
+module.exports = { addReview, approvereview };

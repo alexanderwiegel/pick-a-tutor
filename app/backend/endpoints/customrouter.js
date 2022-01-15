@@ -44,6 +44,7 @@ router.patch("/tutors/:email", authgeneral, users.updateuser);
 router.delete("/tutors/:email", authgeneral, users.deleteuser);
 
 //*******Review Routes*******
+router.post("/reviews", authstudent, reviews.addReview);
 router.patch("/reviews/:id", authadmin, reviews.approvereview);
 
 module.exports = router;

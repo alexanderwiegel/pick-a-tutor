@@ -40,12 +40,15 @@ Review.init(
         },
         reportReview: {
             type: DataTypes.TINYINT,
+            defaultValue: 0,
         },
         reportReviewComments: {
             type: DataTypes.TEXT,
+            defaultValue: "",
         },
         reportReviewStatus: {
             type: DataTypes.TINYINT,
+            defaultValue: 0,
         },
     },
     {
