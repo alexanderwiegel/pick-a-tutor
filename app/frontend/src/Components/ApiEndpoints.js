@@ -14,13 +14,15 @@ async function getTutorData() {
 }
 
 async function register(data) {
+    const gender_val = parseInt(data.gender)
     return await axiosInstance.post(`/users`,{
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
         password: data.password,
         dateOfBirth: data.dateOfBirth,
-        gender: data.gender,
+        gender: gender_val,
+        role: data.role
     })
 }
 
@@ -32,7 +34,8 @@ async function login(data) {
 }
 
 async function getListofTutors(subject) {
-    return await axiosInstance.get(`tutors?search=${subject}`)
+    console.log('Subject sent to api ', subject)
+    return await axiosInstance.get(`courses?search=${subject}`)
 }
 
 

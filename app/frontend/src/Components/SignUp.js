@@ -71,9 +71,8 @@ const SignUp = () => {
                             initialValues={initialValues}
                             validationSchema={schema}
                             onSubmit={async (values, actions) => {
-                                const data = await apiEndpoints.register(
-                                    values
-                                );
+                               const data = await apiEndpoints.register(values);
+                                console.log("in signup",data.data)
                                 navigate("/login");
                             }}
                         >
@@ -278,13 +277,13 @@ const SignUp = () => {
                                                     <option value="none">
                                                         Please select here
                                                     </option>
-                                                    <option value="male">
+                                                    <option value="0">
                                                         Male
                                                     </option>
-                                                    <option value="female">
+                                                    <option value="1">
                                                         Female
                                                     </option>
-                                                    <option value="diverse">
+                                                    <option value="2">
                                                         Diverse
                                                     </option>
                                                 </Form.Select>

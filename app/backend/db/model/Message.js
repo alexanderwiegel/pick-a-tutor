@@ -1,13 +1,12 @@
-const Course = require("./Course");
-const User = require("./User");
-const db = require("../db");
 const { DataTypes, Model } = require("sequelize");
+const db = require("../db");
+const User = require("./User");
 
-class TutorCourse extends Model {}
+class Message extends Model {}
 
-TutorCourse.init(
+Message.init(
     {
-        UserId: {
+        senderId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -15,28 +14,26 @@ TutorCourse.init(
                 key: "id",
             },
         },
-        CourseId: {
+        recipientId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: Course,
+                model: User,
                 key: "id",
             },
         },
-        coursePricePerHour: {
-            type: DataTypes.DECIMAL(4, 2),
-        },
-        isFull: {
-            type: DataTypes.BOOLEAN,
+        message: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
     },
     {
         sequelize: db,
-        modelName: "TutorCourse",
-        tableName: "tutor_courses",
+        modelName: "Message",
+        tableName: "messages",
         timestamps: true,
         paranoid: true,
     }
 );
 
-module.exports = TutorCourse;
+module.exports = Message;

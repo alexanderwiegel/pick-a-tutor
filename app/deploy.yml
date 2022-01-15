@@ -9,22 +9,50 @@
         dest: /home/azureuser/app/
         delete: yes
 
+    - name: Stop app services
+      shell:
+        docker-compose down
+      args:
+        chdir:
+          /home/azureuser/app
+
+    - name: Stop database services
+      shell:
+        docker-compose down
+      args:
+        chdir:
+          /home/azureuser/app/database
+
     - name: Set remote backend
       lineinfile:
         path: /home/azureuser/app/frontend/src/Components/ApiEndpoints.js
         regexp: '^    baseURL: "http://127.0.0.1:3001/api"$'
         line: '    baseURL: "http://20.113.25.17:3001/api"'
 
+    - name: Build app services
+      shell:
+        docker-compose build
+      args:
+        chdir:
+          /home/azureuser/app
+
+    - name: Build database services
+      shell:
+        docker-compose build
+      args:
+        chdir:
+          /home/azureuser/app/database
+
     - name: Start database services
       shell:
-        docker-compose up --build -d
+        docker-compose up --detach test_db
       args:
         chdir:
           /home/azureuser/app/database
 
     - name: Start app services
       shell:
-        docker-compose up --build -d
+        docker-compose up --detach
       args:
         chdir:
           /home/azureuser/app

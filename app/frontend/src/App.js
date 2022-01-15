@@ -7,6 +7,7 @@ import SignUp from './Components/SignUp';
 import Dashboard from './Components/Dashboard';
 import Courses from './Components/Courses';
 import TutorProfile from './Components/TutorProfile'
+import Footer from './Components/Footer';
 import { BrowserRouter as Router, Routes, Route, Navigate, Switch, useLocation } from 'react-router-dom';
 import CourseDetails from './Components/CourseDetails';
 
