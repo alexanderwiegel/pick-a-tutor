@@ -64,3 +64,4 @@ Review.belongsTo(User, { as: "tutor" });
 StudentEnrolledCourses.User = StudentEnrolledCourses.belongsTo(User,{foreignKey: "userId"});
 StudentEnrolledCourses.TutorCourse = StudentEnrolledCourses.belongsTo(TutorCourse,{foreignKey: "tutorCourseId"});
 StudentEnrolledCourses.Course = StudentEnrolledCourses.belongsTo(Course,{ through: TutorCourse, foreignKey: 'tutorCourseId' });
+//StudentEnrolledCourses.Tutor = StudentEnrolledCourses.belongsTo(User,{ through: TutorCourse, foreignKey: 'tutorCourseId' });

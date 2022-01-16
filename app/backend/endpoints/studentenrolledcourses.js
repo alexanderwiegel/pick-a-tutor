@@ -36,6 +36,7 @@ const getAllStudentCourses = async (req, res) => {
             where : {
                 "UserId" : userId
             },
+            //include: [User,TutorCourse, Course, TutorCourse.User]
             include: [User,TutorCourse, Course]
             //include: [User]
         });
