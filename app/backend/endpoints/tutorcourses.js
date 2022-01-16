@@ -6,6 +6,7 @@ const search = require("../utils/search");
 const { Sequelize } = require("sequelize");
 const jwtDecode = require("jwt-decode");
 const Op = Sequelize.Op;
+const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
 //****************** Get All Courses of All Tutors OR Get All Courses of Requested Tutor ONLY **************
 
@@ -122,7 +123,7 @@ const postTutorCourse = async(req,res) => {
         UserId: userId,
         CourseId: courseId,
         coursePricePerHour: req.body.coursePricePerHour,
-        isFull: 0
+        isFull: req.body.isFull
     });
 /*
     res.json({
@@ -147,24 +148,91 @@ exports.postTutorCourse = postTutorCourse;
 
 //************* Update Existing Tutor's Course ***************
 const updateTutorCourse = async (req, res) => {
-    res.json({
-        success: true,
-        message: "Tutor's Course successfully updated",
-        //message: "Course '" + course.name + "' successfully updated",
-        //records: course.length,
+
+    var token = req.headers["authorization"];
+    var decoded = jwtDecode(token);
+    const userId = decoded.id;
+
+    const existingTutorCourse = await TutorCourse.findOne({
+        where: {
+            [Op.and] : [
+                {"UserId": userId},
+                {"CourseId": req.params.id},
+            ]
+        },
+        include: [Course,User]
     });
+
+    if(existingTutorCourse){
+        try{
+            await existingTutorCourse.update({
+                coursePricePerHour: req.body.coursePricePerHour,
+                isFull : req.body.isFull
+            });
+/*
+            return res.json({
+                success: true,
+                message: "Tutor's Course " + existingTutorCourse.name + " successfully updated Mate",
+                //message: "Course '" + course.name + "' successfully updated",
+                //records: course.length,
+            });
+*/
+            console.log("Tutor Course Updated: " + existingTutorCourse);
+            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully updated", existingTutorCourse));
+        }
+        catch (e){
+            return res.json(new FailedResponse(e.message));
+        }
+    }
+    else {
+        return res.json({
+            success: false,
+            message: "Tutor's Course not found or already deleted",
+            //message: "Course '" + course.name + "' successfully updated",
+            //records: course.length,
+        });
+    }
+
+
 };
 exports.updateTutorCourse = updateTutorCourse;
 
 //************* Delete Existing Tutor's Course ***************
 
 const deleteTutorCourse = async (req, res) => {
-    res.json({
-        success: true,
-        message: "Tutor's Course successfully deleted",
-        //message: "Course '" + course.name + "' successfully deleted",
-        //records: course.length,
+
+    var token = req.headers["authorization"];
+    var decoded = jwtDecode(token);
+    const userId = decoded.id;
+
+    const existingTutorCourse = await TutorCourse.findOne({
+        where: {
+            [Op.and] : [
+                {"UserId": userId},
+                {"CourseId": req.params.id},
+            ]
+        },
+        include: [Course,User]
     });
+
+    if(existingTutorCourse){
+        try{
+            await existingTutorCourse.destroy();
+            console.log("Tutor Course Successfully Updated: " + existingTutorCourse);
+            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully deleted", existingTutorCourse));
+        }
+        catch (e){
+            return res.json(new FailedResponse(e.message));
+        }
+    }
+    else {
+        return res.json({
+            success: false,
+            message: "Tutor's Course not found or already deleted",
+            //message: "Course '" + course.name + "' successfully updated",
+            //records: course.length,
+        });
+    }
 }
 
 exports.deleteTutorCourse = deleteTutorCourse;
