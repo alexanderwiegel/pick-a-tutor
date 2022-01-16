@@ -58,6 +58,27 @@ const createuser = async (req, res, next) => {
         });
         return;
     }
+    let admin= false;
+    let student= false;
+    let tutor =false;
+    switch (req.body.role){
+        case "Admin": {
+            admin=true;
+            break;
+        }
+
+        case "Tutor":
+            {
+                tutor=true;
+                break;
+
+            }
+        case "Student" :{
+            student=true;
+            break;
+        }   
+
+    }
 
     let data = [
         req.body.firstName ?? "Undefined",

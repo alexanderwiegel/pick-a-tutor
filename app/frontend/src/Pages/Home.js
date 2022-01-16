@@ -1,20 +1,89 @@
 import React from 'react';
-import Header from '../Components/Header';
-import Feature from '../Components/Feature';
-import About from '../Components/About';
-import aboutimg from '../images/Frame 19.png';
-import Search from '../Components/Search';
-import Navbar from '../Components/Navbar';
+import { useState,useEffect } from 'react';
+import SearchComponent from '../Components/SearchComponent';
+import CardComponent from '../Components/CardComponentSubject';
+import apiEndPoints from '../Components/ApiEndpoints';
+import { Container } from 'react-bootstrap';
 
 const Home = () => {
-  return (
-    <div className='App'>
-      <Header />
-      <Feature />
-      <About image={aboutimg} title='Come with all your study needs.' button='Get the App' />
-      <Search />
-    </div>
-  );
+    const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [category, setCategory] = useState("course");
+  
+    const getUsers = async () => {
+      const data = await apiEndPoints.getTutorData()
+      setUsers(preVal => data.data)
+      console.log(users.data)
+    };
+  
+    const _setCategory = (value) => {
+      setCategory(preVal => value)
+    }
+  
+    useEffect(() => {
+        getUsers()
+    }, []);
+  
+      
+    return (
+        
+        <>
+        {console.log("first name = ",users.firstName,"second name = ",users.secondName," courses = ",users.Courses)}
+        <SearchComponent getUsers={getUsers} category={ category } setCategory = { _setCategory }/>
+        <Container><h1>My Courses</h1><hr/></Container>
+        <Container style={{overflowX:'scroll'}}>
+            
+            
+            <Container style={{display:'flex'}}>
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        </Container>
+        </Container>
+        <br/>
+        <Container><h1>Recommended Courses</h1><hr/></Container>
+        <Container style={{overflowX:'scroll'}}>
+            
+            
+            <Container style={{display:'flex'}}>
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        </Container>
+        </Container>
+        
+        <br/>
+        <Container><h1>Recently added Courses</h1><hr/></Container>
+        <Container style={{overflowX:'scroll'}}>
+            
+            
+            <Container style={{display:'flex'}}>
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        <CardComponent name={`${users.firstName} ${users.secondName}`} courses={users.Courses} />
+        </Container>
+        </Container>
+        
+        </>
+    );
 };
 
 export default Home;
