@@ -32,23 +32,9 @@ const createTutor = async (req, res) => {
     });
 
     if (existing_user)
-        return res.json(new FailedResponse("Tutor already exists"));
+        return res.json(new FailedResponse("User with this email already exists"));
 
-    let data = [
-        req.body.firstName ?? "Undefined",
-        req.body.lastName ?? "Undefined",
-        req.body.email ?? "Undefined",
-        req.body.password ?? "Undefined",
-        req.body.dateOfBirth ?? "Undefined",
-        req.body.gender ?? "Undefined",
-        req.body.isStudent ?? "Undefined",
-        req.body.isTutor ?? "Undefined",
-        req.body.isAdmin ?? "Undefined",
-    ];
-
-    if (data.indexOf("Undefined") !== -1)
-        res.json(new FailedResponse("Some or all field values are missing"));
-    else {
+    try {
         let user = User.build({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -62,13 +48,13 @@ const createTutor = async (req, res) => {
             status: 0,
         });
 
-        await user.save().catch((e) => {
-            console.log(e);
-        });
+        await user.save();
 
         res.json(
             new SuccessfulResponse("New tutor successfully created", [user])
         );
+    } catch (e) {
+        res.json(new FailedResponse(e.message));
     }
 };
 
