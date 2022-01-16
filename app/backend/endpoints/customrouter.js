@@ -90,7 +90,7 @@ router.delete(
     userprofilefiles.deleteuserprofilefile
 );
 
-//*******StudentEnrollerCourses Routes*******
+//*******StudentEnrolledCourses Routes*******
 router.get(
     "/enrolledstudentcourses",
     authgeneral,
