@@ -5,6 +5,7 @@ const User = require("./model/User");
 const UserProfile = require("./model/UserProfile");
 const Review = require("./model/Review");
 const UserProfileFiles = require("./model/UserProfileFiles");
+const StudentEnrolledCourses = require("./model/StudentEnrolledCourses");
 
 User.belongsToMany(Course, { through: TutorCourse });
 Course.belongsToMany(User, { through: TutorCourse });
@@ -57,10 +58,9 @@ Review.belongsTo(User, { as: "tutor" });
 
 // UserProfileFiles.belongsTo(User, { as: "profile_file" });
 
-const StudentEnrolledCourses = require("./model/StudentEnrolledCourses");
 
-// TutorCourse.hasMany(StudentEnrolledCourses, { foreignKey: "tutorCourseId" });
-
-// StudentEnrolledCourses.hasOne(TutorCourse, { foreignKey: "CourseId" });
-
-// Added by Rakesh Ends
+// Added by Abdullah Butt
+//******** StudentEnrolledCourses Relations *************
+StudentEnrolledCourses.User = StudentEnrolledCourses.belongsTo(User,{foreignKey: "userId"});
+StudentEnrolledCourses.TutorCourse = StudentEnrolledCourses.belongsTo(TutorCourse,{foreignKey: "tutorCourseId"});
+StudentEnrolledCourses.Course = StudentEnrolledCourses.belongsTo(Course,{ through: TutorCourse, foreignKey: 'tutorCourseId' });
