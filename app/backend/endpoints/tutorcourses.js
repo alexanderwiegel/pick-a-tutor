@@ -1,5 +1,6 @@
 const User = require("../db/model/User");
 const Course = require("../db/model/Course");
+const Review = require("../db/model/Review");
 const TutorCourse = require("../db/model/TutorCourse");
 const search = require("../utils/search");
 const { Sequelize } = require("sequelize");
@@ -17,11 +18,11 @@ const getTutorCourses = async(req, res) => {
             where : {
                 "UserId" : req.query.tutor_id
             },
-            include: [Course,User]
+            include: [Course,User,Review]
         });
     }
     else {
-        tutorCourses = await TutorCourse.findAll({ include: [Course,User] });
+        tutorCourses = await TutorCourse.findAll({ include: [Course,User, Review] });
     }
     if(tutorCourses){
         if(tutorCourses.length == 0){

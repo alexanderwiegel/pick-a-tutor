@@ -32,6 +32,11 @@ TutorCourse.hasMany(Review, {
 Review.belongsTo(TutorCourse, {
     foreignKey: "courseId",
 });
+
+TutorCourse.Review = TutorCourse.hasMany(Review, {
+    foreignKey: "courseId",
+});
+
 User.hasMany(Review, {
     as: "posted_reviews",
     foreignKey: "studentId",
