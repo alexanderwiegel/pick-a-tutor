@@ -74,11 +74,11 @@ router.get(
     authgeneral,
     userprofilefiles.getallbyuserfilestatus
 );
-router.post(
-    "/createprofilefile",
-    authgeneral,
-    userprofilefiles.createuserprofilefile
-);
+// router.post(
+//     "/createprofilefile",
+//     authgeneral,
+//     userprofilefiles.createuserprofilefile
+// );
 router.patch(
     "/updateprofilefile/:fileId",
     authgeneral,
@@ -136,11 +136,11 @@ router.get(
     authgeneral,
     CourseAdditionalInfo.getallbytutor
 );
-router.post(
-    "/createcoursefile",
-    authgeneral,
-    CourseAdditionalInfo.createusercoursefile
-);
+// router.post(
+//     "/createcoursefile",
+//     authgeneral,
+//     CourseAdditionalInfo.createusercoursefile
+// );
 router.patch(
     "/updatecoursefile/:fileId",
     authgeneral,
@@ -150,4 +150,68 @@ router.delete(
     "/deletecoursefile/:fileId",
     authgeneral,
     CourseAdditionalInfo.deletecoursefile
+);
+
+// ************************Upload user Profile files ********************
+
+const multer = require("multer");
+const jwtdecode = require("jwt-decode");
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, process.env.PROFILE_STORAGE);
+    },
+    filename: function (req, file, cb) {
+        var token = req.headers["authorization"];
+        var decoded = jwtdecode(token);
+        const uniqueSuffix =
+            decoded.id +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.round(Math.random() * 1e9);
+        cb(null, "User-" + uniqueSuffix);
+    },
+});
+
+let profileupload = multer({ storage: storage });
+
+// router.post(
+//     "/uploadmyfile",
+//     profileupload.single("file"),
+//     userprofilefiles.uploadmyfile
+// );
+
+router.post(
+    "/createprofilefile",
+    profileupload.single("file"),
+    authgeneral,
+    userprofilefiles.createuserprofilefile
+);
+
+// ************************Upload Course files ********************
+
+storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, process.env.COURSE_STORAGE);
+    },
+    filename: function (req, file, cb) {
+        var token = req.headers["authorization"];
+        var decoded = jwtdecode(token);
+        const uniqueSuffix =
+            decoded.id +
+            "-" +
+            Date.now() +
+            "-" +
+            Math.round(Math.random() * 1e9);
+        cb(null, "Course-" + uniqueSuffix);
+    },
+});
+
+profileupload = multer({ storage: storage });
+
+router.post(
+    "/createcoursefile",
+    profileupload.single("file"),
+    authgeneral,
+    CourseAdditionalInfo.createusercoursefile
 );
