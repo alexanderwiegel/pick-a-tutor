@@ -8,7 +8,7 @@ function Feature() {
   return (
     <div id='features'>
       <div className='a-container'>
-        <FeatureBox image={featureimage} title='Development Course' subtitle='Thousands of cources are offered' />
+        <FeatureBox image={featureimage} title='Development Course' subtitle='Thousands of courses are offered' />
         <FeatureBox image={featureimage1} title='Money saving' subtitle='The best of tutors' />
       </div>
     </div>
