@@ -23,7 +23,7 @@ exports.getallbyTutorCourse = getallbyTutorCourse;
 //************* Get specific course file based on file id(id) " ***************
 
 const getallbyfileid = async (req, res, next) => {
-    const courseadditionalinfo = await CourseAdditionalInfo.findOne({
+    const courseadditionalinfo = await CourseAdditionalInfo.findAll({
         where: { id: req.params.fileId },
     });
 
@@ -88,7 +88,7 @@ const createusercoursefile = async (req, res, next) => {
         tutorId: tutorId,
         courseId: req.body.courseId,
         fileTitle: req.body.fileTitle,
-        filePath: req.body.filePath,
+        filePath: req.file.path,
         approvalStatus: "PendingApproval",
     });
 
@@ -103,6 +103,31 @@ const createusercoursefile = async (req, res, next) => {
         data: coursefile,
     });
 };
+
+// const createusercoursefile = async (req, res, next) => {
+//     var token = req.headers["authorization"];
+//     var decoded = jwtdecode(token);
+//     var tutorId = decoded.id;
+
+//     let coursefile = CourseAdditionalInfo.build({
+//         tutorId: tutorId,
+//         courseId: req.body.courseId,
+//         fileTitle: req.body.fileTitle,
+//         filePath: req.body.filePath,
+//         approvalStatus: "PendingApproval",
+//     });
+
+//     await coursefile.save().catch((e) => {
+//         console.log(e);
+//     });
+
+//     res.json({
+//         success: true,
+//         message: "Course File Successfully Saved",
+//         records: coursefile.length,
+//         data: coursefile,
+//     });
+// };
 
 exports.createusercoursefile = createusercoursefile;
 

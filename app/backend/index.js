@@ -1,5 +1,6 @@
 const app = require("express")();
 const endpoints = require("./endpoints/base");
+const dotenv = require("dotenv").config();
 
 app.use(endpoints);
 

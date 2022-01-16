@@ -1,6 +1,28 @@
 const UserProfileFiles = require("../db/model/UserProfileFiles");
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
+const jwtdecode = require("jwt-decode");
+
+// // *************************Upload File*****************************
+
+// const uploadmyfile = async (req, res, next) => {
+//     // const title = req.file.filename;
+//     // const file = req.file;
+
+//     console.log(req.body.fileTitle);
+//     // console.log(title);
+//     console.log(req.file.path);
+//     // console.log(file);
+
+//     res.json({
+//         success: true,
+//         message: "Uploaded Files",
+//         // records: userprofilefiles.length,
+//         // data: userprofilefiles,
+//     });
+// };
+
+// exports.uploadmyfile = uploadmyfile;
 
 //************* Get List of All profiles based on userId" ***************
 
@@ -22,7 +44,7 @@ exports.getallbyuserid = getallbyuserid;
 //************* Get specific profile file based on file id(id) " ***************
 
 const getallbyfileid = async (req, res, next) => {
-    const userprofilefiles = await UserProfileFiles.findOne({
+    const userprofilefiles = await UserProfileFiles.findAll({
         where: { id: req.params.fileId },
     });
 
@@ -76,10 +98,13 @@ exports.getallbyuserfilestatus = getallbyuserfilestatus;
 //************* Create User profile file ***************
 
 const createuserprofilefile = async (req, res, next) => {
+    var token = req.headers["authorization"];
+    var decoded = jwtdecode(token);
+
     let profilefile = UserProfileFiles.build({
-        userId: req.body.userId,
+        userId: decoded.id,
         fileTitle: req.body.fileTitle,
-        filePath: req.body.filePath,
+        filePath: req.file.path,
         approvalStatus: "PendingApproval",
     });
 
@@ -94,6 +119,26 @@ const createuserprofilefile = async (req, res, next) => {
         data: profilefile,
     });
 };
+
+// const createuserprofilefile = async (req, res, next) => {
+//     let profilefile = UserProfileFiles.build({
+//         userId: req.body.userId,
+//         fileTitle: req.body.fileTitle,
+//         filePath: req.body.filePath,
+//         approvalStatus: "PendingApproval",
+//     });
+
+//     await profilefile.save().catch((e) => {
+//         console.log(e);
+//     });
+
+//     res.json({
+//         success: true,
+//         message: "Profile File Successfully Saved",
+//         records: profilefile.length,
+//         data: profilefile,
+//     });
+// };
 
 exports.createuserprofilefile = createuserprofilefile;
 
