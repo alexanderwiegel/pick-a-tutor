@@ -1,6 +1,7 @@
 const User = require("../db/model/User");
 const Course = require("../db/model/Course");
 const TutorCourse = require("../db/model/TutorCourse");
+const Review = require("../db/model/Review");
 const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
 const { Sequelize } = require("sequelize");
 const db = require("../db/db");
@@ -37,7 +38,7 @@ const getAllStudentCourses = async (req, res) => {
                 "UserId" : userId
             },
             //include: [User,TutorCourse, Course, TutorCourse.User]
-            include: [User,TutorCourse, Course]
+            include: [User,TutorCourse, Course,Review]
             //include: [User]
         });
         //console.log("Student enrolled courses details: " + studentAllCourses);
@@ -47,8 +48,6 @@ const getAllStudentCourses = async (req, res) => {
     catch (e){
         return res.json(new FailedResponse(e.message));
     }
-
-
 
 };
 
