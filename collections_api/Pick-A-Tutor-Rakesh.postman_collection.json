@@ -347,7 +347,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/101",
+							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -356,7 +356,7 @@
 							"path": [
 								"api",
 								"getallprofilefilesbyuserid",
-								"101"
+								"1"
 							]
 						}
 					},
