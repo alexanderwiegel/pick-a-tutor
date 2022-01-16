@@ -1,9 +1,9 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-class CourseDetailsStudentView extends React.Component {
+class CourseDetailsTutorView extends React.Component {
     render() {
         const course = {
             id: 1,
@@ -14,43 +14,21 @@ class CourseDetailsStudentView extends React.Component {
             rate: 20,
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam condimentum, diam nec accumsan egestas, odio nisl tempus dolor, vitae aliquam dui nunc eget ipsum. Aenean vitae est maximus, aliquam ligula non, placerat lacus. Nunc varius eleifend diam nec luctus. Fusce quis condimentum diam. Maecenas viverra condimentum ipsum et feugiat. Donec eget tortor vitae nisi vulputate pellentesque. Pellentesque vel nisi accumsan, faucibus lacus eu, ultrices eros. Integer mattis odio eu egestas fermentum. Donec tempor, metus ut gravida pulvinar, erat nisi fermentum mauris, at pharetra enim arcu eu nunc. Nullam posuere eleifend leo id lacinia. Suspendisse accumsan, arcu in sodales congue, ex dolor gravida sapien, quis posuere turpis mi sed lorem. Nam a nibh sed augue bibendum consectetur. Aliquam feugiat placerat ex ut auctor. ",
-            files: [
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-            ],
         };
         const tutor = { id: 1, name: "Tutor Name", link: "/tutors/3434" };
 
         return (
             <Container>
                 <Row className="mb-2">
-                    <div className="col-md-5">
+                    <Col md={5}>
                         <img
                             src={course.img}
                             className="img-fluid img-thumbnail"
                             alt="Responsive image"
                             style={{ height: "500px", width: "650px" }}
                         />
-                    </div>
-                    <div className="col-md-7">
+                    </Col>
+                    <Col md={7} className="flexColumn">
                         <h3>{course.name}</h3>
                         By{" "}
                         <i>
@@ -63,16 +41,23 @@ class CourseDetailsStudentView extends React.Component {
                             className="bi bi-star-fill"
                             style={{ color: "#ffff00" }}
                         ></i>
-                    </div>
-                </Row>
-                <Row className="mb-2">
-                    <Col>
-                        <h3>Description</h3>
-                        <p>{course.description}</p>
+                        <br/>
+                        <Button
+                            variant="outline-primary"
+                            style={{ margin: "5px" }}
+                        >
+                            Edit Course
+                        </Button>{" "}
                     </Col>
                 </Row>
-                <Row className="mb-2">
-                    <Col>
+                <div className="row mb-2">
+                    <div className="col">
+                        <h3>Description</h3>
+                        <p>{course.description}</p>
+                    </div>
+                </div>
+                <div className="row mb-2">
+                    <div className="col">
                         <h3>Files</h3>
                         <ul className="list-group list-group-flush">
                             <a
@@ -111,18 +96,14 @@ class CourseDetailsStudentView extends React.Component {
                                 File5.pdf
                             </a>
                         </ul>
-                    </Col>
-                </Row>
-                <Row className="mb-2">
-                    <Col>
+                    </div>
+                </div>
+                <div className="row mb-2">
+                    <div className="col">
                         <h3>Reviews</h3>
-                    </Col>
-                    <Col>
-                        <button className="btn btn-outline-primary">
-                            Write review
-                        </button>
-                    </Col>
-                </Row>
+                    </div>
+                    
+                </div>
 
                 <div className="card mb-2">
                     <div className="card-body">
@@ -221,4 +202,4 @@ class CourseDetailsStudentView extends React.Component {
     }
 }
 
-export default CourseDetailsStudentView;
+export default CourseDetailsTutorView;
