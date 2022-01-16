@@ -11,6 +11,9 @@ const Op = Sequelize.Op;
 const getAllStudentCourses = async (req, res) => {
     // console.log("********$Decoded.id=" + decoded.id);
 
+    var token = req.headers["authorization"];
+    var decoded = jwtdecode(token);
+
     const [studentcourses, meta] = await db.query(
         "SELECT d.id as userID,c.id as courseId, b.id as tutorId, d.firstName,d.lastName,c.name as courseName,c.description as courseDescription, b.coursePricePerHour,a.enrolledStatus, b.createdAt as courseCreatedAt FROM student_enrolled_courses a, tutor_courses b,courses c, users d  where a.userId=$userId and a.tutorCourseId=b.CourseId and b.CourseId=c.id and a.userId=d.id and a.deletedAt is null ",
         {
