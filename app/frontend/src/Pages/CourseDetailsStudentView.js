@@ -6,8 +6,6 @@ import {
     ListGroup,
     Button,
     Card,
-    Collapse,
-    Form,
     Modal,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -79,15 +77,11 @@ class CourseDetailsStudentView extends React.Component {
 
         this.state = {
             course: course,
-            isReportCollapseOpen: false,
-            isReportFormModalOpen: true,
+            isReportFormModalOpen: false,
             isReviewFormModalOpen: false,
         };
     }
 
-    setReportCollapseOpen(isOpen, reviewID) {
-        this.setState({ isReportCollapseOpen: isOpen });
-    }
 
     render() {
         const tutor = { id: 1, name: "Tutor Name" };
@@ -136,6 +130,8 @@ class CourseDetailsStudentView extends React.Component {
                             className="bi bi-star-fill"
                             style={{ color: "#ffff00" }}
                         ></i>
+                        <br />
+                        <Button variant="outline-primary" href={"/chat/" + tutor.id}>Contact tutor</Button>
                     </Col>
                 </Row>
 
@@ -252,19 +248,7 @@ class CourseDetailsStudentView extends React.Component {
                                             <ReviewReportForm />
                                         </Modal.Body>
                                     </Modal>
-                                    <Collapse
-                                        in={this.state.isReportCollapseOpen}
-                                    >
-                                        <div
-                                            id={
-                                                "report-input-collapse" +
-                                                review.id
-                                            }
-                                            className="p-2"
-                                        >
-                                            <ReviewReportForm />
-                                        </div>
-                                    </Collapse>
+                                    
                                 </Card.Body>
                             </Card>
                         ))}
