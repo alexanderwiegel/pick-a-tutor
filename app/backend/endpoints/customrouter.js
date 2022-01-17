@@ -17,6 +17,7 @@ const studentenrolledcourses = require("./studentenrolledcourses");
 const CourseAdditionalInfo = require("./courseadditionalinfo");
 const Review = require("./review");
 const TutorOfMonth = require("./tutorofmonth");
+const Message = require("./message");
 
 //*******Users Routes*******
 router.get("/users", users.getallusers);
@@ -113,6 +114,11 @@ router.delete(
     studentenrolledcourses.deleteStudentCourse
 );
 
+//*******Message Routes *******
+router.post("/createmessage", Message.createmessage);
+router.get("/getallconversations", Message.getallconversations);
+router.patch("/updateconversationstatus", Message.updateconversationstatus);
+
 //*******Review Routes*******
 router.get("/reviews", reviews.getReviews);
 router.post("/reviews", authstudent, reviews.addReview);
@@ -160,6 +166,7 @@ router.delete(
 
 const multer = require("multer");
 const jwtdecode = require("jwt-decode");
+const checkauth_general = require("../auth/checkauth_general");
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, process.env.PROFILE_STORAGE);
