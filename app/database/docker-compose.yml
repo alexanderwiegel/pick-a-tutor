@@ -13,7 +13,7 @@ services:
     expose:
       - '3307'
     volumes:
-      - main-db:/var/lib/mysql-main
+      - main-db:/var/lib/mysql
   test_db:
     image: mysql:8.0
     stop_signal: SIGINT
@@ -28,7 +28,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - test-db:/var/lib/mysql-test
+      - test-db:/var/lib/mysql
 volumes:
   main-db:
   test-db:
