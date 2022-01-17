@@ -178,19 +178,14 @@ const updateTutorCourse = async (req, res) => {
             });
 */
             console.log("Tutor Course Updated: " + existingTutorCourse);
-            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully updated", existingTutorCourse));
+            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully updated", [existingTutorCourse]));
         }
         catch (e){
             return res.json(new FailedResponse(e.message));
         }
     }
     else {
-        return res.json({
-            success: false,
-            message: "Tutor's Course not found or already deleted",
-            //message: "Course '" + course.name + "' successfully updated",
-            //records: course.length,
-        });
+        return res.json(new FailedResponse("Tutor's Course not found or already deleted!"));
     }
 
 
@@ -219,7 +214,7 @@ const deleteTutorCourse = async (req, res) => {
         try{
             await existingTutorCourse.destroy();
             console.log("Tutor Course Successfully Updated: " + existingTutorCourse);
-            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully deleted", existingTutorCourse));
+            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully deleted", [existingTutorCourse]));
         }
         catch (e){
             return res.json(new FailedResponse(e.message));

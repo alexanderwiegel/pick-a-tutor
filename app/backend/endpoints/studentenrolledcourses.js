@@ -30,7 +30,6 @@ const getAllStudentCourses = async (req, res) => {
         data: studentcourses,
     });
 */
-//******************** Abdullah Butt Work - New **********************
     const userId = decoded.id;
     try{
         const studentAllCourses = await StudentEnrolledCourses.findAll({
