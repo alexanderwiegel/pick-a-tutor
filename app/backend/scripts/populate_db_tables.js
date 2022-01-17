@@ -6,14 +6,14 @@ const UserProfile = require("../db/model/UserProfile");
 
 const db = require("../db/db");
 
-// require("../db/associations");
+require("../db/associations");
 
 async function run() {
     // Recreate tables
     await db.sync({ force: true });
 
     /* Create rows */
-//****************** bcrpted password value is "password" ***********************
+    //****************** bcrpted password value is "password" ***********************
     await User.build({
         firstName: "John",
         lastName: "Doe",
