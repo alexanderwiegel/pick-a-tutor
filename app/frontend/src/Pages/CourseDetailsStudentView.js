@@ -1,10 +1,23 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+    Container,
+    Row,
+    Col,
+    ListGroup,
+    Button,
+    Card,
+    Collapse,
+    Form,
+    Modal,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import ReviewReportForm from "../Components/ReviewReportForm";
+import NewReviewForm from "../Components/NewReviewForm";
 
 class CourseDetailsStudentView extends React.Component {
-    render() {
+    constructor(props) {
+        super(props);
         const course = {
             id: 1,
             name: "Course Name",
@@ -36,186 +49,227 @@ class CourseDetailsStudentView extends React.Component {
                     path: "file.txt",
                 },
             ],
+            reviews: [
+                {
+                    id: 1,
+                    writerID: 1,
+                    writerName: "Reviewer Name",
+                    text: "Very good course!",
+                    date: "01.01.2022",
+                    rate: 4.7,
+                },
+                {
+                    id: 2,
+                    writerID: 1,
+                    writerName: "Reviewer Name",
+                    text: "Very good course!",
+                    date: "01.01.2022",
+                    rate: 4.7,
+                },
+                {
+                    id: 3,
+                    writerID: 1,
+                    writerName: "Reviewer Name",
+                    text: "Very good course!",
+                    date: "01.01.2022",
+                    rate: 4.7,
+                },
+            ],
         };
-        const tutor = { id: 1, name: "Tutor Name", link: "/tutors/3434" };
+
+        this.state = {
+            course: course,
+            isReportCollapseOpen: false,
+            isReportFormModalOpen: true,
+            isReviewFormModalOpen: false,
+        };
+    }
+
+    setReportCollapseOpen(isOpen, reviewID) {
+        this.setState({ isReportCollapseOpen: isOpen });
+    }
+
+    render() {
+        const tutor = { id: 1, name: "Tutor Name" };
+
+        const handleReviewModalClose = () => {
+            console.log("Closed Clicked");
+            this.setState({ isReviewFormModalOpen: false });
+        };
+
+        const handleReviewModalShow = () => {
+            this.setState({ isReviewFormModalOpen: true });
+        };
+
+        const handleReportModalClose = () => {
+            console.log("Closed Clicked");
+            this.setState({ isReportFormModalOpen: false });
+        };
+
+        const handleReportModalShow = () => {
+            this.setState({ isReportFormModalOpen: true });
+        };
 
         return (
             <Container>
-                <Row className="mb-2">
-                    <div className="col-md-5">
+                <Row className="mb-3">
+                    {/* To Do: make the image more responsive */}
+                    <Col md={5}>
                         <img
-                            src={course.img}
+                            src={this.state.course.img}
                             className="img-fluid img-thumbnail"
                             alt="Responsive image"
                             style={{ height: "500px", width: "650px" }}
                         />
-                    </div>
-                    <div className="col-md-7">
-                        <h3>{course.name}</h3>
+                    </Col>
+                    {/* To Do: make the text size appropriate related to the image */}
+                    <Col md={7}>
+                        <h3>{this.state.course.name}</h3>
                         By{" "}
                         <i>
-                            <a href={tutor.link}>{tutor.name}</a>
+                            <a href={"/tutor/" + tutor.id}>{tutor.name}</a>
                         </i>
                         <br />
-                        {course.rate} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;{" "}
-                        {course.rating}{" "}
+                        {this.state.course.rate} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;{" "}
+                        {this.state.course.rating}{" "}
                         <i
                             className="bi bi-star-fill"
                             style={{ color: "#ffff00" }}
                         ></i>
-                    </div>
+                    </Col>
                 </Row>
-                <Row className="mb-2">
+
+                <Row className="mb-3">
                     <Col>
                         <h3>Description</h3>
-                        <p>{course.description}</p>
+                        <p>{this.state.course.description}</p>
                     </Col>
                 </Row>
-                <Row className="mb-2">
+
+                <Row className="mb-3">
                     <Col>
                         <h3>Files</h3>
-                        <ul className="list-group list-group-flush">
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File1.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File2.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File3.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File4.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File5.pdf
-                            </a>
-                        </ul>
+                        <ListGroup variant="flush">
+                            {this.state.course.files.map((file) => (
+                                <ListGroup.Item>
+                                    <div className="d-flex justify-content-between">
+                                        <a href="" download={file.path}>
+                                            {file.name}
+                                        </a>
+                                    </div>
+                                </ListGroup.Item>
+                            ))}
+                        </ListGroup>
                     </Col>
                 </Row>
-                <Row className="mb-2">
-                    <Col>
+
+                <Row className="mb-3">
+                    <div className="d-flex justify-content-between mb-2">
                         <h3>Reviews</h3>
-                    </Col>
-                    <Col>
-                        <button className="btn btn-outline-primary">
+                        <Button
+                            variant="outline-primary"
+                            onClick={handleReviewModalShow}
+                        >
                             Write review
-                        </button>
-                    </Col>
+                        </Button>
+                        <Modal
+                            show={this.state.isReviewFormModalOpen}
+                            onHide={handleReviewModalClose}
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>
+                                    Review your experience
+                                </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <NewReviewForm />
+                            </Modal.Body>
+                        </Modal>
+                    </div>
+
+                    <div>
+                        {this.state.course.reviews.map((review) => (
+                            <Card className="mb-2">
+                                <Card.Body>
+                                    <Card.Title>{review.writerName}</Card.Title>
+                                    <Card.Subtitle>
+                                        <h6 className="text-muted">
+                                            {review.date}
+                                        </h6>
+                                        <div>
+                                            {Array.from(
+                                                { length: review.rate },
+                                                () => (
+                                                    <i
+                                                        className="bi bi-star-fill"
+                                                        style={{
+                                                            color: "#ffff00",
+                                                        }}
+                                                    />
+                                                )
+                                            )}
+                                            {Array.from(
+                                                {
+                                                    length:
+                                                        5 -
+                                                        Math.floor(review.rate),
+                                                },
+                                                () => (
+                                                    <i
+                                                        className="bi bi-star"
+                                                        style={{
+                                                            color: "#ffff00",
+                                                        }}
+                                                    />
+                                                )
+                                            )}
+                                            ({review.rate})
+                                        </div>
+                                    </Card.Subtitle>
+
+                                    <Card.Text>
+                                        This course is awesome!
+                                    </Card.Text>
+
+                                    <Button
+                                        variant="outline-danger"
+                                        onClick={handleReportModalShow}
+                                        
+                                    >
+                                        Report
+                                    </Button>
+                                    <Modal
+                                        show={this.state.isReportFormModalOpen}
+                                        onHide={handleReportModalClose}
+                                    >
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>
+                                                Please explain why you are
+                                                reporting this review!
+                                            </Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <ReviewReportForm />
+                                        </Modal.Body>
+                                    </Modal>
+                                    <Collapse
+                                        in={this.state.isReportCollapseOpen}
+                                    >
+                                        <div
+                                            id={
+                                                "report-input-collapse" +
+                                                review.id
+                                            }
+                                            className="p-2"
+                                        >
+                                            <ReviewReportForm />
+                                        </div>
+                                    </Collapse>
+                                </Card.Body>
+                            </Card>
+                        ))}
+                    </div>
                 </Row>
-
-                <div className="card mb-2">
-                    <div className="card-body">
-                        <div className="card-title">
-                            <h5>Reviewer Name</h5>
-                        </div>
-
-                        <div className="card-subtitle">
-                            <h6 className="text-muted">DD.MM.YYYY</h6>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i className="bi bi-star"></i>
-                        </div>
-                        <p className="card-text">This course is awesome</p>
-
-                        <a href="#" className="card-link">
-                            Report
-                        </a>
-                    </div>
-                </div>
-
-                <div className="card mb-2">
-                    <div className="card-body">
-                        <h5 className="card-title">
-                            Please explain why you are reporting this review.
-                        </h5>
-                        <textarea
-                            className="form-control mb-2"
-                            id="exampleFormControlTextarea1"
-                            rows="4"
-                        ></textarea>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark card-link"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark card-link"
-                        >
-                            Report
-                        </button>
-                    </div>
-                </div>
-
-                <div className="card mb-2">
-                    <div className="card-body">
-                        <div className="card-title">
-                            <h5>Reviewer Name</h5>
-                        </div>
-
-                        <div className="card-subtitle">
-                            <h6 className="text-muted">DD.MM.YYYY</h6>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            ></i>
-                            <i className="bi bi-star"></i>
-                        </div>
-                        <p className="card-text">This course is awesome</p>
-
-                        <a href="#" className="card-link">
-                            Report
-                        </a>
-                    </div>
-                </div>
             </Container>
         );
     }

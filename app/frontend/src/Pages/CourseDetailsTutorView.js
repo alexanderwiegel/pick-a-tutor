@@ -1,5 +1,5 @@
-import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, {useState} from "react";
+import { Container, Row, Col, Button, ListGroup, Card, Collapse } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -14,9 +14,32 @@ class CourseDetailsTutorView extends React.Component {
             rate: 20,
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam condimentum, diam nec accumsan egestas, odio nisl tempus dolor, vitae aliquam dui nunc eget ipsum. Aenean vitae est maximus, aliquam ligula non, placerat lacus. Nunc varius eleifend diam nec luctus. Fusce quis condimentum diam. Maecenas viverra condimentum ipsum et feugiat. Donec eget tortor vitae nisi vulputate pellentesque. Pellentesque vel nisi accumsan, faucibus lacus eu, ultrices eros. Integer mattis odio eu egestas fermentum. Donec tempor, metus ut gravida pulvinar, erat nisi fermentum mauris, at pharetra enim arcu eu nunc. Nullam posuere eleifend leo id lacinia. Suspendisse accumsan, arcu in sodales congue, ex dolor gravida sapien, quis posuere turpis mi sed lorem. Nam a nibh sed augue bibendum consectetur. Aliquam feugiat placerat ex ut auctor. ",
+            files: [
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
+                },
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
+                },
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
+                },
+                {
+                    id: 1,
+                    name: "File name",
+                    path: "file.txt",
+                },
+            ],
         };
         const tutor = { id: 1, name: "Tutor Name", link: "/tutors/3434" };
-
+        
+        
         return (
             <Container>
                 <Row className="mb-2">
@@ -41,7 +64,7 @@ class CourseDetailsTutorView extends React.Component {
                             className="bi bi-star-fill"
                             style={{ color: "#ffff00" }}
                         ></i>
-                        <br/>
+                        <br />
                         <Button
                             variant="outline-primary"
                             style={{ margin: "5px" }}
@@ -50,60 +73,36 @@ class CourseDetailsTutorView extends React.Component {
                         </Button>{" "}
                     </Col>
                 </Row>
-                <div className="row mb-2">
-                    <div className="col">
+                <Row className="mb-2">
+                    <Col>
                         <h3>Description</h3>
                         <p>{course.description}</p>
-                    </div>
-                </div>
-                <div className="row mb-2">
-                    <div className="col">
+                    </Col>
+                </Row>
+                <Row className="mb-2">
+                    <Col>
                         <h3>Files</h3>
-                        <ul className="list-group list-group-flush">
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File1.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File2.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File3.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File4.pdf
-                            </a>
-                            <a
-                                href=""
-                                download="file.pdf"
-                                className="list-group-item"
-                            >
-                                File5.pdf
-                            </a>
-                        </ul>
-                    </div>
-                </div>
+                        <ListGroup variant="flush">
+                            {course.files.map((file) => (
+                                <ListGroup.Item>
+                                    <div className="d-flex justify-content-between">
+                                        <a href="" download={file.path}>
+                                            {file.name}
+                                        </a>
+                                    
+                                    </div>
+                                </ListGroup.Item>
+                            ))}
+
+                        </ListGroup>
+                    </Col>
+                </Row>
                 <div className="row mb-2">
                     <div className="col">
                         <h3>Reviews</h3>
                     </div>
-                    
                 </div>
+                
 
                 <div className="card mb-2">
                     <div className="card-body">
