@@ -249,7 +249,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"yes31@example.com\",\r\n    \"password\":\"password\"\r\n}",
+							"raw": "{\r\n    \"email\":\"johndoe@example.com\",\r\n    \"password\":\"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -369,7 +369,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"userId\": 100,\r\n        \"fileTitle\": \"UpdateTitle\",\r\n        \"filePath\": \"/updatedpath/path/123/\"\r\n}",
+							"raw": "{\r\n        \"userId\": 1,\r\n        \"approvalStatus\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -424,10 +424,10 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/rakdm/Desktop/sampleFile"
+									"src": "/C:/Users/rakdm/Desktop/profilePhoto.jpg"
 								},
 								{
-									"key": "fileTitle",
+									"key": "ProfilePhoto",
 									"value": "CV",
 									"type": "text"
 								}
@@ -738,7 +738,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/101",
+							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -747,7 +747,7 @@
 							"path": [
 								"api",
 								"getallprofilefilesbyuserid",
-								"101"
+								"1"
 							]
 						}
 					},
@@ -818,7 +818,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"tutorCourseId\": 2\r\n}",
+							"raw": "{\r\n        \"tutorCourseId\": 4\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -886,6 +886,107 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Get All Conversations by Sender and Recepient",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/getallconversations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallconversations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Message",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":2,\r\n    \"message\": \"First2Message\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/createmessage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"createmessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Message Status",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":3,\r\n    \"isConversationOpen\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/updateconversationstatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"updateconversationstatus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -893,7 +994,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ5ZXMzMUBleGFtcGxlLmNvbSIsImlzU3R1ZGVudCI6dHJ1ZSwiaXNUdXRvciI6dHJ1ZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQyMjI4ODU3LCJleHAiOjE2NDIzMTUyNTd9.8ws5vXY84bFP8bsqxXgYXLaJbe0Z3Ozru0hmRgkSgP4",
+				"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NDI0Mzg3MDEsImV4cCI6MTY0MjUyNTEwMX0.UgN2DsmwyBiYN2FYTq0myq8YGh46v5zQZ5eMN3FoM5w",
 				"type": "string"
 			}
 		]
