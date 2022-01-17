@@ -32,8 +32,8 @@ function App() {
           <Route path = '/coursetv' element = { <PageTemplate><CourseDetailsTutorView /></ PageTemplate> } />
           <Route path = '/tutorsv' element = { <PageTemplate><TutorProfileStudentView /></ PageTemplate> } />
           <Route path = '/tutortv' element = { <PageTemplate><TutorProfileTutorView /></ PageTemplate> } />
-          <Route path = '/editTutor' element = { <PageTemplate><EditTutorProfile /></ PageTemplate> } />
-          <Route path = '/editCourse' element = { <PageTemplate><EditCourseDetails /></ PageTemplate> } />
+          <Route path = '/editTutorProfile' element = { <PageTemplate><EditTutorProfile /></ PageTemplate> } />
+          <Route path = '/editCourseDetails' element = { <PageTemplate><EditCourseDetails /></ PageTemplate> } />
           <Route path = '/addCourse' element = { <PageTemplate><AddCourseDetails /></ PageTemplate> } />
         </Routes>
     </Router>

@@ -154,7 +154,7 @@ class CourseDetailsTutorView extends React.Component {
                         <Button
                             variant="outline-primary"
                             style={{ margin: "5px" }}
-                            href={"/editCourse/" + this.state.course.id}
+                            href={"/editCourseDetails/" + this.state.course.id}
                         >
                             Edit Course
                         </Button>{" "}

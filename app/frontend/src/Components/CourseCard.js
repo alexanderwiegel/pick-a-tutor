@@ -67,6 +67,7 @@ function CourseCard({ tutorName, course, searched_name = " " }) {
                             width: "100%",
                             borderColor: "#00b7ff",
                         }}
+                        href={"/course/" + course.id}
                     >
                         Course details
                     </Button>

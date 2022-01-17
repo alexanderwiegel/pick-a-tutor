@@ -156,34 +156,32 @@ class TutorProfileStudentView extends React.Component {
                         <Button
                             variant="outline-primary"
                             style={{ margin: "5px" }}
+                            href={"/chat/" + tutor.id}
                         >
-                            Contact
+                            Contact tutor
                         </Button>{" "}
                     </Col>
                 </Row>
                 <Row style={{ marginTop: " 1rem" }}>
-                    <div className="col">
+                    <Col>
                         <h3>Description</h3>
                         <p>{tutor.description}</p>
-                    </div>
+                    </Col>
                 </Row>
                 <Row style={{ marginTop: " 1rem" }}>
-                    <div className="col">
+                    <Col>
                         <h3>Files</h3>
                         <ListGroup variant="flush">
                             {tutor.files.map((file) => (
                                 <ListGroup.Item>
-                                    <a
-                                        href=""
-                                        download={file.path}
-                                        className="list-group-item"
-                                    >
+                                    <a href="" download={file.path}>
                                         {file.name}
                                     </a>
                                 </ListGroup.Item>
                             ))}
+
                         </ListGroup>
-                    </div>
+                    </Col>
                 </Row>
 
                 <Row style={{ marginTop: " 1rem" }}>

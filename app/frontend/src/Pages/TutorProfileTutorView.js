@@ -131,9 +131,7 @@ class TutorProfileTutorView extends React.Component {
             ],
         };
 
-        const uploadFileOnClick = () => {
-            document.getElementById("file").click();
-        };
+        
 
         return (
             <Container>
@@ -161,45 +159,32 @@ class TutorProfileTutorView extends React.Component {
                         <Button
                             variant="outline-primary"
                             style={{ margin: "5px" }}
+                            href="/editTutorProfile"
                         >
                             Edit profile
                         </Button>{" "}
                     </Col>
                 </Row>
                 <Row style={{ marginTop: " 1rem" }}>
-                    <div className="col">
+                    <Col>
                         <h3>Description</h3>
                         <p>{tutor.description}</p>
-                    </div>
+                    </Col>
                 </Row>
                 <Row style={{ marginTop: " 1rem" }}>
-                    <div className="col">
+                    <Col>
                         <h3>Files</h3>
                         <ListGroup variant="flush">
                             {tutor.files.map((file) => (
                                 <ListGroup.Item>
-                                    <a href="" download={file.path}>
+                                    <a  href="" download={file.path}>
                                         {file.name}
                                     </a>
                                 </ListGroup.Item>
                             ))}
 
-                            <ListGroup.Item>
-                                <input
-                                    type="file"
-                                    id="fileupload"
-                                    style={{ display: "none" }}
-                                />
-                                <Button
-                                    variant="outline-primary"
-                                    style={{ margin: "5px" }}
-                                    onClick={uploadFileOnClick}
-                                >
-                                    Upload file    
-                                </Button>{" "}
-                            </ListGroup.Item>
                         </ListGroup>
-                    </div>
+                    </Col>
                 </Row>
 
                 <Row style={{ marginTop: " 1rem" }}>
@@ -219,6 +204,7 @@ class TutorProfileTutorView extends React.Component {
                                     <Button 
                                         variant="outline-primary"
                                         style={{ margin: "5px" }}
+                                        href="/addCourse"
                                     >
                                        Add course
                                     </Button>{" "}
