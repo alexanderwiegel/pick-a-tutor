@@ -14,16 +14,16 @@ async function getTutorData() {
 }
 
 async function register(data) {
-    const gender_val = parseInt(data.gender)
-    return await axiosInstance.post(`/users`,{
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
-        dateOfBirth: data.dateOfBirth,
-        gender: gender_val,
-        role: data.role
-    })
+  const gender_val = parseInt(data.gender)
+  return await axiosInstance.post(`/users`, {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    password: data.password,
+    dateOfBirth: data.dateOfBirth,
+    gender: gender_val,
+    role: data.role
+  })
 }
 
 async function login(data) {
@@ -33,9 +33,13 @@ async function login(data) {
   })
 }
 
+async function getAllUsers() {
+  return await axiosInstance.get("users")
+}
+
 async function getListofTutors(subject) {
-    console.log('Subject sent to api ', subject)
-    return await axiosInstance.get(`courses?search=${subject}`)
+  console.log('Subject sent to api ', subject)
+  return await axiosInstance.get(`courses?search=${subject}`)
 }
 
 
@@ -56,7 +60,7 @@ async function postPosts(data) {
 }
 
 const apiEndPoints = {
-  postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login
+  postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login, getAllUsers
 }
 
 export default apiEndPoints
