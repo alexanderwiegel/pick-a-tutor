@@ -15,6 +15,8 @@ import EditTutorProfile from './Pages/EditTutorProfile';
 import CourseDetailsTutorView from './Pages/CourseDetailsTutorView';
 import EditCourseDetails from './Pages/EditCourseDetails';
 import AddCourseDetails from './Pages/AddCourseDetails';
+import CourseDetailsAnonynmousView from './Pages/CourseDetailsAnonynmousView';
+import TutorProfileAnonymousView from './Pages/TutorProfileAnonymousView';
 
 
 function App() {
@@ -28,8 +30,10 @@ function App() {
           <Route exact path = '/dashboard' element = { <PageTemplate><Dashboard /></PageTemplate> } />
           <Route exact path = '/courses' element = { <PageTemplate><Courses /></ PageTemplate> } />
          
+          <Route path = '/courseav' element = {<PageTemplate><CourseDetailsAnonynmousView /></PageTemplate>} />
           <Route path = '/coursesv' element = { <PageTemplate><CourseDetailsStudentView /></ PageTemplate> } />
           <Route path = '/coursetv' element = { <PageTemplate><CourseDetailsTutorView /></ PageTemplate> } />
+          <Route path = '/tutorav' element = { <PageTemplate><TutorProfileAnonymousView /></ PageTemplate> } />
           <Route path = '/tutorsv' element = { <PageTemplate><TutorProfileStudentView /></ PageTemplate> } />
           <Route path = '/tutortv' element = { <PageTemplate><TutorProfileTutorView /></ PageTemplate> } />
           <Route path = '/editTutorProfile' element = { <PageTemplate><EditTutorProfile /></ PageTemplate> } />
