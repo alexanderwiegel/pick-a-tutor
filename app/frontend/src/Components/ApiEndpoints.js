@@ -2,7 +2,9 @@ import axios from "axios";
 
 
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:3001/api"
+
+  baseURL: "http://20.113.25.17:3001/api"
+  // baseURL: "http://127.0.0.1:3001/api"
 })
 
 // async function getTutorData(course, star) {
@@ -14,16 +16,16 @@ async function getTutorData() {
 }
 
 async function register(data) {
-    const gender_val = parseInt(data.gender)
-    return await axiosInstance.post(`/users`,{
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
-        dateOfBirth: data.dateOfBirth,
-        gender: gender_val,
-        role: data.role
-    })
+  const gender_val = parseInt(data.gender)
+  return await axiosInstance.post(`/users`, {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    password: data.password,
+    dateOfBirth: data.dateOfBirth,
+    gender: gender_val,
+    role: data.role
+  })
 }
 
 async function login(data) {
@@ -34,10 +36,13 @@ async function login(data) {
 }
 
 async function getListofTutors(subject) {
-    console.log('Subject sent to api ', subject)
-    return await axiosInstance.get(`courses?search=${subject}`)
+  return await axiosInstance.get(`tutors?search=${subject}`)
 }
 
+async function getListofCourses(subject) {
+  // return await axiosInstance.get(`https://mocki.io/v1/8d4bde13-ea8c-4efa-9d16-62b20f7cebf0`)
+  return await axiosInstance.get(`tutor_courses?search=${subject}`)
+}
 
 async function getSingleTutorData() {
   return await axiosInstance.get('users')
@@ -56,7 +61,7 @@ async function postPosts(data) {
 }
 
 const apiEndPoints = {
-  postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login
+  postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login, getListofCourses
 }
 
 export default apiEndPoints
