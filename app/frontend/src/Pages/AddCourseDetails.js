@@ -140,7 +140,7 @@ class AddCourseDetails extends React.Component {
                             </ListGroup>
                         </Col>
                     </Row>
-                    s
+                    
                 </Form>
             </Container>
         );

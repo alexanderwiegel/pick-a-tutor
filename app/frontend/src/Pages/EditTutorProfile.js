@@ -8,6 +8,7 @@ import {
     Image,
     Card,
     Form,
+    Modal,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -15,11 +16,12 @@ import CourseCard from "../Components/CourseCard";
 import { Plus, Trash } from "react-bootstrap-icons";
 
 class EditTutorProfile extends React.Component {
-    render() {
+    constructor(props) {
+        super(props);
+
         const tutor = {
             id: 1,
-            firstName: "Tutor",
-            lastName: "Name",
+            name: "Tutor Name",
             link: "/tutors/3434",
             img: "https://pngimg.com/uploads/teacher/teacher_PNG24.png",
             rating: 4.0,
@@ -132,125 +134,236 @@ class EditTutorProfile extends React.Component {
             ],
         };
 
+        this.state = Object.assign(tutor, { isFileDeleteModalOpen: true });
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        //ToDo: handle multiple files
+
+        console.log("Value from " + name + " is " + value);
+        this.setState({
+            [name]: value,
+        });
+    }
+
+    handleSubmit(event) {
+        alert(
+            "A new review with rating " +
+                this.state.rating +
+                " was submitted: " +
+                this.state.reviewTextValue
+        );
+        event.preventDefault();
+    }
+
+    render() {
         const uploadFileOnClick = () => {
             document.getElementById("file").click();
+        };
+
+        const handleFileDeleteModalClose = () => {
+            console.log("Closed Clicked");
+            this.setState({ isFileDeleteModalOpen: false });
+        };
+
+        const handleFileDeleteModalShow = () => {
+            this.setState({ isFileDeleteModalOpen: true });
+        };
+
+        const handleFileDeleteClick = (event) => {
+            alert(
+                "file deleted"
+            );
+            handleFileDeleteModalClose();
+            event.preventDefault();
         };
 
         return (
             <Container>
                 <Form>
-                <Row style={{ marginTop: " 1rem" }}>
-                    <Col md={5}>
-                        <Image
-                            src={tutor.img}
-                            fluid={true}
-                            thumbnail={true}
-                            className="floatRight"
-                            alt="tutor image"
-                            style={{ height: "400px", width: "600px" }}
-                        />
-                    </Col>
-                    <Col md={7} className="flexColumn">
-                        <Form.Control type="text" placeholder={tutor.firstName + ' ' + tutor.lastName} />
-                        <h6>
-                            {tutor.rating}{" "}
-                            <i
-                                className="bi bi-star-fill"
-                                style={{ color: "#ffff00" }}
-                            />{" "}
-                            ({tutor.numOfReviews})
-                        </h6>
-                        <Button
-                            variant="outline-primary"
-                            style={{ margin: "5px" }}
-                        >
-                            Save
-                        </Button>{" "} <Button
-                            variant="outline-primary"
-                            style={{ margin: "5px" }}
-                        >
-                            Cancel
-                        </Button>{" "}
-                    </Col>
-                </Row>
-                <Row style={{ marginTop: " 1rem" }}>
-                    <div className="col">
-                        <h3>Description</h3>
-                        <Form.Control as="textarea" rows={8}  placeholder={tutor.description} style={{overflowY: "scroll"}}/>
-                    </div>
-                </Row>
-                <Row style={{ marginTop: " 1rem" }}>
-                    <div className="col">
-                        <h3>Files</h3>
-                        <ListGroup variant="flush">
-                            {tutor.files.map((file) => (
-                                <ListGroup.Item>
-                                    <div className="d-flex justify-content-between">
-                                    <a href="" download={file.path}>
-                                        {file.name}
-                                    </a>
-                                    <Button variant="outline-danger"
-                                    className="">
-                                        <Trash />
-                                    </Button>
-                                    </div>
-                                    
-                                    
-                                    
-                                </ListGroup.Item>
-                            ))}
-
-                            <ListGroup.Item>
-                                <input
+                    <Row style={{ marginTop: " 1rem" }}>
+                        <Col md={5}>
+                            <Image
+                                src={this.state.img}
+                                fluid={true}
+                                thumbnail={true}
+                                className="floatRight"
+                                alt="tutor image"
+                                style={{ height: "400px", width: "600px" }}
+                            />
+                            <Form.Group controlId="imageFile">
+                                <Form.Label as="b">Upload new image</Form.Label>
+                                <Form.Control
+                                    name="img"
                                     type="file"
-                                    id="fileupload"
-                                    style={{ display: "none" }}
+                                    size="sm"
+                                    onChange={this.handleChange}
                                 />
-                                <Button
-                                    variant="outline-primary"
-                                    style={{ margin: "5px" }}
-                                    onClick={uploadFileOnClick}
-                                >
-                                    Upload file    
-                                </Button>{" "}
-                            </ListGroup.Item>
-                        </ListGroup>
-                    </div>
-                </Row>
-
-                <Row style={{ marginTop: " 1rem" }}>
-                    <h1>Courses</h1>
-                    <Container style={{ overflowX: "scroll" }}>
-                        <Container style={{ display: "flex" }}>
-                            <Card
-                                style={{
-                                    width: "20rem",
-                                    fontSize: "1rem",
-                                    borderColor: "transparent",
-                                    minWidth: "270px",
-                                }}
+                            </Form.Group>
+                        </Col>
+                        <Col md={7} className="flexColumn">
+                            <Form.Label as="b">Name: </Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="name"
+                                defaultValue={this.state.name}
+                                placeholder="please type your name"
+                                className="mb-2"
+                                onChange={this.handleChange}
+                            />
+                            <h6>
+                                {this.state.rating}{" "}
+                                <i
+                                    className="bi bi-star-fill"
+                                    style={{ color: "#ffff00" }}
+                                />{" "}
+                                ({this.state.numOfReviews})
+                            </h6>
+                            <Button
+                                variant="outline-primary"
+                                style={{ margin: "5px" }}
                             >
-                                
-                                <Card.Body >
-                                    <Button 
+                                Save
+                            </Button>{" "}
+                            <Button
+                                variant="outline-primary"
+                                style={{ margin: "5px" }}
+                            >
+                                Cancel
+                            </Button>{" "}
+                        </Col>
+                    </Row>
+                    <Row style={{ marginTop: " 1rem" }}>
+                        <div className="col">
+                            <h3>Description</h3>
+                            <Form.Control
+                                name="description"
+                                as="textarea"
+                                rows={8}
+                                placeholder="please type a description about yourself"
+                                defaultValue={this.state.description}
+                                style={{ overflowY: "scroll" }}
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                    </Row>
+                    <Row style={{ marginTop: " 1rem" }}>
+                        <div className="col">
+                            <h3>Files</h3>
+                            <ListGroup variant="flush">
+                                {this.state.files.map((file) => (
+                                    <ListGroup.Item>
+                                        <div className="d-flex justify-content-between">
+                                            <a href="" download={file.path}>
+                                                {file.name}
+                                            </a>
+                                            <Button
+                                                variant="outline-danger"
+                                                className=""
+                                                onClick={
+                                                    handleFileDeleteModalShow
+                                                }
+                                            >
+                                                <Trash />
+                                            </Button>
+                                            <Modal
+                                                show={
+                                                    this.state
+                                                        .isFileDeleteModalOpen
+                                                }
+                                                onHide={
+                                                    handleFileDeleteModalClose
+                                                }
+                                                centered
+                                            >
+                                                <Modal.Header closeButton>
+                                                    <Modal.Title>
+                                                        Are you sure that you
+                                                        want to delete this
+                                                        file?
+                                                    </Modal.Title>
+                                                </Modal.Header>
+                                                <Modal.Body>
+                                                    <div className="d-flex justify-content-between">
+                                                        <Button variant="outline-dark" onClick={handleFileDeleteClick}>
+                                                            YES
+                                                        </Button>
+                                                        <Button variant="outline-dark" onClick={handleFileDeleteModalClose}>
+                                                            NO
+                                                        </Button>
+                                                    </div>
+                                                </Modal.Body>
+                                            </Modal>
+                                        </div>
+                                    </ListGroup.Item>
+                                ))}
+
+                                <ListGroup.Item>
+                                    <input
+                                        type="file"
+                                        id="fileupload"
+                                        style={{ display: "none" }}
+                                    />
+                                    <Form.Group controlId="tutorFile">
+                                        <Form.Label as="b">
+                                            Upload new files to your profule
+                                        </Form.Label>
+                                        <Form.Control
+                                            name="file"
+                                            type="file"
+                                            onChange={this.handleChange}
+                                        />
+                                    </Form.Group>
+                                    {/* <Button
                                         variant="outline-primary"
                                         style={{ margin: "5px" }}
+                                        onClick={uploadFileOnClick}
                                     >
-                                       Add course
-                                    </Button>{" "}
-                                </Card.Body>
-                            </Card>
-                            {tutor.courses.map((course) => (
-                                <CourseCard
-                                    tutorName={`${tutor.firstName} ${tutor.lastName}`}
-                                    course={course}
-                                />
-                            ))}
+                                        Upload file
+                                    </Button>{" "} */}
+                                </ListGroup.Item>
+                            </ListGroup>
+                        </div>
+                    </Row>
+
+                    <Row style={{ marginTop: " 1rem" }}>
+                        <h1>Courses</h1>
+                        <Container style={{ overflowX: "scroll" }}>
+                            <Container style={{ display: "flex" }}>
+                                <Card
+                                    style={{
+                                        width: "20rem",
+                                        fontSize: "1rem",
+                                        borderColor: "transparent",
+                                        minWidth: "270px",
+                                    }}
+                                >
+                                    <Card.Body>
+                                        <Button
+                                            variant="outline-primary"
+                                            style={{ margin: "5px" }}
+                                            href="/addCourse"
+                                        >
+                                            Add course
+                                        </Button>{" "}
+                                    </Card.Body>
+                                </Card>
+                                {this.state.courses.map((course) => (
+                                    <CourseCard
+                                        tutorName={this.state.name}
+                                        course={course}
+                                    />
+                                ))}
+                            </Container>
                         </Container>
-                    </Container>
-                </Row>
+                    </Row>
                 </Form>
-                
             </Container>
         );
     }
