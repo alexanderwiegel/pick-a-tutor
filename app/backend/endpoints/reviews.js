@@ -2,8 +2,7 @@ const Review = require("../db/model/Review");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 const jwt = require("jsonwebtoken");
 
-const getReviews = async (req, res) => {
-
+exports.getReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
             where: {
@@ -16,7 +15,20 @@ const getReviews = async (req, res) => {
     }
 };
 
-const addReview = async (req, res) => {
+exports.getReportedReviews = async (req, res) => {
+    try {
+        let reviews = await Review.findAll({
+            where: {
+                reportReview: Review.REPORTED,
+            },
+        });
+        res.json(new SuccessfulResponse("Reported reviews", reviews));
+    } catch (e) {
+        res.json(new FailedResponse(e.message));
+    }
+};
+
+exports.addReview = async (req, res) => {
     try {
         let review = Review.build({
             studentId: req.body.studentId,
@@ -33,7 +45,7 @@ const addReview = async (req, res) => {
     }
 };
 
-const reportReview = async (req, res) => {
+exports.reportReview = async (req, res) => {
     try {
         let review = await Review.findOne({ where: { id: req.params.id } });
         let token = req.headers.authorization.split(" ")[2]; // Bearer Token
@@ -51,7 +63,7 @@ const reportReview = async (req, res) => {
 
 //************* Approve or Reject Review based on Id and reportReviewStatus" ***************
 
-const approvereview = async (req, res, next) => {
+exports.approveReview = async (req, res, next) => {
     const review = await Review.findOne({
         where: { id: req.params.id },
     });
@@ -70,13 +82,13 @@ const approvereview = async (req, res, next) => {
             res.json(
                 new SuccessfulResponse(
                     "Review id " + review.id + " successfully updated",
-                    review
+                    [review]
                 )
             );
         } catch (e) {
             res.json(
                 new FailedResponse(
-                    "Review id " + review.id + " update failed" + e
+                    "Review id " + review.id + " updation failed" + e
                 )
             );
         }
@@ -87,4 +99,19 @@ const approvereview = async (req, res, next) => {
     }
 };
 
-module.exports = { getReviews, addReview, reportReview, approvereview };
+//************* Delete review ***************
+
+exports.deleteReview = async (req, res) => {
+    const review = await Review.findOne({
+        where: { id: req.params.id },
+    });
+
+    // Check if already exists
+    if (!review) {
+        return res.json(new FailedResponse("Review does not exists"));
+    }
+
+    await review.destroy();
+
+    res.json(new SuccessfulResponse("Review successfully deleted", [review]));
+};

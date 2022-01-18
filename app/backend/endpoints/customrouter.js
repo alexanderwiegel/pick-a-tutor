@@ -15,7 +15,6 @@ const authgeneral = require("../auth/checkauth_general");
 const userprofilefiles = require("./userprofilefiles");
 const studentenrolledcourses = require("./studentenrolledcourses");
 const CourseAdditionalInfo = require("./courseadditionalinfo");
-const Review = require("./review");
 const TutorOfMonth = require("./tutorofmonth");
 const Message = require("./message");
 
@@ -51,10 +50,6 @@ router.delete("/tutors/:email", authgeneral, users.deleteuser);
 
 //*******Tutor Of Month Route*******
 router.get("/tutorofmonth", TutorOfMonth.tutorofmonth);
-
-//*******Review Routes*******
-router.patch("/approvereview/:id", authgeneral, Review.approvereview);
-router.delete("/deleteReview/:id", authgeneral, Review.deleteReview);
 
 //*******User Profile Files Routes*******
 router.get(
@@ -117,15 +112,19 @@ router.delete(
 );
 
 //*******Message Routes *******
-router.post("/createmessage", Message.createmessage);
-router.get("/getallconversations", Message.getallconversations);
-router.patch("/updateconversationstatus", Message.updateconversationstatus);
+router.post("/createmessage", authgeneral, Message.createmessage);
+router.get("/getconversation", authgeneral, Message.getconversation);
+// router.get("/getallmessages", Message.getallmessages);
+
+// router.patch("/updateconversationstatus", Message.updateconversationstatus);
 
 //*******Review Routes*******
 router.get("/reviews", reviews.getReviews);
+router.get("/reported_reviews", authadmin, reviews.getReportedReviews);
 router.post("/reviews", authstudent, reviews.addReview);
-router.patch("/reviews/:id", authadmin, reviews.approvereview);
 router.patch("/reviews/:id/report", authgeneral, reviews.reportReview);
+router.patch("/approvereview/:id", authadmin, reviews.approveReview);
+router.delete("/deleteReview/:id", authadmin, reviews.deleteReview);
 
 //*******Course Additional Files Routes*******
 router.get(
