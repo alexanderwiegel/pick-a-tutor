@@ -10,16 +10,15 @@ const Users = () => {
   const location = useLocation();
 
   const getUsers = async (subject = "") => {
-    // TODO: replace with getListOfUsers()
-    const data = await apiEndPoints.getListofTutors(subject)
-    setUsers(preVal => data.data)
+    const data = await apiEndPoints.getAllUsers(subject)
+    setUsers(() => data.data.data)
   };
 
   useEffect(() => {
     setTimeout(() => {
       getUsers(location.state?.search);
       setTimeout(() => {
-        setLoading(preVal => false)
+        setLoading(() => false)
       }, 200)
     }, 500)
   }, []);
