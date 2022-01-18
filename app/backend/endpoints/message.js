@@ -3,11 +3,13 @@ const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
 const jwtdecode = require("jwt-decode");
 const db = require("../db/db");
+const User = require("../db/model/User");
+const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
 //************* Get List of all messages based on senderID and RecipientId" ***************
 
-const getallconversations = async (req, res, next) => {
-    const conversations = await Message.findAll({
+const getconversation = async (req, res, next) => {
+    const mess = await Message.findAll({
         where: {
             senderId: req.body.senderId,
             recipientId: req.body.recipientId,
@@ -17,113 +19,105 @@ const getallconversations = async (req, res, next) => {
     res.json({
         success: true,
         message: "All conversations",
-        records: conversations.length,
-        data: conversations,
+        records: mess.length,
+        data: mess,
     });
 };
 
-exports.getallconversations = getallconversations;
+exports.getconversation = getconversation;
 
 //************* Create message ***************
 
 const createmessage = async (req, res, next) => {
-    let conversation = await Message.findAll({
+    let mess = await Message.findAll({
         where: {
             senderId: req.body.senderId,
             recipientId: req.body.recipientId,
-            isConversationOpen: true,
         },
     });
 
-    const [maxConversation, meta] = await db.query(
-        "select ifnull(max(id),0) as maxconversationid from messages;"
-    );
-
-    let conversationId = conversation.conversationId;
-
-    console.log(conversation);
-    // console.log(
-    //     "conversation.conversationId:" + conversation[0].conversationId
-    // );
-
-    console.log(
-        "***************+maxConversation:" +
-            (await maxConversation[0].maxconversationid)
-    );
-
-    if (conversation.length == 0) {
-        conversationId = (await maxConversation[0].maxconversationid) + 1;
-    } else {
-        conversationId = conversation[0].conversationId;
-    }
-
-    let message = Message.build({
+    mess = Message.build({
         senderId: req.body.senderId,
         recipientId: req.body.recipientId,
-        conversationId: await conversationId,
-        isConversationOpen: true,
         message: req.body.message,
     });
 
-    await message.save().catch((e) => {
+    await mess.save().catch((e) => {
         console.log(e);
     });
 
     res.json({
         success: true,
         message: "Message Saved",
-        records: message.length,
-        data: message,
+        records: mess.length,
+        data: mess,
     });
 };
 
 exports.createmessage = createmessage;
 
-//************* Update Conversation Status" ***************
+//************* Get Last Coversations of a user corresponding to all other he contacted" ***************
 
-const updateconversationstatus = async (req, res, next) => {
-    const conversations = await Message.findAll({
-        where: {
-            senderId: req.body.senderId,
-            recipientId: req.body.recipientId,
-            isConversationOpen: true,
-        },
-    });
+// const getallmessages = async (req, res, next) => {
+//     var token = req.headers["authorization"];
+//     var decoded = jwtdecode(token);
 
-    console.log("conversations.length:" + conversations.length);
+//     let user = await User.findOne({
+//         where: { id: decoded.id },
+//         include: [
+//             { model: Message, as: "sent" },
+//             {
+//                 model: Message,
+//                 as: "received",
+//             },
+//         ],
+//     });
 
-    if (conversations.length == 0) {
-        res.json({
-            success: true,
-            message: "No message to update",
-            records: 0,
-            // data: message,
-        });
-    }
+//     res.json(
+//         new SuccessfulResponse("Users messages", [user.sent + user.received])
+//     );
 
-    const records = conversations.map(async (message, index) => {
-        try {
-            await message.update({
-                senderId: message.senderId,
-                recipientId: message.recipientId,
-                conversationId: message.conversationId,
-                isConversationOpen: req.body.isConversationOpen,
-            });
+//     // res.json({
+//     //     success: true,
+//     //     message: "Users messages",
+//     //     records: user.length,
+//     //     data: [user.sent + user.received],
+//     // });
 
-            res.json({
-                success: true,
-                message: "Messages Status Updated",
-                records: conversations.length,
-                data: conversations,
-            });
-        } catch (e) {
-            // res.error({
-            //     success: false,
-            //     message: "Updation failed" + e,
-            //     records: 0,
-            // });
-        }
-    });
-};
+//     //     console.log("conversations.length:" + conversations.length);
 
-exports.updateconversationstatus = updateconversationstatus;
+//     //     if (conversations.length == 0) {
+//     //         res.json({
+//     //             success: true,
+//     //             message: "No message to update",
+//     //             records: 0,
+//     //             // data: message,
+//     //         });
+//     //     }
+
+//     //     const records = conversations.map(async (message, index) => {
+//     //         try {
+//     //             await message.update({
+//     //                 senderId: message.senderId,
+//     //                 recipientId: message.recipientId,
+//     //                 conversationId: message.conversationId,
+//     //                 isConversationOpen: req.body.isConversationOpen,
+//     //             });
+
+//     //             res.json({
+//     //                 success: true,
+//     //                 message: "Messages Status Updated",
+//     //                 records: conversations.length,
+//     //                 data: conversations,
+//     //             });
+//     //         } catch (e) {
+//     //             // res.error({
+//     //             //     success: false,
+//     //             //     message: "Updation failed" + e,
+//     //             //     records: 0,
+//     //             // });
+//     //         }
+//     //     });
+// };
+
+// exports.getallmessages = getallmessages;

@@ -115,9 +115,11 @@ router.delete(
 );
 
 //*******Message Routes *******
-router.post("/createmessage", Message.createmessage);
-router.get("/getallconversations", Message.getallconversations);
-router.patch("/updateconversationstatus", Message.updateconversationstatus);
+router.post("/createmessage", authgeneral, Message.createmessage);
+router.get("/getconversation", authgeneral, Message.getconversation);
+// router.get("/getallmessages", Message.getallmessages);
+
+// router.patch("/updateconversationstatus", Message.updateconversationstatus);
 
 //*******Review Routes*******
 router.get("/reviews", reviews.getReviews);
