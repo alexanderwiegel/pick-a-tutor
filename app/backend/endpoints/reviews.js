@@ -86,7 +86,7 @@ exports.approveReview = async (req, res, next) => {
     }
 };
 
-//************* Delete Student's enrollment from the course ***************
+//************* Delete review ***************
 
 exports.deleteReview = async (req, res) => {
     const review = await Review.findOne({
