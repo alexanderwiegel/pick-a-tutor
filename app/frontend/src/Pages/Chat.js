@@ -67,9 +67,12 @@ const Chat = () => {
     <div className="App">
       <Container style={{ left: 0, right: 0 }}>
         <Card>
-          <Card.Header as="h2" className="d-flex">
+          <Card.Header as="h2" className="d-flex align-items-center">
             <Button href="/messages"><BiArrowBack /></Button>
-            <Container><Link to="" style={{ textDecoration: "none", color: "#0f0f0f" }}>John Doe</Link></Container>
+            <Container className="d-flex justify-content-between align-items-center">
+              <Link to="" style={{ textDecoration: "none", color: "#0f0f0f" }}>John Doe</Link>
+              <div>Tutor</div>
+            </Container>
           </Card.Header>
           <Card.Body>
             {history.map((message, index) =>
