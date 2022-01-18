@@ -14,6 +14,7 @@ import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from 'yup';
 import apiEndpoints from "../Components/ApiEndpoints";
+import * as jwt_decode from 'jwt-decode';
 
 const initialValues = {
   email: "",
@@ -27,6 +28,13 @@ let schema = yup.object().shape({
 });
 
 export default function Login() {
+
+  const tokenDecode = (token) => {
+    console.log(token)
+    const jwtDecode = require("jwt-decode");
+    var decoded = jwtDecode(token);
+    console.log('Inside the token ', decoded)
+  }
 
   let navigate = useNavigate();
 
@@ -63,8 +71,9 @@ export default function Login() {
                   if (data.data.success) {
                     console.log('Logged In', data)
                     localStorage.setItem('user', true)
-                    localStorage.setItem('token', data.data.token)
-                    navigate('/home')
+                    localStorage.setItem('token', data.data.data.token)
+                    tokenDecode(localStorage.getItem('token'))
+                    // navigate('/home')
                   }
                   else {
                     console.log('Login reject', data)

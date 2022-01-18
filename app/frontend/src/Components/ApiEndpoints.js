@@ -3,8 +3,8 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
 
-  baseURL: "http://20.113.25.17:3001/api"
-  // baseURL: "http://127.0.0.1:3001/api"
+  // baseURL: "http://20.113.25.17:3001/api"
+  baseURL: "http://127.0.0.1:3001/api"
 })
 
 // async function getTutorData(course, star) {
@@ -44,7 +44,6 @@ async function getListofTutors(subject) {
 }
 
 async function getListofCourses(subject) {
-  // return await axiosInstance.get(`https://mocki.io/v1/8d4bde13-ea8c-4efa-9d16-62b20f7cebf0`)
   return await axiosInstance.get(`tutor_courses?search=${subject}`)
 }
 
