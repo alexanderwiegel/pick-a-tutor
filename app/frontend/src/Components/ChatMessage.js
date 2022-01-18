@@ -9,7 +9,8 @@ function ChatMessage(message) {
       <Col xs={{ order: message.order, span: 8, offset: own ? 4 : 0 }}>
         <Card bg={own ? "success" : "secondary"} text="white">
           <Card.Body>
-            <Card.Title style={{ display: "flex", justifyContent: "space-between" }}>
+            {/* <Card.Title style={{ display: "flex", justifyContent: "space-between" }}> */}
+            <Card.Title className="d-sm-flex .d-md-inline-flex justify-content-between">
               <Link to="" style={{ fontWeight: "bold", textDecoration: "none", color: "#ffffff" }}>{message.sender}</Link>
               <p>{message.date}</p>
             </Card.Title>
