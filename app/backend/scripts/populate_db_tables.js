@@ -135,19 +135,19 @@ async function run() {
         coursePricePerHour: 12,
     }).save();
 
-    await Message.build({
-        UserId: 1,
-        senderId: 1,
-        recipientId: 2,
-        message: "Hey, what's up?",
-    }).save();
+    // await Message.build({
+    //     UserId: 1,
+    //     senderId: 1,
+    //     recipientId: 2,
+    //     message: "Hey, what's up?",
+    // }).save();
 
-    await Message.build({
-        UserId: 2,
-        senderId: 2,
-        recipientId: 1,
-        message: "All good",
-    }).save();
+    // await Message.build({
+    //     UserId: 2,
+    //     senderId: 2,
+    //     recipientId: 1,
+    //     message: "All good",
+    // }).save();
 
     await UserProfile.build({
         UserId: 1,
