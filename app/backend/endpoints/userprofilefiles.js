@@ -153,8 +153,8 @@ const updateuserprofilefile = async (req, res, next) => {
         try {
             await userprofilefile.update({
                 userId: req.body.userId,
-                fileTitle: req.body.fileTitle,
-                filePath: req.body.filePath,
+                fileTitle: req.body.fileTitle ?? userprofilefile.fileTitle,
+                filePath: req.body.filePath ?? userprofilefile.filePath,
                 approvalStatus: req.body.approvalStatus,
             });
             res.json({
