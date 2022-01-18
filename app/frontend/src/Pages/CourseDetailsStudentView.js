@@ -171,6 +171,7 @@ class CourseDetailsStudentView extends React.Component {
                         <Modal
                             show={this.state.isReviewFormModalOpen}
                             onHide={handleReviewModalClose}
+                            centered
                         >
                             <Modal.Header closeButton>
                                 <Modal.Title>
@@ -237,6 +238,7 @@ class CourseDetailsStudentView extends React.Component {
                                     <Modal
                                         show={this.state.isReportFormModalOpen}
                                         onHide={handleReportModalClose}
+                                        centered
                                     >
                                         <Modal.Header closeButton>
                                             <Modal.Title>

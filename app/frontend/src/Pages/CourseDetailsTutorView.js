@@ -238,6 +238,7 @@ class CourseDetailsTutorView extends React.Component {
                                     <Modal
                                         show={this.state.isReportFormModalOpen}
                                         onHide={handleReportModalClose}
+                                        centered
                                     >
                                         <Modal.Header closeButton>
                                             <Modal.Title>
