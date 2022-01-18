@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import apiEndPoints from '../Components/ApiEndpoints';
 import UserCard from '../Components/UserCard';
@@ -7,16 +6,15 @@ import UserCard from '../Components/UserCard';
 const Users = () => {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
-  const location = useLocation();
 
-  const getUsers = async (subject = "") => {
-    const data = await apiEndPoints.getAllUsers(subject)
+  const getUsers = async () => {
+    const data = await apiEndPoints.getAllUsers()
     setUsers(() => data.data.data)
   };
 
   useEffect(() => {
     setTimeout(() => {
-      getUsers(location.state?.search);
+      getUsers();
       setTimeout(() => {
         setLoading(() => false)
       }, 200)
