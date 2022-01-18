@@ -134,7 +134,7 @@ class EditTutorProfile extends React.Component {
             ],
         };
 
-        this.state = Object.assign(tutor, { isFileDeleteModalOpen: true });
+        this.state = Object.assign(tutor, { isFileDeleteModalOpen: false });
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -153,12 +153,7 @@ class EditTutorProfile extends React.Component {
     }
 
     handleSubmit(event) {
-        alert(
-            "A new review with rating " +
-                this.state.rating +
-                " was submitted: " +
-                this.state.reviewTextValue
-        );
+        alert("edit has been submitted");
         event.preventDefault();
     }
 
@@ -177,9 +172,7 @@ class EditTutorProfile extends React.Component {
         };
 
         const handleFileDeleteClick = (event) => {
-            alert(
-                "file deleted"
-            );
+            alert("file deleted");
             handleFileDeleteModalClose();
             event.preventDefault();
         };
@@ -208,15 +201,17 @@ class EditTutorProfile extends React.Component {
                             </Form.Group>
                         </Col>
                         <Col md={7} className="flexColumn">
-                            <Form.Label as="b">Name: </Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="name"
-                                defaultValue={this.state.name}
-                                placeholder="please type your name"
-                                className="mb-2"
-                                onChange={this.handleChange}
-                            />
+                            <Form.Group controlId="tutorName">
+                                <Form.Label as="b">Name: </Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="name"
+                                    defaultValue={this.state.name}
+                                    placeholder="please type your name"
+                                    className="mb-2"
+                                    onChange={this.handleChange}
+                                />
+                            </Form.Group>
                             <h6>
                                 {this.state.rating}{" "}
                                 <i
@@ -228,6 +223,7 @@ class EditTutorProfile extends React.Component {
                             <Button
                                 variant="outline-primary"
                                 style={{ margin: "5px" }}
+                                onClick={this.handleSubmit}
                             >
                                 Save
                             </Button>{" "}
@@ -242,15 +238,17 @@ class EditTutorProfile extends React.Component {
                     <Row style={{ marginTop: " 1rem" }}>
                         <div className="col">
                             <h3>Description</h3>
-                            <Form.Control
-                                name="description"
-                                as="textarea"
-                                rows={8}
-                                placeholder="please type a description about yourself"
-                                defaultValue={this.state.description}
-                                style={{ overflowY: "scroll" }}
-                                onChange={this.handleChange}
-                            />
+                            <Form.Group controlId="description">
+                                <Form.Control
+                                    name="description"
+                                    as="textarea"
+                                    rows={8}
+                                    placeholder="please type a description about yourself"
+                                    defaultValue={this.state.description}
+                                    style={{ overflowY: "scroll" }}
+                                    onChange={this.handleChange}
+                                />
+                            </Form.Group>
                         </div>
                     </Row>
                     <Row style={{ marginTop: " 1rem" }}>
@@ -291,10 +289,20 @@ class EditTutorProfile extends React.Component {
                                                 </Modal.Header>
                                                 <Modal.Body>
                                                     <div className="d-flex justify-content-between">
-                                                        <Button variant="outline-dark" onClick={handleFileDeleteClick}>
+                                                        <Button
+                                                            variant="outline-dark"
+                                                            onClick={
+                                                                handleFileDeleteClick
+                                                            }
+                                                        >
                                                             YES
                                                         </Button>
-                                                        <Button variant="outline-dark" onClick={handleFileDeleteModalClose}>
+                                                        <Button
+                                                            variant="outline-dark"
+                                                            onClick={
+                                                                handleFileDeleteModalClose
+                                                            }
+                                                        >
                                                             NO
                                                         </Button>
                                                     </div>
@@ -312,7 +320,7 @@ class EditTutorProfile extends React.Component {
                                     />
                                     <Form.Group controlId="tutorFile">
                                         <Form.Label as="b">
-                                            Upload new files to your profule
+                                            Upload new files to your profile
                                         </Form.Label>
                                         <Form.Control
                                             name="file"
