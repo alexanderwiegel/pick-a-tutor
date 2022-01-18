@@ -15,10 +15,17 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"kylerstark@example.com\",\r\n    \"password\":\"password\"\r\n}"
+							"raw": "{\r\n    \"email\":\"johndoe@example.com\",\r\n    \"password\":\"password\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/login",
@@ -1197,6 +1204,40 @@
 									"key": "courseId",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reported Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NDI1Mjg0NTQsImV4cCI6MTY0MjYxNDg1NH0.r9cmO_8CjIGNG5UHrWmcarxzvAOOvda1fMaI9gvSXNo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/reported_reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"reported_reviews"
 							]
 						}
 					},
