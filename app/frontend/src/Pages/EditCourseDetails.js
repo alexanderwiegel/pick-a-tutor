@@ -101,64 +101,7 @@ class EditCourseDetails extends React.Component {
     }
 
     render() {
-        const course = {
-            id: 1,
-            name: "Course Name",
-            img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
-            tutorID: 1,
-            rating: 4.3,
-            rate: 20,
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam condimentum, diam nec accumsan egestas, odio nisl tempus dolor, vitae aliquam dui nunc eget ipsum. Aenean vitae est maximus, aliquam ligula non, placerat lacus. Nunc varius eleifend diam nec luctus. Fusce quis condimentum diam. Maecenas viverra condimentum ipsum et feugiat. Donec eget tortor vitae nisi vulputate pellentesque. Pellentesque vel nisi accumsan, faucibus lacus eu, ultrices eros. Integer mattis odio eu egestas fermentum. Donec tempor, metus ut gravida pulvinar, erat nisi fermentum mauris, at pharetra enim arcu eu nunc. Nullam posuere eleifend leo id lacinia. Suspendisse accumsan, arcu in sodales congue, ex dolor gravida sapien, quis posuere turpis mi sed lorem. Nam a nibh sed augue bibendum consectetur. Aliquam feugiat placerat ex ut auctor. ",
-            files: [
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-            ],
-            reviews: [
-                {
-                    id: 1,
-                    userID: 1,
-                    userName: "Reviewer Name",
-                    text: "Very good course!",
-                    date: "01.01.2022",
-                    rate: 4.0,
-                },
-                {
-                    id: 1,
-                    userID: 1,
-                    userName: "Reviewer Name",
-                    text: "Very good course!",
-                    date: "01.01.2022",
-                    rate: 4.0,
-                },
-                {
-                    id: 1,
-                    userID: 1,
-                    userName: "Reviewer Name",
-                    text: "Very good course!",
-                    date: "01.01.2022",
-                    rate: 4.0,
-                },
-            ],
-        };
+       
         const tutor = { id: 1, name: "Tutor Name", link: "/tutors/3434" };
 
         const uploadFileOnClick = () => {
@@ -239,7 +182,7 @@ class EditCourseDetails extends React.Component {
                             </i>
                             <br />
                             <Row style={{ marginLeft: "5px" }}>
-                                <Form.Group controlId="courseName">
+                                <Form.Group controlId="coursePrice">
                                     <Form.Label as="b">
                                         Price: €/Hour
                                     </Form.Label>
