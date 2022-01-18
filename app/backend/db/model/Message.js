@@ -22,6 +22,14 @@ Message.init(
                 key: "id",
             },
         },
+        conversationId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        isConversationOpen: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
         message: {
             type: DataTypes.STRING,
             allowNull: false,
