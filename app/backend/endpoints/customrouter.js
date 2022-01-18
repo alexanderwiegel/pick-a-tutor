@@ -17,6 +17,7 @@ const studentenrolledcourses = require("./studentenrolledcourses");
 const CourseAdditionalInfo = require("./courseadditionalinfo");
 const Review = require("./review");
 const TutorOfMonth = require("./tutorofmonth");
+const Message = require("./message");
 
 //*******Users Routes*******
 router.get("/users", users.getallusers);
@@ -34,6 +35,8 @@ router.patch("/course/:id", authadmin, courses.updateCourse);
 router.delete("/course/:id", authadmin, courses.courseDelete);
 
 //*******Tutor Courses Routes*******
+//****************** Get All Tutor Courses with filters course_name,price_min,price_max,rating for Homepage **********
+router.get("/tutor_courses_home", tutorCourses.getTutorCoursesHome);
 //******** Get All courses of all tutors or by passing "tutor_id" in parameter, get ONLY one tutor's courses *********
 router.get("/tutor_courses", tutorCourses.getTutorCourses);
 router.post("/tutor_course", authtutor, tutorCourses.postTutorCourse);
@@ -90,7 +93,7 @@ router.delete(
     userprofilefiles.deleteuserprofilefile
 );
 
-//*******StudentEnrollerCourses Routes*******
+//*******StudentEnrolledCourses Routes*******
 router.get(
     "/enrolledstudentcourses",
     authgeneral,
@@ -112,6 +115,11 @@ router.delete(
     authgeneral,
     studentenrolledcourses.deleteStudentCourse
 );
+
+//*******Message Routes *******
+router.post("/createmessage", Message.createmessage);
+router.get("/getallconversations", Message.getallconversations);
+router.patch("/updateconversationstatus", Message.updateconversationstatus);
 
 //*******Review Routes*******
 router.get("/reviews", reviews.getReviews);
@@ -160,6 +168,7 @@ router.delete(
 
 const multer = require("multer");
 const jwtdecode = require("jwt-decode");
+const checkauth_general = require("../auth/checkauth_general");
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, process.env.PROFILE_STORAGE);

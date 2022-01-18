@@ -3,22 +3,24 @@ const Message = require("../db/model/Message");
 const TutorCourse = require("../db/model/TutorCourse");
 const User = require("../db/model/User");
 const UserProfile = require("../db/model/UserProfile");
+const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
 
 const db = require("../db/db");
 
-// require("../db/associations");
+require("../db/associations");
 
 async function run() {
     // Recreate tables
-    await db.sync({ force: true });
+    // await db.sync({ force: true });
 
     /* Create rows */
-//****************** bcrpted password value is "password" ***********************
+    //****************** bcrpted password value is "password" ***********************
     await User.build({
         firstName: "John",
         lastName: "Doe",
         email: "johndoe@example.com",
-        password: "$2a$10$odgaZlCBMLlRuBpkCk51R.HAdAyB0hXONZFtQJYLsSlI.2cp6YwTy",
+        password:
+            "$2a$10$odgaZlCBMLlRuBpkCk51R.HAdAyB0hXONZFtQJYLsSlI.2cp6YwTy",
         dateOfBirth: new Date("05.08.1985"),
         gender: User.GENDER.MALE,
         isStudent: true,
@@ -44,7 +46,8 @@ async function run() {
         firstName: "Kyler",
         lastName: "Stark",
         email: "kylerstark@example.com",
-        password: "$2a$10$odgaZlCBMLlRuBpkCk51R.HAdAyB0hXONZFtQJYLsSlI.2cp6YwTy",
+        password:
+            "$2a$10$odgaZlCBMLlRuBpkCk51R.HAdAyB0hXONZFtQJYLsSlI.2cp6YwTy",
         dateOfBirth: new Date("02.18.1990"),
         gender: User.GENDER.FEMALE,
         isStudent: false,
@@ -57,7 +60,8 @@ async function run() {
         firstName: "Johnny",
         lastName: "Doh",
         email: "johnnyd@example.com",
-        password: "$2a$10$odgaZlCBMLlRuBpkCk51R.HAdAyB0hXONZFtQJYLsSlI.2cp6YwTy",
+        password:
+            "$2a$10$odgaZlCBMLlRuBpkCk51R.HAdAyB0hXONZFtQJYLsSlI.2cp6YwTy",
         dateOfBirth: new Date("08.05.1995"),
         gender: User.GENDER.DIVERSE,
         isStudent: true,

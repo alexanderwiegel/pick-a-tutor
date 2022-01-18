@@ -1,9 +1,10 @@
-const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
+// const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
 // const TutorCourse = require("../db/model/TutorCourse");
 // const CourseAdditionalInfo = require("../db/model/CourseAdditionalInfo");
 // const Review = require("../db/model/Review");
 // const db = require("../db/db");
 // const UserProfileFiles = require("../db/model/UserProfileFiles");
+const Message = require("../db/model/Message");
 
 // require("../db/associations");
 

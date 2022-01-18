@@ -35,6 +35,10 @@ async function login(data) {
   })
 }
 
+async function getAllUsers() {
+  return await axiosInstance.get("users")
+}
+
 async function getListofTutors(subject) {
   return await axiosInstance.get(`tutors?search=${subject}`)
 }
