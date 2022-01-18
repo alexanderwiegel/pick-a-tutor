@@ -12,7 +12,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
-import apiEndpoints from "./ApiEndpoints";
+import apiEndpoints from "../Components/ApiEndpoints";
 import * as yup from "yup";
 
 const initialValues = {
@@ -370,7 +370,7 @@ const SignUp = () => {
                                             minheight: "70px",
                                         }}
                                         as={Link}
-                                        to={"/login"}
+                                        to={"/home"}
                                     >
                                         Already have an account? Sign in.
                                     </Button>

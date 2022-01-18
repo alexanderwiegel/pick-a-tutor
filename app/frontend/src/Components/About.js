@@ -1,7 +1,7 @@
 import React from 'react';
 
-function About (props) {
-    return (
+function About(props) {
+  return (
     <div id='about' >
         <div className= 'about-image' >
             <img src = {props.image} alt='' />
@@ -12,7 +12,7 @@ function About (props) {
             <a href='/signup' className='cv-btn' style={{padding:6, textDecoration:'none'}}> {props.button} </a>
         </div>
     </div>
-    )
+  )
 }
 
 export default About;

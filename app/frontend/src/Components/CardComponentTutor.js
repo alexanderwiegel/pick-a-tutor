@@ -9,7 +9,6 @@ function CardComponentTutor({ name, courses, searched_name="" }) {
     return (
         <Card
             style={{
-                width: "20rem",
                 fontSize: "1rem",
                 borderColor: "transparent",
             }}

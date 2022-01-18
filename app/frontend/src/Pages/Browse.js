@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import apiEndPoints from "./ApiEndpoints";
+import apiEndPoints from "../Components/ApiEndpoints";
 import { useLocation } from "react-router-dom";
-import CardComponent from "./CardComponentSubject";
-import CardComponentTutor from "./CardComponentTutor";
-import SearchComponent from "./SearchComponent";
-import {Container, Button,ToggleButton,ButtonGroup, Row, Col, FloatingLabel, Form} from 'react-bootstrap';
+import CardComponent from "../Components/CardComponentSubject";
+import CardComponentTutor from "../Components/CardComponentTutor";
+import SearchComponent from "../Components/SearchComponent";
+import {Container,ToggleButton,Row, Col, FloatingLabel, Form, Button} from 'react-bootstrap';
+import Sort from "../Components/Sort";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-function Details(props) {
+function Browse(props) {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState("course")
@@ -20,6 +21,10 @@ function Details(props) {
     console.log('In detail ',data)
     setUsers(preVal => data.data)
   };
+
+  // const getResults = asnyc() =>{
+  //   const data = await apiEndPoints.getFilterResults()
+  // }
 
   const _setCategory = (value) => {
     setCategory(preVal => value)
@@ -45,11 +50,15 @@ function Details(props) {
     <Container>
     <div className="detail-page">
       <div className="side-bar">
-        <label for="filter" className='hide'><i class="bi bi-x-lg" /></label>
+        <br/>
+        <label for="filter" className='hide' style={{marginLeft:'10px'}}><i class="bi bi-x-circle-fill" style={{height:'20px',width:'20px'}}></i></label>
+        <br/>
         <h3>Rating Filters</h3>
         <hr/>
-        <ButtonGroup className="mb-2">
+        
+          
         <ToggleButton
+          style={{ backgroundColor: starValue == 4 ? "#00b7ffa1" : "transparent", color: starValue == 4 ? "#ffffff" : "black"}}
           id="4 star"
           type="checkbox"
           variant="light"
@@ -57,15 +66,16 @@ function Details(props) {
           onChange={(e) => setStarValue(e.currentTarget.value)}
         >
           <i class="bi bi-star-fill" style={{color:'gold'}}></i>
-        <i class="bi bi-star-fill" style={{color:'gold'}}></i>
-        <i class="bi bi-star-fill" style={{color:'gold'}}></i>
-        <i class="bi bi-star-fill" style={{color:'gold'}}></i>
-        <i class="bi bi-star"></i> & More
+          <i class="bi bi-star-fill" style={{color:'gold'}}></i>
+          <i class="bi bi-star-fill" style={{color:'gold'}}></i>
+          <i class="bi bi-star-fill" style={{color:'gold'}}></i>
+          <i class="bi bi-star"></i> & More
         </ToggleButton>
-      </ButtonGroup>
-      <br />
-       <ButtonGroup className="mb-2">
+       <br/>
+       <br/>
+    
         <ToggleButton
+        style={{ backgroundColor: starValue == 3 ? "#00b7ffa1" : "transparent", color: starValue == 3 ? "#ffffff" : "black"}}
           id="3 star"
           type="checkbox"
           variant="light"
@@ -78,10 +88,12 @@ function Details(props) {
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i> & More
         </ToggleButton>
-      </ButtonGroup>
+    
       <br />
-      <ButtonGroup className="mb-2">
+      <br />
+    
         <ToggleButton
+          style={{ backgroundColor: starValue == 2 ? "#00b7ffa1" : "transparent", color: starValue == 2 ? "#ffffff" : "black"}}
           id="2 star"
           type="checkbox"
           variant="light"
@@ -94,10 +106,13 @@ function Details(props) {
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i> & More
         </ToggleButton>
-      </ButtonGroup>
+    
       <br />
-      <ButtonGroup className="mb-2">
+      <br />
+      
+    
         <ToggleButton
+          style={{ backgroundColor: starValue == 1 ? "#00b7ffa1" : "transparent", color: starValue == 1 ? "#ffffff" : "black"}}
           id="1 star"
           type="checkbox"
           variant="light"
@@ -110,13 +125,14 @@ function Details(props) {
         <i class="bi bi-star"></i>
         <i class="bi bi-star"></i> & More
         </ToggleButton>
-      </ButtonGroup>
+      
       <br />
       <br />
       <h3>Price Filters</h3>
       <hr/>
-      <ButtonGroup className="mb-2">
+      
         <ToggleButton
+          style={{ backgroundColor: priceFilter == 5 ? "#00b7ffa1" : "transparent", color: priceFilter == 5 ? "#ffffff" : "black"}}
           id="5 Euro"
           type="checkbox"
           variant="light"
@@ -125,10 +141,12 @@ function Details(props) {
         >
         0 - 5 €
         </ToggleButton>
-      </ButtonGroup>
+    
       <br/>
-      <ButtonGroup className="mb-2">
+      <br/>
+    
         <ToggleButton
+          style={{ backgroundColor: priceFilter == 10 ? "#00b7ffa1" : "transparent", color: priceFilter == 10 ? "#ffffff" : "black"}}
           id="10 Euro"
           type="checkbox"
           variant="light"
@@ -137,10 +155,12 @@ function Details(props) {
         >
         5 - 10 €
         </ToggleButton>
-      </ButtonGroup>
+    
       <br/>
-      <ButtonGroup className="mb-2">
+      <br/>
+    
         <ToggleButton
+          style={{ backgroundColor: priceFilter == 15 ? "#00b7ffa1" : "transparent", color: priceFilter == 15 ? "#ffffff" : "black"}}
           id="15"
           type="checkbox"
           variant="light"
@@ -149,10 +169,12 @@ function Details(props) {
         >
         10 - 15 €
         </ToggleButton>
-      </ButtonGroup>
+    
       <br/>
-      <ButtonGroup className="mb-2">
+      <br/>
+    
         <ToggleButton
+          style={{ backgroundColor: priceFilter == 20 ? "#00b7ffa1" : "transparent", color: priceFilter == 20 ? "#ffffff" : "black"}}
           id="20 Euro"
           type="checkbox"
           variant="light"
@@ -161,19 +183,22 @@ function Details(props) {
         >
         15 - 20 €
         </ToggleButton>
-      </ButtonGroup>
+    
       <br/>
-      <ButtonGroup className="mb-2">
+      <br/>
+    
         <ToggleButton
+        style={{ backgroundColor: priceFilter == '20+' ? "#00b7ffa1" : "transparent", color: priceFilter == '20+' ? "#ffffff" : "black"}}
           id="20 + Euro"
           type="checkbox"
           variant="light"
-          value="20"
+          value="20+"
           onChange={(e) => setPriceFilter(e.currentTarget.value)}
         >
         20+ €
         </ToggleButton>
-      </ButtonGroup>
+        <br/>
+        <br/>
       <Row className="g-2" style={{fontSize:'10px'}}>
   <Col md>
     <FloatingLabel controlId="floatingInputGrid" label="Min Price">
@@ -186,31 +211,47 @@ function Details(props) {
     </FloatingLabel>
    </Col>
 </Row>
+<br />
+<Container>
+  <Row>
+    <div class="col text-center">
+    {/* onClick={getResults()} */}
+    <Button style={{backgroundColor:'#00b7ff',borderColor:'#00b7ff',width:'100%'}}>Apply Filters</Button>
+    </div>
+  </Row>
+</Container>
+<br/>
+<br/>
       </div>
-      <div className="main-content">
-        <div className="wrapper" style={{justifyContent:'space-evenly'}}>
-          {
-            loading &&
-              <h1>Fetching data...</h1>
-          }
-          
-          { (users.length > 0 && !loading) && 
-              users.map(user => {
-                
-                if(category === "course")
-                  return <CardComponent courses={ user.Courses } 
-                                    name={ user.firstName } 
-                                    searched_name={location.state?.search} />
-                return <CardComponentTutor courses={ user } 
-                                    name={ user.firstName } 
-                                    searched_name={location.state?.search} />
-                }
-              )
-          }
-          {
-            (users.length === 0 && !loading) &&
-              <h1>No data found</h1>       
-          }
+      <div style={{ width: "100%" }}>
+        <div style={{  display: "flex", justifyContent: "flex-end" }}>
+          <Sort/>
+        </div>
+        <div className="main-content">
+          <div className="wrapper" style={{justifyContent:'space-evenly'}}>
+            {
+              loading &&
+                <h1>Fetching data...</h1>
+            }
+            
+            { (users.length > 0 && !loading) && 
+                users.map(user => {
+                  
+                  if(category === "course")
+                    return <CardComponent courses={ user.Courses } 
+                                      name={ user.firstName } 
+                                      searched_name={location.state?.search} />
+                  return <CardComponentTutor courses={ user } 
+                                      name={ user.firstName } 
+                                      searched_name={location.state?.search} />
+                  }
+                )
+            }
+            {
+              (users.length === 0 && !loading) &&
+                <h1>No data found</h1>       
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -219,4 +260,4 @@ function Details(props) {
   );
 }
 
-export default Details;
+export default Browse;

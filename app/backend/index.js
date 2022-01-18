@@ -1,8 +1,6 @@
 const app = require("express")();
 const endpoints = require("./endpoints/base");
-
-// TODO: probably move somewhere else
-require("./db/associations");
+const dotenv = require("dotenv").config();
 
 app.use(endpoints);
 

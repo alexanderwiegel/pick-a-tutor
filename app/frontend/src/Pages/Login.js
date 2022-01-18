@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from 'yup';
-import apiEndpoints from "./ApiEndpoints";
+import apiEndpoints from "../Components/ApiEndpoints";
 
 const initialValues = {
   email: "",
@@ -63,7 +63,7 @@ export default function Login() {
                                  if(data.status === 200){
                                  localStorage.setItem('user',true)
                                  localStorage.setItem('token',data.data.token)
-                                  navigate('/dashboard')
+                                  navigate('/home')
                                 }
                                 else{
                                     

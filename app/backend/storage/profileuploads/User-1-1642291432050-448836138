@@ -1,0 +1,35 @@
+select * from 
+(SELECT d.id as userID,c.id as courseId, b.id as tutorId, d.firstName,d.lastName,c.name as courseName,c.description as courseDescription, b.coursePricePerHour,a.enrolledStatus, b.createdAt as courseCreatedAt FROM db.student_enrolled_courses a, db.tutor_courses b,db.courses c, db.users d  where a.tutorCourseId=b.CourseId and b.CourseId=c.id and a.userId=d.id and a.deletedAt is null) tutordetails;
+
+
+select * from
+(SELECT tutorId, courseId, count(id) as rating_count, avg(rating) as rating_avg  FROM db.reviews
+WHERE DATE(createdAt) BETWEEN DATE(CURRENT_DATE() - INTERVAL 8 WEEK) AND 
+DATE(CURRENT_DATE() - INTERVAL 4 WEEK) group by tutorId,courseId   having rating_count >=0 order by rating_avg limit 1) tutorofmonth;
+
+
+
+################# temporary work
+
+SELECT * FROM db.reviews;
+
+update db.reviews set createdAt= DATE(CURRENT_DATE() - INTERVAL 7 WEEK) where id in (1,2,3,5);
+
+commit;
+
+SELECT tutorId, sum(rating),count(id) FROM db.reviews  group by tutorId;
+
+SELECT * FROM db.reviews where truncate(createdAt)=truncate(sysdate());
+
+
+
+select DATE(CURRENT_DATE() - INTERVAL 8 WEEK) from dual;
+
+SELECT tutorId, count(id) FROM db.reviews WHERE DATE(createdAt) BETWEEN DATE(CURRENT_DATE() - INTERVAL 8 WEEK) AND DATE(CURRENT_DATE() - INTERVAL 4 WEEK) group by tutorId;
+
+
+SELECT tutorId, count(id) as rating_count, avg(rating) as rating_avg  FROM db.reviews
+WHERE DATE(createdAt) BETWEEN DATE(CURRENT_DATE() - INTERVAL 8 WEEK) AND 
+DATE(CURRENT_DATE() - INTERVAL 4 WEEK) group by tutorId  having rating_count >=0 order by rating_avg limit 1;
+
+

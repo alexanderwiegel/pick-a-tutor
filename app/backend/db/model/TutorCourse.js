@@ -7,6 +7,11 @@ class TutorCourse extends Model {}
 
 TutorCourse.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+        },
         UserId: {
             type: DataTypes.INTEGER,
             allowNull: false,
