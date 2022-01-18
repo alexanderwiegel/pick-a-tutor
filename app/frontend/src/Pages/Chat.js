@@ -1,24 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-// import { useLocation } from "react-router-dom"
 import ChatMessage from "../Components/ChatMessage";
 import { format } from "date-fns";
+import apiEndPoints from '../Components/ApiEndpoints';
 import { BiArrowBack, BiPaperPlane } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const URL = 'ws://127.0.0.1:8080';
 
 const Chat = () => {
-  // const location = useLocation()
-  // const contactName = location.state?.contactName
+  // const [history, setHistory] = useState([])
+  // const [loading, setLoading] = useState(true)
 
-  const [sender, setSender] = useState('You');
+  // const getHistory = async () => {
+  //   const data = await apiEndPoints.getHistory("3", "4")
+  //   console.log(data)
+  //   setHistory(() => data.data.data)
+  // };
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     getHistory();
+  //     setTimeout(() => {
+  //       setLoading(() => false)
+  //     }, 200)
+  //   }, 500)
+  // }, []);
+
   const [message, setMessage] = useState([]);
   const [messages, setMessages] = useState([]);
   const [ws, setWs] = useState(new WebSocket(URL));
 
-  const submitMessage = (sendr, dT, txt) => {
-    const message = { sender: sendr, dateTime: dT, text: txt };
+  const submitMessage = (dT, txt) => {
+    const message = { sender: "You", dateTime: dT, text: txt };
     ws.send(JSON.stringify(message));
     setMessages([message, ...messages]);
   }
@@ -41,27 +55,27 @@ const Chat = () => {
     }
   }, [ws.onmessage, ws.onopen, ws.onclose, messages]);
 
-  var history = [
-    { sender: "John Doe", date: "2022-01-01 12:00", text: "Hey, can I ask you something?" },
-    { sender: "John Doe", date: "2022-01-01 14:00", text: "Do I need any prior knowledge for your Java course?" },
-    { sender: "You", date: "2022-01-01 13:00", text: "Sure, go ahead!" },
-    { sender: "You", date: "2022-01-01 15:00", text: "That's a very good question! No you don't, although it would help if you have ever typed something on a keyboard ;-)" },
-  ]
+  // var history = [
+  //   { sender: "John Doe", date: "2022-01-01 12:00", text: "Hey, can I ask you something?" },
+  //   { sender: "John Doe", date: "2022-01-01 14:00", text: "Do I need any prior knowledge for your Java course?" },
+  //   { sender: "You", date: "2022-01-01 13:00", text: "Sure, go ahead!" },
+  //   { sender: "You", date: "2022-01-01 15:00", text: "That's a very good question! No you don't, although it would help if you have ever typed something on a keyboard ;-)" },
+  // ]
 
-  for (var i = 0; i < history.length; i++) {
-    history[i].date = new Date(history[i].date)
-  }
+  // for (var i = 0; i < history.length; i++) {
+  //   history[i].date = new Date(history[i].date)
+  // }
 
-  history.sort(function compare(a, b) {
-    var dateA = new Date(a.date)
-    var dateB = new Date(b.date)
-    return dateA - dateB
-  })
+  // history.sort(function compare(a, b) {
+  //   var dateA = new Date(a.date)
+  //   var dateB = new Date(b.date)
+  //   return dateA - dateB
+  // })
 
-  for (i = 0; i < history.length; i++) {
-    // TODO: convert to 24h format
-    history[i].date = format(new Date(history[i].date), "dd.MM.yyyy hh:mm")
-  }
+  // for (i = 0; i < history.length; i++) {
+  //   // TODO: convert to 24h format
+  //   history[i].date = format(new Date(history[i].date), "dd.MM.yyyy hh:mm")
+  // }
 
   return (
     <div className="App">
@@ -75,9 +89,9 @@ const Chat = () => {
             </Container>
           </Card.Header>
           <Card.Body>
-            {history.map((message, index) =>
+            {/* {history.map((message, index) =>
               <ChatMessage sender={message.sender} date={message.date} text={message.text} key={index} />
-            )}
+            )} */}
             {messages.reverse().map((message, index) =>
               <ChatMessage sender={message.sender} date={message.dateTime} text={message.text} key={index} />
             )}
@@ -85,7 +99,7 @@ const Chat = () => {
           <Card.Footer>
             <Form onSubmit={e => {
               e.preventDefault();
-              submitMessage(sender, format(Date.now(), "dd.MM.yyyy hh:mm"), message);
+              submitMessage(format(Date.now(), "dd.MM.yyyy hh:mm"), message);
               setMessage([]);
             }}>
               <Row>
