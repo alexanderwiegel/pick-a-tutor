@@ -42,25 +42,31 @@ async function getListofTutors(subject) {
   return await axiosInstance.get(`courses?search=${subject}`)
 }
 
-
 async function getSingleTutorData() {
   return await axiosInstance.get('users')
 }
 
-async function getPostDetail(postId) {
-  return await axiosInstance.get(`posts/${postId}`)
+async function getHistory(senderId, recipientId) {
+  return await axiosInstance.get("/getallconversations", {
+    senderId: senderId,
+    recipientId: recipientId
+  })
 }
 
-async function getPosts() {
-  return await axiosInstance.get('posts')
+async function sendMessage(senderId, recipientId, message) {
+  return await axiosInstance.post("/createmessage", {
+    senderId: senderId,
+    recipientId: recipientId,
+    message: message
+  })
 }
 
-async function postPosts(data) {
-  return await axiosInstance.post('add_post', data)
+async function getReportedReviews() {
+  // return await axiosInstance
 }
 
 const apiEndPoints = {
-  postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login, getAllUsers
+  getTutorData, getListofTutors, register, login, getAllUsers, getHistory, sendMessage
 }
 
 export default apiEndPoints
