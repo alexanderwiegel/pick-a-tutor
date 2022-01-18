@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d94483ba-c235-4420-9fe7-19342abfcd58",
+		"_postman_id": "ec030010-49a3-4320-91d8-a240e3293915",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -468,12 +468,12 @@
 			"name": "Courses Tutor",
 			"item": [
 				{
-					"name": "Courses Get All",
+					"name": "Tutor Courses HomePage Get",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/all_courses?search=java",
+							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -481,12 +481,12 @@
 							"port": "3001",
 							"path": [
 								"api",
-								"all_courses"
+								"tutor_courses"
 							],
 							"query": [
 								{
-									"key": "search",
-									"value": "java"
+									"key": "tutor_id",
+									"value": "2"
 								}
 							]
 						}
@@ -494,7 +494,7 @@
 					"response": []
 				},
 				{
-					"name": "Tutor Courses Get",
+					"name": "Tutor Courses Get by Tutor ID",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -527,7 +527,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpc1N0dWRlbnQiOnRydWUsImlzVHV0b3IiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDUzOTgzOSwiZXhwIjoxNjQwNjI2MjM5fQ.HOBWeD-LzEjep371uBpU4-hAY84HLvvG9FkJxcdEYes",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJreWxlcnN0YXJrQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50IjpmYWxzZSwiaXNUdXRvciI6dHJ1ZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjQ1Mzc3MSwiZXhwIjoxNjQyNTQwMTcxfQ.hX1FzeMt7aGYXkIHo4uZEx2IWKJCgtoKs9GQw9hiCQU",
 									"type": "string"
 								}
 							]
@@ -535,7 +535,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_course/1",
+							"raw": "http://localhost:3001/api/tutor_course/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -544,7 +544,7 @@
 							"path": [
 								"api",
 								"tutor_course",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -567,7 +567,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"6th Level Java\",\r\n        \"coursePricePerHour\": 15.50\r\n}",
+							"raw": "{\r\n        \"name\": \"2nd Level Java\",\r\n        \"coursePricePerHour\": 15.50,\r\n        \"isFull\" : 0\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -590,14 +590,14 @@
 					"response": []
 				},
 				{
-					"name": "Tutor Course Update",
+					"name": "Course Update",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5kb2VAZXhhbXBsZS5jb20iLCJpc1N0dWRlbnQiOnRydWUsImlzVHV0b3IiOnRydWUsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDUzOTgzOSwiZXhwIjoxNjQwNjI2MjM5fQ.HOBWeD-LzEjep371uBpU4-hAY84HLvvG9FkJxcdEYes",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJreWxlcnN0YXJrQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50IjpmYWxzZSwiaXNUdXRvciI6dHJ1ZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjQ1Mzc3MSwiZXhwIjoxNjQyNTQwMTcxfQ.hX1FzeMt7aGYXkIHo4uZEx2IWKJCgtoKs9GQw9hiCQU",
 									"type": "string"
 								}
 							]
@@ -606,7 +606,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"PHP 12m OOP\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}",
+							"raw": "{\r\n        \"coursePricePerHour\": 14.50,\r\n        \"isFull\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -614,7 +614,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_course/8",
+							"raw": "http://localhost:3001/api/tutor_course/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -623,7 +623,7 @@
 							"path": [
 								"api",
 								"tutor_course",
-								"8"
+								"5"
 							]
 						}
 					},
@@ -661,7 +661,7 @@
 					"response": []
 				},
 				{
-					"name": "Create Review",
+					"name": "Post Review by Student",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -677,7 +677,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"studentId\": 3,\r\n        \"tutorId\": 2,\r\n        \"courseId\": 4,\r\n        \"rating\": 5,\r\n        \"ratingComments\": \"The teacher is amazing\"\r\n}",
+							"raw": "{\r\n        \"studentId\": 3,\r\n        \"tutorId\": 2,\r\n        \"courseId\": 11,\r\n        \"rating\": 5,\r\n        \"ratingComments\": \"The teacher is awesome!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

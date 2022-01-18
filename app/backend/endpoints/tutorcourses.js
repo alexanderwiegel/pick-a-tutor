@@ -56,6 +56,94 @@ const getTutorCourses = async(req, res) => {
 
 exports.getTutorCourses = getTutorCourses;
 
+//****************** Get All Tutor Courses with filters course_name,price_min,price_max,rating for Homepage **************
+
+const getTutorCoursesHome = async(req, res) => {
+    var tutorCourses = '';
+/*
+    return res.json({
+        success: false,
+        message: "test",
+        //records: courses.length,
+        data: req.query.course_name,
+    });
+*/
+    var minPrice = 0;
+    var maxPrice = 1000000;
+    if(req.query.price_min != ''){
+        minPrice = req.query.price_min;
+    }
+    if(req.query.price_max && req.query.price_max!= ''){
+        maxPrice = req.query.price_max;
+    }
+    tutorCourses = await TutorCourse.findAll(
+        {
+            where : {
+                "coursePricePerHour" : {
+                    [Op.between]: [minPrice, maxPrice]
+                    //[Op.between]: [req.query.price_min, req.query.price_max]
+                    //[Op.between]: [5, 15]
+                }
+            },
+            include: [
+                {
+                    model: Course,
+                    where : {
+                        "name" :
+                            {
+                                [Op.like]: '%' + req.query.course_name + '%'
+                            }
+                    }
+                },
+                {
+                    model: User
+                },
+                {
+                    model: Review
+                }
+            ]
+        }
+    );
+
+    if(tutorCourses){
+        if(tutorCourses.length == 0){
+/*
+            return res.json({
+                success: false,
+                message: "No courses available yet!",
+                //records: courses.length,
+                //data: courses,
+            });
+*/
+            return res.json(new FailedResponse("No courses available yet!"));
+        }
+        else {
+/*
+            return res.json({
+                success: true,
+                message: tutorCourses.length + " courses found",
+                records: tutorCourses.length,
+                data: tutorCourses,
+            });
+*/
+            return res.json(new SuccessfulResponse("Tutor Course found!", tutorCourses));
+        }
+
+    }
+    else {
+/*
+        return res.json({
+            success: false,
+            message: "No courses available yet!",
+            //records: courses.length,
+            //data: courses,
+        });
+*/
+        return res.json(new FailedResponse("No courses available yet!"));
+    }
+};
+
+exports.getTutorCoursesHome = getTutorCoursesHome;
 //************* Create New Tutor's Course ***************
 
 const postTutorCourse = async(req,res) => {
