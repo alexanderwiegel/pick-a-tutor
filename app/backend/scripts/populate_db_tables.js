@@ -3,6 +3,7 @@ const Message = require("../db/model/Message");
 const TutorCourse = require("../db/model/TutorCourse");
 const User = require("../db/model/User");
 const UserProfile = require("../db/model/UserProfile");
+const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
 
 const db = require("../db/db");
 

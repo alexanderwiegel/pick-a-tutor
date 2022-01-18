@@ -1,11 +1,13 @@
 const User = require("../db/model/User");
 const Course = require("../db/model/Course");
 const TutorCourse = require("../db/model/TutorCourse");
+const Review = require("../db/model/Review");
 const StudentEnrolledCourses = require("../db/model/StudentEnrolledCourses");
 const { Sequelize } = require("sequelize");
 const db = require("../db/db");
 const jwtdecode = require("jwt-decode");
 const Op = Sequelize.Op;
+const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
 //****************** Get All enrolled courses of a logged in user-Student *******************
 const getAllStudentCourses = async (req, res) => {
@@ -13,7 +15,7 @@ const getAllStudentCourses = async (req, res) => {
 
     var token = req.headers["authorization"];
     var decoded = jwtdecode(token);
-
+/*
     const [studentcourses, meta] = await db.query(
         "SELECT d.id as userID,c.id as courseId, b.id as tutorId, d.firstName,d.lastName,c.name as courseName,c.description as courseDescription, b.coursePricePerHour,a.enrolledStatus, b.createdAt as courseCreatedAt FROM student_enrolled_courses a, tutor_courses b,courses c, users d  where a.userId=$userId and a.tutorCourseId=b.CourseId and b.CourseId=c.id and a.userId=d.id and a.deletedAt is null ",
         {
@@ -27,6 +29,25 @@ const getAllStudentCourses = async (req, res) => {
         records: studentcourses.length,
         data: studentcourses,
     });
+*/
+    const userId = decoded.id;
+    try{
+        const studentAllCourses = await StudentEnrolledCourses.findAll({
+            where : {
+                "UserId" : userId
+            },
+            //include: [User,TutorCourse, Course, TutorCourse.User]
+            include: [User,TutorCourse, Course,Review]
+            //include: [User]
+        });
+        //console.log("Student enrolled courses details: " + studentAllCourses);
+        console.log("Student enrolled courses details");
+        return res.json(new SuccessfulResponse("Student enrolled courses details", studentAllCourses));
+    }
+    catch (e){
+        return res.json(new FailedResponse(e.message));
+    }
+
 };
 
 exports.getAllStudentCourses = getAllStudentCourses;
@@ -144,3 +165,4 @@ const deleteStudentCourse = async (req, res) => {
 };
 
 exports.deleteStudentCourse = deleteStudentCourse;
+
