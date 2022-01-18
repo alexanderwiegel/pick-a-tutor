@@ -15,6 +15,19 @@ exports.getReviews = async (req, res) => {
     }
 };
 
+exports.getReportedReviews = async (req, res) => {
+    try {
+        let reviews = await Review.findAll({
+            where: {
+                reportReview: Review.REPORTED,
+            },
+        });
+        res.json(new SuccessfulResponse("Reported reviews", reviews));
+    } catch (e) {
+        res.json(new FailedResponse(e.message));
+    }
+};
+
 exports.addReview = async (req, res) => {
     try {
         let review = Review.build({

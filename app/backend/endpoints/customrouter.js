@@ -120,6 +120,7 @@ router.get("/getconversation", authgeneral, Message.getconversation);
 
 //*******Review Routes*******
 router.get("/reviews", reviews.getReviews);
+router.get("/reported_reviews", authadmin, reviews.getReportedReviews);
 router.post("/reviews", authstudent, reviews.addReview);
 router.patch("/reviews/:id/report", authgeneral, reviews.reportReview);
 router.patch("/approvereview/:id", authadmin, reviews.approveReview);
