@@ -49,6 +49,15 @@ const createuser = async (req, res, next) => {
         where: { email: req.body.email },
     });
 
+
+   var emailsuffix= (req.body.email).split("@")[1]
+   var ishsemail=emailsuffix.endsWith("hs-fulda.de")
+     
+    if (ishsemail)
+    {
+
+
+
     if (existing_user) {
         res.json({
             success: true,
@@ -126,6 +135,16 @@ const createuser = async (req, res, next) => {
             data: user,
         });
     }
+}
+else {
+    res.json({
+        success: true,
+        message: "Only Fulda University registered persons are allowed to register!",
+        records: 0,
+        // data: user,
+    });
+    
+}
 };
 
 exports.createuser = createuser;
