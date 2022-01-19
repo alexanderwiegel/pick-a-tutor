@@ -16,7 +16,7 @@ const getconversation = async (req, res, next) => {
     where: {
       senderId: req.query.senderId,
       recipientId: req.query.recipientId,
-    },
+    }, include : [{model: User,  as: "sender" }, {model: User,  as: "recipient" }]
   });
 
   res.json({

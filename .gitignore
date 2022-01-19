@@ -15,3 +15,5 @@ yarn.lock
 build/
 coverage/
 node_modules/
+app/backend/storage/courseuploads/
+app/backend/storage/profileuploads/
