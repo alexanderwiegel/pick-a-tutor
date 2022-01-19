@@ -51,9 +51,9 @@ const createuser = async (req, res, next) => {
 
 
    var emailsuffix= (req.body.email).split("@")[1]
-   var ishsemail=emailsuffix.endsWith("hs-fulda.de")
+   var isithsemail=emailsuffix.endsWith("hs-fulda.de")
      
-    if (ishsemail)
+    if (isithsemail)
     {
 
 
