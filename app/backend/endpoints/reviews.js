@@ -2,6 +2,7 @@ const Review = require("../db/model/Review");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 const jwt = require("jsonwebtoken");
 const User = require("../db/model/User");
+const Course = require("../db/model/Course");
 const TutorCourse = require("../db/model/TutorCourse");
 const jwtDecode = require("jwt-decode");
 
@@ -9,6 +10,7 @@ exports.getReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
             include: [
+                { model: TutorCourse, include: [Course] },
                 { model: User, as: "student" },
                 { model: User, as: "tutor" },
             ],
@@ -26,6 +28,7 @@ exports.getReportedReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
             include: [
+                { model: TutorCourse, include: [Course] },
                 { model: User, as: "student" },
                 { model: User, as: "tutor" },
                 { model: User, as: "reporter" },
@@ -97,7 +100,7 @@ exports.reportReview = async (req, res) => {
 
 //************* Approve or Reject Review based on Id and reportReviewStatus" ***************
 
-exports.approveReview = async (req, res, next) => {
+exports.approveReview = async (req, res) => {
     const review = await Review.findOne({
         where: { id: req.params.id },
     });
