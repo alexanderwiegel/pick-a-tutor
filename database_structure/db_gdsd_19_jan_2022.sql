@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 18/01/2022 10:05:36
+ Date: 19/01/2022 16:20:33
 */
 
 SET NAMES utf8mb4;
@@ -83,15 +83,18 @@ CREATE TABLE `messages`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `senderId`(`senderId`) USING BTREE,
   INDEX `recipientId`(`recipientId`) USING BTREE,
-  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipientId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipientId`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of messages
 -- ----------------------------
-INSERT INTO `messages` VALUES (1, 1, 2, 'Hey, what\'s up?', '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
-INSERT INTO `messages` VALUES (2, 2, 1, 'All good', '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
+INSERT INTO `messages` VALUES (1, 1, 2, 'First4sdgadfd2Message', '2022-01-18 16:33:41', '2022-01-18 16:33:41', NULL);
+INSERT INTO `messages` VALUES (2, 1, 2, 'First2sdgadfd2Message', '2022-01-18 16:33:54', '2022-01-18 16:33:54', NULL);
+INSERT INTO `messages` VALUES (3, 3, 2, 'First1sdgadfd2Message', '2022-01-18 16:34:17', '2022-01-18 16:34:17', NULL);
+INSERT INTO `messages` VALUES (5, 2, 1, 'First1sdgadfd2Message', '2022-01-18 17:06:53', '2022-01-18 17:06:53', NULL);
+INSERT INTO `messages` VALUES (6, 3, 4, 'Hi 4!', '2022-01-18 17:35:45', '2022-01-18 17:35:45', NULL);
 
 -- ----------------------------
 -- Table structure for reviews
@@ -123,7 +126,7 @@ CREATE TABLE `reviews`  (
 -- ----------------------------
 -- Records of reviews
 -- ----------------------------
-INSERT INTO `reviews` VALUES (1, 1, 1, 1, 1, NULL, 1, NULL, 3, 1, '2021-12-04 00:00:00', '2022-01-16 13:36:58', NULL);
+INSERT INTO `reviews` VALUES (1, 3, 1, 1, 1, 'Spank me daddy', 1, 'Tutor has no kids', 2, 1, '2021-12-04 00:00:00', '2022-01-16 13:36:58', NULL);
 INSERT INTO `reviews` VALUES (2, 1, 1, 1, 3, NULL, NULL, NULL, NULL, 1, '2021-12-04 00:00:00', '2022-01-15 13:01:13', NULL);
 INSERT INTO `reviews` VALUES (3, 1, 1, 1, 5, NULL, NULL, NULL, NULL, 1, '2021-12-04 00:00:00', '2022-01-15 13:01:13', NULL);
 INSERT INTO `reviews` VALUES (4, 1, 2, 1, 8, NULL, NULL, NULL, NULL, 1, '2021-12-04 00:00:00', '2022-01-15 13:01:13', NULL);
@@ -132,6 +135,7 @@ INSERT INTO `reviews` VALUES (6, 3, 2, 4, 5, 'The teacher is amazing', NULL, '',
 INSERT INTO `reviews` VALUES (9, 3, 2, 4, 5, 'The teacher is awesome!', NULL, '', NULL, NULL, '2022-01-16 10:47:34', '2022-01-16 10:47:34', NULL);
 INSERT INTO `reviews` VALUES (10, 3, 2, 4, 5, 'The teacher is awesome!!', NULL, '', NULL, NULL, '2022-01-16 10:49:16', '2022-01-16 10:49:16', NULL);
 INSERT INTO `reviews` VALUES (11, 3, 2, 5, 5, 'The teacher is awesome!!', NULL, '', NULL, NULL, '2022-01-16 10:49:43', '2022-01-16 10:49:43', NULL);
+INSERT INTO `reviews` VALUES (17, 3, 2, 2, 5, 'The teacher is awesome!', NULL, '', 3, NULL, '2022-01-19 15:03:38', '2022-01-19 15:03:38', NULL);
 
 -- ----------------------------
 -- Table structure for student_enrolled_courses
@@ -170,7 +174,8 @@ CREATE TABLE `tutor_courses`  (
   `UserId` int NOT NULL,
   `CourseId` int NOT NULL,
   `coursePricePerHour` decimal(4, 2) NULL DEFAULT NULL,
-  `isFull` tinyint(1) NULL DEFAULT NULL,
+  `rating` decimal(4, 2) NULL DEFAULT 0.00,
+  `isFull` tinyint(1) NULL DEFAULT 0,
   `createdAt` datetime(0) NOT NULL,
   `updatedAt` datetime(0) NOT NULL,
   `deletedAt` datetime(0) NULL DEFAULT NULL,
@@ -184,16 +189,16 @@ CREATE TABLE `tutor_courses`  (
 -- ----------------------------
 -- Records of tutor_courses
 -- ----------------------------
-INSERT INTO `tutor_courses` VALUES (1, 1, 1, 14.99, NULL, '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
-INSERT INTO `tutor_courses` VALUES (2, 1, 2, 5.00, NULL, '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
-INSERT INTO `tutor_courses` VALUES (3, 1, 3, 10.99, NULL, '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
-INSERT INTO `tutor_courses` VALUES (4, 2, 4, 8.00, NULL, '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
-INSERT INTO `tutor_courses` VALUES (5, 2, 5, 14.50, 1, '2022-01-15 12:48:13', '2022-01-17 21:13:37', '2022-01-17 21:13:37');
-INSERT INTO `tutor_courses` VALUES (6, 2, 8, 13.50, 0, '2022-01-15 13:01:04', '2022-01-15 13:01:04', NULL);
-INSERT INTO `tutor_courses` VALUES (7, 2, 9, 12.50, 0, '2022-01-15 13:20:48', '2022-01-15 13:20:48', NULL);
-INSERT INTO `tutor_courses` VALUES (8, 2, 10, 12.50, 0, '2022-01-15 14:54:51', '2022-01-15 14:54:51', NULL);
-INSERT INTO `tutor_courses` VALUES (9, 2, 11, 15.50, 0, '2022-01-15 16:21:51', '2022-01-15 16:21:51', NULL);
-INSERT INTO `tutor_courses` VALUES (10, 2, 6, 15.50, 0, '2022-01-16 11:24:27', '2022-01-16 11:24:27', NULL);
+INSERT INTO `tutor_courses` VALUES (1, 1, 1, 14.99, 2.00, 0, '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
+INSERT INTO `tutor_courses` VALUES (2, 1, 2, 5.00, 5.00, 0, '2022-01-15 12:48:13', '2022-01-19 15:03:38', NULL);
+INSERT INTO `tutor_courses` VALUES (3, 1, 3, 10.99, 2.50, 0, '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
+INSERT INTO `tutor_courses` VALUES (4, 2, 4, 8.00, 0.00, 0, '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
+INSERT INTO `tutor_courses` VALUES (5, 2, 5, 14.50, 1.00, 1, '2022-01-15 12:48:13', '2022-01-17 21:13:37', '2022-01-17 21:13:37');
+INSERT INTO `tutor_courses` VALUES (6, 2, 8, 13.50, 3.50, 0, '2022-01-15 13:01:04', '2022-01-15 13:01:04', NULL);
+INSERT INTO `tutor_courses` VALUES (7, 2, 9, 12.50, 3.00, 0, '2022-01-15 13:20:48', '2022-01-15 13:20:48', NULL);
+INSERT INTO `tutor_courses` VALUES (8, 2, 10, 12.50, 4.50, 0, '2022-01-15 14:54:51', '2022-01-15 14:54:51', NULL);
+INSERT INTO `tutor_courses` VALUES (9, 2, 11, 15.50, 4.00, 0, '2022-01-15 16:21:51', '2022-01-15 16:21:51', NULL);
+INSERT INTO `tutor_courses` VALUES (10, 2, 6, 15.50, 5.00, 0, '2022-01-16 11:24:27', '2022-01-16 11:24:27', NULL);
 
 -- ----------------------------
 -- Table structure for user_profile_files
@@ -262,7 +267,7 @@ CREATE TABLE `users`  (
   `updatedAt` datetime(0) NOT NULL,
   `deletedAt` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users
@@ -273,5 +278,9 @@ INSERT INTO `users` VALUES (3, 'Johnny', 'Doh', 'johnnyd@example.com', '$2a$10$o
 INSERT INTO `users` VALUES (4, 'Sometutor', 'Doh', 'sometutor.doh@ai.hs-fulda.de', '$2a$10$fUqQlkLDSb.27W.kwncUBeti2jLK0viohWDpVRVbO0H1EMypnQMsO', '1995-08-05', 1, 0, 1, 0, 0, '2022-01-16 13:27:17', '2022-01-16 13:27:17', NULL);
 INSERT INTO `users` VALUES (5, 'Sometutor', 'Dohe', 'sometutor.dohe@ai.hs-fulda.de', '$2a$10$Xdf74FbAz8jV3hYpzJ2JrO.8X2KuHeLvr.qgCE7GW3cIlXOaivepm', '1995-08-05', 1, 0, 1, 0, 0, '2022-01-16 13:29:38', '2022-01-16 13:29:38', NULL);
 INSERT INTO `users` VALUES (6, 'Sometutor', 'Dohe1', 'sometutor.dohe1@ai.hs-fulda.de', '$2a$10$nvxRd1Gp59hk3nYmD/vIxuZ5L17363lIv64HtjaeqonneStGPObka', '1995-08-05', 1, 0, 1, 0, 0, '2022-01-16 13:30:36', '2022-01-16 13:30:36', NULL);
+INSERT INTO `users` VALUES (7, 'Alexander', 'Wiegel', 'alexander.wiegel@ai.hs-fulda.de', NULL, '1998-08-08', 1, 0, NULL, 1, 0, '2022-01-18 14:10:00', '2022-01-18 14:10:00', NULL);
+INSERT INTO `users` VALUES (8, 'Johnny', 'Doh', 'yes40@example.com', '$2a$10$tLRCbmqr.5tXBJNhAoHbNe0Zvcpj7t.7S6f.vCW.4bIN3ymjPA00O', '1995-08-05', 1, 1, 0, 0, 0, '2022-01-18 18:51:55', '2022-01-18 18:56:24', '2022-01-18 18:56:24');
+INSERT INTO `users` VALUES (9, 'Johnny', 'Doh', 'yes41@example.com', '$2a$10$EqOBN6uwtqEPnog9GzL1jug2DxPILxZ5Kqf7H3kJN9zgmNl9Hvkpy', '1995-08-05', 1, 1, 0, 0, 0, '2022-01-18 18:52:47', '2022-01-18 18:52:47', NULL);
+INSERT INTO `users` VALUES (10, 'Johnny', 'Doh', 'yes40@example.com', '$2a$10$GIR7kH.k9OMTFmZ0Pl8PieoveuAmjENRBXz50jtzNMoTvqP0RLMZ2', '1995-08-05', 1, 1, 0, 0, 0, '2022-01-19 15:03:17', '2022-01-19 15:03:17', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

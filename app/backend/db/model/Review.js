@@ -53,6 +53,11 @@ Review.init(
         },
         reporterId: {
             type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: User,
+                key: "id",
+            },
         },
         reportReviewStatus: {
             type: DataTypes.TINYINT,
