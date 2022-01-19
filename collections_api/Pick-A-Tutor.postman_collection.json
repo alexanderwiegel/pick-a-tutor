@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "842901bb-dec3-4c48-8c75-b580b23be113",
+		"_postman_id": "c3785438-b72f-4e21-97d2-a99deff03c87",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -842,7 +842,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=2",
+							"raw": "http://localhost:3001/api/tutor_courses_home?course_name=&price_min=&price_max=&rating=",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -850,12 +850,24 @@
 							"port": "3001",
 							"path": [
 								"api",
-								"tutor_courses"
+								"tutor_courses_home"
 							],
 							"query": [
 								{
-									"key": "tutor_id",
-									"value": "2"
+									"key": "course_name",
+									"value": ""
+								},
+								{
+									"key": "price_min",
+									"value": ""
+								},
+								{
+									"key": "price_max",
+									"value": ""
+								},
+								{
+									"key": "rating",
+									"value": ""
 								}
 							]
 						}
