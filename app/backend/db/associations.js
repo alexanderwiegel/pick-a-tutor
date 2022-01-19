@@ -25,7 +25,7 @@ User.hasOne(UserProfile);
 UserProfile.belongsTo(User);
 
 TutorCourse.User = TutorCourse.belongsTo(User);
-TutorCourse.Course =  TutorCourse.belongsTo(Course);
+TutorCourse.Course = TutorCourse.belongsTo(Course);
 
 TutorCourse.hasMany(Review, {
     foreignKey: "courseId",
@@ -46,8 +46,13 @@ User.hasMany(Review, {
     as: "received_reviews",
     foreignKey: "tutorId",
 });
+User.hasMany(Review, {
+    as: "reportedReview",
+    foreignKey: "reporterId",
+});
 Review.belongsTo(User, { as: "student" });
 Review.belongsTo(User, { as: "tutor" });
+Review.belongsTo(User, { as: "reporter" });
 
 // Added by Rakesh Starts
 
@@ -58,11 +63,21 @@ Review.belongsTo(User, { as: "tutor" });
 
 // UserProfileFiles.belongsTo(User, { as: "profile_file" });
 
-
 // Added by Abdullah Butt
 //******** StudentEnrolledCourses Relations *************
-StudentEnrolledCourses.User = StudentEnrolledCourses.belongsTo(User,{foreignKey: "userId"});
-StudentEnrolledCourses.TutorCourse = StudentEnrolledCourses.belongsTo(TutorCourse,{foreignKey: "tutorCourseId"});
-StudentEnrolledCourses.Course = StudentEnrolledCourses.belongsTo(Course,{ through: TutorCourse, foreignKey: 'tutorCourseId' });
+StudentEnrolledCourses.User = StudentEnrolledCourses.belongsTo(User, {
+    foreignKey: "userId",
+});
+StudentEnrolledCourses.TutorCourse = StudentEnrolledCourses.belongsTo(
+    TutorCourse,
+    { foreignKey: "tutorCourseId" }
+);
+StudentEnrolledCourses.Course = StudentEnrolledCourses.belongsTo(Course, {
+    through: TutorCourse,
+    foreignKey: "tutorCourseId",
+});
 //StudentEnrolledCourses.Tutor = StudentEnrolledCourses.belongsTo(User,{ through: TutorCourse, foreignKey: 'tutorCourseId' });
-StudentEnrolledCourses.Review = StudentEnrolledCourses.belongsTo(Review,{ through: Review, foreignKey: 'tutorCourseId' });
+StudentEnrolledCourses.Review = StudentEnrolledCourses.belongsTo(Review, {
+    through: Review,
+    foreignKey: "tutorCourseId",
+});

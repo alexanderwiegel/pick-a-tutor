@@ -1,10 +1,12 @@
 const Review = require("../db/model/Review");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 const jwt = require("jsonwebtoken");
+const User = require("../db/model/User");
 
 exports.getReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
+            include: [{ model: User, as: "student" }],
             where: {
                 courseId: req.query.courseId,
             },
@@ -18,6 +20,10 @@ exports.getReviews = async (req, res) => {
 exports.getReportedReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
+            include: [
+                { model: User, as: "student" },
+                { model: User, as: "reporter" },
+            ],
             where: {
                 reportReview: Review.REPORTED,
             },
