@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "25979c03-a86c-4726-a982-950df75022f1",
+		"_postman_id": "842901bb-dec3-4c48-8c75-b580b23be113",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -55,10 +55,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/users",
 							"protocol": "http",
@@ -194,10 +190,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/users?search=yes31@example.com",
 							"protocol": "http",
@@ -254,10 +246,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/users?search=yes21@example.com",
 							"protocol": "http",
@@ -329,10 +317,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/courses?search=java",
 							"protocol": "http",
@@ -468,10 +452,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallbytutorcourse/1/1",
 							"protocol": "http",
@@ -550,7 +530,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": null
+									"src": []
 								},
 								{
 									"key": "fileTitle",
@@ -584,10 +564,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallcoursefilesbyfileid/1",
 							"protocol": "http",
@@ -609,10 +585,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallcoursefilesbystatus/PendingApproval",
 							"protocol": "http",
@@ -634,10 +606,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallcoursefilesbytutor",
 							"protocol": "http",
@@ -663,10 +631,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
 							"protocol": "http",
@@ -744,7 +708,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": null
+									"src": []
 								},
 								{
 									"key": "ProfilePhoto",
@@ -773,10 +737,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallprofilefilesbyfileid/1",
 							"protocol": "http",
@@ -798,10 +758,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallprofilefilesbystatus/PendingApproval",
 							"protocol": "http",
@@ -823,10 +779,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallprofilefilesbyuserstatus/101/PendingApproval",
 							"protocol": "http",
@@ -855,7 +807,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": null
+									"src": []
 								},
 								{
 									"key": "fileTitle",
@@ -889,10 +841,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=2",
 							"protocol": "http",
@@ -919,10 +867,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=2",
 							"protocol": "http",
@@ -1058,10 +1002,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
 							"protocol": "http",
@@ -1155,10 +1095,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/enrolledstudentcourses",
 							"protocol": "http",
@@ -1184,10 +1120,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/reviews?courseId=1",
 							"protocol": "http",
@@ -1217,17 +1149,13 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NDI1Mjg0NTQsImV4cCI6MTY0MjYxNDg1NH0.r9cmO_8CjIGNG5UHrWmcarxzvAOOvda1fMaI9gvSXNo",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NDI2MDE3NzEsImV4cCI6MTY0MjY4ODE3MX0.0aa9G5g_0SDXv4gwbHzWpeuHysW73AQCDVLw45cfn5Q",
 									"type": "string"
 								}
 							]
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/reported_reviews",
 							"protocol": "http",
@@ -1251,7 +1179,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjI2NDYzOSwiZXhwIjoxNjQyMzUxMDM5fQ.QNRAbdyzZQrPZQcPQBPsbGV2kFQ3RWdd6SQzloaBp7s",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjYwNDA1NiwiZXhwIjoxNjQyNjkwNDU2fQ.F_0KbQc73rkXT0ZxicUgPPtuW1JO4kecPQj8Etu8Rb4",
 									"type": "string"
 								}
 							]
@@ -1260,7 +1188,12 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"studentId\": 3,\r\n        \"tutorId\": 2,\r\n        \"courseId\": 11,\r\n        \"rating\": 5,\r\n        \"ratingComments\": \"The teacher is awesome!\"\r\n}"
+							"raw": "{\r\n    \"studentId\": 3,\r\n    \"tutorId\": 2,\r\n    \"courseId\": 2,\r\n    \"rating\": 5,\r\n    \"ratingComments\": \"The teacher is awesome!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/reviews",
@@ -1379,10 +1312,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutorofmonth",
 							"protocol": "http",
@@ -1408,10 +1337,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutors?search=john",
 							"protocol": "http",
