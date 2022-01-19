@@ -9,19 +9,22 @@ const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 //************* Get List of all messages based on senderID and RecipientId" ***************
 
 const getconversation = async (req, res, next) => {
-    const mess = await Message.findAll({
-        where: {
-            senderId: req.body.senderId,
-            recipientId: req.body.recipientId,
-        },
-    });
+  //   var token = req.headers["authorization"];
+  //   var decoded = jwtdecode(token);
+  //   console.log("************decoded:" + decoded.email);
+  const mess = await Message.findAll({
+    where: {
+      senderId: req.body.senderId,
+      recipientId: req.body.recipientId,
+    },
+  });
 
-    res.json({
-        success: true,
-        message: "All conversations",
-        records: mess.length,
-        data: mess,
-    });
+  res.json({
+    success: true,
+    message: "All conversations",
+    records: mess.length,
+    data: mess,
+  });
 };
 
 exports.getconversation = getconversation;
@@ -29,29 +32,29 @@ exports.getconversation = getconversation;
 //************* Create message ***************
 
 const createmessage = async (req, res, next) => {
-    let mess = await Message.findAll({
-        where: {
-            senderId: req.body.senderId,
-            recipientId: req.body.recipientId,
-        },
-    });
+  let mess = await Message.findAll({
+    where: {
+      senderId: req.body.senderId,
+      recipientId: req.body.recipientId,
+    },
+  });
 
-    mess = Message.build({
-        senderId: req.body.senderId,
-        recipientId: req.body.recipientId,
-        message: req.body.message,
-    });
+  mess = Message.build({
+    senderId: req.body.senderId,
+    recipientId: req.body.recipientId,
+    message: req.body.message,
+  });
 
-    await mess.save().catch((e) => {
-        console.log(e);
-    });
+  await mess.save().catch((e) => {
+    console.log(e);
+  });
 
-    res.json({
-        success: true,
-        message: "Message Saved",
-        records: mess.length,
-        data: mess,
-    });
+  res.json({
+    success: true,
+    message: "Message Saved",
+    records: mess.length,
+    data: mess,
+  });
 };
 
 exports.createmessage = createmessage;
