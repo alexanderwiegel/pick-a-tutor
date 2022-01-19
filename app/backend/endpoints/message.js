@@ -14,8 +14,8 @@ const getconversation = async (req, res, next) => {
   //   console.log("************decoded:" + decoded.email);
   const mess = await Message.findAll({
     where: {
-      senderId: req.body.senderId,
-      recipientId: req.body.recipientId,
+      senderId: req.query.senderId,
+      recipientId: req.query.recipientId,
     },
   });
 
