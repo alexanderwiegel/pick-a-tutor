@@ -14,16 +14,16 @@ async function getTutorData() {
 }
 
 async function register(data) {
-    const gender_val = parseInt(data.gender)
-    return await axiosInstance.post(`/users`,{
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
-        dateOfBirth: data.dateOfBirth,
-        gender: gender_val,
-        role: data.role
-    })
+  const gender_val = parseInt(data.gender)
+  return await axiosInstance.post(`/users`, {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    password: data.password,
+    dateOfBirth: data.dateOfBirth,
+    gender: gender_val,
+    role: data.role
+  })
 }
 
 async function login(data) {
@@ -33,30 +33,40 @@ async function login(data) {
   })
 }
 
-async function getListofTutors(subject) {
-    console.log('Subject sent to api ', subject)
-    return await axiosInstance.get(`courses?search=${subject}`)
+async function getAllUsers() {
+  return await axiosInstance.get("users")
 }
 
+async function getListofTutors(subject) {
+  console.log('Subject sent to api ', subject)
+  return await axiosInstance.get(`courses?search=${subject}`)
+}
 
 async function getSingleTutorData() {
   return await axiosInstance.get('users')
 }
 
-async function getPostDetail(postId) {
-  return await axiosInstance.get(`posts/${postId}`)
+async function getHistory(senderId, recipientId) {
+  return await axiosInstance.get("/getallconversations", {
+    senderId: senderId,
+    recipientId: recipientId
+  })
 }
 
-async function getPosts() {
-  return await axiosInstance.get('posts')
+async function sendMessage(senderId, recipientId, message) {
+  return await axiosInstance.post("/createmessage", {
+    senderId: senderId,
+    recipientId: recipientId,
+    message: message
+  })
 }
 
-async function postPosts(data) {
-  return await axiosInstance.post('add_post', data)
+async function getReportedReviews() {
+  // return await axiosInstance
 }
 
 const apiEndPoints = {
-  postPosts, getPosts, getPostDetail, getTutorData, getListofTutors, register, login
+  getTutorData, getListofTutors, register, login, getAllUsers, getHistory, sendMessage
 }
 
 export default apiEndPoints

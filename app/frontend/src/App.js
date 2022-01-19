@@ -5,12 +5,10 @@ import PageTemplate from './Components/PageTemplate';
 import LandingPage from './Pages/LandingPage';
 import SignUp from './Pages/SignUp';
 import Home from './Pages/Home';
-import Footer from './Components/Footer';
 import Users from './Pages/Users';
 import Approvals from './Pages/Approvals';
 import Messages from './Pages/Messages';
 import Chat from './Pages/Chat';
-import { BrowserRouter as Router, Routes, Route, Navigate, Switch, useLocation } from 'react-router-dom';
 import CourseDetailsStudentView from './Pages/CourseDetailsStudentView';
 import TutorProfileTutorView from './Pages/TutorProfileTutorView';
 import EditTutorProfile from './Pages/EditTutorProfile';
@@ -20,7 +18,7 @@ import AddCourseDetails from './Pages/AddCourseDetails';
 import CourseDetailsAnonynmousView from './Pages/CourseDetailsAnonynmousView';
 import TutorProfileAnonymousView from './Pages/TutorProfileAnonymousView';
 import TutorProfileStudentView from './Pages/TutorProfileStudentView'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
