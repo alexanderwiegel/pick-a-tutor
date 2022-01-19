@@ -6,7 +6,10 @@ const User = require("../db/model/User");
 exports.getReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
-            include: [{ model: User, as: "student" }],
+            include: [
+                { model: User, as: "student" },
+                { model: User, as: "tutor" },
+            ],
             where: {
                 courseId: req.query.courseId,
             },
@@ -22,6 +25,7 @@ exports.getReportedReviews = async (req, res) => {
         let reviews = await Review.findAll({
             include: [
                 { model: User, as: "student" },
+                { model: User, as: "tutor" },
                 { model: User, as: "reporter" },
             ],
             where: {
