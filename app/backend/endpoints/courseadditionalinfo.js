@@ -2,12 +2,14 @@ const CourseAdditionalInfo = require("../db/model/CourseAdditionalInfo");
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
 const jwtdecode = require("jwt-decode");
+const Course = require("../db/model/Course");
+const User = require("../db/model/User")
 
 //************* Get List of All course files based on tutorId and courseId" ***************
 
 const getallbyTutorCourse = async (req, res, next) => {
     const courseadditionalinfo = await CourseAdditionalInfo.findAll({
-        where: { tutorId: req.params.tutorId, courseId: req.params.courseId },
+        where: { tutorId: req.params.tutorId, courseId: req.params.courseId }, include: [Course, User]
     });
 
     res.json({
@@ -24,7 +26,7 @@ exports.getallbyTutorCourse = getallbyTutorCourse;
 
 const getallbyfileid = async (req, res, next) => {
     const courseadditionalinfo = await CourseAdditionalInfo.findAll({
-        where: { id: req.params.fileId },
+        where: { id: req.params.fileId }, include: [Course, User]
     });
 
     res.json({
@@ -41,7 +43,7 @@ exports.getallbyfileid = getallbyfileid;
 
 const getallbystatus = async (req, res, next) => {
     const courseadditionalinfo = await CourseAdditionalInfo.findAll({
-        where: { approvalStatus: req.params.approvalStatus },
+        where: { approvalStatus: req.params.approvalStatus }, include: [Course, User]
     });
 
     res.json({
@@ -64,7 +66,7 @@ const getallbytutor = async (req, res, next) => {
     const courseadditionalinfo = await CourseAdditionalInfo.findAll({
         where: {
             tutorId: tutorId,
-        },
+        }, include: [Course, User]
     });
 
     res.json({

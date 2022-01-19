@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const db = require("../db");
+const User = require("./User");
 
 class UserProfileFiles extends Model {}
 
@@ -8,6 +9,10 @@ UserProfileFiles.init(
         userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            references: {
+                model: User,
+                key: "id",
+            },
         },
         fileTitle: {
             type: DataTypes.STRING,

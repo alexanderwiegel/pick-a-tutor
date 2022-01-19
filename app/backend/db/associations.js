@@ -6,6 +6,7 @@ const UserProfile = require("./model/UserProfile");
 const Review = require("./model/Review");
 const UserProfileFiles = require("./model/UserProfileFiles");
 const StudentEnrolledCourses = require("./model/StudentEnrolledCourses");
+const CourseAdditionalInfo = require("./model/CourseAdditionalInfo")
 
 User.belongsToMany(Course, { through: TutorCourse });
 Course.belongsToMany(User, { through: TutorCourse });
@@ -62,6 +63,30 @@ Review.belongsTo(User, { as: "reporter" });
 // });
 
 // UserProfileFiles.belongsTo(User, { as: "profile_file" });
+
+    // UserProfileFiles.User = UserProfileFiles.belongsTo(User,{foreignKey: "userId"});
+
+    // User.hasMany(UserProfileFiles, {
+    //     foreignKey: "userId",
+    // });
+
+    //For UserProfileFiles
+    UserProfileFiles.belongsTo(User, {
+    foreignKey: "userId",
+});
+User.hasMany(UserProfileFiles);
+
+//For CourseAdditionalInfo
+CourseAdditionalInfo.belongsTo(Course, {
+    foreignKey: "courseId",
+});
+Course.hasMany(CourseAdditionalInfo);
+
+
+CourseAdditionalInfo.belongsTo(User, {
+    foreignKey: "tutorId",
+});
+User.hasMany(CourseAdditionalInfo, {foreignKey: "id"});
 
 // Added by Abdullah Butt
 //******** StudentEnrolledCourses Relations *************
