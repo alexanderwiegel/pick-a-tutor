@@ -1,5 +1,0 @@
-1. Send username, role, datetime in the token and use that to access the data in each API.
-2. Check he is not blocked.
-3. Modify the main base file.
-
-Password change donot work
