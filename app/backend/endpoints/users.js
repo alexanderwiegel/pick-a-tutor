@@ -98,6 +98,8 @@ const createuser = async (req, res, next) => {
     } else {
         let epassword;
 
+        //  ((req.body.email).split("@")[1])
+
         epassword = await bcryptjs.hash(req.body.password, 10);
 
         let user = User.build({

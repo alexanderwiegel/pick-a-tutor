@@ -23,9 +23,11 @@ module.exports = (req, res, next) => {
   // console.log("***********************" + token);
   // console.log(jwt.verify(token, "privatekey").isStudent == true);
   try {
+    
     if (token) {
+   
       const decodedToken = jwt.verify(token, "privatekey");
-      console.log("Into token");
+
       next();
     } else {
       throw new Error(
