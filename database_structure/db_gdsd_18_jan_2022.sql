@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 18/01/2022 10:05:36
+ Date: 18/01/2022 19:08:39
 */
 
 SET NAMES utf8mb4;
@@ -83,15 +83,18 @@ CREATE TABLE `messages`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `senderId`(`senderId`) USING BTREE,
   INDEX `recipientId`(`recipientId`) USING BTREE,
-  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipientId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`senderId`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`recipientId`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of messages
 -- ----------------------------
-INSERT INTO `messages` VALUES (1, 1, 2, 'Hey, what\'s up?', '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
-INSERT INTO `messages` VALUES (2, 2, 1, 'All good', '2022-01-15 12:48:13', '2022-01-15 12:48:13', NULL);
+INSERT INTO `messages` VALUES (1, 1, 2, 'First4sdgadfd2Message', '2022-01-18 16:33:41', '2022-01-18 16:33:41', NULL);
+INSERT INTO `messages` VALUES (2, 1, 2, 'First2sdgadfd2Message', '2022-01-18 16:33:54', '2022-01-18 16:33:54', NULL);
+INSERT INTO `messages` VALUES (3, 3, 2, 'First1sdgadfd2Message', '2022-01-18 16:34:17', '2022-01-18 16:34:17', NULL);
+INSERT INTO `messages` VALUES (5, 2, 1, 'First1sdgadfd2Message', '2022-01-18 17:06:53', '2022-01-18 17:06:53', NULL);
+INSERT INTO `messages` VALUES (6, 3, 4, 'Hi 4!', '2022-01-18 17:35:45', '2022-01-18 17:35:45', NULL);
 
 -- ----------------------------
 -- Table structure for reviews
@@ -273,5 +276,6 @@ INSERT INTO `users` VALUES (3, 'Johnny', 'Doh', 'johnnyd@example.com', '$2a$10$o
 INSERT INTO `users` VALUES (4, 'Sometutor', 'Doh', 'sometutor.doh@ai.hs-fulda.de', '$2a$10$fUqQlkLDSb.27W.kwncUBeti2jLK0viohWDpVRVbO0H1EMypnQMsO', '1995-08-05', 1, 0, 1, 0, 0, '2022-01-16 13:27:17', '2022-01-16 13:27:17', NULL);
 INSERT INTO `users` VALUES (5, 'Sometutor', 'Dohe', 'sometutor.dohe@ai.hs-fulda.de', '$2a$10$Xdf74FbAz8jV3hYpzJ2JrO.8X2KuHeLvr.qgCE7GW3cIlXOaivepm', '1995-08-05', 1, 0, 1, 0, 0, '2022-01-16 13:29:38', '2022-01-16 13:29:38', NULL);
 INSERT INTO `users` VALUES (6, 'Sometutor', 'Dohe1', 'sometutor.dohe1@ai.hs-fulda.de', '$2a$10$nvxRd1Gp59hk3nYmD/vIxuZ5L17363lIv64HtjaeqonneStGPObka', '1995-08-05', 1, 0, 1, 0, 0, '2022-01-16 13:30:36', '2022-01-16 13:30:36', NULL);
+INSERT INTO `users` VALUES (7, 'Alexander', 'Wiegel', 'alexander.wiegel@ai.hs-fulda.de', NULL, '1998-08-08', 1, 0, NULL, 1, 0, '2022-01-18 14:10:00', '2022-01-18 14:10:00', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
