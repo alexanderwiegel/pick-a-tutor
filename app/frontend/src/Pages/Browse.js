@@ -82,17 +82,17 @@ function Browse(props) {
         setUsers={setUsers}
         setSearchKeyword={setSearchKeyword} />
       <br />
-      <label for="filter"
+      <label htmlFor="filter"
         className='hide'
         style={{ marginLeft: '15px' }}>
-        <i class="bi bi-funnel-fill" />
+        <i className="bi bi-funnel-fill" />
       </label>
       <input type="checkbox" id="filter" name="filter" className='hide' />
       <Container>
         <div className="detail-page">
           <div className="side-bar">
             <br />
-            <label for="filter" className='hide' style={{ marginLeft: '10px' }}><i class="bi bi-x-circle-fill" style={{ height: '20px', width: '20px' }}></i></label>
+            <label htmlFor="filter" className='hide' style={{ marginLeft: '10px' }}><i className="bi bi-x-circle-fill" style={{ height: '20px', width: '20px' }}></i></label>
             <br />
             <h3>Rating Filters</h3>
             <hr />
@@ -106,11 +106,11 @@ function Browse(props) {
               value="4"
               onChange={(e) => setStarValue(e.currentTarget.value)}
             >
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star"></i> & More
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star"></i> & More
             </ToggleButton>
             <br />
             <br />
@@ -123,11 +123,11 @@ function Browse(props) {
               value="3"
               onChange={(e) => setStarValue(e.currentTarget.value)}
             >
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i> & More
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star"></i>
+              <i className="bi bi-star"></i> & More
             </ToggleButton>
 
             <br />
@@ -141,11 +141,11 @@ function Browse(props) {
               value="2"
               onChange={(e) => setStarValue(e.currentTarget.value)}
             >
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i> & More
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star"></i>
+              <i className="bi bi-star"></i>
+              <i className="bi bi-star"></i> & More
             </ToggleButton>
 
             <br />
@@ -160,11 +160,11 @@ function Browse(props) {
               value="1"
               onChange={(e) => setStarValue(e.currentTarget.value)}
             >
-              <i class="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i>
-              <i class="bi bi-star"></i> & More
+              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
+              <i className="bi bi-star"></i>
+              <i className="bi bi-star"></i>
+              <i className="bi bi-star"></i>
+              <i className="bi bi-star"></i> & More
             </ToggleButton>
 
             <br />
@@ -268,7 +268,7 @@ function Browse(props) {
             <br />
             <Container>
               <Row>
-                <div class="col text-center">
+                <div className="col text-center">
                   {/* TODO : Do the on press here!!! */}
                   {/* onClick={getResults()} */}
                   <Button style={{ backgroundColor: '#00b7ff', borderColor: '#00b7ff', width: '100%' }} onClick={filterResults}>Apply Filters</Button>

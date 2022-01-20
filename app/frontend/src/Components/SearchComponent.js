@@ -30,7 +30,7 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
         </button>
         <input placeholder='Search here ...' style={{ fontSize: '1rem' }} onChange={(e) => setSearch(e.target.value)} />
         <div style={{ display: 'grid', alignContent: 'center' }}>
-          <i class="bi bi-search" style={{ fontSize: '1.5rem', margin: '5px', paddingRight: '10px', cursor: 'pointer' }} />
+          <i className="bi bi-search" style={{ fontSize: '1.5rem', margin: '5px', paddingRight: '10px', cursor: 'pointer' }} />
         </div>
       </div>
     </div>
