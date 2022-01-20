@@ -1,9 +1,12 @@
 import React from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import apiEndPoints from "./ApiEndpoints";
 
-function CardComponent({ name, course, price, searched_name = "searched name" }) {
-
+function CardComponent({ name, course }) {
+  const requestEnrollment = async () => {
+    const response = await apiEndPoints.requestEnrollment(course.CourseId)
+  }
   return (
     <Card
       style={{
@@ -53,7 +56,7 @@ function CardComponent({ name, course, price, searched_name = "searched name" })
           {course.Course.name}
           <hr />
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
-            {price}€/h
+            {course.coursePricePerHour}€/h
           </p>
           <p style={{ paddingLeft: "4px", marginBottom: '0px' }}>
             4.5
@@ -74,7 +77,7 @@ function CardComponent({ name, course, price, searched_name = "searched name" })
             meet {name} <i class="bi bi-person-lines-fill" />
           </Card.Text>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", }}>Request</Card.Link>
+            <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", }} onClick={requestEnrollment}>Request</Card.Link>
             <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", marginLeft: 0 }}>Contact</Card.Link>
           </div>
         </Container>

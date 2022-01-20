@@ -1,10 +1,14 @@
 import axios from "axios";
 
-
+//TODO: send token on every request
 const axiosInstance = axios.create({
 
   // baseURL: "http://20.113.25.17:3001/api"
-  baseURL: "http://127.0.0.1:3001/api"
+  baseURL: "http://127.0.0.1:3001/api",
+  headers: {
+    'Authorization': `Bearer ${localStorage.getItem("token")}`
+  }
+
 })
 
 // async function getTutorData(course, star) {
@@ -24,7 +28,9 @@ async function register(data) {
     password: data.password,
     dateOfBirth: data.dateOfBirth,
     gender: gender_val,
-    role: data.role
+    isStudent: data.role === "student" ? true : false,
+    isTutor: data.role === "tutor" ? true : false,
+    isAdmin: false
   })
 }
 
@@ -70,8 +76,32 @@ async function getReportedReviews() {
   // return await axiosInstance
 }
 
+async function requestEnrollment(courseId) {
+  return await axiosInstance.post('enrollstudent', {
+    tutorCourseId: courseId
+  })
+}
+
+async function getFilteredResult(course, minPrice, maxPrice, rating) {
+  return await axiosInstance.get(`tutor_courses_home?course_name=${course}&price_min=${minPrice}&price_max=${maxPrice}&rating=${rating}`)
+}
+
+async function getEnrolledCourses() {
+  return await axiosInstance.get('enrolledstudentcourses')
+}
+
 const apiEndPoints = {
-  getTutorData, getListofTutors, register, login, getAllUsers, getHistory, sendMessage
+  getTutorData,
+  getListofTutors,
+  register,
+  login,
+  getAllUsers,
+  getHistory,
+  sendMessage,
+  getListofCourses,
+  getFilteredResult,
+  requestEnrollment,
+  getEnrolledCourses
 }
 
 export default apiEndPoints

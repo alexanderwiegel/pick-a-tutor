@@ -2,10 +2,10 @@ const jwt = require("jsonwebtoken");
 module.exports = (req, res, next) => {
   var token;
 
-  // const testtokenrecieved = req.headers.authorization;
-  // console.log(
-  //   "**************************testdecodedToken:" + testtokenrecieved
-  // );
+  const testtokenrecieved = req.headers.authorization;
+  console.log(
+    "**************************testdecodedToken:" + testtokenrecieved
+  );
   try {
     // token = req.headers.authorization.split(" ")[2]; // Bearer Token
     token = req.headers.authorization.split(" ")[1]; // Bearer Token
@@ -23,9 +23,9 @@ module.exports = (req, res, next) => {
   // console.log("***********************" + token);
   // console.log(jwt.verify(token, "privatekey").isStudent == true);
   try {
-    
+
     if (token) {
-   
+
       const decodedToken = jwt.verify(token, "privatekey");
 
       next();
