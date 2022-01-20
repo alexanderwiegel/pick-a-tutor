@@ -13,6 +13,7 @@ import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from 'yup';
 import apiEndpoints from "../Components/ApiEndpoints";
+import jwt_decode from 'jwt-decode';
 
 const initialValues = {
   email: "",
@@ -26,6 +27,22 @@ let schema = yup.object().shape({
 });
 
 export default function Login() {
+
+  const tokenDecode = (token) => {
+    var decoded = jwt_decode(token);
+    if (decoded.isAdmin) {
+      localStorage.setItem('statusCode', 'Admin')
+      navigate("/approvals")
+    }
+    else if (decoded.isStudent) {
+      localStorage.setItem('statusCode', 'Student')
+      navigate("/home")
+    }
+    else {
+      localStorage.setItem('statusCode', 'Tutor')
+      navigate("/")
+    }
+  }
 
   let navigate = useNavigate();
 
@@ -59,18 +76,18 @@ export default function Login() {
               validationSchema={schema}
               onSubmit={async (values, actions) => {
                 apiEndpoints.login(values).then(data => {
-                  if (data.status === 200) {
+                  if (data.data.success) {
+                    localStorage.clear()
+                    console.log('Logged In', data)
                     localStorage.setItem('user', true)
-                    localStorage.setItem('token', data.data.token)
-                    navigate('/home')
+                    localStorage.setItem('token', data.data.data.token)
+                    tokenDecode(localStorage.getItem('token'))
                   }
                   else {
-
+                    console.log('Login reject', data)
+                    alert(data.data.message)
                   }
-                }).catch(error => {
-                  alert(error.response.data.error)
                 })
-
               }}
             >
               {(props) => (
@@ -103,7 +120,7 @@ export default function Login() {
                       value={props.values.password}
                     />
                   </FloatingLabel>
-                  <div class="d-flex justify-content-end"><a href="/dashboard">Forgot Password ?</a></div>
+                  <div className="d-flex justify-content-end"><a href="/dashboard">Forgot Password ?</a></div>
                   <br />
 
 
@@ -122,8 +139,6 @@ export default function Login() {
 
               )}
             </Formik>
-            <br />
-            <br />
             <Button
               variant="outline-primary"
               type="submit"

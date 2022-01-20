@@ -19,6 +19,7 @@ function UserCard({ user }) {
           </ButtonGroup>
         </Card.Body>
       </Card>
+      <br />
     </>
   )
 }
