@@ -92,9 +92,9 @@ async function deleteReview(reviewId) {
   return await axiosInstance.get("/deleteReview/" + reviewId)
 }
 
-// async function rejectReport() {
-//   return await axiosInstance.get("/")
-// }
+async function rejectReport(reviewId) {
+  return await axiosInstance.get("/approvereview/" + reviewId)
+}
 
 async function requestEnrollment(courseId) {
   return await axiosInstance.post('enrollstudent', {
@@ -122,7 +122,7 @@ const apiEndPoints = {
   getFilteredResult,
   requestEnrollment,
   getEnrolledCourses,
-  getAllConversations, getProfileFilesToApprove, getCourseFilesToApprove, getReportedReviews, deleteReview
+  getAllConversations, getProfileFilesToApprove, getCourseFilesToApprove, getReportedReviews, deleteReview, rejectReport
 }
 
 export default apiEndPoints
