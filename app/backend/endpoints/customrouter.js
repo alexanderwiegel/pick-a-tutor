@@ -114,7 +114,7 @@ router.delete(
 //*******Message Routes *******
 router.post("/createmessage", authgeneral, Message.createmessage);
 router.get("/getconversation",authgeneral, Message.getconversation);
-// router.get("/getallmessages", Message.getallmessages);
+router.get("/getallconversations",authgeneral, Message.getallconversations);
 
 // router.patch("/updateconversationstatus", Message.updateconversationstatus);
 

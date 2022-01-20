@@ -6,24 +6,45 @@ const db = require("../db/db");
 const User = require("../db/model/User");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
-//************* Get List of all messages based on senderID and RecipientId" ***************
+//************* Get List of all messages based on senderID and RecipientId last message of them as ARRAY " ***************
 
 const getconversation = async (req, res, next) => {
   //   var token = req.headers["authorization"];
   //   var decoded = jwtdecode(token);
   //   console.log("************decoded:" + decoded.email);
-  const mess = await Message.findAll({
+  // const messsent = await Message.findAll({
+  //   where: {
+  //     senderId: req.query.senderId,
+  //     recipientId: req.query.recipientId,
+  //   } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
+  // });
+
+  // const messreceived = await Message.findAll({
+  //   where: {
+  //     senderId: req.query.recipientId,
+  //     recipientId:req.query.senderId ,
+  //   } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
+  // });
+
+  const messsent = await Message.findAll({
     where: {
       senderId: req.query.senderId,
       recipientId: req.query.recipientId,
-    }, include : [{model: User,  as: "sender" }, {model: User,  as: "recipient" }]
+    } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
+  });
+
+  const messreceived = await Message.findAll({
+    where: {
+      senderId: req.query.recipientId,
+      recipientId:req.query.senderId ,
+    } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
   });
 
   res.json({
     success: true,
-    message: "All conversations",
-    records: mess.length,
-    data: mess,
+    message: "All messages between two users",
+    records: messsent.length+messreceived.length,
+    data: messsent.concat(messreceived),
   });
 };
 
@@ -59,68 +80,71 @@ const createmessage = async (req, res, next) => {
 
 exports.createmessage = createmessage;
 
-//************* Get Last Coversations of a user corresponding to all other he contacted" ***************
+//************* Get all convesations of a user where he contacted somebody or he has been contacted by others" ***************
 
-// const getallmessages = async (req, res, next) => {
-//     var token = req.headers["authorization"];
-//     var decoded = jwtdecode(token);
+const getallconversations = async (req, res, next) => {
+    var token = req.headers["authorization"];
+    var decoded = jwtdecode(token);
 
-//     let user = await User.findOne({
-//         where: { id: decoded.id },
-//         include: [
-//             { model: Message, as: "sent" },
-//             {
-//                 model: Message,
-//                 as: "received",
-//             },
-//         ],
-//     });
+    const [latestmessages, meta] = await db.query(
+      "select senderId,recipientId,max(max_id) as latest_id from (select senderId,recipientId, max(id)  as max_id from db.messages where senderId=$Id group by senderId,recipientId union select senderId,recipientId,max_id from ( select senderId as 'recipientId',recipientId as 'senderId',max_id from ( select senderId,recipientId, max(id) as max_id from db.messages where recipientId=$Id group by senderId,recipientId) as temp) as temp2) as final_temp group by senderId,recipientId;",
+      {
+          bind: { Id: decoded.id },
+      }
+  );
 
-//     res.json(
-//         new SuccessfulResponse("Users messages", [user.sent + user.received])
-//     );
+  let latestids=[]
 
-//     // res.json({
-//     //     success: true,
-//     //     message: "Users messages",
-//     //     records: user.length,
-//     //     data: [user.sent + user.received],
-//     // });
+  latestmessages.map((msg,index) => {
+    // console.log(msg.latest_id)
+    latestids.push(msg.latest_id)
+  })
 
-//     //     console.log("conversations.length:" + conversations.length);
+    
+      let allmessages = await Message.findAll({
+        where: {id : latestids},
+        include: [
+          { model: User, as: "sender" },
+          { model: User, as: "recipient" },
+      ],
+    });
 
-//     //     if (conversations.length == 0) {
-//     //         res.json({
-//     //             success: true,
-//     //             message: "No message to update",
-//     //             records: 0,
-//     //             // data: message,
-//     //         });
-//     //     }
+    let allmessagesarray= []
+    allmessages.map((arraymessage,index)=> {
+      allmessagesarray.push([arraymessage])
+    })
 
-//     //     const records = conversations.map(async (message, index) => {
-//     //         try {
-//     //             await message.update({
-//     //                 senderId: message.senderId,
-//     //                 recipientId: message.recipientId,
-//     //                 conversationId: message.conversationId,
-//     //                 isConversationOpen: req.body.isConversationOpen,
-//     //             });
 
-//     //             res.json({
-//     //                 success: true,
-//     //                 message: "Messages Status Updated",
-//     //                 records: conversations.length,
-//     //                 data: conversations,
-//     //             });
-//     //         } catch (e) {
-//     //             // res.error({
-//     //             //     success: false,
-//     //             //     message: "Updation failed" + e,
-//     //             //     records: 0,
-//     //             // });
-//     //         }
-//     //     });
-// };
+    // let allmessages = await Message.findAll({
+    //     // where: { senderId: decoded.id },
+    //     where: { [Op.or]: [ {senderId: decoded.id}, {recipientId: decoded.id} ]},
+    //   //   include: [
+    //   //     { model: User, as: "sender" },
+    //   //     { model: User, as: "recipient" },
+    //   // ],
+    // });
 
-// exports.getallmessages = getallmessages;
+
+    
+  //   let messreceived = await Message.findAll({
+  //     where: { recipientId: decoded.id },
+  //     include: [
+  //         { model: User, as: "sender" },
+  //         { model: User, as: "recipient" },
+  //     ],
+  // });
+
+  // let allmessages= messsent.concat(messreceived)
+
+    res.json({
+        success: true,
+        message: "All conversations of a User",
+        records: allmessagesarray.length,
+        // data: [messsent,messreceived],
+        // data: messsent.concat(messreceived),
+        data: allmessagesarray
+    });
+
+};
+
+exports.getallconversations = getallconversations;
