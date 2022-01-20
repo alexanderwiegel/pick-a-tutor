@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../images/logos/Tutor.png";
 import { Link } from 'react-router-dom';
-import useVerifyToken from '../Hooks/useVerifyToken';
 
 function Navbar() {
   const [nav, setnav] = useState(false);
@@ -13,7 +12,6 @@ function Navbar() {
       setnav(false);
     }
   };
-  const checkToken = useVerifyToken();
   window.addEventListener("scroll", changeBackground);
 
   useEffect(() => {
