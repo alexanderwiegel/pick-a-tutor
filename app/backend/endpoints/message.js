@@ -12,18 +12,25 @@ const getconversation = async (req, res, next) => {
   //   var token = req.headers["authorization"];
   //   var decoded = jwtdecode(token);
   //   console.log("************decoded:" + decoded.email);
-  const mess = await Message.findAll({
+  const messsent = await Message.findAll({
     where: {
       senderId: req.query.senderId,
       recipientId: req.query.recipientId,
-    }, include : [{model: User,  as: "sender" }, {model: User,  as: "recipient" }]
+    } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
+  });
+
+  const messreceived = await Message.findAll({
+    where: {
+      senderId: req.query.recipientId,
+      recipientId:req.query.senderId ,
+    } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
   });
 
   res.json({
     success: true,
-    message: "All conversations",
-    records: mess.length,
-    data: mess,
+    message: "All messages between two users",
+    records: messsent.length+messreceived.length,
+    data: [messsent,messreceived],
   });
 };
 
@@ -59,68 +66,36 @@ const createmessage = async (req, res, next) => {
 
 exports.createmessage = createmessage;
 
-//************* Get Last Coversations of a user corresponding to all other he contacted" ***************
+//************* Get all convesations of a user where he contacted somebody or he has been contacted by others" ***************
 
-// const getallmessages = async (req, res, next) => {
-//     var token = req.headers["authorization"];
-//     var decoded = jwtdecode(token);
+const getallconversations = async (req, res, next) => {
+    var token = req.headers["authorization"];
+    var decoded = jwtdecode(token);
 
-//     let user = await User.findOne({
-//         where: { id: decoded.id },
-//         include: [
-//             { model: Message, as: "sent" },
-//             {
-//                 model: Message,
-//                 as: "received",
-//             },
-//         ],
-//     });
+    let messsent = await Message.findAll({
+        where: { senderId: decoded.id },
+        include: [
+          { model: User, as: "sender" },
+          { model: User, as: "recipient" },
+      ],
+    });
 
-//     res.json(
-//         new SuccessfulResponse("Users messages", [user.sent + user.received])
-//     );
+    
+    let messreceived = await Message.findAll({
+      where: { recipientId: decoded.id },
+      include: [
+          { model: User, as: "sender" },
+          { model: User, as: "recipient" },
+      ],
+  });
 
-//     // res.json({
-//     //     success: true,
-//     //     message: "Users messages",
-//     //     records: user.length,
-//     //     data: [user.sent + user.received],
-//     // });
+    res.json({
+        success: true,
+        message: "All conversations of a User",
+        records: messsent.length+messreceived.length,
+        data: [messsent,messreceived],
+    });
 
-//     //     console.log("conversations.length:" + conversations.length);
+};
 
-//     //     if (conversations.length == 0) {
-//     //         res.json({
-//     //             success: true,
-//     //             message: "No message to update",
-//     //             records: 0,
-//     //             // data: message,
-//     //         });
-//     //     }
-
-//     //     const records = conversations.map(async (message, index) => {
-//     //         try {
-//     //             await message.update({
-//     //                 senderId: message.senderId,
-//     //                 recipientId: message.recipientId,
-//     //                 conversationId: message.conversationId,
-//     //                 isConversationOpen: req.body.isConversationOpen,
-//     //             });
-
-//     //             res.json({
-//     //                 success: true,
-//     //                 message: "Messages Status Updated",
-//     //                 records: conversations.length,
-//     //                 data: conversations,
-//     //             });
-//     //         } catch (e) {
-//     //             // res.error({
-//     //             //     success: false,
-//     //             //     message: "Updation failed" + e,
-//     //             //     records: 0,
-//     //             // });
-//     //         }
-//     //     });
-// };
-
-// exports.getallmessages = getallmessages;
+exports.getallconversations = getallconversations;
