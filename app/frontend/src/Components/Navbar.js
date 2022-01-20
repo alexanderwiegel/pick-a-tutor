@@ -29,7 +29,7 @@ function Navbar() {
   }, []);
 
   const logout = () => {
-    return localStorage.removeItem("user", "token", "statusCode");
+    return localStorage.clear();
   }
 
   if (user && localStorage.getItem('statusCode') === 'Student') {

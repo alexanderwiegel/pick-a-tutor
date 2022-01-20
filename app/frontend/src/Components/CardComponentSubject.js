@@ -6,6 +6,7 @@ import apiEndPoints from "./ApiEndpoints";
 function CardComponent({ name, course }) {
   const requestEnrollment = async () => {
     const response = await apiEndPoints.requestEnrollment(course.CourseId)
+    console.log(response);
   }
   return (
     <Card
@@ -59,7 +60,7 @@ function CardComponent({ name, course }) {
             {course.coursePricePerHour}€/h
           </p>
           <p style={{ paddingLeft: "4px", marginBottom: '0px' }}>
-            4.5
+            {course.rating}
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
             {/* <p style={{ color: "#6a6f73", fontSize: "0.7rem", marginBottom: '0px' }}>
               (15.235)
