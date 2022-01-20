@@ -40,7 +40,7 @@ const Users = () => {
               {/* TODO: add SearchBar without option to choose a category */}
               {/* <SearchBar /> */}
               {users.length > 0 && users.map(user => {
-                return <><UserCard user={user}></UserCard><br></br></>
+                return <UserCard user={user} key={user.id}></UserCard>
               })}
             </Col>
             <Col />

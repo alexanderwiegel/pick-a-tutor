@@ -26,8 +26,8 @@ function Navbar() {
       const userString = localStorage.getItem("user");
       const user = JSON.parse(userString);
       setUser(user);
-    }, [])
-  }, 5000);
+    }, 5000)
+  }, []);
 
   const logout = () => {
     return localStorage.removeItem("user", "token", "statusCode");

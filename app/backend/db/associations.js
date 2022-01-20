@@ -106,3 +106,8 @@ StudentEnrolledCourses.Review = StudentEnrolledCourses.belongsTo(Review, {
     through: Review,
     foreignKey: "tutorCourseId",
 });
+
+User.Review = User.hasMany(Review, {
+    //as: "tutor_received_reviews",
+    foreignKey: "tutorId",
+});
