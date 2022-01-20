@@ -180,7 +180,7 @@ let storage = multer.diskStorage({
             "-" +
             Date.now() +
             "-" +
-            Math.round(Math.random() * 1e9);
+            Math.round(Math.random() * 1e9) + "." + file.originalname.split(".").pop();
         cb(null, "User-" + uniqueSuffix);
     },
 });
@@ -214,7 +214,7 @@ storage = multer.diskStorage({
             "-" +
             Date.now() +
             "-" +
-            Math.round(Math.random() * 1e9);
+            Math.round(Math.random() * 1e9) + "." + file.originalname.split(".").pop();
         cb(null, "Course-" + uniqueSuffix);
     },
 });
