@@ -24,13 +24,13 @@ function Browse(props) {
   const getUsers = async (subject = "") => {
     const data = await apiEndPoints.getListofTutors(subject)
     console.log('users ', data.data.data)
-    setUsers(preVal => data.data.data)
+    setUsers(() => data.data.data)
   };
 
   const getCourses = async (subject = "") => {
     const data = await apiEndPoints.getListofCourses(subject)
     console.log('courses hello ', data.data.data)
-    setCourses(preVal => data.data.data)
+    setCourses(() => data.data.data)
   };
 
   const sortCourses = (sortby, order) => {
@@ -44,22 +44,22 @@ function Browse(props) {
 
   const filterResults = async () => {
     const data = await apiEndPoints.getFilteredResult(searchKeyword, minPrice, maxPrice, starValue)
-    setCourses(preVal => data.data.data)
+    setCourses(() => data.data.data)
     console.log("data here", data.data.data)
   }
 
   const _setCategory = (value) => {
-    setCategory(preVal => value)
+    setCategory(() => value)
   }
 
   const setPriceRange = (value) => {
     const priceRange = split(value, "-")
     if (priceRange.length === 2) {
-      setMinPrice(preVal => priceRange[0])
-      setMaxPrice(preVal => priceRange[1])
+      setMinPrice(() => priceRange[0])
+      setMaxPrice(() => priceRange[1])
     } else {
-      setMinPrice(preVal => priceRange[20])
-      setMaxPrice(preVal => null)
+      setMinPrice(() => priceRange[20])
+      setMaxPrice(() => null)
     }
   }
 
@@ -67,7 +67,7 @@ function Browse(props) {
     setTimeout(() => {
       getUsers(location.state?.search);
       setTimeout(() => {
-        setLoading(preVal => false)
+        setLoading(() => false)
       }, 200)
     }, 500)
   }, []);
@@ -250,7 +250,7 @@ function Browse(props) {
                       <Form.Control
                         placeholder="Min Price"
                         // TODO : get min price on form.control
-                        onChange={(e) => setMinPrice(preVal => e.currentTarget?.value)}
+                        onChange={(e) => setMinPrice(() => e.currentTarget?.value)}
                       />
                     </FloatingLabel>
                   </Col>
@@ -259,7 +259,7 @@ function Browse(props) {
                       <Form.Control
                         placeholder="Max Price"
                         // TODO : get min price on form.control
-                        onChange={(e) => setMaxPrice(preVal => e.currentTarget?.value)}
+                        onChange={(e) => setMaxPrice(() => e.currentTarget?.value)}
                       />
                     </FloatingLabel>
                   </Col>
