@@ -85,6 +85,7 @@ function Navbar() {
           <span className="nav-icon"></span>
         </label>
         <ul className="menu">
+          {/* TODO: add route to tutorProfile */}
           <MenuItem name="home" alt="" />
           <MenuItem name="browse" />
           <MenuItem name="messages" />
