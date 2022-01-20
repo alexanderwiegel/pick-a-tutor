@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c3785438-b72f-4e21-97d2-a99deff03c87",
+		"_postman_id": "33a85186-d6f7-4018-8b78-db3bc070a3b9",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,17 +15,15 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"johndoe@example.com\",\r\n    \"password\":\"password\"\r\n}"
+							"raw": "{\r\n    \"email\":\"johnnyd@example.com\",\r\n    \"password\":\"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/login",
@@ -73,24 +71,19 @@
 				{
 					"name": "User Update",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InllczM5QGV4YW1wbGUuY29tIiwiaXNTdHVkZW50IjpmYWxzZSwiaXNUdXRvciI6ZmFsc2UsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDQyNTU3NCwiZXhwIjoxNjQwNTExOTc0fQ.RnXzk5JsKSB-DBgdQLnI9q0l4Xdy69zMvV5Y3042FPs",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"LastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false\r\n}"
+							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"LastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users/yes21@example.com",
+							"raw": "http://localhost:3001/api/users/yes41@example.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -99,7 +92,7 @@
 							"path": [
 								"api",
 								"users",
-								"yes21@example.com"
+								"yes41@example.com"
 							]
 						}
 					},
@@ -143,24 +136,19 @@
 				{
 					"name": "DeleteUser",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InllczMwQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjQwMzgxNDA4LCJleHAiOjE2NDA0Njc4MDh9.b2BNc_XMldmQjENztBIWIv9JZlxJQa18Q6IoneyuVwI",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": ""
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users/yes31@example.com",
+							"raw": "http://localhost:3001/api/users/yes40@example.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -169,7 +157,7 @@
 							"path": [
 								"api",
 								"users",
-								"yes31@example.com"
+								"yes40@example.com"
 							]
 						}
 					},
@@ -178,20 +166,10 @@
 				{
 					"name": "User",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InllczIxQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjQwMzUxMTIyfQ.VgbvYIh9aBfpi0ZV8GJ_ZUNXvZa_ug6Mnf5Gmrz3sE0",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/users?search=yes31@example.com",
+							"raw": "http://localhost:3001/api/users?search=yes41@example.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -204,7 +182,7 @@
 							"query": [
 								{
 									"key": "search",
-									"value": "yes31@example.com"
+									"value": "yes41@example.com"
 								}
 							]
 						}
@@ -221,7 +199,12 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"firstName\": \"Johnny\",\r\n        \"lastName\": \"Doh\",\r\n        \"email\": \"yes39@example.com\",\r\n        \"password\": \"password\",\r\n        \"dateOfBirth\": \"08/05/1995\",\r\n        \"gender\": 1,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false,\r\n        \"status\": false\r\n}"
+							"raw": "{\r\n        \"firstName\": \"Johnny\",\r\n        \"lastName\": \"Doh\",\r\n        \"email\": \"yes60@hs-fulda.de\",\r\n        \"password\": \"password\",\r\n        \"dateOfBirth\": \"08/05/1995\",\r\n        \"gender\": 1,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false,\r\n        \"status\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/users",
@@ -476,10 +459,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"fileTitle\": \"UpdateTitle\",\r\n        \"filePath\": \"/updatedpath/path/123/\",\r\n        \"approvalStatus\": \"Approved\"\r\n}"
+							"raw": "{\r\n        \"approvalStatus\": \"Rejected\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/updatecoursefile/1",
+							"raw": "http://localhost:3001/api/updatecoursefile/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -488,7 +476,7 @@
 							"path": [
 								"api",
 								"updatecoursefile",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -565,7 +553,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallcoursefilesbyfileid/1",
+							"raw": "http://localhost:3001/api/getallcoursefilesbyfileid/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -574,7 +562,7 @@
 							"path": [
 								"api",
 								"getallcoursefilesbyfileid",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -654,10 +642,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"userId\": 1,\r\n        \"approvalStatus\": true\r\n}"
+							"raw": "{\r\n        \"userId\": 2,\r\n        \"approvalStatus\": \"Rejected\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/updateprofilefile/1",
+							"raw": "http://localhost:3001/api/updateprofilefile/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -666,7 +659,7 @@
 							"path": [
 								"api",
 								"updateprofilefile",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -708,11 +701,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/rakdm/Desktop/my.txt"
 								},
 								{
-									"key": "ProfilePhoto",
-									"value": "CV",
+									"key": "fileTitle",
+									"value": "Randmon",
 									"type": "text"
 								}
 							]
@@ -1154,36 +1147,6 @@
 					"response": []
 				},
 				{
-					"name": "Get All Reported Reviews",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NDI2MDE3NzEsImV4cCI6MTY0MjY4ODE3MX0.0aa9G5g_0SDXv4gwbHzWpeuHysW73AQCDVLw45cfn5Q",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3001/api/reported_reviews",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"api",
-								"reported_reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Post Review by Student",
 					"request": {
 						"auth": {
@@ -1191,7 +1154,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjYwNDA1NiwiZXhwIjoxNjQyNjkwNDU2fQ.F_0KbQc73rkXT0ZxicUgPPtuW1JO4kecPQj8Etu8Rb4",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjI2NDYzOSwiZXhwIjoxNjQyMzUxMDM5fQ.QNRAbdyzZQrPZQcPQBPsbGV2kFQ3RWdd6SQzloaBp7s",
 									"type": "string"
 								}
 							]
@@ -1200,12 +1163,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"studentId\": 3,\r\n    \"tutorId\": 2,\r\n    \"courseId\": 2,\r\n    \"rating\": 5,\r\n    \"ratingComments\": \"The teacher is awesome!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"studentId\": 3,\r\n        \"tutorId\": 2,\r\n        \"courseId\": 11,\r\n        \"rating\": 5,\r\n        \"ratingComments\": \"The teacher is awesome!\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/reviews",
@@ -1470,17 +1428,40 @@
 			"name": "Messages",
 			"item": [
 				{
-					"name": "Get All Conversations by Sender and Recepient",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Get Conversation",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":3\r\n}"
-						},
+						"url": {
+							"raw": "http://localhost:3001/api/getconversation?senderId=1&recipientId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getconversation"
+							],
+							"query": [
+								{
+									"key": "senderId",
+									"value": "1"
+								},
+								{
+									"key": "recipientId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Conversations of A User",
+					"request": {
+						"method": "GET",
+						"header": [],
 						"url": {
 							"raw": "http://localhost:3001/api/getallconversations",
 							"protocol": "http",
@@ -1499,14 +1480,16 @@
 				{
 					"name": "Create Message",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":2,\r\n    \"message\": \"First2Message\"\r\n}"
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":2,\r\n    \"message\": \"Hello from me\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/createmessage",
@@ -1553,6 +1536,16 @@
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjY1ODYwNCwiZXhwIjoxNjQyNzQ1MDA0fQ.RyV6bWonxT8RJvJFOkglmtkOLf8FUhom2or7L_Pnk_c",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
