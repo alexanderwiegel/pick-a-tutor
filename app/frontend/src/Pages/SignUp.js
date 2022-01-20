@@ -397,7 +397,7 @@ const SignUp = () => {
                       minheight: "70px",
                     }}
                     as={Link}
-                    to={"/home"}
+                    to={"/login"}
                   >
                     Already have an account? Sign in.
                   </Button>
