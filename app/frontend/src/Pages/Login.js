@@ -6,8 +6,7 @@ import {
   Form,
   Button,
   FloatingLabel,
-  Image,
-  Alert
+  Image
 } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik } from "formik";

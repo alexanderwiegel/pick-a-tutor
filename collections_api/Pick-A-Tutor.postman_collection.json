@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ec030010-49a3-4320-91d8-a240e3293915",
+		"_postman_id": "c3785438-b72f-4e21-97d2-a99deff03c87",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,15 +15,17 @@
 							"type": "noauth"
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"kylerstark@example.com\",\r\n    \"password\":\"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n    \"email\":\"johndoe@example.com\",\r\n    \"password\":\"password\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/login",
@@ -85,12 +87,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"LastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"LastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/users/yes21@example.com",
@@ -125,12 +122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"password\": \"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"password\": \"password\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/users/yes21@example.com",
@@ -163,6 +155,10 @@
 						},
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:3001/api/users/yes31@example.com",
 							"protocol": "http",
@@ -225,12 +221,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"firstName\": \"Johnny\",\r\n        \"lastName\": \"Doh\",\r\n        \"email\": \"yes39@example.com\",\r\n        \"password\": \"password\",\r\n        \"dateOfBirth\": \"08/05/1995\",\r\n        \"gender\": 1,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false,\r\n        \"status\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"firstName\": \"Johnny\",\r\n        \"lastName\": \"Doh\",\r\n        \"email\": \"yes39@example.com\",\r\n        \"password\": \"password\",\r\n        \"dateOfBirth\": \"08/05/1995\",\r\n        \"gender\": 1,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false,\r\n        \"status\": false\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/users",
@@ -298,12 +289,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"status\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"status\": false\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/users/yes34@example.com",
@@ -367,6 +353,10 @@
 						},
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:3001/api/course/1",
 							"protocol": "http",
@@ -400,12 +390,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"PHP OOP4\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"name\": \"PHP OOP4\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/course",
@@ -439,12 +424,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"PHP 12z OOP\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"name\": \"PHP 12z OOP\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/course/8",
@@ -465,6 +445,395 @@
 			]
 		},
 		{
+			"name": "CouseAdditionalInfo",
+			"item": [
+				{
+					"name": "Get All By Tutor and Course ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallbytutorcourse/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallbytutorcourse",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Course File Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"fileTitle\": \"UpdateTitle\",\r\n        \"filePath\": \"/updatedpath/path/123/\",\r\n        \"approvalStatus\": \"Approved\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/updatecoursefile/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"updatecoursefile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete course File by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/deletecoursefile/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"deletecoursefile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCourseFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "fileTitle",
+									"value": "CVFilee",
+									"type": "text"
+								},
+								{
+									"key": "courseId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/createcoursefile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"createcoursefile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Course FileByFileId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallcoursefilesbyfileid/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallcoursefilesbyfileid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Course File By Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallcoursefilesbystatus/PendingApproval",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallcoursefilesbystatus",
+								"PendingApproval"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All  course files by tutor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallcoursefilesbytutor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallcoursefilesbytutor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserProfileFile",
+			"item": [
+				{
+					"name": "Get All UserProfileFileByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallprofilefilesbyuserid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Profile File Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 1,\r\n        \"approvalStatus\": true\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/updateprofilefile/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"updateprofilefile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Profile File by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/deleteuserprofilefile/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"deleteuserprofilefile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserProfileFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "ProfilePhoto",
+									"value": "CV",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/createprofilefile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"createprofilefile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All UserProfileFileByFileId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallprofilefilesbyfileid/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallprofilefilesbyfileid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User Profile File Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallprofilefilesbystatus/PendingApproval",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallprofilefilesbystatus",
+								"PendingApproval"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All  files by User and Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallprofilefilesbyuserstatus/101/PendingApproval",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallprofilefilesbyuserstatus",
+								"101",
+								"PendingApproval"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UploadFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "fileTitle",
+									"value": "CV",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/uploadmyfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"uploadmyfile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Courses Tutor",
 			"item": [
 				{
@@ -473,7 +842,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=2",
+							"raw": "http://localhost:3001/api/tutor_courses_home?course_name=&price_min=&price_max=&rating=",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -481,12 +850,24 @@
 							"port": "3001",
 							"path": [
 								"api",
-								"tutor_courses"
+								"tutor_courses_home"
 							],
 							"query": [
 								{
-									"key": "tutor_id",
-									"value": "2"
+									"key": "course_name",
+									"value": ""
+								},
+								{
+									"key": "price_min",
+									"value": ""
+								},
+								{
+									"key": "price_max",
+									"value": ""
+								},
+								{
+									"key": "rating",
+									"value": ""
 								}
 							]
 						}
@@ -534,6 +915,10 @@
 						},
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutor_course/5",
 							"protocol": "http",
@@ -567,12 +952,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"name\": \"2nd Level Java\",\r\n        \"coursePricePerHour\": 15.50,\r\n        \"isFull\" : 0\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"name\": \"2nd Level Java\",\r\n        \"coursePricePerHour\": 15.50,\r\n        \"isFull\" : 0\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutor_course",
@@ -606,12 +986,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"coursePricePerHour\": 14.50,\r\n        \"isFull\" : 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"coursePricePerHour\": 14.50,\r\n        \"isFull\" : 1\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutor_course/5",
@@ -624,6 +999,124 @@
 								"api",
 								"tutor_course",
 								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "StudentEnrolledCourses",
+			"item": [
+				{
+					"name": "Get All UserProfileFileByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallprofilefilesbyuserid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update enrolled student status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"userId\": 1,\r\n        \"tutorCourseId\": 3,\r\n        \"enrolledStatus\": 1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/updateenrolledcoursestatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"updateenrolledcoursestatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Profile File by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"tutorCourseId\": 2,\r\n        \"userId\":1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/deletestudentcourse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"deletestudentcourse"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enroll Student to Course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"tutorCourseId\": 4\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/enrollstudent",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"enrollstudent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Student Enrolled Courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/enrolledstudentcourses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"enrolledstudentcourses"
 							]
 						}
 					},
@@ -661,6 +1154,36 @@
 					"response": []
 				},
 				{
+					"name": "Get All Reported Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NDI2MDE3NzEsImV4cCI6MTY0MjY4ODE3MX0.0aa9G5g_0SDXv4gwbHzWpeuHysW73AQCDVLw45cfn5Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/reported_reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"reported_reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Post Review by Student",
 					"request": {
 						"auth": {
@@ -668,7 +1191,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjI2NDYzOSwiZXhwIjoxNjQyMzUxMDM5fQ.QNRAbdyzZQrPZQcPQBPsbGV2kFQ3RWdd6SQzloaBp7s",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjYwNDA1NiwiZXhwIjoxNjQyNjkwNDU2fQ.F_0KbQc73rkXT0ZxicUgPPtuW1JO4kecPQj8Etu8Rb4",
 									"type": "string"
 								}
 							]
@@ -677,7 +1200,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"studentId\": 3,\r\n        \"tutorId\": 2,\r\n        \"courseId\": 11,\r\n        \"rating\": 5,\r\n        \"ratingComments\": \"The teacher is awesome!\"\r\n}",
+							"raw": "{\r\n    \"studentId\": 3,\r\n    \"tutorId\": 2,\r\n    \"courseId\": 2,\r\n    \"rating\": 5,\r\n    \"ratingComments\": \"The teacher is awesome!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -716,12 +1239,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": ""
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/reviews/1/report?id=1",
@@ -741,6 +1259,81 @@
 									"key": "id",
 									"value": "1"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ApproveRjectReview",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n                \"reportReviewStatus\": false\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/approvereview/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"approvereview",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"tutorCourseId\": 2,\r\n        \"userId\":1\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/deleteReview/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"deleteReview",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TutorOfMonth",
+			"item": [
+				{
+					"name": "Get Tutor of month",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/tutorofmonth",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"tutorofmonth"
 							]
 						}
 					},
@@ -792,6 +1385,10 @@
 						},
 						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "http://localhost:3001/api/users/yes31@example.com",
 							"protocol": "http",
@@ -825,12 +1422,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"LastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"LastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutors/yes21@example.com",
@@ -855,12 +1447,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Sometutor\",\r\n    \"lastName\": \"Dohe1\",\r\n    \"email\": \"sometutor.dohe1@ai.hs-fulda.de\",\r\n    \"password\": \"password\",\r\n    \"dateOfBirth\": \"08/05/1995\",\r\n    \"gender\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\r\n    \"firstName\": \"Sometutor\",\r\n    \"lastName\": \"Dohe1\",\r\n    \"email\": \"sometutor.dohe1@ai.hs-fulda.de\",\r\n    \"password\": \"password\",\r\n    \"dateOfBirth\": \"08/05/1995\",\r\n    \"gender\": 1\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/tutors",
@@ -872,6 +1459,92 @@
 							"path": [
 								"api",
 								"tutors"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Get All Conversations by Sender and Recepient",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":3\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/getallconversations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getallconversations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Message",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":2,\r\n    \"message\": \"First2Message\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/createmessage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"createmessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Message Status",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":3,\r\n    \"isConversationOpen\":false\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/updateconversationstatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"updateconversationstatus"
 							]
 						}
 					},

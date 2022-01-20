@@ -2,6 +2,7 @@ const UserProfileFiles = require("../db/model/UserProfileFiles");
 const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
 const jwtdecode = require("jwt-decode");
+const User = require("../db/model/User")
 
 // // *************************Upload File*****************************
 
@@ -28,7 +29,7 @@ const jwtdecode = require("jwt-decode");
 
 const getallbyuserid = async (req, res, next) => {
     const userprofilefiles = await UserProfileFiles.findAll({
-        where: { userId: req.params.userId },
+        where: { userId: req.params.userId }, include: [User]
     });
 
     res.json({
@@ -45,7 +46,7 @@ exports.getallbyuserid = getallbyuserid;
 
 const getallbyfileid = async (req, res, next) => {
     const userprofilefiles = await UserProfileFiles.findAll({
-        where: { id: req.params.fileId },
+        where: { id: req.params.fileId }, include: [User]
     });
 
     res.json({
@@ -62,7 +63,7 @@ exports.getallbyfileid = getallbyfileid;
 
 const getallbystatus = async (req, res, next) => {
     const userprofilefiles = await UserProfileFiles.findAll({
-        where: { approvalStatus: req.params.approvalStatus },
+        where: { approvalStatus: req.params.approvalStatus }, include:[User]
     });
 
     res.json({
@@ -82,7 +83,7 @@ const getallbyuserfilestatus = async (req, res, next) => {
         where: {
             userId: req.params.userId,
             approvalStatus: req.params.approvalStatus,
-        },
+        }, include: [User]
     });
 
     res.json({
@@ -160,7 +161,7 @@ const updateuserprofilefile = async (req, res, next) => {
             res.json({
                 success: true,
                 message:
-                    "User Profile File '" +
+                    "User Profile File for user '" +
                     userprofilefile.userId +
                     "' successfully updated",
                 records: userprofilefile.length,
@@ -169,7 +170,7 @@ const updateuserprofilefile = async (req, res, next) => {
             res.json({
                 success: false,
                 message:
-                    "User Profile File " +
+                    "User Profile File for user " +
                     userprofilefile.userId +
                     " updation failed",
                 records: userprofilefile.length,

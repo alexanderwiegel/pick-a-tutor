@@ -31,6 +31,9 @@ TutorCourse.init(
         coursePricePerHour: {
             type: DataTypes.DECIMAL(4, 2),
         },
+        rating: {
+            type: DataTypes.DECIMAL(4, 2),
+        },
         isFull: {
             type: DataTypes.BOOLEAN,
         },

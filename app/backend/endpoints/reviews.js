@@ -1,11 +1,19 @@
 const Review = require("../db/model/Review");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 const jwt = require("jsonwebtoken");
+const User = require("../db/model/User");
+const Course = require("../db/model/Course");
+const TutorCourse = require("../db/model/TutorCourse");
+const jwtDecode = require("jwt-decode");
 
-const getReviews = async (req, res) => {
-
+exports.getReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
+            include: [
+                { model: TutorCourse, include: [Course] },
+                { model: User, as: "student" },
+                { model: User, as: "tutor" },
+            ],
             where: {
                 courseId: req.query.courseId,
             },
@@ -16,9 +24,47 @@ const getReviews = async (req, res) => {
     }
 };
 
-const addReview = async (req, res) => {
+exports.getReportedReviews = async (req, res) => {
     try {
+        let reviews = await Review.findAll({
+            include: [
+                { model: TutorCourse, include: [Course] },
+                { model: User, as: "student" },
+                { model: User, as: "tutor" },
+                { model: User, as: "reporter" },
+            ],
+            where: {
+                reportReview: Review.REPORTED,
+            },
+        });
+        res.json(new SuccessfulResponse("Reported reviews", reviews));
+    } catch (e) {
+        res.json(new FailedResponse(e.message));
+    }
+};
+
+async function calculateNewRating(courseId) {
+    let course = await TutorCourse.findOne({
+        where: { id: courseId },
+    });
+    let reviews = await Review.findAll({
+        where: { courseId: courseId },
+    });
+    let r_sum = 0;
+    for (let i = 0; i < reviews.length; i++) {
+        r_sum = r_sum + reviews[i].rating;
+    }
+    course.rating = r_sum / reviews.length;
+    await course.save();
+    console.log("New rating for course " + courseId + ": " + course.rating);
+}
+
+exports.addReview = async (req, res) => {
+    try {
+        let token = req.headers["authorization"];
+        let decoded = jwtDecode(token);
         let review = Review.build({
+            reporterId: decoded.id,
             studentId: req.body.studentId,
             tutorId: req.body.tutorId,
             courseId: req.body.courseId,
@@ -27,13 +73,16 @@ const addReview = async (req, res) => {
         });
         await review.save();
         console.log("Created review: " + review);
+
+        await calculateNewRating(req.body.courseId);
+
         res.json(new SuccessfulResponse("Review created", [review]));
     } catch (e) {
         res.json(new FailedResponse(e.message));
     }
 };
 
-const reportReview = async (req, res) => {
+exports.reportReview = async (req, res) => {
     try {
         let review = await Review.findOne({ where: { id: req.params.id } });
         let token = req.headers.authorization.split(" ")[2]; // Bearer Token
@@ -51,7 +100,7 @@ const reportReview = async (req, res) => {
 
 //************* Approve or Reject Review based on Id and reportReviewStatus" ***************
 
-const approvereview = async (req, res, next) => {
+exports.approveReview = async (req, res) => {
     const review = await Review.findOne({
         where: { id: req.params.id },
     });
@@ -70,13 +119,13 @@ const approvereview = async (req, res, next) => {
             res.json(
                 new SuccessfulResponse(
                     "Review id " + review.id + " successfully updated",
-                    review
+                    [review]
                 )
             );
         } catch (e) {
             res.json(
                 new FailedResponse(
-                    "Review id " + review.id + " update failed" + e
+                    "Review id " + review.id + " updation failed" + e
                 )
             );
         }
@@ -87,4 +136,22 @@ const approvereview = async (req, res, next) => {
     }
 };
 
-module.exports = { getReviews, addReview, reportReview, approvereview };
+//************* Delete review ***************
+
+exports.deleteReview = async (req, res) => {
+    try {
+        let review = await Review.findOne({
+            where: { id: req.params.id },
+        });
+
+        await review.destroy();
+
+        await calculateNewRating(req.body.courseId);
+
+        res.json(
+            new SuccessfulResponse("Review successfully deleted", [review])
+        );
+    } catch (e) {
+        return res.json(new FailedResponse(e.message));
+    }
+};
