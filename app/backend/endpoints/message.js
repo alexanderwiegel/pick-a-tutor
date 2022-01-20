@@ -12,18 +12,25 @@ const getconversation = async (req, res, next) => {
   //   var token = req.headers["authorization"];
   //   var decoded = jwtdecode(token);
   //   console.log("************decoded:" + decoded.email);
-  const mess = await Message.findAll({
+  const messsent = await Message.findAll({
     where: {
       senderId: req.query.senderId,
       recipientId: req.query.recipientId,
-    }, include : [{model: User,  as: "sender" }, {model: User,  as: "recipient" }]
+    } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
+  });
+
+  const messreceived = await Message.findAll({
+    where: {
+      senderId: req.query.recipientId,
+      recipientId:req.query.senderId ,
+    } , include : [{ model: User, as: "sender" },{ model: User, as: "recipient" },]
   });
 
   res.json({
     success: true,
-    message: "All conversations",
-    records: mess.length,
-    data: mess,
+    message: "All messages between two users",
+    records: messsent.length+messreceived.length,
+    data: [messsent,messreceived],
   });
 };
 
