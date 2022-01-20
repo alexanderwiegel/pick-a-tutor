@@ -16,13 +16,6 @@
         chdir:
           /home/azureuser/app
 
-    - name: Stop database services
-      shell:
-        docker-compose down
-      args:
-        chdir:
-          /home/azureuser/app/database
-
     - name: Set remote backend
       lineinfile:
         path: /home/azureuser/app/frontend/src/Components/ApiEndpoints.js
@@ -35,20 +28,6 @@
       args:
         chdir:
           /home/azureuser/app
-
-    - name: Build database services
-      shell:
-        docker-compose build
-      args:
-        chdir:
-          /home/azureuser/app/database
-
-    - name: Start database services
-      shell:
-        docker-compose up --detach test_db
-      args:
-        chdir:
-          /home/azureuser/app/database
 
     - name: Start app services
       shell:
