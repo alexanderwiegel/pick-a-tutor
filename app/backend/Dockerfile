@@ -13,5 +13,11 @@ EXPOSE 3001
 # Copy sources
 COPY . .
 
+RUN mkdir -p "/storage/profile_uploads"
+RUN mkdir -p "/storage/course_uploads"
+
+ENV PROFILE_STORAGE=/storage/profile_uploads
+ENV COURSE_STORAGE=/storage/course_uploads
+
 # Start the app
 CMD ["node", "index.js"]

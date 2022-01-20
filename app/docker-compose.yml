@@ -5,6 +5,8 @@ services:
     ports:
       - "3001:3001"
     restart: always
+    volumes:
+      - file-storage:/storage
   frontend:
     build: frontend
     ports:
@@ -15,3 +17,6 @@ services:
     ports:
       - "80:80"
     restart: always
+
+volumes:
+  file-storage:

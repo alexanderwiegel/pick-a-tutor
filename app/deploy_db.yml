@@ -1,0 +1,31 @@
+---
+- name: Deploy the db on the server
+  hosts: all
+  remote_user: azureuser
+  tasks:
+    - name: Copy the sources
+      synchronize:
+        src: ../app/
+        dest: /home/azureuser/app/
+        delete: yes
+
+    - name: Stop database services
+      shell:
+        docker-compose down
+      args:
+        chdir:
+          /home/azureuser/app/database
+
+    - name: Build database services
+      shell:
+        docker-compose build
+      args:
+        chdir:
+          /home/azureuser/app/database
+
+    - name: Start database services
+      shell:
+        docker-compose up --detach test_db
+      args:
+        chdir:
+          /home/azureuser/app/database
