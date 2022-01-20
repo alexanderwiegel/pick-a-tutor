@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from 'react-bootstrap';
-import apiEndPoints from './ApiEndpoints';
 
 const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses, setSearchKeyword }) => {
   const [search, setSearch] = useState('');
@@ -16,7 +14,7 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
   }
   useEffect(() => {
     if (setSearchKeyword)
-      setSearchKeyword(preVal => search)
+      setSearchKeyword(() => search)
     if (category === "tutor")
       getUsers(search)
     else
