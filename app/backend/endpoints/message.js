@@ -6,7 +6,7 @@ const db = require("../db/db");
 const User = require("../db/model/User");
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
-//************* Get List of all messages based on senderID and RecipientId" ***************
+//************* Get List of all messages based on senderID and RecipientId last message of them as ARRAY " ***************
 
 const getconversation = async (req, res, next) => {
   //   var token = req.headers["authorization"];
@@ -86,29 +86,63 @@ const getallconversations = async (req, res, next) => {
     var token = req.headers["authorization"];
     var decoded = jwtdecode(token);
 
-    let messsent = await Message.findAll({
-        where: { senderId: decoded.id },
+    const [latestmessages, meta] = await db.query(
+      "select senderId,recipientId,max(max_id) as latest_id from (select senderId,recipientId, max(id)  as max_id from db.messages where senderId=$Id group by senderId,recipientId union select senderId,recipientId,max_id from ( select senderId as 'recipientId',recipientId as 'senderId',max_id from ( select senderId,recipientId, max(id) as max_id from db.messages where recipientId=$Id group by senderId,recipientId) as temp) as temp2) as final_temp group by senderId,recipientId;",
+      {
+          bind: { Id: decoded.id },
+      }
+  );
+
+  let latestids=[]
+
+  latestmessages.map((msg,index) => {
+    // console.log(msg.latest_id)
+    latestids.push(msg.latest_id)
+  })
+
+    
+      let allmessages = await Message.findAll({
+        where: {id : latestids},
         include: [
           { model: User, as: "sender" },
           { model: User, as: "recipient" },
       ],
     });
 
+    let allmessagesarray= []
+    allmessages.map((arraymessage,index)=> {
+      allmessagesarray.push([arraymessage])
+    })
+
+
+    // let allmessages = await Message.findAll({
+    //     // where: { senderId: decoded.id },
+    //     where: { [Op.or]: [ {senderId: decoded.id}, {recipientId: decoded.id} ]},
+    //   //   include: [
+    //   //     { model: User, as: "sender" },
+    //   //     { model: User, as: "recipient" },
+    //   // ],
+    // });
+
+
     
-    let messreceived = await Message.findAll({
-      where: { recipientId: decoded.id },
-      include: [
-          { model: User, as: "sender" },
-          { model: User, as: "recipient" },
-      ],
-  });
+  //   let messreceived = await Message.findAll({
+  //     where: { recipientId: decoded.id },
+  //     include: [
+  //         { model: User, as: "sender" },
+  //         { model: User, as: "recipient" },
+  //     ],
+  // });
+
+  // let allmessages= messsent.concat(messreceived)
 
     res.json({
         success: true,
         message: "All conversations of a User",
-        records: messsent.length+messreceived.length,
+        records: allmessagesarray.length,
         // data: [messsent,messreceived],
-        data: messsent.concat(messreceived),
+        // data: messsent.concat(messreceived),
+        data: allmessagesarray
     });
 
 };
