@@ -72,7 +72,7 @@ const SignUp = () => {
               validationSchema={schema}
               onSubmit={async (values, actions) => {
                 let split = values.email.split('@');
-                if (split[1].toLowerCase() !== 'fulda.com') {
+                if (split[1].toLowerCase() !== 'hs-fulda.de') {
                   alert("Please use Fulda University email.")
                   return true
                 }

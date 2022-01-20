@@ -1,9 +1,15 @@
 import axios from "axios";
 
 //TODO: send token on every request
+
+console.log(localStorage.getItem("token"))
+
 const axiosInstance = axios.create({
 
   // baseURL: "http://20.113.25.17:3001/api"
+
+
+
   baseURL: "http://127.0.0.1:3001/api",
   headers: {
     'Authorization': `Bearer ${localStorage.getItem("token")}`
