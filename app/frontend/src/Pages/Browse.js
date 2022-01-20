@@ -99,7 +99,7 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue == 4 ? "#00b7ffa1" : "transparent", color: starValue == 4 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === 4 ? "#00b7ffa1" : "transparent", color: starValue === 4 ? "#ffffff" : "black" }}
               id="4 star"
               type="checkbox"
               variant="light"
@@ -116,7 +116,7 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue == 3 ? "#00b7ffa1" : "transparent", color: starValue == 3 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === 3 ? "#00b7ffa1" : "transparent", color: starValue === 3 ? "#ffffff" : "black" }}
               id="3 star"
               type="checkbox"
               variant="light"
@@ -134,7 +134,7 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue == 2 ? "#00b7ffa1" : "transparent", color: starValue == 2 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === 2 ? "#00b7ffa1" : "transparent", color: starValue === 2 ? "#ffffff" : "black" }}
               id="2 star"
               type="checkbox"
               variant="light"
@@ -153,7 +153,7 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue == 1 ? "#00b7ffa1" : "transparent", color: starValue == 1 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === 1 ? "#00b7ffa1" : "transparent", color: starValue === 1 ? "#ffffff" : "black" }}
               id="1 star"
               type="checkbox"
               variant="light"
@@ -177,7 +177,7 @@ function Browse(props) {
                 <hr />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == 5 ? "#00b7ffa1" : "transparent", color: priceFilter == 5 ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === 5 ? "#00b7ffa1" : "transparent", color: priceFilter === 5 ? "#ffffff" : "black" }}
                   id="5 Euro"
                   type="checkbox"
                   variant="light"
@@ -191,7 +191,7 @@ function Browse(props) {
                 <br />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == 10 ? "#00b7ffa1" : "transparent", color: priceFilter == 10 ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === 10 ? "#00b7ffa1" : "transparent", color: priceFilter === 10 ? "#ffffff" : "black" }}
                   id="10 Euro"
                   type="checkbox"
                   variant="light"
@@ -205,7 +205,7 @@ function Browse(props) {
                 <br />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == 15 ? "#00b7ffa1" : "transparent", color: priceFilter == 15 ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === 15 ? "#00b7ffa1" : "transparent", color: priceFilter === 15 ? "#ffffff" : "black" }}
                   id="15"
                   type="checkbox"
                   variant="light"
@@ -219,7 +219,7 @@ function Browse(props) {
                 <br />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == 20 ? "#00b7ffa1" : "transparent", color: priceFilter == 20 ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === 20 ? "#00b7ffa1" : "transparent", color: priceFilter === 20 ? "#ffffff" : "black" }}
                   id="20 Euro"
                   type="checkbox"
                   variant="light"
@@ -233,7 +233,7 @@ function Browse(props) {
                 <br />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == '20+' ? "#00b7ffa1" : "transparent", color: priceFilter == '20+' ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === '20+' ? "#00b7ffa1" : "transparent", color: priceFilter === '20+' ? "#ffffff" : "black" }}
                   id="20 + Euro"
                   type="checkbox"
                   variant="light"
