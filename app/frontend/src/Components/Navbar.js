@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../images/logos/Tutor.png";
 import { Link } from 'react-router-dom';
-import useVerifyToken from '../Hooks/useVerifyToken';
+import MenuItem from "./MenuItem";
 
 function Navbar() {
   const [nav, setnav] = useState(false);
@@ -13,7 +13,6 @@ function Navbar() {
       setnav(false);
     }
   };
-  const checkToken = useVerifyToken();
   window.addEventListener("scroll", changeBackground);
 
   useEffect(() => {
@@ -40,19 +39,13 @@ function Navbar() {
           <img src={logo} alt="" />
         </a>
         <input type="checkbox" className="menu-btn" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn">
+        <label className="menu-icon" htmlFor="menu-btn">
           <span className="nav-icon"></span>
         </label>
         <ul className="menu">
-          <li>
-            <Link to="/home" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
-          </li>
-          <li>
-            <Link to="/browse" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Browse</Link>
-          </li>
-          <li>
-            <Link to="/messages" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Messages</Link>
-          </li>
+          <MenuItem name="home" />
+          <MenuItem name="browse" />
+          <MenuItem name="messages" />
           <li>
             <Link to="/login" onClick={logout} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Logout</Link>
           </li>
@@ -67,19 +60,13 @@ function Navbar() {
           <img src={logo} alt="" />
         </a>
         <input type="checkbox" className="menu-btn" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn">
+        <label className="menu-icon" htmlFor="menu-btn">
           <span className="nav-icon"></span>
         </label>
         <ul className="menu">
-          <li>
-            <Link to="/users" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Users</Link>
-          </li>
-          <li>
-            <Link to="/approvals" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Approvals</Link>
-          </li>
-          <li>
-            <Link to="/messages" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Messages</Link>
-          </li>
+          <MenuItem name="users" />
+          <MenuItem name="approvals" />
+          <MenuItem name="messages" />
           <li>
             <Link to="/login" onClick={logout} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Logout</Link>
           </li>
@@ -94,19 +81,14 @@ function Navbar() {
           <img src={logo} alt="" />
         </a>
         <input type="checkbox" className="menu-btn" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn">
+        <label className="menu-icon" htmlFor="menu-btn">
           <span className="nav-icon"></span>
         </label>
         <ul className="menu">
-          <li>
-            <Link to="/" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
-          </li>
-          <li>
-            <Link to="/" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Courses</Link>
-          </li>
-          <li>
-            <Link to="/messages" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Messages</Link>
-          </li>
+          {/* TODO: add route to tutorProfile */}
+          <MenuItem name="home" alt="" />
+          <MenuItem name="browse" />
+          <MenuItem name="messages" />
           <li>
             <Link to="/login" onClick={logout} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Logout</Link>
           </li>
@@ -121,19 +103,13 @@ function Navbar() {
           <img src={logo} alt="" />
         </a>
         <input type="checkbox" className="menu-btn" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn">
+        <label className="menu-icon" htmlFor="menu-btn">
           <span className="nav-icon"></span>
         </label>
         <ul className="menu">
-          <li>
-            <Link to="/" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Home</Link>
-          </li>
-          <li>
-            <Link to="/browse" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Browse</Link>
-          </li>
-          <li>
-            <Link to="/login" style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Login</Link>
-          </li>
+          <MenuItem name="home" alt="" />
+          <MenuItem name="browse" />
+          <MenuItem name="login" />
         </ul>
       </nav>
     )

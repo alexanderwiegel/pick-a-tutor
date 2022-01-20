@@ -80,13 +80,13 @@ async function getReportedReviews() {
   return await axiosInstance.get("/reported_reviews")
 }
 
-async function approveFile(fileId) {
-  return await axiosInstance.get("/")
-}
+// async function approveFile(fileId) {
+//   return await axiosInstance.get("/")
+// }
 
-async function rejectFile(fileId) {
-  return await axiosInstance.get("/")
-}
+// async function rejectFile(fileId) {
+//   return await axiosInstance.get("/")
+// }
 
 async function deleteReview(reviewId) {
   return await axiosInstance.get("/deleteReview/" + reviewId)
