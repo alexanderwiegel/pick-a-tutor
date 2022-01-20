@@ -1,8 +1,8 @@
 import axios from "axios";
 
-
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:3001/api"
+  baseURL: "http://127.0.0.1:3001/api",
+  headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
 })
 
 // async function getTutorData(course, star) {
@@ -38,18 +38,20 @@ async function getAllUsers() {
 }
 
 async function getListofTutors(subject) {
-  console.log('Subject sent to api ', subject)
+  // console.log('Subject sent to api ', subject)
   return await axiosInstance.get(`courses?search=${subject}`)
 }
 
-async function getSingleTutorData() {
-  return await axiosInstance.get('users')
+async function getAllConversations() {
+  return await axiosInstance.get("/getallconversations")
 }
 
 async function getHistory(senderId, recipientId) {
-  return await axiosInstance.get("/getallconversations", {
-    senderId: senderId,
-    recipientId: recipientId
+  return await axiosInstance.get("/getconversation", {
+    params: {
+      senderId: senderId,
+      recipientId: recipientId
+    }
   })
 }
 
@@ -61,12 +63,36 @@ async function sendMessage(senderId, recipientId, message) {
   })
 }
 
-async function getReportedReviews() {
-  // return await axiosInstance
+async function getProfileFilesToApprove() {
+  return await axiosInstance.get("/getallprofilefilesbystatus/PendingApproval")
 }
 
+async function getCourseFilesToApprove() {
+  return await axiosInstance.get("/getallcoursefilesbystatus/PendingApproval")
+}
+
+async function getReportedReviews() {
+  return await axiosInstance.get("/reported_reviews")
+}
+
+async function approveFile(fileId) {
+  return await axiosInstance.get("/")
+}
+
+async function rejectFile(fileId) {
+  return await axiosInstance.get("/")
+}
+
+async function deleteReview(reviewId) {
+  return await axiosInstance.get("/deleteReview/" + reviewId)
+}
+
+// async function rejectReport() {
+//   return await axiosInstance.get("/")
+// }
+
 const apiEndPoints = {
-  getTutorData, getListofTutors, register, login, getAllUsers, getHistory, sendMessage
+  getTutorData, getListofTutors, register, login, getAllUsers, getAllConversations, getHistory, sendMessage, getProfileFilesToApprove, getCourseFilesToApprove, getReportedReviews, deleteReview
 }
 
 export default apiEndPoints

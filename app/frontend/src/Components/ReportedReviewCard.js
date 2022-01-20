@@ -3,8 +3,13 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { ButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import apiEndPoints from './ApiEndpoints';
 
-function ReportedReviewCard({ courseName, reviewer, reporter, reviewText, reportComment }) {
+function ReportedReviewCard({ courseName, reviewer, reporter, reviewText, reportComment, id }) {
+  const deleteReview = async (reviewId) => {
+    await apiEndPoints.deleteReview(reviewId)
+  }
+
   return (
     <>
       <Card style={{ width: '20rem' }}>
@@ -15,11 +20,13 @@ function ReportedReviewCard({ courseName, reviewer, reporter, reviewText, report
           <Card.Title>Comment by <Link to="">{reporter}</Link>:</Card.Title>
           <Card.Text>"{reportComment}"</Card.Text>
           <ButtonGroup className="d-flex">
-            <Button variant="danger">Delete review</Button>
+            <Button onClick={() => deleteReview(id)}
+              variant="danger">Delete review</Button>
             <Button variant="warning">Reject report</Button>
           </ButtonGroup>
         </Card.Body>
       </Card>
+      <br />
     </>
   )
 }
