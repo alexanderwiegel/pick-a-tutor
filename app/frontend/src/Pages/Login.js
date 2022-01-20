@@ -61,7 +61,7 @@ export default function Login() {
                 apiEndpoints.login(values).then(data => {
                   if (data.status === 200) {
                     localStorage.setItem('user', true)
-                    localStorage.setItem('token', data.data.token)
+                    localStorage.setItem('token', data.data.data.token)
                     navigate('/home')
                   }
                   else {
@@ -103,7 +103,7 @@ export default function Login() {
                       value={props.values.password}
                     />
                   </FloatingLabel>
-                  <div class="d-flex justify-content-end"><a href="/dashboard">Forgot Password ?</a></div>
+                  <div className="d-flex justify-content-end"><a href="/dashboard">Forgot Password ?</a></div>
                   <br />
 
 
