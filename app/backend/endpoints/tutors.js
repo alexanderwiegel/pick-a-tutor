@@ -8,22 +8,31 @@ const { Op } = require("sequelize");
 const bcryptjs = require("bcryptjs");
 
 const getAllTutors = async (req, res) => {
-    let tutors = await User.findAll({
+    var tutors = '';
+    var tutorId = {
+        [Op.gte]: 0,
+    };
+    if(req.query.tutor_id !=''){
+        tutorId = req.query.tutor_id;
+    }
+
+    tutors = await User.findAll({
         where: {
             [Op.and]: {
                 isTutor: true,
-                [Op.or]: [
-                    search(req.query.search, "firstName"),
-                    search(req.query.search, "lastName"),
-                ],
+                id: tutorId,
             },
+            [Op.or]: [
+                search(req.query.search, "firstName"),
+                search(req.query.search, "lastName")
+            ]
         },
         include: {
             model: Course,
         },
     });
 
-    res.json(new SuccessfulResponse("List of tutors", tutors));
+    return res.json(new SuccessfulResponse("List of tutors", tutors));
 };
 
 const createTutor = async (req, res) => {
