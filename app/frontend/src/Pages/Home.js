@@ -23,7 +23,6 @@ const Home = () => {
   };
   const getEnrolledCourses = async () => {
     const data = await apiEndPoints.getEnrolledCourses()
-    console.log(data)
     setEnrolledCourses(preVal => data.data.data)
   };
 
@@ -32,7 +31,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    getUsers()
+    //getUsers()
     getEnrolledCourses()
   }, []);
 
@@ -45,10 +44,14 @@ const Home = () => {
       <Container style={{ overflowX: 'scroll' }}>
         <Container style={{ display: 'flex' }}>
           {
-            (courses && courses.length > 0) &&
-            courses.map((course, index) => (
+            (enrolledCourses && enrolledCourses.length > 0) &&
+            enrolledCourses.map((course, index) => (
               <CardComponent name={`${course.User.firstName} ${course.User.lastName}`} course={course} />
             ))
+          }
+          {
+            enrolledCourses.length === 0 &&
+            <p>You are not enrolled in any course.</p>
           }
         </Container>
       </Container>
