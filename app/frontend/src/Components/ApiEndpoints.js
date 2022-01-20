@@ -22,7 +22,9 @@ async function register(data) {
     password: data.password,
     dateOfBirth: data.dateOfBirth,
     gender: gender_val,
-    role: data.role
+    isStudent: data.role === "student" ? true : false,
+    isTutor: data.role === "tutor" ? true : false,
+    isAdmin: false
   })
 }
 
@@ -38,8 +40,11 @@ async function getAllUsers() {
 }
 
 async function getListofTutors(subject) {
-  // console.log('Subject sent to api ', subject)
-  return await axiosInstance.get(`courses?search=${subject}`)
+  return await axiosInstance.get(`tutors?search=${subject}`)
+}
+
+async function getListofCourses(subject) {
+  return await axiosInstance.get(`tutor_courses?search=${subject}`)
 }
 
 async function getAllConversations() {
@@ -91,8 +96,33 @@ async function deleteReview(reviewId) {
 //   return await axiosInstance.get("/")
 // }
 
+async function requestEnrollment(courseId) {
+  return await axiosInstance.post('enrollstudent', {
+    tutorCourseId: courseId
+  })
+}
+
+async function getFilteredResult(course, minPrice, maxPrice, rating) {
+  return await axiosInstance.get(`tutor_courses_home?course_name=${course}&price_min=${minPrice}&price_max=${maxPrice}&rating=${rating}`)
+}
+
+async function getEnrolledCourses() {
+  return await axiosInstance.get('enrolledstudentcourses')
+}
+
 const apiEndPoints = {
-  getTutorData, getListofTutors, register, login, getAllUsers, getAllConversations, getHistory, sendMessage, getProfileFilesToApprove, getCourseFilesToApprove, getReportedReviews, deleteReview
+  getTutorData,
+  getListofTutors,
+  register,
+  login,
+  getAllUsers,
+  getHistory,
+  sendMessage,
+  getListofCourses,
+  getFilteredResult,
+  requestEnrollment,
+  getEnrolledCourses,
+  getAllConversations, getProfileFilesToApprove, getCourseFilesToApprove, getReportedReviews, deleteReview
 }
 
 export default apiEndPoints
