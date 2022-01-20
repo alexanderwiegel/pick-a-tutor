@@ -24,7 +24,7 @@ function FileCard({ user, file }) {
           <Card.Text>ExampleSlides.pdf</Card.Text> */}
             <ButtonGroup className="d-flex">
               <Button variant="danger">Reject</Button>
-              <Link to={{ pathname: "/chat", state: { contact: user.id } }}>
+              <Link to={"/chat"} state={{ contact: user }} >
                 <Button>Contact</Button>
               </Link>
               <Button variant="success">Approve</Button>
