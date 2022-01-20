@@ -2,6 +2,9 @@
 // const app = (module.exports = express());
 const bcryptjs = require("bcryptjs");
 const User = require("../db/model/User");
+//const Course = require("../db/model/Course");
+const Review = require("../db/model/Review");
+const TutorCourse = require("../db/model/TutorCourse");
 const search = require("../utils/search");
 // const auth = require("../auth/check-auth");
 const { Sequelize } = require("sequelize");
@@ -14,13 +17,15 @@ const Op = Sequelize.Op;
 
 const getallusers = async (req, res, next) => {
     const users = await User.findAll({
-        where: {
+        //attributes: [[Sequelize.fn('AVG', Sequelize.col('Reviews.rating')), 'ratingAvg']],
+            where: {
             [Op.or]: [
                 search(req.query.search, "firstName"),
                 search(req.query.search, "lastName"),
                 search(req.query.search, "email"),
             ],
         },
+        include: [Review]
     });
 
     res.json({
