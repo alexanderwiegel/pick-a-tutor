@@ -15,6 +15,7 @@ function UserCard({ user }) {
       <Card style={{ width: '30rem' }}>
         <Card.Body>
           {/* <Card.Img src={user.profilePic} /> */}
+          {/* TODO: forward to TutorProfile if tutor */}
           <Card.Title><Link to="">{user.firstName} {user.lastName}</Link></Card.Title>
           <Card.Subtitle>{user.isAdmin ? "Admin" : user.isStudent ? "Student" : "Tutor"}</Card.Subtitle>
           <ButtonGroup className="d-flex">
