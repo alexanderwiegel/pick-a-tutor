@@ -76,24 +76,29 @@ async function getCourseFilesToApprove() {
   return await axiosInstance.get("/getallcoursefilesbystatus/PendingApproval")
 }
 
+async function updateCourseFile(fileId, status) {
+  return await axiosInstance.patch("/updatecoursefile/" + fileId,
+    { approvalStatus: status })
+}
+
+async function updateProfileFile(fileId, userId, status) {
+  return await axiosInstance.patch("/updateprofilefile/" + fileId,
+    {
+      userId: userId,
+      approvalStatus: status
+    })
+}
+
 async function getReportedReviews() {
   return await axiosInstance.get("/reported_reviews")
 }
 
-// async function approveFile(fileId) {
-//   return await axiosInstance.get("/")
-// }
-
-// async function rejectFile(fileId) {
-//   return await axiosInstance.get("/")
-// }
-
 async function deleteReview(reviewId) {
-  return await axiosInstance.get("/deleteReview/" + reviewId)
+  return await axiosInstance.delete("/deleteReview/" + reviewId)
 }
 
 async function rejectReport(reviewId) {
-  return await axiosInstance.get("/approvereview/" + reviewId)
+  return await axiosInstance.patch("/approvereview/" + reviewId)
 }
 
 async function requestEnrollment(courseId) {
@@ -122,7 +127,7 @@ const apiEndPoints = {
   getFilteredResult,
   requestEnrollment,
   getEnrolledCourses,
-  getAllConversations, getProfileFilesToApprove, getCourseFilesToApprove, getReportedReviews, deleteReview, rejectReport
+  getAllConversations, getProfileFilesToApprove, getCourseFilesToApprove, updateCourseFile, updateProfileFile, getReportedReviews, deleteReview, rejectReport
 }
 
 export default apiEndPoints
