@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 import apiEndPoints from './ApiEndpoints';
 
 function FileCard({ user, file }) {
+  var pFile = file.tutorId == null
+
   // TODO: update parent state to show updated data
   const updateFile = async (status) => {
-    file.tutorId == null ?
+    pFile ?
       await apiEndPoints.updateProfileFile(file.id, file.userId, status) :
       await apiEndPoints.updateCourseFile(file.id, status)
   }
@@ -16,7 +18,7 @@ function FileCard({ user, file }) {
   return (
     <>
       <Card style={{ width: '20rem' }}>
-        <Card.Header><Link to="">{user.firstName + " " + user.lastName}</Link></Card.Header>
+        <Card.Header><Link to="">{user.firstName + " " + user.lastName}</Link>{pFile ? "'s profile" : " in course: " + file.Course.name}</Card.Header>
         <Card.Body>
           <Form>
             <Card.Text>
