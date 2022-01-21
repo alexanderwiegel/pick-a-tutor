@@ -38,12 +38,12 @@ const Approvals = () => {
                 <Col>
                   {
                     pFiles.length > 0 && pFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload.fileTitle} key={upload.id}></FileCard>
+                      <FileCard user={upload.User} file={upload} key={upload.id}></FileCard>
                     )
                   }
                   {
                     cFiles.length > 0 && cFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload.fileTitle} key={upload.id}></FileCard>
+                      <FileCard user={upload.User} file={upload} key={upload.id}></FileCard>
                     )
                   }
                 </Col>
