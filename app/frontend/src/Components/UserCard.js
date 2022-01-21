@@ -3,19 +3,23 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { ButtonGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import apiEndPoints from './ApiEndpoints';
 
 function UserCard({ user }) {
+  const blockUser = async () => {
+    await apiEndPoints.blockUser(user.email)
+  }
+
   return (
     <>
       <Card style={{ width: '30rem' }}>
         <Card.Body>
           {/* <Card.Img src={user.profilePic} /> */}
           <Card.Title><Link to="">{user.firstName} {user.lastName}</Link></Card.Title>
-          {/* TODO: base subtitle on role (e.g. with user.isStudent) */}
-          <Card.Subtitle>Tutor</Card.Subtitle>
+          <Card.Subtitle>{user.isAdmin ? "Admin" : user.isStudent ? "Student" : "Tutor"}</Card.Subtitle>
           <ButtonGroup className="d-flex">
-            <Button>Contact</Button>
-            <Button variant="danger">Block</Button>
+            <Link to={"/chat"} state={{ contact: user }} ><Button>Contact</Button></Link>
+            <Button onClick={() => blockUser()} variant="danger">Block</Button>
           </ButtonGroup>
         </Card.Body>
       </Card>

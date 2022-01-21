@@ -35,10 +35,6 @@ async function login(data) {
   })
 }
 
-async function getAllUsers() {
-  return await axiosInstance.get("users")
-}
-
 async function getListofTutors(subject) {
   return await axiosInstance.get(`tutors?search=${subject}`)
 }
@@ -66,6 +62,16 @@ async function sendMessage(senderId, recipientId, message) {
     recipientId: recipientId,
     message: message
   })
+}
+
+//#region Admin APIs
+
+async function getAllUsers() {
+  return await axiosInstance.get("users")
+}
+
+async function blockUser(userEmail) {
+  return await axiosInstance.delete("users/" + userEmail)
 }
 
 async function getProfileFilesToApprove() {
@@ -101,6 +107,8 @@ async function rejectReport(reviewId) {
   return await axiosInstance.patch("/approvereview/" + reviewId)
 }
 
+//#endregion
+
 async function requestEnrollment(courseId) {
   return await axiosInstance.post('enrollstudent', {
     tutorCourseId: courseId
@@ -120,14 +128,22 @@ const apiEndPoints = {
   getListofTutors,
   register,
   login,
-  getAllUsers,
   getHistory,
   sendMessage,
   getListofCourses,
   getFilteredResult,
   requestEnrollment,
   getEnrolledCourses,
-  getAllConversations, getProfileFilesToApprove, getCourseFilesToApprove, updateCourseFile, updateProfileFile, getReportedReviews, deleteReview, rejectReport
+  getAllConversations,
+  getAllUsers,
+  blockUser,
+  getProfileFilesToApprove,
+  getCourseFilesToApprove,
+  updateCourseFile,
+  updateProfileFile,
+  getReportedReviews,
+  deleteReview,
+  rejectReport
 }
 
 export default apiEndPoints
