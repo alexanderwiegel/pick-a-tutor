@@ -45,7 +45,6 @@ function Browse(props) {
   const filterResults = async () => {
     const data = await apiEndPoints.getFilteredResult(searchKeyword, minPrice, maxPrice, starValue)
     setCourses(() => data.data.data)
-    console.log("data here", data.data.data)
   }
 
   const _setCategory = (value) => {
@@ -62,6 +61,10 @@ function Browse(props) {
       setMinPrice(() => priceRange[20])
       setMaxPrice(() => null)
     }
+  }
+
+  const _setStartValue = (value) => {
+    setStarValue(preVal => value)
   }
 
   useEffect(() => {
@@ -105,7 +108,7 @@ function Browse(props) {
               type="checkbox"
               variant="light"
               value="4"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
@@ -122,7 +125,7 @@ function Browse(props) {
               type="checkbox"
               variant="light"
               value="3"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
@@ -140,7 +143,7 @@ function Browse(props) {
               type="checkbox"
               variant="light"
               value="2"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
@@ -159,7 +162,7 @@ function Browse(props) {
               type="checkbox"
               variant="light"
               value="1"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star"></i>
