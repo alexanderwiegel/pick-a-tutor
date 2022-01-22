@@ -52,7 +52,7 @@ function Browse(props) {
   }
 
   const setPriceRange = (value) => {
-    setPriceFilter(preVal => value)
+    setPriceFilter(() => value)
     const priceRange = split(value, "-")
     if (priceRange.length === 2) {
       setMinPrice(() => priceRange[0])
@@ -64,7 +64,7 @@ function Browse(props) {
   }
 
   const _setStartValue = (value) => {
-    setStarValue(preVal => value)
+    setStarValue(() => value)
   }
 
   useEffect(() => {
