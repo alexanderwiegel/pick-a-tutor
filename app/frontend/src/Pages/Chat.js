@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import ChatMessage from "../Components/ChatMessage";
 import { format } from "date-fns";
 import jwt_decode from 'jwt-decode';
@@ -13,18 +13,12 @@ const Chat = () => {
   const userId = jwt_decode(localStorage.getItem("token")).id
   const userName = jwt_decode(localStorage.getItem("token")).firstName + " " + jwt_decode(localStorage.getItem("token")).lastName
   const [conversation, setConversation] = useState([])
-  const [loading, setLoading] = useState(true)
   const location = useLocation()
   const contact = location.state?.contact
 
   useEffect(() => {
-    setTimeout(() => {
-      getConversation(userId, contact.id);
-      setTimeout(() => {
-        setLoading(() => false)
-      }, 200)
-    }, 500)
-  }, []);
+    getConversation(userId, contact.id);
+  }, [userId, contact.id]);
 
   const getConversation = async (senderId, recipientId) => {
     const data = await apiEndPoints.getHistory(recipientId, senderId)
@@ -85,16 +79,11 @@ const Chat = () => {
             </Container>
           </Card.Header>
           <Card.Body>
-            {loading ? <div className="text-center">
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </Spinner>
-            </div> :
-              conversation.map(message =>
-                <ChatMessage sender={message.sender.firstName + " " + message.sender.lastName} id={message.sender.id}
-                  date={format(new Date(message.createdAt), "dd.MM.yyyy hh:mm")}
-                  text={message.message} key={message.id} />
-              )}
+            {conversation.map(message =>
+              <ChatMessage sender={message.sender.firstName + " " + message.sender.lastName} id={message.sender.id}
+                date={format(new Date(message.createdAt), "dd.MM.yyyy hh:mm")}
+                text={message.message} key={message.id} />
+            )}
             {messages.reverse().map((message, index) =>
               <ChatMessage sender={message.sender} id={userId} date={message.dateTime} text={message.text} key={index} />
             )}

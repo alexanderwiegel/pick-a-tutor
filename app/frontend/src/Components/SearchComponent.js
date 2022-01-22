@@ -1,8 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from 'react-bootstrap';
-import apiEndPoints from './ApiEndpoints';
 
 const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses, setSearchKeyword }) => {
   const [search, setSearch] = useState('');
@@ -16,7 +14,7 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
   }
   useEffect(() => {
     if (setSearchKeyword)
-      setSearchKeyword(preVal => search)
+      setSearchKeyword(() => search)
     if (category === "tutor")
       getUsers(search)
     else
@@ -32,7 +30,7 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
         </button>
         <input placeholder='Search here ...' style={{ fontSize: '1rem' }} onChange={(e) => setSearch(e.target.value)} />
         <div style={{ display: 'grid', alignContent: 'center' }}>
-          <i class="bi bi-search" style={{ fontSize: '1.5rem', margin: '5px', paddingRight: '10px', cursor: 'pointer' }} />
+          <i className="bi bi-search" style={{ fontSize: '1.5rem', margin: '5px', paddingRight: '10px', cursor: 'pointer' }} />
         </div>
       </div>
     </div>

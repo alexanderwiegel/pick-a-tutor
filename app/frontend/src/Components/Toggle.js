@@ -21,7 +21,7 @@ class Toggle extends React.Component {
       <div style={{}}>
         <a className="btn" onClick={() => this.setState({ isCardView: !this.state.isCardView })}>
           <div onClick={sort}>
-            <i class={this.state.isLow ? "bi bi-arrow-down" : "bi bi-arrow-up"} style={{ fontSize: '1.2rem' }}></i>
+            <i className={this.state.isLow ? "bi bi-arrow-down" : "bi bi-arrow-up"} style={{ fontSize: '1.2rem' }}></i>
           </div>
         </a>
         &nbsp;&nbsp;{this.props.name}

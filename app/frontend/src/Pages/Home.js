@@ -14,20 +14,20 @@ const Home = () => {
 
   const getUsers = async () => {
     const data = await apiEndPoints.getTutorData()
-    setUsers(preVal => data.data)
+    setUsers(() => data.data)
   };
 
   const getCourses = async (subject = "") => {
     const data = await apiEndPoints.getListofCourses(subject)
-    setCourses(preVal => data.data.data)
+    setCourses(() => data.data.data)
   };
   const getEnrolledCourses = async () => {
     const data = await apiEndPoints.getEnrolledCourses()
-    setEnrolledCourses(preVal => data.data.data)
+    setEnrolledCourses(() => data.data.data)
   };
 
   const _setCategory = (value) => {
-    setCategory(preVal => value)
+    setCategory(() => value)
   }
 
   useEffect(() => {
