@@ -6,10 +6,10 @@ function MenuItem(props) {
   var add = name
 
   // Anonymous users and tutors shall see "Home" but will be lead to another page
+  if (name === "landingPage") add = ""
   if (name === "landingPage" || name === "tutortv") {
     name = "home"
   }
-  if (name === "landingPage") add = ""
 
   return (
     <li>
