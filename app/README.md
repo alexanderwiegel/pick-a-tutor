@@ -38,14 +38,6 @@ Make sure you did not miss the comma (`,`)!
 
 `deploy.yml` is located in `app/` directory. You can run the command from any folder but make sure that you pass the correct path to `deploy.yml`.
 
-# Database
-
-_Refer to `credentials/README.md` on how to connect to the database_.
-
-First enter `database` directory.
-
-To **start** the service:
-
 ```
 $ docker-compose up --build -d
 ```
