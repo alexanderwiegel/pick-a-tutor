@@ -1,29 +1,56 @@
-import React, { useState, useEffect } from "react"
-import MenuBar from "./MenuBar"
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import logo from "../images/logos/Tutor.png"
+import MenuItem from "./MenuItem"
 
 function Navbar() {
-  const [user, setUser] = useState({})
+  const [nav, setnav] = useState(false)
 
-  useEffect(() => {
-    { /*
-      setInterval was used in order to refresh the page constantly
-  in order to have the "logout" button show immediately in place of
-  "login", as soon as user logs out.
-  */}
-    setInterval(() => {
-      const userString = localStorage.getItem("user")
-      const user = JSON.parse(userString)
-      setUser(user)
-    }, 5000)
-  }, [])
-
-  if (user) {
-    const status = localStorage.getItem('statusCode')
-    // NavBar for logged in users depending on their status
-    return <MenuBar status={status} />
+  const changeBackground = () => {
+    if (window.scrollY >= 50) {
+      setnav(true)
+    } else {
+      setnav(false)
+    }
   }
-  // NavBar for anonymous users
-  else return <MenuBar />
+  window.addEventListener("scroll", changeBackground)
+
+  const logout = () => {
+    return localStorage.clear()
+  }
+
+  const status = localStorage.getItem('statusCode')
+  var menuItems = []
+
+  status === "Admin" ? menuItems = ["users", "approvals", "messages"] :
+    status === "Tutor" ? menuItems = ["tutortv", "browse", "messages"] :
+      status === "Student" ? menuItems = ["home", "browse", "messages"] :
+        menuItems = ["landingPage", "browse"]
+
+  return (
+    <nav className={nav ? "nav active" : "nav"}>
+      <a href={"/"} className="logo" style={{ flexDirection: "row" }}>
+        <img src={logo} alt="" />
+      </a>
+      <input type="checkbox" className="menu-btn" id="menu-btn" />
+      <label className="menu-icon" htmlFor="menu-btn">
+        <span className="nav-icon"></span>
+      </label>
+      <ul className="menu">
+        {
+          menuItems.map((name, index) => <MenuItem route={name} key={index} />)
+        }
+        {
+          // Logged in users will see "Logout", anonymous users will see "Login"
+          status != null ?
+            <li>
+              <Link to="/login" onClick={logout} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>Logout</Link>
+            </li>
+            : <MenuItem route="login" />
+        }
+      </ul>
+    </nav>
+  )
 }
 
 export default Navbar
