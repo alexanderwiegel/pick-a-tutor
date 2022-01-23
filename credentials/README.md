@@ -34,13 +34,13 @@ Hello world!
 Connection to the MySQL database can be done using a MySQL client such as _MySQL workbench_ or via the command line client using the following command:
 
 ```
-$ mysql -u mysqluser -p'attic-humorous-stylishly' -h 20.113.25.17 -P 3306 -D db
+$ mysql -u mysqluser -p'attic-humorous-stylishly' -h 20.113.56.213 -P 3306 -D db
 ```
 
 Credentials of the database:
 
 ```
-Host:       20.113.25.17
+Host:       20.113.56.213
 Port:       3306
 Username:   mysqluser
 Password:   attic-humorous-stylishly
