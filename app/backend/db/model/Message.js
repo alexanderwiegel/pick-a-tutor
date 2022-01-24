@@ -34,6 +34,10 @@ Message.init(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        isRead: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+          },
     },
     {
         sequelize: db,

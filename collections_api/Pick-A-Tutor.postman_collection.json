@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "509c0c21-3e3b-4410-a74b-50a9c72e63e0",
+		"_postman_id": "7f9595a3-1274-40e7-ad2a-5080e1e95889",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -18,7 +18,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"johnnyd@example.com\",\r\n    \"password\":\"password\"\r\n}",
+							"raw": "{\r\n    \"email\":\"kylerstark@example.com\",\r\n    \"password\":\"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -26,10 +26,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/login",
+							"raw": "http://20.113.25.17:3001/api/login",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -1437,10 +1440,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getconversation?senderId=1&recipientId=2",
+							"raw": "http://20.113.25.17:3001/api/getconversation?senderId=1&recipientId=2",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -1462,15 +1468,41 @@
 					"response": []
 				},
 				{
+					"name": "Get Unread Conversations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://20.113.25.17:3001/api/getunreadconversation",
+							"protocol": "http",
+							"host": [
+								"20",
+								"113",
+								"25",
+								"17"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"getunreadconversation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get All Conversations of A User",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallconversations",
+							"raw": "http://20.113.25.17:3001/api/getallconversations",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -1488,7 +1520,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":2,\r\n    \"message\": \"Hello from me\"\r\n}",
+							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":2,\r\n    \"message\": \"Hello from user 1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1496,10 +1528,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/createmessage",
+							"raw": "http://20.113.25.17:3001/api/createmessage",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -1513,25 +1548,30 @@
 				{
 					"name": "Update Message Status",
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"senderId\":1,\r\n    \"recipientId\":3,\r\n    \"isConversationOpen\":false\r\n}"
+							"raw": "{\r\n    \"messageid\":1,\r\n    \"isRead\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/updateconversationstatus",
+							"raw": "http://20.113.25.17:3001/api/updatmessage",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
 								"api",
-								"updateconversationstatus"
+								"updatmessage"
 							]
 						}
 					},
@@ -1545,7 +1585,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjY1ODYwNCwiZXhwIjoxNjQyNzQ1MDA0fQ.RyV6bWonxT8RJvJFOkglmtkOLf8FUhom2or7L_Pnk_c",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJreWxlcnN0YXJrQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50IjpmYWxzZSwiaXNUdXRvciI6dHJ1ZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MzA1NzI5MiwiZXhwIjoxNjQzMTQzNjkyfQ.ofEodvUAozDrVVDjyaZnW8IR8nhiT7X9bpH4kTUxZiM",
 				"type": "string"
 			}
 		]
