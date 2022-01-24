@@ -52,7 +52,7 @@ function Navbar() {
   const [unreadMessages, setUnreadMessages] = useState()
 
   const getUnreadMessages = async () => {
-    const data = await apiEndPoints.getAllConversations()
+    const data = await apiEndPoints.getUnreadConversations()
     setUnreadMessages(() => data.data.records || 0)
   }
 

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Badge, ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
-import { format } from "date-fns";
+import React from "react"
+import { Badge, ListGroup } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import jwt_decode from "jwt-decode"
+import { format } from "date-fns"
 
 function Message(lastMessage) {
   const lm = lastMessage.lastMessage
@@ -24,4 +24,4 @@ function Message(lastMessage) {
   )
 }
 
-export default Message;
+export default Message
