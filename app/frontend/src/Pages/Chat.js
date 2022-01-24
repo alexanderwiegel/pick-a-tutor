@@ -10,8 +10,9 @@ import { Link, useLocation } from "react-router-dom";
 const URL = 'ws://127.0.0.1:8080';
 
 const Chat = () => {
-  const userId = jwt_decode(localStorage.getItem("token")).id
-  const userName = jwt_decode(localStorage.getItem("token")).firstName + " " + jwt_decode(localStorage.getItem("token")).lastName
+  const token = jwt_decode(localStorage.getItem("token"))
+  const userId = token.id
+  const userName = token.firstName + " " + token.lastName
   const [conversation, setConversation] = useState([])
   const location = useLocation()
   const contact = location.state?.contact
@@ -25,6 +26,8 @@ const Chat = () => {
     setConversation(data.data.data)
   };
 
+  //#region Sort messages by date
+
   for (var i = 0; i < conversation.length; i++) {
     conversation[i].createdAt = new Date(conversation[i].createdAt);
   }
@@ -34,6 +37,8 @@ const Chat = () => {
     var dateB = new Date(b.createdAt)
     return dateA - dateB
   })
+
+  //#endregion
 
   const [message, setMessage] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -75,7 +80,7 @@ const Chat = () => {
             <Button href="/messages"><BiArrowBack /></Button>
             <Container className="d-flex justify-content-between align-items-center">
               <Link to="" style={{ textDecoration: "none", color: "#0f0f0f" }}>{contact.firstName + " " + contact.lastName}</Link>
-              <div>{contact.isStudent ? "Student" : contact.isAdmin ? "Admin" : "Tutor"}</div>
+              <div>{contact.isAdmin ? "Admin" : contact.isStudent ? "Student" : "Tutor"}</div>
             </Container>
           </Card.Header>
           <Card.Body>

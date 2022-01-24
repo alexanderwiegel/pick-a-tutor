@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Link } from "react-router-dom";
 import apiEndPoints from "./ApiEndpoints";
 
 function CardComponent({ name, course }) {
@@ -79,7 +80,7 @@ function CardComponent({ name, course }) {
           </Card.Text>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", }} onClick={requestEnrollment}>Request</Card.Link>
-            <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", marginLeft: 0 }}>Contact</Card.Link>
+            <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
           </div>
         </Container>
         <Card.Text style={{ fontSize: "0.7rem" }}>

@@ -1,11 +1,19 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-function MenuItem(route) {
-  const add = route.alt != null ? route.alt : route.name
+function MenuItem(props) {
+  var name = props.route
+  var add = name
+
+  // Anonymous users and tutors shall see "Home" but will be lead to another page
+  if (name === "landingPage") add = ""
+  if (name === "landingPage" || name === "tutortv") {
+    name = "home"
+  }
+
   return (
     <li>
-      <Link to={"/" + add} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>{route.name}</Link>
+      <Link to={"/" + add} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>{name}</Link>
     </li>
   );
 }

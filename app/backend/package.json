@@ -36,7 +36,8 @@
         "nodemon": "^2.0.15",
         "npx": "^10.2.2",
         "prettier": "^2.5.1",
-        "sequelize": "^6.12.0-beta.1"
+        "sequelize": "^6.12.0-beta.1",
+        "ws": "^8.4.2"
     },
     "devDependencies": {
         "jest": "^27.4.5",
