@@ -123,6 +123,37 @@ async function getEnrolledCourses() {
   return await axiosInstance.get('enrolledstudentcourses')
 }
 
+async function getCourseDetails(courseID) {
+  console.log("in get tutor courses api call");
+  const response = await axiosInstance.get(
+      `/tutor_courses?tutor_id=${courseID}`
+  );
+  console.log(response);
+  return response;
+}
+
+async function getTutorCourses(tutorID) {
+  console.log("in get tutor courses api call");
+  return await axiosInstance.get(`/tutor_courses?tutor_id=${tutorID}`);
+}
+
+async function reportReview(reviewID, reportComments) {
+  console.log("in report review " + reviewID + " api call" + reportComments);
+  return await axiosInstance.patch(`/reviews/${reviewID}/report`, {
+      reportComments: reportComments,
+  });
+}
+async function getCourseReviews(courseID) {
+  console.log("in get courses reviews api call");
+  const respone = await axiosInstance.get(`/reviews?courseId=${courseID}`);
+  console.log(respone);
+  return respone;
+}
+
+async function getTutorProfile(tutorID) {
+  console.log("in get tutor profile api call");
+  return await axiosInstance.get(`/tutors?search=&tutor_id=${tutorID}`);
+}
 const apiEndPoints = {
   getTutorData,
   getListofTutors,
@@ -143,7 +174,12 @@ const apiEndPoints = {
   updateProfileFile,
   getReportedReviews,
   deleteReview,
-  rejectReport
+  rejectReport,
+  getCourseDetails,
+  getTutorCourses,
+  reportReview,
+  getTutorProfile,
+  getCourseReviews,
 }
 
 export default apiEndPoints

@@ -1,8 +1,8 @@
 import React from "react";
-import { Card, Button, Container } from "react-bootstrap";
+import { Card, Button} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-function CourseCard({ tutorName, course, searched_name = " " }) {
+function CourseCard(props) {
     return (
         <Card
             style={{
@@ -34,16 +34,16 @@ function CourseCard({ tutorName, course, searched_name = " " }) {
                         fontSize: "1rem",
                     }}
                 >
-                    {course.name}
+                    {course.Course.name}
 
                     <hr />
                     <p style={{ marginLeft: "2px", paddingLeft: "4px" }}>
-                        {course.price} €/h
+                        {course.coursePricePerHour} €/h
                     </p>
-                    <p style={{ paddingLeft: "4px" }}>
+                    <p style={{ paddingLeft: "4px" }} defaultValue="0.0">
                         {course.rating}
                         <i class="bi bi-star-fill" style={{ color: "gold" }} />
-                        <p style={{ color: "#6a6f73", fontSize: "0.7rem" }}>
+                        <p style={{ color: "#6a6f73", fontSize: "0.7rem" }} defaultValue="000">
                             ({course.numOfReviews})
                         </p>
                     </p>
@@ -58,7 +58,7 @@ function CourseCard({ tutorName, course, searched_name = " " }) {
                     meet {tutorName} <i class="bi bi-person-lines-fill" />
                 </Card.Text>
                 <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>
-                    {course.description}
+                    {course.Course.description}
                 </Card.Text>
                 <div className="d-flex justify-content-center">
                     <Button
