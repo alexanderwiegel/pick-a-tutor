@@ -1,264 +1,222 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-    Container,
-    Row,
-    Col,
-    ListGroup,
-    Button,
-    Card,
-    Modal,
+  Container,
+  Row,
+  Col,
+  ListGroup,
+  Button,
+  Card,
+  Modal,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import ReviewReportForm from "../Components/ReviewReportForm";
-import NewReviewForm from "../Components/NewReviewForm";
+import NewCourseReviewForm from "../Components/NewCourseReviewForm";
+import apiEndPoints from "../Components/ApiEndpoints";
+import { useParams } from "react-router-dom";
+import CourseImage1 from "../images/course1.jpg";
 
-class CourseDetailsStudentView extends React.Component {
-    constructor(props) {
-        super(props);
-        const course = {
-            id: 1,
-            name: "Course Name",
-            img: "https://www.videolab.ae/wp-content/uploads/2017/12/Course-Thumbnail-2.jpg",
-            tutorID: 1,
-            rating: 4.3,
-            rate: 20,
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam condimentum, diam nec accumsan egestas, odio nisl tempus dolor, vitae aliquam dui nunc eget ipsum. Aenean vitae est maximus, aliquam ligula non, placerat lacus. Nunc varius eleifend diam nec luctus. Fusce quis condimentum diam. Maecenas viverra condimentum ipsum et feugiat. Donec eget tortor vitae nisi vulputate pellentesque. Pellentesque vel nisi accumsan, faucibus lacus eu, ultrices eros. Integer mattis odio eu egestas fermentum. Donec tempor, metus ut gravida pulvinar, erat nisi fermentum mauris, at pharetra enim arcu eu nunc. Nullam posuere eleifend leo id lacinia. Suspendisse accumsan, arcu in sodales congue, ex dolor gravida sapien, quis posuere turpis mi sed lorem. Nam a nibh sed augue bibendum consectetur. Aliquam feugiat placerat ex ut auctor. ",
-            files: [
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-                {
-                    id: 1,
-                    name: "File name",
-                    path: "file.txt",
-                },
-            ],
-            reviews: [
-                {
-                    id: 1,
-                    writerID: 1,
-                    writerName: "Reviewer Name",
-                    text: "Very good course!",
-                    date: "01.01.2022",
-                    rate: 4.7,
-                },
-                {
-                    id: 2,
-                    writerID: 1,
-                    writerName: "Reviewer Name",
-                    text: "Very good course!",
-                    date: "01.01.2022",
-                    rate: 4.7,
-                },
-                {
-                    id: 3,
-                    writerID: 1,
-                    writerName: "Reviewer Name",
-                    text: "Very good course!",
-                    date: "01.01.2022",
-                    rate: 4.7,
-                },
-            ],
-        };
+function CourseDetailsStudentView(props) {
+  const { id } = useParams();
 
-        this.state = {
-            course: course,
-            isReportFormModalOpen: false,
-            isReviewFormModalOpen: false,
-        };
-    }
+  const [courseDetails, setCourseDetails] = useState(null);
+  const [isReportFormModalOpen, setReportFormModalOpen] = useState(false);
+  const [isReviewFormModalOpen, setReviewFormModalOpen] = useState(false);
+  const [reviewToReportID, setReviewToReportID] = useState(0);
 
+  const handleReviewModalClose = () => {
+    console.log("Closed Clicked");
+    setReviewFormModalOpen(false);
+  };
 
-    render() {
-        const tutor = { id: 1, name: "Tutor Name" };
+  const handleReviewModalShow = () => {
+    console.log("Show  Clicked");
+    setReviewFormModalOpen(true);
+  };
 
-        const handleReviewModalClose = () => {
-            console.log("Closed Clicked");
-            this.setState({ isReviewFormModalOpen: false });
-        };
+  const handleReportModalClose = () => {
+    console.log("Closed Clicked");
+    setReportFormModalOpen(false);
+  };
 
-        const handleReviewModalShow = () => {
-            this.setState({ isReviewFormModalOpen: true });
-        };
+  const handleReportModalShow = () => {
+    setReportFormModalOpen(true);
+  };
 
-        const handleReportModalClose = () => {
-            console.log("Closed Clicked");
-            this.setState({ isReportFormModalOpen: false });
-        };
+  const getCourseDetails = async (courseID) => {
+    const courseDetails = await apiEndPoints.getCourseDetails(courseID);
+    setCourseDetails(courseDetails);
+  };
 
-        const handleReportModalShow = () => {
-            this.setState({ isReportFormModalOpen: true });
-        };
+  useEffect(() => {
+    console.log("get course details effect ran");
+    getCourseDetails(id);
+  }, []);
 
-        return (
-            <Container>
-                <Row className="mb-3">
-                    {/* To Do: make the image more responsive */}
-                    <Col md={5}>
-                        <img
-                            src={this.state.course.img}
-                            className="img-fluid img-thumbnail"
-                            alt="Responsive image"
-                            style={{ height: "500px", width: "650px" }}
-                        />
-                    </Col>
-                    {/* To Do: make the text size appropriate related to the image */}
-                    <Col md={7}>
-                        <h3>{this.state.course.name}</h3>
-                        By{" "}
-                        <i>
-                            <a href={"/tutor/" + tutor.id}>{tutor.name}</a>
-                        </i>
-                        <br />
-                        {this.state.course.rate} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;{" "}
-                        {this.state.course.rating}{" "}
-                        <i
-                            className="bi bi-star-fill"
-                            style={{ color: "#ffff00" }}
-                        ></i>
-                        <br />
-                        <Button variant="outline-primary" href={"/chat/" + tutor.id}>Contact tutor</Button>
-                    </Col>
-                </Row>
+  return (
+    courseDetails && (
+      <Container>
+        <Row className="mb-3">
+          {/* To Do: make the image more responsive */}
+          <Col md={5}>
+            <img
+              // To Do: Add image from the backend
+              src={CourseImage1}
+              className="img-fluid img-thumbnail"
+              alt="Responsive image"
+              style={{ height: "500px", width: "650px" }}
+            />
+          </Col>
+          {/* To Do: make the text size appropriate related to the image */}
+          <Col md={7}>
+            <h3>{courseDetails.name}</h3>
+            By{" "}
+            <i>
+              <a href={"/tutor/" + courseDetails.User.id}>
+                {courseDetails.User.firstName +
+                  " " +
+                  courseDetails.User.lastName}
+              </a>
+            </i>
+            <br />
+            {courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;{" "}
+            {courseDetails.rating}{" "}
+            <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i> (
+            {
+              // Show the number of unreported reviews, To Do: check the correct way to get the unreported reviews
+              courseDetails.Reviews.filter(
+                (review) => review.reportReview === null
+              ).length
+            }
+            )
+            <br />
+            <Button
+              variant="outline-primary"
+              href={"/chat/" + courseDetails.User.id}
+            >
+              Contact tutor
+            </Button>
+          </Col>
+        </Row>
 
-                <Row className="mb-3">
-                    <Col>
-                        <h3>Description</h3>
-                        <p>{this.state.course.description}</p>
-                    </Col>
-                </Row>
+        <Row className="mb-3">
+          <Col>
+            <h3>Description</h3>
+            <p>{courseDetails.description}</p>
+          </Col>
+        </Row>
 
-                <Row className="mb-3">
-                    <Col>
-                        <h3>Files</h3>
-                        <ListGroup variant="flush">
-                            {this.state.course.files.map((file) => (
-                                <ListGroup.Item>
-                                    <div className="d-flex justify-content-between">
-                                        <a href="" download={file.path}>
-                                            {file.name}
-                                        </a>
-                                    </div>
-                                </ListGroup.Item>
-                            ))}
-                        </ListGroup>
-                    </Col>
-                </Row>
-
-                <Row className="mb-3">
-                    <div className="d-flex justify-content-between mb-2">
-                        <h3>Reviews</h3>
-                        <Button
-                            variant="outline-primary"
-                            onClick={handleReviewModalShow}
-                        >
-                            Write review
-                        </Button>
-                        <Modal
-                            show={this.state.isReviewFormModalOpen}
-                            onHide={handleReviewModalClose}
-                            centered
-                        >
-                            <Modal.Header closeButton>
-                                <Modal.Title>
-                                    Review your experience
-                                </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <NewReviewForm />
-                            </Modal.Body>
-                        </Modal>
+        <Row className="mb-3">
+          <Col>
+            <h3>Files</h3>
+            <ListGroup variant="flush">
+              {courseDetails.files
+                .filter((file) => file.approvalStatus === "Approved")
+                .map((file) => (
+                  <ListGroup.Item>
+                    <div className="d-flex justify-content-between">
+                      <a href={file.filePath} download={file.filePath}>
+                        {file.fileTitle}
+                      </a>
                     </div>
+                  </ListGroup.Item>
+                ))}
+            </ListGroup>
+          </Col>
+        </Row>
 
+        <Row className="mb-3">
+          <div className="d-flex justify-content-between mb-2">
+            <h3>Reviews</h3>
+            <Button variant="outline-primary" onClick={handleReviewModalShow}>
+              Write review
+            </Button>
+            <Modal
+              show={isReviewFormModalOpen}
+              onHide={handleReviewModalClose}
+              centered
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Review your experience</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <NewCourseReviewForm courseID={courseDetails.id} tutorID={courseDetails.User.id}/>
+              </Modal.Body>
+            </Modal>
+          </div>
+
+          <div>
+            {/* To Do: check the correct way to get the unreported reviews */}
+            {courseDetails.Reviews.filter(
+              (review) => review.reportReview === null
+            ).map((review) => (
+              <Card className="mb-2">
+                <Card.Body>
+                  {/* To Do: Add reviewer name from the backend */}
+                  <Card.Title>{"Student name"}</Card.Title>
+                  <Card.Subtitle>
+                    {/* To Do: Check if I should show the review creation date or update data */}
+                    <h6 className="text-muted">{review.createdAt}</h6>
                     <div>
-                        {this.state.course.reviews.map((review) => (
-                            <Card className="mb-2">
-                                <Card.Body>
-                                    <Card.Title>{review.writerName}</Card.Title>
-                                    <Card.Subtitle>
-                                        <h6 className="text-muted">
-                                            {review.date}
-                                        </h6>
-                                        <div>
-                                            {Array.from(
-                                                { length: review.rate },
-                                                () => (
-                                                    <i
-                                                        className="bi bi-star-fill"
-                                                        style={{
-                                                            color: "#ffff00",
-                                                        }}
-                                                    />
-                                                )
-                                            )}
-                                            {Array.from(
-                                                {
-                                                    length:
-                                                        5 -
-                                                        Math.floor(review.rate),
-                                                },
-                                                () => (
-                                                    <i
-                                                        className="bi bi-star"
-                                                        style={{
-                                                            color: "#ffff00",
-                                                        }}
-                                                    />
-                                                )
-                                            )}
-                                            ({review.rate})
-                                        </div>
-                                    </Card.Subtitle>
-
-                                    <Card.Text>
-                                        This course is awesome!
-                                    </Card.Text>
-
-                                    <Button
-                                        variant="outline-danger"
-                                        onClick={handleReportModalShow}
-                                        
-                                    >
-                                        Report
-                                    </Button>
-                                    <Modal
-                                        show={this.state.isReportFormModalOpen}
-                                        onHide={handleReportModalClose}
-                                        centered
-                                    >
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>
-                                                Please explain why you are
-                                                reporting this review!
-                                            </Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <ReviewReportForm />
-                                        </Modal.Body>
-                                    </Modal>
-                                    
-                                </Card.Body>
-                            </Card>
-                        ))}
+                      {Array.from({ length: review.rating }, () => (
+                        <i
+                          className="bi bi-star-fill"
+                          style={{
+                            color: "#ffff00",
+                          }}
+                        />
+                      ))}
+                      {Array.from(
+                        {
+                          length: 5 - Math.floor(review.rating),
+                        },
+                        () => (
+                          <i
+                            className="bi bi-star"
+                            style={{
+                              color: "#ffff00",
+                            }}
+                          />
+                        )
+                      )}
+                      ({review.rating})
                     </div>
-                </Row>
-            </Container>
-        );
-    }
+                  </Card.Subtitle>
+
+                  <Card.Text>{review.ratingComments}</Card.Text>
+
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => {
+                      setReviewToReportID(review.id);
+                      handleReportModalShow();
+                    }}
+                  >
+                    Report
+                  </Button>
+                  <Modal
+                    show={isReportFormModalOpen}
+                    onHide={handleReportModalClose}
+                    centered
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>
+                        Please explain why you are reporting this review!{" "}
+                        {reviewToReportID}
+                      </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <ReviewReportForm reviewID={reviewToReportID} />
+                    </Modal.Body>
+                  </Modal>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        </Row>
+      </Container>
+    )
+  );
 }
 
 export default CourseDetailsStudentView;

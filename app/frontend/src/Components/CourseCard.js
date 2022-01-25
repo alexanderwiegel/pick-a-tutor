@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, Button, Container } from "react-bootstrap";
+import { Card, Button} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import CourseImage1 from "../images/course1.jpg"
 
-function CourseCard({ tutorName, course, searched_name = " " }) {
+function CourseCard({ tutorName, course }) {
     return (
         <Card
             style={{
@@ -18,7 +19,8 @@ function CourseCard({ tutorName, course, searched_name = " " }) {
             >
                 <Card.Img
                     variant="top"
-                    src={course.img}
+                    // To Do: Add course image from backend
+                    src={CourseImage1}
                     style={{
                         height: "150px",
                         width: "150px",
@@ -38,13 +40,14 @@ function CourseCard({ tutorName, course, searched_name = " " }) {
 
                     <hr />
                     <p style={{ marginLeft: "2px", paddingLeft: "4px" }}>
-                        {course.price} €/h
+                        {course.coursePricePerHour} €/h
                     </p>
-                    <p style={{ paddingLeft: "4px" }}>
+                    <p style={{ paddingLeft: "4px" }} defaultValue="0.0">
                         {course.rating}
                         <i class="bi bi-star-fill" style={{ color: "gold" }} />
-                        <p style={{ color: "#6a6f73", fontSize: "0.7rem" }}>
-                            ({course.numOfReviews})
+                        <p style={{ color: "#6a6f73", fontSize: "0.7rem" }} defaultValue="000">
+                          {/* To Do: Add real num of reviews from the backend */}
+                            (10)
                         </p>
                     </p>
                 </Card.Title>
