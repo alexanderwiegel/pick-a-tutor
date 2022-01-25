@@ -45,7 +45,7 @@ async function login(data) {
 }
 
 async function getListofTutors(subject) {
-  return await axiosInstance.get(`tutors?search=${subject}`);
+  return await axiosInstance.get(`tutors?search=${subject}&tutor_id`)
 }
 
 async function getListofCourses(subject) {
@@ -251,7 +251,7 @@ async function addCourseFile(courseID, file) {
 }
 
 async function updateCourseDetails(courseID, formData) {
-  
+
 }
 const apiEndPoints = {
   getTutorData,

@@ -22,15 +22,14 @@ function Browse(props) {
   const [searchKeyword, setSearchKeyword] = useState("")
 
   const getUsers = async (subject = "") => {
+    console.log(" i am here")
     const data = await apiEndPoints.getListofTutors(subject)
     console.log('users are here', data.data.data)
     setUsers(() => data.data.data)
   };
 
   const getCourses = async (subject = "") => {
-    const data = await apiEndPoints.getListofCourses(subject)
-    console.log('courses hello ', data.data.data)
-    setCourses(() => data.data.data)
+    filterResults(subject)
   };
 
   const sortCourses = (sortby, order) => {
@@ -42,8 +41,11 @@ function Browse(props) {
     })
   }
 
-  const filterResults = async () => {
-    const data = await apiEndPoints.getFilteredResult(searchKeyword, minPrice, maxPrice, starValue)
+  const filterResults = async (keyword) => {
+    console.log(keyword ? keyword : searchKeyword)
+    console.log(minPrice, maxPrice, starValue)
+    const data = await apiEndPoints.getFilteredResult(keyword ? keyword : searchKeyword, minPrice, maxPrice, starValue)
+    console.log(data)
     setCourses(() => data.data.data)
   }
 
@@ -69,16 +71,14 @@ function Browse(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      getUsers(location.state?.search);
+      filterResults(location.state?.search);
       setTimeout(() => {
         setLoading(() => false)
       }, 200)
     }, 500)
   }, []);
-  //TODO : Get the right results from the filters to display : use tutor courses homepage api
   return (
     <>
-      {/* {console.log('price = ', priceFilter, "star = ", starValue)} */}
       <SearchComponent getUsers={getUsers}
         getCourses={getCourses}
         category={category}
@@ -275,7 +275,7 @@ function Browse(props) {
                 <div className="col text-center">
                   {/* TODO : Do the on press here!!! */}
                   {/* onClick={getResults()} */}
-                  <Button style={{ backgroundColor: '#00b7ff', borderColor: '#00b7ff', width: '100%' }} onClick={filterResults}>Apply Filters</Button>
+                  <Button style={{ backgroundColor: '#00b7ff', borderColor: '#00b7ff', width: '100%' }} onClick={() => filterResults(undefined)}>Apply Filters</Button>
                 </div>
               </Row>
             </Container>
