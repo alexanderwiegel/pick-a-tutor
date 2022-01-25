@@ -27,6 +27,8 @@ const initialValues = {
   tnc: false,
 };
 
+const univeristyEmails = ['hs-fulda.de', 'ai.hs-fulda.de', 'informatik.hs-fulda.de'];
+
 let schema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
   lastName: yup.string().required("Last name is required"),
@@ -72,7 +74,8 @@ const SignUp = () => {
               validationSchema={schema}
               onSubmit={async (values, actions) => {
                 let split = values.email.split('@');
-                if (split[1].toLowerCase() !== 'hs-fulda.de') {
+
+                if (!univeristyEmails.includes(split[1].toLowerCase())) {
                   alert("Please use Fulda University email.")
                   return true
                 }

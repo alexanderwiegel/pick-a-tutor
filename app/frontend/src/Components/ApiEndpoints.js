@@ -1,11 +1,9 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:3001/api",
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-});
+  baseURL: "http://20.113.25.17:3001/api",
+  headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+})
 
 // Interceptors to log requests
 /* axiosInstance.interceptors.request.use(
@@ -19,10 +17,6 @@ const axiosInstance = axios.create({
     return Promise.reject(error);
   }
 ); */
-
-// async function getTutorData(course, star) {
-//     return await axiosInstance.get(`users/${course}/${star}`)
-// }
 
 async function getTutorData() {
   return await axiosInstance.get(`tutors`);
