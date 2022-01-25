@@ -68,13 +68,13 @@ const getTutorCoursesHome = async (req, res) => {
     var minPrice = 0;
     var maxPrice = 1000000;
     var rating = 0;
-    if (req.query.price_min !== "undefined" && req.query.price_min !== "") {
+    if (req.query.price_min !== "undefined" && req.query.price_min !== undefined && req.query.price_min !== "") {
         minPrice = req.query.price_min;
     }
-    if (req.query.price_max !== "undefined" && req.query.price_max !== "") {
+    if (req.query.price_max !== "undefined" && req.query.price_max !== undefined && req.query.price_max !== "") {
         maxPrice = req.query.price_max;
     }
-    if (req.query.rating !== "undefined" && req.query.rating !== "") {
+    if (req.query.rating !== "undefined" && req.query.rating !== undefined && req.query.rating !== "") {
         rating = req.query.rating;
     }
     tutorCourses = await TutorCourse.findAll({
