@@ -1,13 +1,9 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://127.0.0.1:3001/api",
+  baseURL: "http://20.113.25.17:3001/api",
   headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
 })
-
-// async function getTutorData(course, star) {
-//     return await axiosInstance.get(`users/${course}/${star}`)
-// }
 
 async function getTutorData() {
   return await axiosInstance.get(`tutors`)
@@ -35,10 +31,6 @@ async function login(data) {
   })
 }
 
-async function getAllUsers() {
-  return await axiosInstance.get("users")
-}
-
 async function getListofTutors(subject) {
   return await axiosInstance.get(`tutors?search=${subject}`)
 }
@@ -47,8 +39,20 @@ async function getListofCourses(subject) {
   return await axiosInstance.get(`tutor_courses?search=${subject}`)
 }
 
+//#region Message APIs
 async function getAllConversations() {
   return await axiosInstance.get("/getallconversations")
+}
+
+async function getUnreadConversations() {
+  return await axiosInstance.get("/getunreadconversation")
+}
+
+async function markAsRead(messageId) {
+  return await axiosInstance.patch("/updatmessage", {
+    messageid: messageId,
+    isRead: true
+  })
 }
 
 async function getHistory(senderId, recipientId) {
@@ -67,6 +71,17 @@ async function sendMessage(senderId, recipientId, message) {
     message: message
   })
 }
+//#endregion
+
+//#region Admin APIs
+
+async function getAllUsers() {
+  return await axiosInstance.get("users")
+}
+
+async function blockUser(userEmail) {
+  return await axiosInstance.delete("users/" + userEmail)
+}
 
 async function getProfileFilesToApprove() {
   return await axiosInstance.get("/getallprofilefilesbystatus/PendingApproval")
@@ -76,25 +91,32 @@ async function getCourseFilesToApprove() {
   return await axiosInstance.get("/getallcoursefilesbystatus/PendingApproval")
 }
 
+async function updateCourseFile(fileId, status) {
+  return await axiosInstance.patch("/updatecoursefile/" + fileId,
+    { approvalStatus: status })
+}
+
+async function updateProfileFile(fileId, userId, status) {
+  return await axiosInstance.patch("/updateprofilefile/" + fileId,
+    {
+      userId: userId,
+      approvalStatus: status
+    })
+}
+
 async function getReportedReviews() {
   return await axiosInstance.get("/reported_reviews")
 }
 
-// async function approveFile(fileId) {
-//   return await axiosInstance.get("/")
-// }
-
-// async function rejectFile(fileId) {
-//   return await axiosInstance.get("/")
-// }
-
 async function deleteReview(reviewId) {
-  return await axiosInstance.get("/deleteReview/" + reviewId)
+  return await axiosInstance.delete("/deleteReview/" + reviewId)
 }
 
-// async function rejectReport() {
-//   return await axiosInstance.get("/")
-// }
+async function rejectReport(reviewId) {
+  return await axiosInstance.patch("/approvereview/" + reviewId)
+}
+
+//#endregion
 
 async function requestEnrollment(courseId) {
   return await axiosInstance.post('enrollstudent', {
@@ -115,14 +137,24 @@ const apiEndPoints = {
   getListofTutors,
   register,
   login,
-  getAllUsers,
   getHistory,
   sendMessage,
   getListofCourses,
   getFilteredResult,
   requestEnrollment,
   getEnrolledCourses,
-  getAllConversations, getProfileFilesToApprove, getCourseFilesToApprove, getReportedReviews, deleteReview
+  getAllConversations,
+  getUnreadConversations,
+  markAsRead,
+  getAllUsers,
+  blockUser,
+  getProfileFilesToApprove,
+  getCourseFilesToApprove,
+  updateCourseFile,
+  updateProfileFile,
+  getReportedReviews,
+  deleteReview,
+  rejectReport
 }
 
 export default apiEndPoints

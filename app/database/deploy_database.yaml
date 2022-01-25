@@ -5,8 +5,8 @@
   tasks:
     - name: Copy the sources
       synchronize:
-        src: ../app/
-        dest: /home/azureuser/app/
+        src: ./
+        dest: /home/azureuser/db
         delete: yes
 
     - name: Stop database services
@@ -14,11 +14,11 @@
         docker-compose down
       args:
         chdir:
-          /home/azureuser/app/database
+          /home/azureuser/db
 
     - name: Build database services
       shell:
-        docker-compose build
+        docker-compose build test_db
       args:
         chdir:
           /home/azureuser/app/database
@@ -28,4 +28,4 @@
         docker-compose up --detach test_db
       args:
         chdir:
-          /home/azureuser/app/database
+          /home/azureuser/db

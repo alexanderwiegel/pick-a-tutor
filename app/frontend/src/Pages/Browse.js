@@ -23,7 +23,7 @@ function Browse(props) {
 
   const getUsers = async (subject = "") => {
     const data = await apiEndPoints.getListofTutors(subject)
-    console.log('users ', data.data.data)
+    console.log('users are here', data.data.data)
     setUsers(() => data.data.data)
   };
 
@@ -45,7 +45,6 @@ function Browse(props) {
   const filterResults = async () => {
     const data = await apiEndPoints.getFilteredResult(searchKeyword, minPrice, maxPrice, starValue)
     setCourses(() => data.data.data)
-    console.log("data here", data.data.data)
   }
 
   const _setCategory = (value) => {
@@ -53,7 +52,7 @@ function Browse(props) {
   }
 
   const setPriceRange = (value) => {
-    setPriceFilter(preVal => value)
+    setPriceFilter(() => value)
     const priceRange = split(value, "-")
     if (priceRange.length === 2) {
       setMinPrice(() => priceRange[0])
@@ -62,6 +61,10 @@ function Browse(props) {
       setMinPrice(() => priceRange[20])
       setMaxPrice(() => null)
     }
+  }
+
+  const _setStartValue = (value) => {
+    setStarValue(() => value)
   }
 
   useEffect(() => {
@@ -100,12 +103,12 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 4 ? "#00b7ffa1" : "transparent", color: starValue === 4 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "4" ? "#00b7ffa1" : "transparent", color: starValue === "4" ? "#ffffff" : "black" }}
               id="4 star"
               type="checkbox"
               variant="light"
               value="4"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
@@ -117,12 +120,12 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 3 ? "#00b7ffa1" : "transparent", color: starValue === 3 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "3" ? "#00b7ffa1" : "transparent", color: starValue === "3" ? "#ffffff" : "black" }}
               id="3 star"
               type="checkbox"
               variant="light"
               value="3"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
@@ -135,12 +138,12 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 2 ? "#00b7ffa1" : "transparent", color: starValue === 2 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "2" ? "#00b7ffa1" : "transparent", color: starValue === "2" ? "#ffffff" : "black" }}
               id="2 star"
               type="checkbox"
               variant="light"
               value="2"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
@@ -154,12 +157,12 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 1 ? "#00b7ffa1" : "transparent", color: starValue === 1 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "1" ? "#00b7ffa1" : "transparent", color: starValue === "1" ? "#ffffff" : "black" }}
               id="1 star"
               type="checkbox"
               variant="light"
               value="1"
-              onChange={(e) => setStarValue(e.currentTarget.value)}
+              onChange={(e) => _setStartValue(e.currentTarget.value)}
             >
               <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
               <i className="bi bi-star"></i>
@@ -178,7 +181,7 @@ function Browse(props) {
                 <hr />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == "0-5" ? "#00b7ffa1" : "transparent", color: priceFilter == "0-5" ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === "0-5" ? "#00b7ffa1" : "transparent", color: priceFilter === "0-5" ? "#ffffff" : "black" }}
                   id="5 Euro"
                   type="checkbox"
                   variant="light"
@@ -192,7 +195,7 @@ function Browse(props) {
                 <br />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == "5-10" ? "#00b7ffa1" : "transparent", color: priceFilter == "5-10" ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === "5-10" ? "#00b7ffa1" : "transparent", color: priceFilter === "5-10" ? "#ffffff" : "black" }}
                   id="10 Euro"
                   type="checkbox"
                   variant="light"
@@ -206,7 +209,7 @@ function Browse(props) {
                 <br />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == "10-15" ? "#00b7ffa1" : "transparent", color: priceFilter == "10-15" ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === "10-15" ? "#00b7ffa1" : "transparent", color: priceFilter === "10-15" ? "#ffffff" : "black" }}
                   id="15"
                   type="checkbox"
                   variant="light"
@@ -220,7 +223,7 @@ function Browse(props) {
                 <br />
 
                 <ToggleButton
-                  style={{ backgroundColor: priceFilter == "15-20" ? "#00b7ffa1" : "transparent", color: priceFilter == "15-20" ? "#ffffff" : "black" }}
+                  style={{ backgroundColor: priceFilter === "15-20" ? "#00b7ffa1" : "transparent", color: priceFilter === "15-20" ? "#ffffff" : "black" }}
                   id="20 Euro"
                   type="checkbox"
                   variant="light"
