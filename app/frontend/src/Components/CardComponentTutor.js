@@ -39,7 +39,7 @@ function CardComponentTutor({ name, tutor }) {
           <hr />
 
           <p style={{ paddingLeft: "4px" }}>
-            {/* TODO: Add the right value of rating */}
+            {/* TODO: Add the right value of rating, once the backend is ready */}
             4.5
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
