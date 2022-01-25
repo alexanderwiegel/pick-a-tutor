@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import FileCard from '../Components/FileCard';
-import apiEndPoints from '../Components/ApiEndpoints';
-import ReportedReviewCard from "../Components/ReportedReviewCard";
-import { Accordion, Col, Container, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react"
+import FileCard from '../Components/FileCard'
+import apiEndPoints from '../Components/ApiEndpoints'
+import ReportedReviewCard from "../Components/ReportedReviewCard"
+import { Accordion, Col, Container, Row } from "react-bootstrap"
 
 const Approvals = () => {
   const [pFiles, setPFiles] = useState([])
@@ -12,9 +12,9 @@ const Approvals = () => {
   const getFiles = async () => {
     const pData = await apiEndPoints.getProfileFilesToApprove()
     const cData = await apiEndPoints.getCourseFilesToApprove()
-    setPFiles(() => pData.data.data);
-    setCFiles(() => cData.data.data);
-  };
+    setPFiles(() => pData.data.data)
+    setCFiles(() => cData.data.data)
+  }
 
   const getReportedReviews = async () => {
     const data = await apiEndPoints.getReportedReviews()
@@ -22,14 +22,14 @@ const Approvals = () => {
   }
 
   useEffect(() => {
-    getFiles();
-    getReportedReviews();
-  }, []);
+    getFiles()
+    getReportedReviews()
+  }, [])
 
   return (
     <div className='App'>
       <Container>
-        {<Accordion defaultActiveKey={["0"]} alwaysOpen>
+        {<Accordion defaultActiveKey={["0", "1"]} alwaysOpen>
           <Accordion.Item eventKey="0">
             <Accordion.Header>Files: {pFiles.length + cFiles.length}</Accordion.Header>
             <Accordion.Body>
@@ -80,6 +80,6 @@ const Approvals = () => {
       </Container>
     </div>
   )
-};
+}
 
-export default Approvals;
+export default Approvals

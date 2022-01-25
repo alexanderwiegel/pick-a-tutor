@@ -5,10 +5,3 @@ module.exports = new Sequelize("db", "mysqluser", "attic-humorous-stylishly", {
     port: 3306,
     dialect: "mysql",
 });
-
-// My Local
-// module.exports = new Sequelize("dbgdsd", "root", "sysadm", {
-//     host: "localhost",
-//     port: 3306,
-//     dialect: "mysql",
-// });

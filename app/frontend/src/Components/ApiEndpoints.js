@@ -58,8 +58,20 @@ async function getListofCourses(subject) {
   return await axiosInstance.get(`tutor_courses?search=${subject}`);
 }
 
+//#region Message APIs
 async function getAllConversations() {
   return await axiosInstance.get("/getallconversations");
+}
+
+async function getUnreadConversations() {
+  return await axiosInstance.get("/getunreadconversation")
+}
+
+async function markAsRead(messageId) {
+  return await axiosInstance.patch("/updatmessage", {
+    messageid: messageId,
+    isRead: true
+  })
 }
 
 async function getHistory(senderId, recipientId) {
@@ -78,6 +90,7 @@ async function sendMessage(senderId, recipientId, message) {
     message: message,
   });
 }
+//#endregion
 
 //#region Admin APIs
 
@@ -258,6 +271,8 @@ const apiEndPoints = {
   requestEnrollment,
   getEnrolledCourses,
   getAllConversations,
+  getUnreadConversations,
+  markAsRead,
   getAllUsers,
   blockUser,
   getProfileFilesToApprove,

@@ -1,32 +1,48 @@
-import React, { useState, useEffect } from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import ChatMessage from "../Components/ChatMessage";
-import { format } from "date-fns";
-import jwt_decode from 'jwt-decode';
-import apiEndPoints from '../Components/ApiEndpoints';
-import { BiArrowBack, BiPaperPlane } from "react-icons/bi";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap"
+import ChatMessage from "../Components/ChatMessage"
+import { format } from "date-fns"
+import jwt_decode from "jwt-decode"
+import apiEndPoints from "../Components/ApiEndpoints"
+import { BiArrowBack, BiPaperPlane } from "react-icons/bi"
+import { Link, useLocation } from "react-router-dom"
 
-const URL = 'ws://127.0.0.1:8080';
+const URL = "ws://127.0.0.1:8080"
 
 const Chat = () => {
-  const userId = jwt_decode(localStorage.getItem("token")).id
-  const userName = jwt_decode(localStorage.getItem("token")).firstName + " " + jwt_decode(localStorage.getItem("token")).lastName
+  const token = jwt_decode(localStorage.getItem("token"))
+  const userId = token.id
+  const userName = token.firstName + " " + token.lastName
   const [conversation, setConversation] = useState([])
   const location = useLocation()
   const contact = location.state?.contact
 
-  useEffect(() => {
-    getConversation(userId, contact.id);
-  }, [userId, contact.id]);
-
   const getConversation = async (senderId, recipientId) => {
     const data = await apiEndPoints.getHistory(recipientId, senderId)
     setConversation(data.data.data)
-  };
+  }
+
+  // Note: this function marks ALL messages that were RECEIVED from the contact as read ON EVERY PAGE REFRESH
+  // this is definitely bad practice, but for now this is the only way I can think of
+  const markAsRead = async () => {
+    for (var i = 0; i < conversation.length; i++) {
+      if (conversation[i].recipientId === userId)
+        await apiEndPoints.markAsRead(conversation[i].id)
+    }
+  }
+
+  useEffect(() => {
+    getConversation(userId, contact.id)
+  }, [userId, contact.id])
+
+  useEffect(() => {
+    markAsRead()
+  })
+
+  //#region Sort messages by date
 
   for (var i = 0; i < conversation.length; i++) {
-    conversation[i].createdAt = new Date(conversation[i].createdAt);
+    conversation[i].createdAt = new Date(conversation[i].createdAt)
   }
 
   conversation.sort(function compare(a, b) {
@@ -35,14 +51,16 @@ const Chat = () => {
     return dateA - dateB
   })
 
-  const [message, setMessage] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [ws, setWs] = useState(new WebSocket(URL));
+  //#endregion
+
+  const [message, setMessage] = useState([])
+  const [messages, setMessages] = useState([])
+  const [ws, setWs] = useState(new WebSocket(URL))
 
   const submitMessage = (dT, txt) => {
-    const message = { sender: userName, dateTime: dT, text: txt };
-    ws.send(JSON.stringify(message));
-    setMessages([message, ...messages]);
+    const message = { sender: userName, dateTime: dT, text: txt }
+    ws.send(JSON.stringify(message))
+    setMessages([message, ...messages])
   }
 
   const sendMessage = async (senderId, recipientId, txt) => {
@@ -51,21 +69,21 @@ const Chat = () => {
 
   useEffect(() => {
     ws.onopen = () => {
-      console.log('WebSocket Connected');
+      console.log("WebSocket Connected")
     }
 
     ws.onmessage = (e) => {
-      const message = JSON.parse(e.data);
-      setMessages([message, ...messages]);
+      const message = JSON.parse(e.data)
+      setMessages([message, ...messages])
     }
 
     return () => {
       ws.onclose = () => {
-        console.log('WebSocket Disconnected');
-        setWs(new WebSocket(URL));
+        console.log("WebSocket Disconnected")
+        setWs(new WebSocket(URL))
       }
     }
-  }, [ws.onmessage, ws.onopen, ws.onclose, messages]);
+  }, [ws.onmessage, ws.onopen, ws.onclose, messages])
 
   return (
     <div className="App">
@@ -75,7 +93,7 @@ const Chat = () => {
             <Button href="/messages"><BiArrowBack /></Button>
             <Container className="d-flex justify-content-between align-items-center">
               <Link to="" style={{ textDecoration: "none", color: "#0f0f0f" }}>{contact.firstName + " " + contact.lastName}</Link>
-              <div>{contact.isStudent ? "Student" : contact.isAdmin ? "Admin" : "Tutor"}</div>
+              <div>{contact.isAdmin ? "Admin" : contact.isStudent ? "Student" : "Tutor"}</div>
             </Container>
           </Card.Header>
           <Card.Body>
@@ -91,9 +109,9 @@ const Chat = () => {
           <Card.Footer>
             <Form
               onSubmit={e => {
-                e.preventDefault();
-                submitMessage(format(Date.now(), "dd.MM.yyyy hh:mm"), message);
-                setMessage([]);
+                e.preventDefault()
+                submitMessage(format(Date.now(), "dd.MM.yyyy hh:mm"), message)
+                setMessage([])
                 sendMessage(userId, contact.id, message)
               }}
             >
@@ -110,7 +128,7 @@ const Chat = () => {
         </Card >
       </Container >
     </div >
-  );
-};
+  )
+}
 
-export default Chat;
+export default Chat
