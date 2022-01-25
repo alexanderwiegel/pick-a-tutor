@@ -99,7 +99,7 @@ const Chat = () => {
           <Card.Body>
             {conversation.map(message =>
               <ChatMessage sender={message.sender.firstName + " " + message.sender.lastName} id={message.sender.id}
-                date={format(new Date(message.createdAt), "dd.MM.yyyy hh:mm")}
+                date={format(new Date(message.createdAt), "dd.MM.yyyy kk:mm")}
                 text={message.message} key={message.id} />
             )}
             {messages.reverse().map((message, index) =>
@@ -110,7 +110,7 @@ const Chat = () => {
             <Form
               onSubmit={e => {
                 e.preventDefault()
-                submitMessage(format(Date.now(), "dd.MM.yyyy hh:mm"), message)
+                submitMessage(format(Date.now(), "dd.MM.yyyy kk:mm"), message)
                 setMessage([])
                 sendMessage(userId, contact.id, message)
               }}
