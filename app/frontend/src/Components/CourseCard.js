@@ -1,8 +1,9 @@
 import React from "react";
 import { Card, Button} from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import CourseImage1 from "../images/course1.jpg"
 
-function CourseCard(props) {
+function CourseCard({ tutorName, course }) {
     return (
         <Card
             style={{
@@ -18,7 +19,8 @@ function CourseCard(props) {
             >
                 <Card.Img
                     variant="top"
-                    src={course.img}
+                    // To Do: Add course image from backend
+                    src={CourseImage1}
                     style={{
                         height: "150px",
                         width: "150px",
@@ -34,7 +36,7 @@ function CourseCard(props) {
                         fontSize: "1rem",
                     }}
                 >
-                    {course.Course.name}
+                    {course.name}
 
                     <hr />
                     <p style={{ marginLeft: "2px", paddingLeft: "4px" }}>
@@ -44,7 +46,8 @@ function CourseCard(props) {
                         {course.rating}
                         <i class="bi bi-star-fill" style={{ color: "gold" }} />
                         <p style={{ color: "#6a6f73", fontSize: "0.7rem" }} defaultValue="000">
-                            ({course.numOfReviews})
+                          {/* To Do: Add real num of reviews from the backend */}
+                            (10)
                         </p>
                     </p>
                 </Card.Title>
@@ -58,7 +61,7 @@ function CourseCard(props) {
                     meet {tutorName} <i class="bi bi-person-lines-fill" />
                 </Card.Text>
                 <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>
-                    {course.Course.description}
+                    {course.description}
                 </Card.Text>
                 <div className="d-flex justify-content-center">
                     <Button

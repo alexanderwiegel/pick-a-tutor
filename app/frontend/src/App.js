@@ -41,7 +41,7 @@ function App() {
           <Route path = '/tutorav/:id' element = { <PageTemplate><TutorProfileAnonymousView /></ PageTemplate> } />
           <Route path = '/tutorsv/:id' element = { <PageTemplate><TutorProfileStudentView /></ PageTemplate> } />
           <Route path = '/tutortv/:id' element = { <PageTemplate><TutorProfileTutorView /></ PageTemplate> } />
-          <Route path = '/editTutorProfile/:id' element = { <PageTemplate><EditTutorProfile /></ PageTemplate> } />
+          <Route path = '/editTutorProfile' element = { <PageTemplate><EditTutorProfile /></ PageTemplate> } />
           <Route path = '/editCourseDetails/:id' element = { <PageTemplate><EditCourseDetails /></ PageTemplate> } />
           <Route path = '/addCourse' element = { <PageTemplate><AddCourseDetails /></ PageTemplate> } />
 

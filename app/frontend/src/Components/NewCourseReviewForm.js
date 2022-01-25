@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import apiEndPoints from "./ApiEndpoints";
 
-function NewCourseReviewForm(props) {
+function NewCourseReviewForm({courseID, tutorID}) {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState(0);
 
@@ -16,18 +17,26 @@ function NewCourseReviewForm(props) {
     name === "reviewText" ? setReviewText(value) : setRating(value);
   };
 
-  const handleSubmit = (event) => {
-    alert(
-      "A new review with rating " +
-        rating +
-        " was submitted: " +
-        reviewText
-    );
+  const handleSubmit = async (event) => {
+    const review = {
+      writerID: parseInt(localStorage.getItem("userID")),
+      courseID: courseID,
+      courseTutorID: tutorID,
+      rating: rating,
+      text: reviewText
+    }
+
+    const response = await apiEndPoints.addCourseReview(review);
+    console.log("Submit review");
+    console.log(review);
+    console.log(response);
+   
+    if(!alert(response.data.message)){window.location.reload();}
     event.preventDefault();
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form >
       <Form.Group className="mb-3" controlId="reportFormTextArea">
         <div key="ratingRadiosGroup" className="mb-3">
           Rating: &nbsp;
@@ -59,7 +68,7 @@ function NewCourseReviewForm(props) {
           onChange={handleChange}
         />
       </Form.Group>
-      <Button type="submit" variant="outline-dark">
+      <Button  variant="outline-dark" onClick={handleSubmit}>
         Submit
       </Button>
     </Form>
