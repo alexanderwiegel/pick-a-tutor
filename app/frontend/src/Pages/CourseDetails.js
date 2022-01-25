@@ -7,6 +7,7 @@ import apiEndPoints from "../Components/ApiEndpoints"
 import { useParams } from "react-router-dom"
 import jwt_decode from "jwt-decode"
 import CourseImage1 from "../images/course1.jpg"
+import FileListItem from "../Components/FileListItem"
 
 function CourseDetails() {
   const status = localStorage.getItem('statusCode')
@@ -65,13 +66,7 @@ function CourseDetails() {
             By{" "}
             <i>
               <a href={"/tutor/" + courseDetails.User.id}>
-                {courseDetails.User.firstName +
-                  " " +
-                  courseDetails.User.lastName}
-                {
-                  // TODO: check if this works
-                  courseDetails.User.id === token.id ? "(You)" : ""
-                }
+                {courseDetails.User.firstName + " " + courseDetails.User.lastName} {courseDetails.User.id != token.id ? "" : "(You)"}
               </a>
             </i>
             <br />
@@ -93,7 +88,7 @@ function CourseDetails() {
               status === null ? <div /> : courseDetails.User.id != token.id ?
                 // TODO: fix forward to Chat
                 <Button variant="outline-primary" href={"/chat/" + courseDetails.User.id}>Contact tutor</Button> :
-                <Button variant="outline-primary" style={{ margin: "5px" }} href={"/editCourseDetails/" + id}>Edit Course</Button>
+                <Button variant="outline-primary" style={{ margin: "5px" }} href={"/editCourse/" + id}>Edit Course</Button>
             }
           </Col>
         </Row>
@@ -116,24 +111,11 @@ function CourseDetails() {
                   courseDetails.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
-                      <ListGroup.Item>
-                        <div className="d-flex justify-content-between">
-                          <a href={file.filePath} download={file.filePath}>
-                            {file.fileTitle}
-                          </a>
-                        </div>
-                      </ListGroup.Item>
+                      <FileListItem file={file} />
                     ))
                   :
                   courseDetails.files.map((file) => (
-                    <ListGroup.Item>
-                      <div className="d-flex justify-content-between">
-                        <a href={file.filePath} download={file.filePath}>
-                          {file.fileTitle}
-                        </a>
-                        <h6>{file.approvalStatus}</h6>
-                      </div>
-                    </ListGroup.Item>
+                    <FileListItem file={file} isThisTutor={true} />
                   ))
               }
             </ListGroup>
@@ -216,8 +198,7 @@ function CourseDetails() {
                   <Modal show={isReportFormModalOpen} onHide={handleReportModalClose} centered>
                     <Modal.Header closeButton>
                       <Modal.Title>
-                        Please explain why you are reporting this review!{" "}
-                        {reviewToReportID}
+                        Please explain why you are reporting this review!
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>

@@ -1,4 +1,4 @@
-import React, { useState, setState } from "react";
+import React, { useState, setState } from "react"
 import {
   Container,
   Row,
@@ -6,15 +6,13 @@ import {
   ListGroup,
   Button,
   Image,
-  Card,
   Form,
-  Modal,
-} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { Plus, Trash } from "react-bootstrap-icons";
+} from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import FileListItem from "../Components/FileListItem"
 
-function AddCourseDetails(props) {
+function AddCourse() {
   const course_data = {
     id: 1,
     name: "Course Name",
@@ -26,18 +24,16 @@ function AddCourseDetails(props) {
     files: [],
 
     reviews: [],
-  };
+  }
 
-  const [isFileDeleteModalOpen, setIsFileDelteModalOpen] = useState(false);
-  const [course, setCourse] = useState(course_data);
+  const [course, setCourse] = useState(course_data)
 
   const handleChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    const target = event.target
+    const value = target.value
+    const name = target.name
     //ToDo: handle multiple files
 
-    console.log("Value from " + name + " is " + value);
     /* 
           https://stackoverflow.com/questions/65733906/react-how-to-use-setstate-inside-functional-component
           and search for how to use setState inside functional component in React
@@ -47,34 +43,18 @@ function AddCourseDetails(props) {
     setState({
       ...course,
       [name]: value,
-    });
-  };
+    })
+  }
 
   const handleSubmit = (event) => {
-    alert("edit has been submitted");
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
-  const tutor = { id: 1, name: "Tutor Name", link: "/tutors/3434" };
+  const tutor = { id: 1, name: "Tutor Name", link: "/tutors/3434" }
 
   const uploadFileOnClick = () => {
-    document.getElementById("file").click();
-  };
-
-  const handleFileDeleteModalClose = () => {
-    console.log("Closed Clicked");
-    setState({ isFileDeleteModalOpen: false });
-  };
-
-  const handleFileDeleteModalShow = () => {
-    setState({ isFileDeleteModalOpen: true });
-  };
-
-  const handleFileDeleteClick = (event) => {
-    alert("file deleted");
-    handleFileDeleteModalClose();
-    event.preventDefault();
-  };
+    document.getElementById("file").click()
+  }
 
   return (
     <Container>
@@ -182,47 +162,7 @@ function AddCourseDetails(props) {
             <h3>Files</h3>
             <ListGroup variant="flush">
               {course.files.map((file) => (
-                <ListGroup.Item>
-                  <div className="d-flex justify-content-between">
-                    <a href="" download={file.path}>
-                      {file.name}
-                    </a>
-                    <Button
-                      variant="outline-danger"
-                      className=""
-                      onClick={handleFileDeleteModalShow}
-                    >
-                      <Trash />
-                    </Button>
-                    <Modal
-                      show={isFileDeleteModalOpen}
-                      onHide={handleFileDeleteModalClose}
-                      centered
-                    >
-                      <Modal.Header closeButton>
-                        <Modal.Title>
-                          Are you sure that you want to delete this file?
-                        </Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <div className="d-flex justify-content-between">
-                          <Button
-                            variant="outline-dark"
-                            onClick={handleFileDeleteClick}
-                          >
-                            YES
-                          </Button>
-                          <Button
-                            variant="outline-dark"
-                            onClick={handleFileDeleteModalClose}
-                          >
-                            NO
-                          </Button>
-                        </div>
-                      </Modal.Body>
-                    </Modal>
-                  </div>
-                </ListGroup.Item>
+                <FileListItem file={file} editMode={true} />
               ))}
 
               <ListGroup.Item>
@@ -254,7 +194,7 @@ function AddCourseDetails(props) {
         </Row>
       </Form>
     </Container>
-  );
+  )
 }
 
-export default AddCourseDetails;
+export default AddCourse

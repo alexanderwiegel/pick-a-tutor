@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom"
 import apiEndPoints from "../Components/ApiEndpoints"
 import jwt_decode from "jwt-decode"
 import tutorImage1 from "../images/tutor1.jpg"
+import FileListItem from "../Components/FileListItem"
 
 function TutorProfileTutorView() {
   const status = localStorage.getItem('statusCode')
@@ -42,7 +43,7 @@ function TutorProfileTutorView() {
             />
           </Col>
           <Col md={7} className="flexColumn">
-            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName}</h3>
+            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id != token.id ? "" : "(You)"}</h3>
             <h6>
               {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
               {4.5}{" "}
@@ -53,7 +54,7 @@ function TutorProfileTutorView() {
             {
               // only logged in users should see a button
               status === null ?
-                <div /> :
+                <></> :
                 // only THIS tutor should see the "Edit profile" button, everyone else should see "Contact tutor"
                 id != token.id ?
                   <Button
@@ -66,13 +67,14 @@ function TutorProfileTutorView() {
                   <Button
                     variant="outline-primary"
                     style={{ margin: "5px" }}
-                    href="/editTutorProfile"
+                    href={"/editTutorProfile/" + id}
                   >
                     Edit profile
                   </Button>
             }
           </Col>
         </Row>
+
         <Row style={{ marginTop: " 1rem" }}>
           <Col>
             <h3>Description</h3>
@@ -80,6 +82,7 @@ function TutorProfileTutorView() {
             {"10 years experience in the academic and the industrial fields."}
           </Col>
         </Row>
+
         <Row style={{ marginTop: " 1rem" }}>
           <Col>
             <h3>Files</h3>
@@ -91,22 +94,11 @@ function TutorProfileTutorView() {
                   tutorProfile.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
-                      <ListGroup.Item>
-                        <a href={file.filePath} download={file.filePath}>
-                          {file.fileTitle}
-                        </a>
-                      </ListGroup.Item>
+                      <FileListItem file={file} />
                     ))
                   :
                   tutorProfile.files.map((file) => (
-                    <ListGroup.Item>
-                      <div className="d-flex justify-content-between">
-                        <a href={file.filePath} download={file.filePath}>
-                          {file.fileTitle}
-                        </a>
-                        <h6>{file.approvalStatus}</h6>
-                      </div>
-                    </ListGroup.Item>
+                    <FileListItem file={file} isThisTutor={true} />
                   ))
               }
             </ListGroup>
@@ -130,7 +122,7 @@ function TutorProfileTutorView() {
                     // TODO: check if this works
                     // users who are not THIS tutor should not see an "Add course" button
                     status && id != token.id ?
-                      <div />
+                      <></>
                       :
                       <Button
                         variant="outline-primary"
