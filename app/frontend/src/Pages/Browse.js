@@ -23,7 +23,7 @@ function Browse(props) {
 
   const getUsers = async (subject = "") => {
     const data = await apiEndPoints.getListofTutors(subject)
-    console.log('users ', data.data.data)
+    console.log('users are here', data.data.data)
     setUsers(() => data.data.data)
   };
 
@@ -103,7 +103,7 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 4 ? "#00b7ffa1" : "transparent", color: starValue === 4 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "4" ? "#00b7ffa1" : "transparent", color: starValue === "4" ? "#ffffff" : "black" }}
               id="4 star"
               type="checkbox"
               variant="light"
@@ -120,7 +120,7 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 3 ? "#00b7ffa1" : "transparent", color: starValue === 3 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "3" ? "#00b7ffa1" : "transparent", color: starValue === "3" ? "#ffffff" : "black" }}
               id="3 star"
               type="checkbox"
               variant="light"
@@ -138,7 +138,7 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 2 ? "#00b7ffa1" : "transparent", color: starValue === 2 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "2" ? "#00b7ffa1" : "transparent", color: starValue === "2" ? "#ffffff" : "black" }}
               id="2 star"
               type="checkbox"
               variant="light"
@@ -157,7 +157,7 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 1 ? "#00b7ffa1" : "transparent", color: starValue === 1 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "1" ? "#00b7ffa1" : "transparent", color: starValue === "1" ? "#ffffff" : "black" }}
               id="1 star"
               type="checkbox"
               variant="light"
