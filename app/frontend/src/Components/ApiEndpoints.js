@@ -32,7 +32,7 @@ async function login(data) {
 }
 
 async function getListofTutors(subject) {
-  return await axiosInstance.get(`tutors?search=${subject}`)
+  return await axiosInstance.get(`tutors?search=${subject}&tutor_id`)
 }
 
 async function getListofCourses(subject) {

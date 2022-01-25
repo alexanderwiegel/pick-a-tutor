@@ -4,7 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 
 
-function CardComponentTutor({ name, tutor, searched_name = "" }) {
+function CardComponentTutor({ name, tutor }) {
   return (
     <Card
       style={{
@@ -39,9 +39,9 @@ function CardComponentTutor({ name, tutor, searched_name = "" }) {
           <hr />
 
           <p style={{ paddingLeft: "4px" }}>
+            {/* TODO: Add the right value of rating */}
             4.5
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
-            {/* <p style={{ color: "#6a6f73", fontSize: '0.7rem' }}>(15.235)</p> */}
           </p>
         </Card.Title>
         <br />
@@ -58,14 +58,6 @@ function CardComponentTutor({ name, tutor, searched_name = "" }) {
           }
         </Card.Text>
         <Card.Text style={{ fontSize: '0.7rem', marginTop: '-10px' }}>
-          {/* {courses.map((course) =>
-                        course.name.toLowerCase() ===
-                        searched_name.toLowerCase() ? (
-                            <p>{course.description}</p>
-                        ) : (
-                            " "
-                        )
-                    )} */}
         </Card.Text>
         <div className="d-flex justify-content-center">
           <Button
