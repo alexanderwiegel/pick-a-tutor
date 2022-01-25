@@ -85,7 +85,7 @@ exports.addReview = async (req, res) => {
 exports.reportReview = async (req, res) => {
     try {
         let review = await Review.findOne({ where: { id: req.params.id } });
-        let token = req.headers.authorization.split(" ")[2]; // Bearer Token
+        let token = req.headers.authorization.split(" ")[1]; // Bearer Token
         let decodedToken = jwt.verify(token, "privatekey");
 
         review.reportReview = Review.REPORTED;
