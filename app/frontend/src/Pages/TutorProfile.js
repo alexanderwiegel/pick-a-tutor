@@ -43,7 +43,7 @@ function TutorProfileTutorView() {
             />
           </Col>
           <Col md={7} className="flexColumn">
-            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id !== token.id ? "" : "(You)"}</h3>
+            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id == token.id ? "(You)" : ""}</h3>
             <h6>
               {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
               {4.5}{" "}
@@ -56,7 +56,7 @@ function TutorProfileTutorView() {
               status === null ?
                 <></> :
                 // only THIS tutor should see the "Edit profile" button, everyone else should see "Contact tutor"
-                id !== token.id ?
+                id != token.id ?
                   <Button
                     variant="outline-primary"
                     style={{ margin: "5px" }}
@@ -88,9 +88,9 @@ function TutorProfileTutorView() {
             <h3>Files</h3>
             <ListGroup variant="flush">
               {
-                // TODO: check if this works
+                // TODO: fix this, it is not showing anything for anonymous users
                 // users who are not THIS tutor should only see approved files
-                status && id !== token.id ?
+                id != token.id ?
                   tutorProfile.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
@@ -119,9 +119,11 @@ function TutorProfileTutorView() {
               >
                 <Card.Body>
                   {
-                    // TODO: check if this works
+                    console.log(status)
+                  }
+                  {
                     // users who are not THIS tutor should not see an "Add course" button
-                    status && id !== token.id ?
+                    id != token.id ?
                       <></>
                       :
                       <Button
