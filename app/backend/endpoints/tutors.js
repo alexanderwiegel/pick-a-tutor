@@ -2,14 +2,17 @@ const search = require("../utils/search");
 
 const User = require("../db/model/User");
 const Course = require("../db/model/Course");
+const TutorCourse = require("../db/model/TutorCourse");
 
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 const { Op } = require("sequelize");
 const bcryptjs = require("bcryptjs");
+const { Sequelize } = require("sequelize");
 
 const getAllTutors = async (req, res) => {
     var tutors = '';
     var tutorId = '';
+    var rating = 0;
     if(req.query.tutor_id !=="" && req.query.tutor_id !== undefined && req.query.tutor_id !== "undefined"){
         tutorId = req.query.tutor_id;
         //console.log("tutorId not undefined: " + tutorId);
@@ -20,8 +23,11 @@ const getAllTutors = async (req, res) => {
         }
         console.log("tutorId " + tutorId);
     }
-    //return res.json("tutorId is: " + tutorId);
+    if (req.query.rating !== "undefined" && req.query.rating !== undefined && req.query.rating !== "") {
+        rating = req.query.rating;
+    }
     tutors = await User.findAll({
+        //attributes: [[Sequelize.fn('AVG', Sequelize.col('TutorCourse.rating')), 'ratingAvg']],
         where: {
             [Op.and]: {
                 isTutor: true,
@@ -30,10 +36,14 @@ const getAllTutors = async (req, res) => {
             [Op.or]: [
                 search(req.query.search, "firstName"),
                 search(req.query.search, "lastName")
-            ]
+            ],
+            rating: {
+                // [Op.is]: null,
+                [Op.gte]: rating,
+            },
         },
         include: {
-            model: Course,
+            model: Course, TutorCourse
         },
     });
 

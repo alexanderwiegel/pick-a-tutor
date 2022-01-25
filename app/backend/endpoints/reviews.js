@@ -5,6 +5,8 @@ const User = require("../db/model/User");
 const Course = require("../db/model/Course");
 const TutorCourse = require("../db/model/TutorCourse");
 const jwtDecode = require("jwt-decode");
+const {Sequelize} = require("sequelize");
+const Op = Sequelize.Op;
 
 exports.getReviews = async (req, res) => {
     try {
@@ -52,11 +54,36 @@ async function calculateNewRating(courseId) {
     });
     let r_sum = 0;
     for (let i = 0; i < reviews.length; i++) {
-        r_sum = r_sum + reviews[i].rating;
+        r_sum = parseFloat(r_sum) + parseFloat(reviews[i].rating);
     }
-    course.rating = r_sum / reviews.length;
+    var rating = r_sum / reviews.length;
+    rating = Math.round((rating + Number.EPSILON) * 100) / 100;
+    course.rating = rating;
     await course.save();
-    console.log("New rating for course " + courseId + ": " + course.rating);
+    console.log("New rating for course id: " + courseId + ": " + course.rating);
+}
+
+async function tutorNewRating(tutorId){
+    let user = await User.findOne({
+        where: { id: tutorId}
+    });
+    let tutorReviews = await TutorCourse.findAll({
+        where: {
+             UserId: tutorId,
+             rating: {
+                 [Op.gt]: 0,
+             }
+        }
+    });
+    var ratingsSum = 0;
+    for (let i = 0; i < tutorReviews.length; i++){
+        ratingsSum = parseFloat(ratingsSum) + parseFloat(tutorReviews[i].rating);
+    }
+    var rating = ratingsSum / tutorReviews.length;
+    rating = Math.round((rating + Number.EPSILON) * 100) / 100;
+    user.rating = rating;
+    await user.save();
+    console.log("Tutor new Avg Rating: " + user.rating);
 }
 
 exports.addReview = async (req, res) => {
@@ -75,6 +102,8 @@ exports.addReview = async (req, res) => {
         console.log("Created review: " + review);
 
         await calculateNewRating(req.body.courseId);
+
+        await tutorNewRating(req.body.tutorId)
 
         res.json(new SuccessfulResponse("Review created", [review]));
     } catch (e) {
@@ -144,9 +173,13 @@ exports.deleteReview = async (req, res) => {
             where: { id: req.params.id },
         });
 
+        let tutorId = review.tutorId;
+
         await review.destroy();
 
         await calculateNewRating(req.body.courseId);
+
+        await tutorNewRating(tutorId);
 
         res.json(
             new SuccessfulResponse("Review successfully deleted", [review])
