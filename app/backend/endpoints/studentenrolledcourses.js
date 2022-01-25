@@ -37,7 +37,7 @@ const getAllStudentCourses = async (req, res) => {
                 "UserId" : userId
             },
             //include: [User,TutorCourse, Course, TutorCourse.User]
-            include: [User,TutorCourse, Course,Review]
+            include: [TutorCourse, {model:User, on: {col1: Sequelize.where(Sequelize.col("TutorCourse.UserId"), "=", Sequelize.col("User.id"))}}, Course,Review]
             //include: [User]
         });
         //console.log("Student enrolled courses details: " + studentAllCourses);

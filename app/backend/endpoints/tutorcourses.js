@@ -10,31 +10,30 @@ const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 
 //****************** Get All Courses of All Tutors OR Get All Courses of Requested Tutor ONLY **************
 
-const getTutorCourses = async(req, res) => {
+const getTutorCourses = async (req, res) => {
+    var tutorCourses = "";
 
-    var tutorCourses = '';
-
-    if(req.query.tutor_id){
+    if (req.query.tutor_id) {
         tutorCourses = await TutorCourse.findAll({
-            where : {
-                "UserId" : req.query.tutor_id
+            where: {
+                UserId: req.query.tutor_id,
             },
-            include: [Course,User,Review]
+            include: [Course, User, Review],
+        });
+    } else {
+        tutorCourses = await TutorCourse.findAll({
+            include: [Course, User, Review],
         });
     }
-    else {
-        tutorCourses = await TutorCourse.findAll({ include: [Course,User, Review] });
-    }
-    if(tutorCourses){
-        if(tutorCourses.length == 0){
+    if (tutorCourses) {
+        if (tutorCourses.length == 0) {
             return res.json({
                 success: false,
                 message: "No courses available yet!",
                 //records: courses.length,
                 //data: courses,
             });
-        }
-        else {
+        } else {
             return res.json({
                 success: true,
                 message: tutorCourses.length + " courses found",
@@ -42,9 +41,7 @@ const getTutorCourses = async(req, res) => {
                 data: tutorCourses,
             });
         }
-
-    }
-    else {
+    } else {
         return res.json({
             success: false,
             message: "No courses available yet",
@@ -58,97 +55,92 @@ exports.getTutorCourses = getTutorCourses;
 
 //****************** Get All Tutor Courses with filters course_name,price_min,price_max,rating for Homepage **************
 
-const getTutorCoursesHome = async(req, res) => {
-    var tutorCourses = '';
-/*
-    return res.json({
-        success: false,
-        message: "test",
-        //records: courses.length,
-        data: req.query.course_name,
-    });
-*/
+const getTutorCoursesHome = async (req, res) => {
+    var tutorCourses = "";
+    /*
+        return res.json({
+            success: false,
+            message: "test",
+            //records: courses.length,
+            data: req.query.course_name,
+        });
+    */
     var minPrice = 0;
     var maxPrice = 1000000;
     var rating = 0;
-    if(req.query.price_min != ''){
+    if (req.query.price_min !== "undefined" && req.query.price_min !== "") {
         minPrice = req.query.price_min;
     }
-    if(req.query.price_max && req.query.price_max!= ''){
+    if (req.query.price_max !== "undefined" && req.query.price_max !== "") {
         maxPrice = req.query.price_max;
     }
-    if(req.query.rating && req.query.rating!= ''){
+    if (req.query.rating !== "undefined" && req.query.rating !== "") {
         rating = req.query.rating;
     }
-    tutorCourses = await TutorCourse.findAll(
-        {
-            where : {
-                "coursePricePerHour" : {
-                    [Op.between]: [minPrice, maxPrice]
-                    //[Op.between]: [req.query.price_min, req.query.price_max]
-                    //[Op.between]: [5, 15]
-                },
-
-                "rating" : {
-                   // [Op.is]: null,
-                    [Op.gte]: rating,
-                }
-
+    tutorCourses = await TutorCourse.findAll({
+        where: {
+            coursePricePerHour: {
+                [Op.between]: [minPrice, maxPrice],
+                //[Op.between]: [req.query.price_min, req.query.price_max]
+                //[Op.between]: [5, 15]
             },
-            include: [
-                {
-                    model: Course,
-                    where : {
-                        "name" :
-                            {
-                                [Op.like]: '%' + req.query.course_name + '%'
-                            }
-                    }
-                },
-                {
-                    model: User
-                },
-                {
-                    model: Review
-                }
-            ]
-        }
-    );
 
-    if(tutorCourses){
-        if(tutorCourses.length == 0){
-/*
-            return res.json({
-                success: false,
-                message: "No courses available yet!",
-                //records: courses.length,
-                //data: courses,
-            });
-*/
+            rating: {
+                // [Op.is]: null,
+                [Op.gte]: rating,
+            },
+        },
+        include: [
+            {
+                model: Course,
+                where: {
+                    name: {
+                        [Op.like]: "%" + req.query.course_name + "%",
+                    },
+                },
+            },
+            {
+                model: User,
+            },
+            {
+                model: Review,
+            },
+        ],
+    });
+
+    if (tutorCourses) {
+        if (tutorCourses.length == 0) {
+            /*
+                        return res.json({
+                            success: false,
+                            message: "No courses available yet!",
+                            //records: courses.length,
+                            //data: courses,
+                        });
+            */
             return res.json(new FailedResponse("No courses available yet!"));
+        } else {
+            /*
+                        return res.json({
+                            success: true,
+                            message: tutorCourses.length + " courses found",
+                            records: tutorCourses.length,
+                            data: tutorCourses,
+                        });
+            */
+            return res.json(
+                new SuccessfulResponse("Tutor Course found!", tutorCourses)
+            );
         }
-        else {
-/*
-            return res.json({
-                success: true,
-                message: tutorCourses.length + " courses found",
-                records: tutorCourses.length,
-                data: tutorCourses,
-            });
-*/
-            return res.json(new SuccessfulResponse("Tutor Course found!", tutorCourses));
-        }
-
-    }
-    else {
-/*
-        return res.json({
-            success: false,
-            message: "No courses available yet!",
-            //records: courses.length,
-            //data: courses,
-        });
-*/
+    } else {
+        /*
+                return res.json({
+                    success: false,
+                    message: "No courses available yet!",
+                    //records: courses.length,
+                    //data: courses,
+                });
+        */
         return res.json(new FailedResponse("No courses available yet!"));
     }
 };
@@ -156,8 +148,7 @@ const getTutorCoursesHome = async(req, res) => {
 exports.getTutorCoursesHome = getTutorCoursesHome;
 //************* Create New Tutor's Course ***************
 
-const postTutorCourse = async(req,res) => {
-
+const postTutorCourse = async (req, res) => {
     var courseId = 0;
 
     var token = req.headers["authorization"];
@@ -166,29 +157,26 @@ const postTutorCourse = async(req,res) => {
 
     const existingCourse = await Course.findOne({
         //where: search(req.query.search, "id"),
-        where: {"name": req.body.name},
+        where: { name: req.body.name },
     });
 
-    if (existingCourse){
+    if (existingCourse) {
         courseId = existingCourse.id;
-/*
-        res.json({
-            success: true,
-            message: "Course exists",
-            records: existingCourse.length,
-            data: existingCourse,
-        });
-*/
+        /*
+                res.json({
+                    success: true,
+                    message: "Course exists",
+                    records: existingCourse.length,
+                    data: existingCourse,
+                });
+        */
         const existingTutorCourse = await TutorCourse.findOne({
             where: {
-                [Op.and] : [
-                    {"UserId": userId},
-                    {"CourseId": courseId},
-                ]
+                [Op.and]: [{ UserId: userId }, { CourseId: courseId }],
             },
-            include: [Course,User]
+            include: [Course, User],
         });
-        if(existingTutorCourse){
+        if (existingTutorCourse) {
             return res.json({
                 success: false,
                 message: "Course already exists for tutor",
@@ -196,8 +184,7 @@ const postTutorCourse = async(req,res) => {
                 data: existingTutorCourse,
             });
         }
-    }
-    else {
+    } else {
         let course = Course.build({
             name: req.body.name,
             // Since we do not have a description, putting the name of the course in the description
@@ -210,26 +197,26 @@ const postTutorCourse = async(req,res) => {
 
         courseId = course.id;
     }
-/*
-    res.json({
-        success: true,
-        message: "Test",
-        data: "courseId: " + courseId,
-    });
-*/
+    /*
+        res.json({
+            success: true,
+            message: "Test",
+            data: "courseId: " + courseId,
+        });
+    */
     let tutorCourse = TutorCourse.build({
         UserId: userId,
         CourseId: courseId,
         coursePricePerHour: req.body.coursePricePerHour,
-        isFull: req.body.isFull
+        isFull: req.body.isFull,
     });
-/*
-    res.json({
-        success: true,
-        message: "Test",
-        data: tutorCourse,
-    });
-*/
+    /*
+        res.json({
+            success: true,
+            message: "Test",
+            data: tutorCourse,
+        });
+    */
     await tutorCourse.save().catch((e) => {
         console.log(e);
     });
@@ -246,79 +233,83 @@ exports.postTutorCourse = postTutorCourse;
 
 //************* Update Existing Tutor's Course ***************
 const updateTutorCourse = async (req, res) => {
-
     var token = req.headers["authorization"];
     var decoded = jwtDecode(token);
     const userId = decoded.id;
 
     const existingTutorCourse = await TutorCourse.findOne({
         where: {
-            [Op.and] : [
-                {"UserId": userId},
-                {"CourseId": req.params.id},
-            ]
+            [Op.and]: [{ UserId: userId }, { CourseId: req.params.id }],
         },
-        include: [Course,User]
+        include: [Course, User],
     });
 
-    if(existingTutorCourse){
-        try{
+    if (existingTutorCourse) {
+        try {
             await existingTutorCourse.update({
                 coursePricePerHour: req.body.coursePricePerHour,
-                isFull : req.body.isFull
+                isFull: req.body.isFull,
             });
-/*
-            return res.json({
-                success: true,
-                message: "Tutor's Course " + existingTutorCourse.name + " successfully updated Mate",
-                //message: "Course '" + course.name + "' successfully updated",
-                //records: course.length,
-            });
-*/
+            /*
+                        return res.json({
+                            success: true,
+                            message: "Tutor's Course " + existingTutorCourse.name + " successfully updated Mate",
+                            //message: "Course '" + course.name + "' successfully updated",
+                            //records: course.length,
+                        });
+            */
             console.log("Tutor Course Updated: " + existingTutorCourse);
-            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully updated", [existingTutorCourse]));
-        }
-        catch (e){
+            res.json(
+                new SuccessfulResponse(
+                    "Tutor Course " +
+                        existingTutorCourse.Course.name +
+                        " successfully updated",
+                    [existingTutorCourse]
+                )
+            );
+        } catch (e) {
             return res.json(new FailedResponse(e.message));
         }
+    } else {
+        return res.json(
+            new FailedResponse("Tutor's Course not found or already deleted!")
+        );
     }
-    else {
-        return res.json(new FailedResponse("Tutor's Course not found or already deleted!"));
-    }
-
-
 };
 exports.updateTutorCourse = updateTutorCourse;
 
 //************* Delete Existing Tutor's Course ***************
 
 const deleteTutorCourse = async (req, res) => {
-
     var token = req.headers["authorization"];
     var decoded = jwtDecode(token);
     const userId = decoded.id;
 
     const existingTutorCourse = await TutorCourse.findOne({
         where: {
-            [Op.and] : [
-                {"UserId": userId},
-                {"CourseId": req.params.id},
-            ]
+            [Op.and]: [{ UserId: userId }, { CourseId: req.params.id }],
         },
-        include: [Course,User]
+        include: [Course, User],
     });
 
-    if(existingTutorCourse){
-        try{
+    if (existingTutorCourse) {
+        try {
             await existingTutorCourse.destroy();
-            console.log("Tutor Course Successfully Updated: " + existingTutorCourse);
-            res.json(new SuccessfulResponse("Tutor Course " + existingTutorCourse.Course.name + " successfully deleted", [existingTutorCourse]));
-        }
-        catch (e){
+            console.log(
+                "Tutor Course Successfully Updated: " + existingTutorCourse
+            );
+            res.json(
+                new SuccessfulResponse(
+                    "Tutor Course " +
+                        existingTutorCourse.Course.name +
+                        " successfully deleted",
+                    [existingTutorCourse]
+                )
+            );
+        } catch (e) {
             return res.json(new FailedResponse(e.message));
         }
-    }
-    else {
+    } else {
         return res.json({
             success: false,
             message: "Tutor's Course not found or already deleted",
@@ -326,6 +317,6 @@ const deleteTutorCourse = async (req, res) => {
             //records: course.length,
         });
     }
-}
+};
 
 exports.deleteTutorCourse = deleteTutorCourse;

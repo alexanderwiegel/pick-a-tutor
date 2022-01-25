@@ -10,6 +10,10 @@ function ReportedReviewCard({ courseName, reviewer, reporter, reviewText, report
     await apiEndPoints.deleteReview(reviewId)
   }
 
+  const rejectReport = async (reviewId) => {
+    await apiEndPoints.rejectReport(reviewId)
+  }
+
   return (
     <>
       <Card style={{ width: '20rem' }}>
@@ -20,9 +24,8 @@ function ReportedReviewCard({ courseName, reviewer, reporter, reviewText, report
           <Card.Title>Comment by <Link to="">{reporter}</Link>:</Card.Title>
           <Card.Text>"{reportComment}"</Card.Text>
           <ButtonGroup className="d-flex">
-            <Button onClick={() => deleteReview(id)}
-              variant="danger">Delete review</Button>
-            <Button variant="warning">Reject report</Button>
+            <Button onClick={() => deleteReview(id)} variant="danger">Delete review</Button>
+            <Button onClick={() => rejectReport(id)} variant="warning">Reject report</Button>
           </ButtonGroup>
         </Card.Body>
       </Card>

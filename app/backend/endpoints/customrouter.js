@@ -114,7 +114,9 @@ router.delete(
 //*******Message Routes *******
 router.post("/createmessage", authgeneral, Message.createmessage);
 router.get("/getconversation",authgeneral, Message.getconversation);
+router.get("/getunreadconversation",authgeneral, Message.getunreadconversation);
 router.get("/getallconversations",authgeneral, Message.getallconversations);
+router.patch("/updatmessage", authgeneral, Message.updatmessage)
 
 // router.patch("/updateconversationstatus", Message.updateconversationstatus);
 
@@ -180,7 +182,7 @@ let storage = multer.diskStorage({
             "-" +
             Date.now() +
             "-" +
-            Math.round(Math.random() * 1e9);
+            Math.round(Math.random() * 1e9) + "." + file.originalname.split(".").pop();
         cb(null, "User-" + uniqueSuffix);
     },
 });
@@ -214,7 +216,7 @@ storage = multer.diskStorage({
             "-" +
             Date.now() +
             "-" +
-            Math.round(Math.random() * 1e9);
+            Math.round(Math.random() * 1e9) + "." + file.originalname.split(".").pop();
         cb(null, "Course-" + uniqueSuffix);
     },
 });
