@@ -40,9 +40,10 @@ export default function Login() {
     }
     else {
       localStorage.setItem('statusCode', 'Tutor')
-      localStorage.setItem('tutorID', decoded.id)
       navigate("/")
     }
+    
+    localStorage.setItem('userID', decoded.id)
   }
 
   let navigate = useNavigate();
