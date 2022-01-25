@@ -9,13 +9,18 @@ const bcryptjs = require("bcryptjs");
 
 const getAllTutors = async (req, res) => {
     var tutors = '';
-    var tutorId = {
-        [Op.gte]: 0,
-    };
-    if(req.query.tutor_id !=''){
+    var tutorId = '';
+    if(req.query.tutor_id !=="" && req.query.tutor_id !== undefined && req.query.tutor_id !== "undefined"){
         tutorId = req.query.tutor_id;
+        //console.log("tutorId not undefined: " + tutorId);
     }
-
+    else{
+        tutorId = {
+            [Op.gte]: 0,
+        }
+        console.log("tutorId " + tutorId);
+    }
+    //return res.json("tutorId is: " + tutorId);
     tutors = await User.findAll({
         where: {
             [Op.and]: {

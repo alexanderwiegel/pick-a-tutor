@@ -9,6 +9,7 @@ function CardComponent({ name, course }) {
     const response = await apiEndPoints.requestEnrollment(course.CourseId)
     console.log(response);
   }
+
   return (
     <Card
       style={{
@@ -39,22 +40,6 @@ function CardComponent({ name, course }) {
             fontSize: "1rem",
           }}
         >
-          {/* {searched_name.trim().length > 0 ? (
-            <p>{searched_name.toUpperCase()}</p>
-          ) : (
-            courses &&
-            courses.map((course) => (
-              <p
-                style={{
-                  paddingLeft: "2px",
-                  fontWeight: "bold",
-                }}
-              >
-                {" "}
-                {course.Course.name}{" "}
-              </p>
-            ))
-          )} */}
           {course.Course.name}
           <hr />
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
@@ -63,9 +48,6 @@ function CardComponent({ name, course }) {
           <p style={{ paddingLeft: "4px", marginBottom: '0px' }}>
             {course.rating}
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
-            {/* <p style={{ color: "#6a6f73", fontSize: "0.7rem", marginBottom: '0px' }}>
-              (15.235)
-            </p> */}
           </p>
         </Card.Title>
         <Container style={{
@@ -78,22 +60,13 @@ function CardComponent({ name, course }) {
           <Card.Text>
             meet {name} <i class="bi bi-person-lines-fill" />
           </Card.Text>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", }} onClick={requestEnrollment}>Request</Card.Link>
-            <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
-          </div>
+          {localStorage.getItem('user') &&
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", }} onClick={requestEnrollment}>Request</Card.Link>
+              <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
+            </div>}
         </Container>
         <Card.Text style={{ fontSize: "0.7rem" }}>
-          {/* {courses &&
-                        courses.length > 0 &&
-                        courses.map((course) =>
-                            course.name.toLowerCase() ===
-                            searched_name.toLowerCase() ? (
-                                <p>{course.description}</p>
-                            ) : (
-                                ""
-                            )
-                        )} */}
         </Card.Text>
         <div className="d-flex justify-content-center">
           <Button

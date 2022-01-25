@@ -57,14 +57,14 @@ exports.getTutorCourses = getTutorCourses;
 
 const getTutorCoursesHome = async (req, res) => {
     var tutorCourses = "";
-    /*
-        return res.json({
-            success: false,
-            message: "test",
-            //records: courses.length,
-            data: req.query.course_name,
-        });
-    */
+/*
+    return res.json({
+        success: false,
+        message: "test",
+        //records: courses.length,
+        data: req.query.course_name,
+    });
+*/
     var minPrice = 0;
     var maxPrice = 1000000;
     var rating = 0;
@@ -110,37 +110,37 @@ const getTutorCoursesHome = async (req, res) => {
 
     if (tutorCourses) {
         if (tutorCourses.length == 0) {
-            /*
-                        return res.json({
-                            success: false,
-                            message: "No courses available yet!",
-                            //records: courses.length,
-                            //data: courses,
-                        });
-            */
+/*
+            return res.json({
+                success: false,
+                message: "No courses available yet!",
+                //records: courses.length,
+                //data: courses,
+            });
+*/
             return res.json(new FailedResponse("No courses available yet!"));
         } else {
-            /*
-                        return res.json({
-                            success: true,
-                            message: tutorCourses.length + " courses found",
-                            records: tutorCourses.length,
-                            data: tutorCourses,
-                        });
-            */
+/*
+            return res.json({
+                success: true,
+                message: tutorCourses.length + " courses found",
+                records: tutorCourses.length,
+                data: tutorCourses,
+            });
+*/
             return res.json(
                 new SuccessfulResponse("Tutor Course found!", tutorCourses)
             );
         }
     } else {
-        /*
-                return res.json({
-                    success: false,
-                    message: "No courses available yet!",
-                    //records: courses.length,
-                    //data: courses,
-                });
-        */
+/*
+        return res.json({
+            success: false,
+            message: "No courses available yet!",
+            //records: courses.length,
+            //data: courses,
+        });
+*/
         return res.json(new FailedResponse("No courses available yet!"));
     }
 };
@@ -162,14 +162,14 @@ const postTutorCourse = async (req, res) => {
 
     if (existingCourse) {
         courseId = existingCourse.id;
-        /*
-                res.json({
-                    success: true,
-                    message: "Course exists",
-                    records: existingCourse.length,
-                    data: existingCourse,
-                });
-        */
+/*
+        res.json({
+            success: true,
+            message: "Course exists",
+            records: existingCourse.length,
+            data: existingCourse,
+        });
+*/
         const existingTutorCourse = await TutorCourse.findOne({
             where: {
                 [Op.and]: [{ UserId: userId }, { CourseId: courseId }],
@@ -197,26 +197,26 @@ const postTutorCourse = async (req, res) => {
 
         courseId = course.id;
     }
-    /*
-        res.json({
-            success: true,
-            message: "Test",
-            data: "courseId: " + courseId,
-        });
-    */
+/*
+    res.json({
+        success: true,
+        message: "Test",
+        data: "courseId: " + courseId,
+    });
+*/
     let tutorCourse = TutorCourse.build({
         UserId: userId,
         CourseId: courseId,
         coursePricePerHour: req.body.coursePricePerHour,
         isFull: req.body.isFull,
     });
-    /*
-        res.json({
-            success: true,
-            message: "Test",
-            data: tutorCourse,
-        });
-    */
+/*
+    res.json({
+        success: true,
+        message: "Test",
+        data: tutorCourse,
+    });
+*/
     await tutorCourse.save().catch((e) => {
         console.log(e);
     });
@@ -250,23 +250,21 @@ const updateTutorCourse = async (req, res) => {
                 coursePricePerHour: req.body.coursePricePerHour,
                 isFull: req.body.isFull,
             });
-            /*
-                        return res.json({
-                            success: true,
-                            message: "Tutor's Course " + existingTutorCourse.name + " successfully updated Mate",
-                            //message: "Course '" + course.name + "' successfully updated",
-                            //records: course.length,
-                        });
-            */
+/*
+            return res.json({
+                success: true,
+                message: "Tutor's Course " + existingTutorCourse.name + " successfully updated Mate",
+                //message: "Course '" + course.name + "' successfully updated",
+                //records: course.length,
+            });
+*/
             console.log("Tutor Course Updated: " + existingTutorCourse);
-            res.json(
-                new SuccessfulResponse(
-                    "Tutor Course " +
-                        existingTutorCourse.Course.name +
-                        " successfully updated",
-                    [existingTutorCourse]
-                )
-            );
+            return res.json(
+                   new SuccessfulResponse(
+                       "Tutor Course " + existingTutorCourse.Course.name + " successfully updated",
+                        [existingTutorCourse]
+                    )
+                );
         } catch (e) {
             return res.json(new FailedResponse(e.message));
         }

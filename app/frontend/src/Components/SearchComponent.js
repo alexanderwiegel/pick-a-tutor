@@ -12,13 +12,15 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
       return !preVal
     })
   }
-  useEffect(() => {
-    if (setSearchKeyword)
-      setSearchKeyword(() => search)
+  const searchByKeyword = () => {
     if (category === "tutor")
       getUsers(search)
     else
       getCourses(search)
+  }
+  useEffect(() => {
+    if (setSearchKeyword)
+      setSearchKeyword(() => search)
   }, [search])
 
   return (
@@ -29,7 +31,7 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
           {/* course=False tutor=True */}
         </button>
         <input placeholder='Search here ...' style={{ fontSize: '1rem' }} onChange={(e) => setSearch(e.target.value)} />
-        <div style={{ display: 'grid', alignContent: 'center' }}>
+        <div onClick={searchByKeyword} style={{ display: 'grid', alignContent: 'center' }}>
           <i className="bi bi-search" style={{ fontSize: '1.5rem', margin: '5px', paddingRight: '10px', cursor: 'pointer' }} />
         </div>
       </div>

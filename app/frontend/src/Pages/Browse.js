@@ -22,15 +22,14 @@ function Browse(props) {
   const [searchKeyword, setSearchKeyword] = useState("")
 
   const getUsers = async (subject = "") => {
+    console.log(" i am here")
     const data = await apiEndPoints.getListofTutors(subject)
-    console.log('users ', data.data.data)
+    console.log('users are here', data.data.data)
     setUsers(() => data.data.data)
   };
 
   const getCourses = async (subject = "") => {
-    const data = await apiEndPoints.getListofCourses(subject)
-    console.log('courses hello ', data.data.data)
-    setCourses(() => data.data.data)
+    filterResults(subject)
   };
 
   const sortCourses = (sortby, order) => {
@@ -42,8 +41,11 @@ function Browse(props) {
     })
   }
 
-  const filterResults = async () => {
-    const data = await apiEndPoints.getFilteredResult(searchKeyword, minPrice, maxPrice, starValue)
+  const filterResults = async (keyword) => {
+    console.log(keyword ? keyword : searchKeyword)
+    console.log(minPrice, maxPrice, starValue)
+    const data = await apiEndPoints.getFilteredResult(keyword ? keyword : searchKeyword, minPrice, maxPrice, starValue)
+    console.log(data)
     setCourses(() => data.data.data)
   }
 
@@ -69,16 +71,14 @@ function Browse(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      getUsers(location.state?.search);
+      filterResults(location.state?.search);
       setTimeout(() => {
         setLoading(() => false)
       }, 200)
     }, 500)
   }, []);
-  //TODO : Get the right results from the filters to display : use tutor courses homepage api
   return (
     <>
-      {/* {console.log('price = ', priceFilter, "star = ", starValue)} */}
       <SearchComponent getUsers={getUsers}
         getCourses={getCourses}
         category={category}
@@ -103,7 +103,7 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 4 ? "#00b7ffa1" : "transparent", color: starValue === 4 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "4" ? "#00b7ffa1" : "transparent", color: starValue === "4" ? "#ffffff" : "black" }}
               id="4 star"
               type="checkbox"
               variant="light"
@@ -120,7 +120,7 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 3 ? "#00b7ffa1" : "transparent", color: starValue === 3 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "3" ? "#00b7ffa1" : "transparent", color: starValue === "3" ? "#ffffff" : "black" }}
               id="3 star"
               type="checkbox"
               variant="light"
@@ -138,7 +138,7 @@ function Browse(props) {
             <br />
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 2 ? "#00b7ffa1" : "transparent", color: starValue === 2 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "2" ? "#00b7ffa1" : "transparent", color: starValue === "2" ? "#ffffff" : "black" }}
               id="2 star"
               type="checkbox"
               variant="light"
@@ -157,7 +157,7 @@ function Browse(props) {
 
 
             <ToggleButton
-              style={{ backgroundColor: starValue === 1 ? "#00b7ffa1" : "transparent", color: starValue === 1 ? "#ffffff" : "black" }}
+              style={{ backgroundColor: starValue === "1" ? "#00b7ffa1" : "transparent", color: starValue === "1" ? "#ffffff" : "black" }}
               id="1 star"
               type="checkbox"
               variant="light"
@@ -275,7 +275,7 @@ function Browse(props) {
                 <div className="col text-center">
                   {/* TODO : Do the on press here!!! */}
                   {/* onClick={getResults()} */}
-                  <Button style={{ backgroundColor: '#00b7ff', borderColor: '#00b7ff', width: '100%' }} onClick={filterResults}>Apply Filters</Button>
+                  <Button style={{ backgroundColor: '#00b7ff', borderColor: '#00b7ff', width: '100%' }} onClick={() => filterResults(undefined)}>Apply Filters</Button>
                 </div>
               </Row>
             </Container>

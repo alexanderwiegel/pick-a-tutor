@@ -2,10 +2,8 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: "http://20.113.25.17:3001/api",
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  },
-});
+  headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+})
 
 // Interceptors to log requests
 /* axiosInstance.interceptors.request.use(
@@ -19,10 +17,6 @@ const axiosInstance = axios.create({
     return Promise.reject(error);
   }
 ); */
-
-// async function getTutorData(course, star) {
-//     return await axiosInstance.get(`users/${course}/${star}`)
-// }
 
 async function getTutorData() {
   return await axiosInstance.get(`tutors`);
@@ -51,7 +45,7 @@ async function login(data) {
 }
 
 async function getListofTutors(subject) {
-  return await axiosInstance.get(`tutors?search=${subject}`);
+  return await axiosInstance.get(`tutors?search=${subject}&tutor_id`)
 }
 
 async function getListofCourses(subject) {
@@ -257,7 +251,7 @@ async function addCourseFile(courseID, file) {
 }
 
 async function updateCourseDetails(courseID, formData) {
-  
+
 }
 
 
