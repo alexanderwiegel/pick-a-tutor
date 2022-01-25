@@ -1,4 +1,4 @@
-import React, { useState, setState, useEffect } from "react";
+import React, { useState, setState, useEffect } from "react"
 import {
   Container,
   Row,
@@ -8,67 +8,46 @@ import {
   Image,
   Card,
   Form,
-  Modal,
-} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import CourseCard from "../Components/CourseCard";
-import { Trash } from "react-bootstrap-icons";
-import apiEndPoints from "../Components/ApiEndpoints";
-import tutorImage1 from "../images/tutor1.jpg";
+} from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import CourseCard from "../Components/CourseCard"
+import apiEndPoints from "../Components/ApiEndpoints"
+import tutorImage1 from "../images/tutor1.jpg"
+import FileListItem from "../Components/FileListItem"
 
 function EditTutorProfile(props) {
-  const [tutorProfile, setTutorProfile] = useState(null);
-  const [isFileDeleteModalOpen, setIsFileDeleteModalOpen] = useState(false);
-  const id = localStorage.getItem("userID");
-  const [fileToDeleteID, setFileToDelete] = useState(0);
+  const [tutorProfile, setTutorProfile] = useState(null)
 
-  const getTutorProfile = async (tutorID) => {
-    const tutorProfile = await apiEndPoints.getTutorProfile(tutorID);
-    console.log("load tutor profile");
-    console.log(tutorProfile);
-    setTutorProfile(tutorProfile);
-  };
-
-  useEffect(() => {
-    console.log("loading tutor profile effect ran");
-    getTutorProfile(1);
-  }, []);
-
-  const handleChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    //ToDo: handle multiple files
-
-    console.log("Value from " + name + " is " + value);
-    setState({
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (event) => {
-    alert("edit has been submitted");
-    event.preventDefault();
-  };
+  const id = localStorage.getItem("userID")
 
   const uploadFileOnClick = () => {
-    document.getElementById("file").click();
-  };
+    document.getElementById("file").click()
+  }
 
-  const handleFileDeleteModalClose = () => {
-    setIsFileDeleteModalOpen(false);
-  };
+  const getTutorProfile = async (tutorID) => {
+    const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
+    setTutorProfile(tutorProfile)
+  }
 
-  const handleFileDeleteModalShow = () => {
-    setIsFileDeleteModalOpen(true);
-  };
+  useEffect(() => {
+    getTutorProfile(1)
+  }, [])
 
-  const handleFileDeleteClick = (event) => {
-    alert("file deleted");
-    handleFileDeleteModalClose();
-    event.preventDefault();
-  };
+  const handleChange = (event) => {
+    const target = event.target
+    const value = target.value
+    const name = target.name
+    //TODO: handle multiple files
+
+    setState({
+      [name]: value,
+    })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
 
   return (
     tutorProfile && (
@@ -166,52 +145,7 @@ function EditTutorProfile(props) {
               <h3>Files</h3>
               <ListGroup variant="flush">
                 {tutorProfile.files.map((file) => (
-                  <ListGroup.Item>
-                    <div className="d-flex justify-content-between">
-                      <a href={file.filePath} download={file.filePath}>
-                        {file.fileTitle}
-                      </a>
-                      <h6>{file.approvalStatus}</h6>
-                      <Button
-                        variant="outline-danger"
-                        className=""
-                        onClick={() => {
-                          setFileToDelete(file.id);
-                          handleFileDeleteModalShow();
-                        }}
-                      >
-                        <Trash />
-                      </Button>
-                      <Modal
-                        show={isFileDeleteModalOpen}
-                        onHide={handleFileDeleteModalClose}
-                        centered
-                      >
-                        <Modal.Header closeButton>
-                          <Modal.Title>
-                            Are you sure that you want to delete this file?
-                            {fileToDeleteID}
-                          </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          <div className="d-flex justify-content-between">
-                            <Button
-                              variant="outline-dark"
-                              onClick={handleFileDeleteClick}
-                            >
-                              YES
-                            </Button>
-                            <Button
-                              variant="outline-dark"
-                              onClick={handleFileDeleteModalClose}
-                            >
-                              NO
-                            </Button>
-                          </div>
-                        </Modal.Body>
-                      </Modal>
-                    </div>
-                  </ListGroup.Item>
+                  <FileListItem file={file} isThisTutor={true} editMode={true} />
                 ))}
 
                 <ListGroup.Item>
@@ -264,7 +198,7 @@ function EditTutorProfile(props) {
                   const formattedCourse = Object.assign(
                     course,
                     course.TutorCourse
-                  );
+                  )
                   return (
                     <CourseCard
                       tutorName={
@@ -272,7 +206,7 @@ function EditTutorProfile(props) {
                       }
                       course={formattedCourse}
                     />
-                  );
+                  )
                 })}
               </Container>
             </Container>
@@ -280,7 +214,7 @@ function EditTutorProfile(props) {
         </Form>
       </Container>
     )
-  );
+  )
 }
 
-export default EditTutorProfile;
+export default EditTutorProfile

@@ -1,4 +1,4 @@
-import React, { useState, setState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react"
 import {
   Container,
   Row,
@@ -6,48 +6,44 @@ import {
   ListGroup,
   Button,
   Image,
-  Card,
   Form,
-  Modal,
-} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { Plus, Trash } from "react-bootstrap-icons";
-import { useParams } from "react-router-dom";
-import apiEndPoints from "../Components/ApiEndpoints";
-import CourseImage1 from "../images/course1.jpg";
+} from "react-bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import { useParams } from "react-router-dom"
+import apiEndPoints from "../Components/ApiEndpoints"
+import CourseImage1 from "../images/course1.jpg"
+import FileListItem from "../Components/FileListItem"
 
-function EditCourseDetails(props) {
+function EditCourseDetails() {
   const formReducer = (state, event) => {
     return {
       ...state,
       [event.name]: event.value,
-    };
-  };
+    }
+  }
 
-  const [courseDetails, setCourseDetails] = useState(null);
-  const [isFileDeleteModalOpen, setIsFileDeleteModalOpen] = useState(false);
-  const [fileToDeleteID, setFileToDeleteID] = useState(0);
-  const [formData, setFormData] = useReducer(formReducer, {});
-  const { id } = useParams();
+  const [courseDetails, setCourseDetails] = useState(null)
+  const [formData, setFormData] = useReducer(formReducer, {})
+  const { id } = useParams()
 
   const handleChange = (event) => {
-    let newFormData = {};
-    newFormData.name = event.target.name;
-    switch(newFormData.name) {
+    let newFormData = {}
+    newFormData.name = event.target.name
+    switch (newFormData.name) {
       case 'files':
         newFormData.value = Array.from(event.target.files)
     }
     setFormData({
       name: event.target.name,
-      value: (event.target.name === 'files')? Array.from(event.target.files): event.target.value,
-    });
-    /* const target = event.target;
-    const value = target.value;
-    const name = target.name;
+      value: (event.target.name === 'files') ? Array.from(event.target.files) : event.target.value,
+    })
+    /* const target = event.target
+    const value = target.value
+    const name = target.name
     //ToDo: handle multiple files
 
-    console.log("Value from " + name + " is " + value);
+    console.log("Value from " + name + " is " + value)
 
     /* 
           https://stackoverflow.com/questions/65733906/react-how-to-use-setstate-inside-functional-component
@@ -57,38 +53,21 @@ function EditCourseDetails(props) {
          
     setCourseDetails({
       [name]: value,
-    }); */
-  };
+    }) */
+  }
 
   const handleSubmit = (event) => {
-    alert("edit has been submitted");
-    event.preventDefault();
-  };
-
-  const handleFileDeleteModalClose = () => {
-    console.log("Closed Clicked");
-    setIsFileDeleteModalOpen(false);
-  };
-
-  const handleFileDeleteModalShow = () => {
-    setIsFileDeleteModalOpen(true);
-  };
-
-  const handleFileDeleteClick = (event) => {
-    alert("file deleted");
-    handleFileDeleteModalClose();
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   const getCourseDetails = async (courseID) => {
-    const courseDetails = await apiEndPoints.getCourseDetails(courseID);
-    setCourseDetails(courseDetails);
-  };
+    const courseDetails = await apiEndPoints.getCourseDetails(courseID)
+    setCourseDetails(courseDetails)
+  }
 
   useEffect(() => {
-    console.log("get course details effect ran");
-    getCourseDetails(id);
-  }, []);
+    getCourseDetails(id)
+  }, [])
 
   return (
     courseDetails && (
@@ -116,7 +95,7 @@ function EditCourseDetails(props) {
               <Image
                 fluid="true"
                 thumbnail="true"
-                // To Do: Add image from the backend
+                // TODO: Add image from the backend
                 src={CourseImage1}
                 name="submit"
                 width="650px"
@@ -172,7 +151,7 @@ function EditCourseDetails(props) {
               {courseDetails.rating}{" "}
               <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>(
               {
-                // Show the number of unreported reviews, To Do: check the correct way to get the unreported reviews
+                // Show the number of unreported reviews, TODO: check the correct way to get the unreported reviews
                 courseDetails.Reviews.filter(
                   (review) => review.reportReview === null
                 ).length
@@ -202,7 +181,7 @@ function EditCourseDetails(props) {
                   rows={8}
                   placeholder="Course description"
                   defaultValue={courseDetails.description}
-                  // To Do: implement vertical scroll for long descriptions
+                  // TODO: implement vertical scroll for long descriptions
                   style={{ overflowY: "scroll" }}
                   onChange={handleChange}
                 />
@@ -214,52 +193,7 @@ function EditCourseDetails(props) {
               <h3>Files</h3>
               <ListGroup variant="flush">
                 {courseDetails.files.map((file) => (
-                  <ListGroup.Item>
-                    <div className="d-flex justify-content-between">
-                      <a href={file.filePath} download={file.filePath}>
-                        {file.fileTitle}
-                      </a>
-                      <h6>{file.approvalStatus}</h6>
-                      <Button
-                        variant="outline-danger"
-                        className=""
-                        onClick={() => {
-                          setFileToDeleteID(file.id);
-                          handleFileDeleteModalShow();
-                        }}
-                      >
-                        <Trash />
-                      </Button>
-                      <Modal
-                        show={isFileDeleteModalOpen}
-                        onHide={handleFileDeleteModalClose}
-                        centered
-                      >
-                        <Modal.Header closeButton>
-                          <Modal.Title>
-                            Are you sure that you want to delete this file?
-                            {fileToDeleteID}
-                          </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          <div className="d-flex justify-content-between">
-                            <Button
-                              variant="outline-dark"
-                              onClick={handleFileDeleteClick}
-                            >
-                              YES
-                            </Button>
-                            <Button
-                              variant="outline-dark"
-                              onClick={handleFileDeleteModalClose}
-                            >
-                              NO
-                            </Button>
-                          </div>
-                        </Modal.Body>
-                      </Modal>
-                    </div>
-                  </ListGroup.Item>
+                  <FileListItem file={file} isThisTutor={true} editMode={true} />
                 ))}
 
                 <ListGroup.Item>
@@ -293,7 +227,7 @@ function EditCourseDetails(props) {
         </Form>
       </Container>
     )
-  );
+  )
 }
 
-export default EditCourseDetails;
+export default EditCourseDetails
