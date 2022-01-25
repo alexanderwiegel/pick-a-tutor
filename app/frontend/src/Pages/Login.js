@@ -42,6 +42,8 @@ export default function Login() {
       localStorage.setItem('statusCode', 'Tutor')
       navigate("/")
     }
+    
+    localStorage.setItem('userID', decoded.id)
   }
 
   let navigate = useNavigate();

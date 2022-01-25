@@ -1,43 +1,40 @@
-import React from "react";
-import {Form, Button} from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
+import apiEndPoints from "./ApiEndpoints";
 
-class ReviewReportForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: "",
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+function ReviewReportForm(props) {
+  const [reportText, setReportText] = useState("");
 
-    handleChange(event) {
-        this.setState({ value: event.target.value });
-    }
-    handleSubmit(event) {
-        alert("A report was submitted: " + this.state.value);
-        event.preventDefault();
-    }
+  const handleChange = (event) => {
+    setReportText(event.target.value);
+  };
 
-    render() {
-        return (
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Group className="mb-3" controlId="reportFormTextArea">
-                    
-                    <Form.Control
-                        as="textarea"
-                        rows={5}
-                        placeholder="Type your report."
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                    />
-                </Form.Group>
-                <Button type="submit" variant="outline-dark">
-                    Submit
-                </Button>
-            </Form>
-        );
-    }
+  const handleSubmit = (event) => {
+    const response = apiEndPoints.reportReview(
+      props.reviewID,
+      reportText
+    );
+    alert("A report was submitted: " + reportText);
+    console.log("response: " + response);
+    event.preventDefault();
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="reportFormTextArea">
+        <Form.Control
+          as="textarea"
+          rows={5}
+          placeholder={"Type your report." + props.reviewID}
+          value={reportText}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Button type="submit" variant="outline-dark">
+        Submit
+      </Button>
+    </Form>
+  );
 }
 
 export default ReviewReportForm;
