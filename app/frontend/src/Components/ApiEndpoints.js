@@ -5,10 +5,6 @@ const axiosInstance = axios.create({
   headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
 })
 
-// async function getTutorData(course, star) {
-//     return await axiosInstance.get(`users/${course}/${star}`)
-// }
-
 async function getTutorData() {
   return await axiosInstance.get(`tutors`)
 }
