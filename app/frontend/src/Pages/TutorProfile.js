@@ -3,14 +3,14 @@ import { Container, Row, Col, ListGroup, Button, Image, Card } from "react-boots
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import CourseCard from "../Components/CourseCard"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import apiEndPoints from "../Components/ApiEndpoints"
 import jwt_decode from "jwt-decode"
 import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 
 function TutorProfileTutorView() {
-  const status = localStorage.getItem('statusCode')
+  const status = localStorage.getItem("statusCode")
   const encodedToken = localStorage.getItem("token")
   var token = ""
   if (encodedToken) token = jwt_decode(encodedToken)
@@ -23,8 +23,16 @@ function TutorProfileTutorView() {
     setTutorProfile(tutorProfile)
   }
 
+  const [tutor, setTutor] = useState([])
+
+  const getTutor = async () => {
+    const data = await apiEndPoints.getTutorById(id)
+    setTutor(() => data.data.data[0])
+  }
+
   useEffect(() => {
     getTutorProfile(id)
+    getTutor()
   }, [])
 
   return (
@@ -43,7 +51,7 @@ function TutorProfileTutorView() {
             />
           </Col>
           <Col md={7} className="flexColumn">
-            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id !== token.id ? "" : "(You)"}</h3>
+            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id == token.id ? "(You)" : ""}</h3>
             <h6>
               {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
               {4.5}{" "}
@@ -56,14 +64,11 @@ function TutorProfileTutorView() {
               status === null ?
                 <></> :
                 // only THIS tutor should see the "Edit profile" button, everyone else should see "Contact tutor"
-                id !== token.id ?
-                  <Button
-                    variant="outline-primary"
-                    style={{ margin: "5px" }}
-                    href={"/chat/" + tutorProfile.id}
-                  >
-                    Contact tutor
-                  </Button> :
+                id != token.id ?
+                  <Link to={"/chat"} state={{ contact: tutor }}>
+                    <Button variant="outline-primary" style={{ margin: "5px" }}>Contact tutor</Button>
+                  </Link>
+                  :
                   <Button
                     variant="outline-primary"
                     style={{ margin: "5px" }}
@@ -88,9 +93,9 @@ function TutorProfileTutorView() {
             <h3>Files</h3>
             <ListGroup variant="flush">
               {
-                // TODO: check if this works
+                // TODO: fix this, it is not showing anything for anonymous users
                 // users who are not THIS tutor should only see approved files
-                status && id !== token.id ?
+                id != token.id ?
                   tutorProfile.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
@@ -119,9 +124,8 @@ function TutorProfileTutorView() {
               >
                 <Card.Body>
                   {
-                    // TODO: check if this works
                     // users who are not THIS tutor should not see an "Add course" button
-                    status && id !== token.id ?
+                    id != token.id ?
                       <></>
                       :
                       <Button
@@ -152,7 +156,7 @@ function TutorProfileTutorView() {
             </Container>
           </Container>
         </Row>
-      </Container>
+      </Container >
     )
   )
 }

@@ -4,7 +4,7 @@ const Sort = ({ sortCourses, sortUsers, category }) => {
   const [price, setPrice] = useState(0)
   const [rating, setRating] = useState(0)
   return (
-    <div className='Sort' style={{ display: 'flex', alignItems: "center" }}>
+    <div className="Sort" style={{ display: "flex", alignItems: "center" }}>
       Apply sorting :
       {
         category === "course" &&
@@ -12,7 +12,7 @@ const Sort = ({ sortCourses, sortUsers, category }) => {
       }
       <Toggle sortCourses={sortCourses} sortUsers={sortUsers} name="Rating" category={category} />
     </div>
-  );
-};
+  )
+}
 
-export default Sort;
+export default Sort

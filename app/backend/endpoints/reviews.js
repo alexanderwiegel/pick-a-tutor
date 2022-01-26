@@ -138,13 +138,8 @@ exports.approveReview = async (req, res) => {
 
     if (review) {
         try {
-            await review.update({
-                studentId: req.body.studentId ?? review.studentId,
-                tutorId: req.body.tutorId ?? review.tutorId,
-                courseId: req.body.courseId ?? review.courseId,
-                rating: req.body.rating ?? review.rating,
-                reportReviewStatus: req.body.reportReviewStatus,
-            });
+            review.reportReview = Review.NOT_REPORTED;
+            await review.save()
             res.json(
                 new SuccessfulResponse(
                     "Review id " + review.id + " successfully updated",
