@@ -1,6 +1,7 @@
 import React from "react"
 import { Badge } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import jwt_decode from "jwt-decode"
 
 function MenuItem(props) {
   //#region Handling special cases
@@ -9,7 +10,11 @@ function MenuItem(props) {
 
   // Anonymous users and tutors shall see "Home" but will be lead to another page
   if (name === "landingPage") add = ""
-  if (name === "landingPage" || name === "tutortv") {
+  if (name === "tutor") {
+    const token = jwt_decode(localStorage.getItem("token"))
+    add += "/" + token.id
+  }
+  if (name === "landingPage" || name === "tutor") {
     name = "home"
   }
   else if (props.onClick) name = "logout"
