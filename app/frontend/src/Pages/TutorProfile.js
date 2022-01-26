@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode"
 import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 
-function TutorProfileTutorView() {
+function TutorProfile() {
   const status = localStorage.getItem("statusCode")
   const encodedToken = localStorage.getItem("token")
   var token = ""
@@ -99,11 +99,11 @@ function TutorProfileTutorView() {
                   tutorProfile.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
-                      <FileListItem file={file} />
+                      <FileListItem file={file} key={file.id} />
                     ))
                   :
                   tutorProfile.files.map((file) => (
-                    <FileListItem file={file} isThisTutor={true} />
+                    <FileListItem file={file} isThisTutor={true} key={file.id} />
                   ))
               }
             </ListGroup>
@@ -150,6 +150,7 @@ function TutorProfileTutorView() {
                       tutorProfile.firstName + " " + tutorProfile.lastName
                     }
                     course={formattedCourse}
+                    key={formattedCourse.id}
                   />
                 )
               })}
@@ -161,4 +162,4 @@ function TutorProfileTutorView() {
   )
 }
 
-export default TutorProfileTutorView
+export default TutorProfile

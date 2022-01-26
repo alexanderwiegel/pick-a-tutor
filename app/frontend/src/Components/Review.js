@@ -27,11 +27,11 @@ function Review(props) {
           {/* TODO: Check if I should show the review creation date or update data */}
           <h6 className="text-muted">{review.createdAt}</h6>
           <div>
-            {Array.from({ length: review.rating }, () => (
-              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} />
+            {Array.from({ length: review.rating }, (index) => (
+              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} key={index} />
             ))}
-            {Array.from({ length: 5 - Math.floor(review.rating) }, () => (
-              <i className="bi bi-star" style={{ color: "#ffff00" }} />
+            {Array.from({ length: 5 - Math.floor(review.rating) }, (index) => (
+              <i className="bi bi-star" style={{ color: "#ffff00" }} key={index} />
             ))}
             ({review.rating})
           </div>
