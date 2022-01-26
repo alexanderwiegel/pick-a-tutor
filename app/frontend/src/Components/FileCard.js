@@ -1,9 +1,9 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import { ButtonGroup, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import apiEndPoints from './ApiEndpoints';
+import React from "react"
+import Card from "react-bootstrap/Card"
+import Button from "react-bootstrap/Button"
+import { ButtonGroup, Form } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import apiEndPoints from "./ApiEndpoints"
 
 function FileCard({ user, file }) {
   var pFile = file.tutorId == null
@@ -17,8 +17,15 @@ function FileCard({ user, file }) {
 
   return (
     <>
-      <Card style={{ width: '20rem' }}>
-        <Card.Header><Link to="">{user.firstName + " " + user.lastName}</Link>{pFile ? "'s profile" : " in course: " + file.Course.name}</Card.Header>
+      <Card style={{ width: "20rem" }}>
+        <Card.Header>
+          {
+            user.isTutor ?
+              // TODO: ask others if it should obviously be a link or not
+              <Link to={"/tutor/" + user.id} style={{ textDecoration: "none", color: "#0f0f0f" }}>{user.firstName} {user.lastName}</Link> :
+              user.firstName + " " + user.lastName
+          }
+          {pFile ? "'s profile" : " in course: " + file.Course.name}</Card.Header>
         <Card.Body>
           <Form>
             <Card.Text>
@@ -37,4 +44,4 @@ function FileCard({ user, file }) {
   )
 }
 
-export default FileCard;
+export default FileCard

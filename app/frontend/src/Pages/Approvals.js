@@ -5,6 +5,7 @@ import ReportedReviewCard from "../Components/ReportedReviewCard"
 import { Accordion, Col, Container, Row } from "react-bootstrap"
 
 const Approvals = () => {
+  //#region constants and functions
   const [pFiles, setPFiles] = useState([])
   const [cFiles, setCFiles] = useState([])
   const [reportedReviews, setReportedReviews] = useState([])
@@ -25,6 +26,7 @@ const Approvals = () => {
     getFiles()
     getReportedReviews()
   }, [])
+  //#endregion
 
   return (
     <div className='App'>
@@ -57,12 +59,13 @@ const Approvals = () => {
               <Row>
                 <Col />
                 <Col>
+
                   {
                     reportedReviews.length > 0 && reportedReviews.map(reportedReview => {
                       return <ReportedReviewCard
-                        courseName={reportedReview.TutorCourse.Course.name}
-                        reviewer={reportedReview.student.firstName + " " + reportedReview.student.lastName}
-                        reporter={reportedReview.reporter.firstName + " " + reportedReview.reporter.lastName}
+                        course={reportedReview.TutorCourse.Course}
+                        reviewer={reportedReview.student}
+                        reporter={reportedReview.reporter}
                         reviewText={reportedReview.ratingComments}
                         reportComment={reportedReview.reportReviewComments}
                         id={reportedReview.id}

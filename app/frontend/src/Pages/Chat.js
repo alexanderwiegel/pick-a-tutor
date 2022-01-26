@@ -92,8 +92,13 @@ const Chat = () => {
           <Card.Header as="h2" className="d-flex align-items-center">
             <Button href="/messages"><BiArrowBack /></Button>
             <Container className="d-flex justify-content-between align-items-center">
-              <Link to="" style={{ textDecoration: "none", color: "#0f0f0f" }}>{contact.firstName + " " + contact.lastName}</Link>
-              <div>{contact.isAdmin ? "Admin" : contact.isStudent ? "Student" : "Tutor"}</div>
+              {
+                contact.isTutor ?
+                  // TODO: ask others if it should obviously be a link or not
+                  <Link to={"/tutor/" + contact.id} style={{ textDecoration: "none", color: "#0f0f0f" }}>{contact.firstName + " " + contact.lastName}</Link> :
+                  contact.firstName + " " + contact.lastName
+              }
+              <div>{contact.isAdmin ? "Admin" : contact.isTutor ? "Tutor" : "Student"}</div>
             </Container>
           </Card.Header>
           <Card.Body>
