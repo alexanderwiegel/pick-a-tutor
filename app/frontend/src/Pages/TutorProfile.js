@@ -18,20 +18,20 @@ function TutorProfile() {
   const [tutorProfile, setTutorProfile] = useState(null)
   const { id } = useParams()
 
-  const getTutorProfile = async (tutorID) => {
-    const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
+  const getTutorProfile = async () => {
+    const tutorProfile = await apiEndPoints.getTutorProfile(id)
     setTutorProfile(tutorProfile)
   }
 
   const [tutor, setTutor] = useState([])
 
   const getTutor = async () => {
-    const data = await apiEndPoints.getTutorById(id)
+    const data = await apiEndPoints.getTutorById()
     setTutor(() => data.data.data[0])
   }
 
   useEffect(() => {
-    getTutorProfile(id)
+    getTutorProfile()
     getTutor()
   }, [])
 
@@ -114,30 +114,17 @@ function TutorProfile() {
           <h1>Courses</h1>
           <Container style={{ overflowX: "scroll" }}>
             <Container style={{ display: "flex" }}>
-              <Card
-                style={{
-                  width: "20rem",
-                  fontSize: "1rem",
-                  borderColor: "transparent",
-                  minWidth: "270px",
-                }}
-              >
-                <Card.Body>
-                  {
-                    // users who are not THIS tutor should not see an "Add course" button
-                    id != token.id ?
-                      <></>
-                      :
-                      <Button
-                        variant="outline-primary"
-                        style={{ margin: "5px" }}
-                        href="/addCourse"
-                      >
-                        Add course
-                      </Button>
-                  }
-                </Card.Body>
-              </Card>
+              {
+                // users who are not THIS tutor should not see an "Add course" button
+                id != token.id ?
+                  <></> :
+                  <Card style={{ width: "20rem", fontSize: "1rem", borderColor: "transparent", minWidth: "270px" }}>
+                    <Card.Body>
+                      <Button variant="outline-primary" style={{ margin: "5px" }} href="/addCourse">Add course</Button>
+                    </Card.Body>
+                  </Card>
+              }
+
               {tutorProfile.Courses.map((course) => {
                 // Make the course object structure uniform
                 const formattedCourse = Object.assign(
