@@ -5,13 +5,13 @@ import { ButtonGroup } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import apiEndPoints from "./ApiEndpoints"
 
-function ReportedReviewCard({ course, reviewer, reporter, reviewText, reportComment, id, handleOnAcceptOrReject }) {
-  const deleteReview = async (reviewId) => {
-    await apiEndPoints.deleteReview(reviewId).then(function () { handleOnAcceptOrReject() })
+function ReportedReviewCard({ course, reviewer, reporter, reviewText, reportComment, id, handleOnApproveOrReject }) {
+  const deleteReview = async () => {
+    await apiEndPoints.deleteReview(id).then(function () { handleOnApproveOrReject() })
   }
 
-  const rejectReport = async (reviewId) => {
-    await apiEndPoints.rejectReport(reviewId).then(function () { handleOnAcceptOrReject() })
+  const rejectReport = async () => {
+    await apiEndPoints.rejectReport(id).then(function () { handleOnApproveOrReject() })
   }
 
   return (
@@ -32,8 +32,8 @@ function ReportedReviewCard({ course, reviewer, reporter, reviewText, reportComm
             :</Card.Title>
           <Card.Text>"{reportComment}"</Card.Text>
           <ButtonGroup className="d-flex">
-            <Button onClick={() => deleteReview(id)} variant="danger">Delete review</Button>
-            <Button onClick={() => rejectReport(id)} variant="warning">Reject report</Button>
+            <Button onClick={() => deleteReview()} variant="danger">Delete review</Button>
+            <Button onClick={() => rejectReport()} variant="warning">Reject report</Button>
           </ButtonGroup>
         </Card.Body>
       </Card>

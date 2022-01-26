@@ -64,12 +64,12 @@ const Approvals = () => {
                 <Col>
                   {
                     pFiles.length > 0 && pFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnAcceptOrReject={() => removeFromState(upload.id, "pFile")}></FileCard>
+                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnApproveOrReject={() => removeFromState(upload.id, "pFile")}></FileCard>
                     )
                   }
                   {
                     cFiles.length > 0 && cFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnAcceptOrReject={() => removeFromState(upload.id, "cFile")}></FileCard>
+                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnApproveOrReject={() => removeFromState(upload.id, "cFile")}></FileCard>
                     )
                   }
                 </Col>
@@ -83,7 +83,6 @@ const Approvals = () => {
               <Row>
                 <Col />
                 <Col>
-
                   {
                     reportedReviews.length > 0 && reportedReviews.map(reportedReview => {
                       return <ReportedReviewCard
@@ -94,7 +93,7 @@ const Approvals = () => {
                         reportComment={reportedReview.reportReviewComments}
                         id={reportedReview.id}
                         key={reportedReview.id}
-                        handleOnAcceptOrReject={() => removeFromState(reportedReview.id, "reportedReview")}
+                        handleOnApproveOrReject={() => removeFromState(reportedReview.id, "reportedReview")}
                       />
                     })
                   }
