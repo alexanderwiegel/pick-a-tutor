@@ -56,7 +56,7 @@ function TutorProfile() {
               {tutorProfile.rating}
               <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
               {/* TODO: Add num of reviews from backend */}
-              {180})
+              {1})
             </h6>
             {
               // only logged in users should see a button
@@ -68,13 +68,7 @@ function TutorProfile() {
                     <Button variant="outline-primary" style={{ margin: "5px" }}>Contact tutor</Button>
                   </Link>
                   :
-                  <Button
-                    variant="outline-primary"
-                    style={{ margin: "5px" }}
-                    href={"/editTutorProfile/" + id}
-                  >
-                    Edit profile
-                  </Button>
+                  <Button variant="outline-primary" style={{ margin: "5px" }} href={"/editTutorProfile/" + id}>Edit profile</Button>
             }
           </Col>
         </Row>
@@ -131,13 +125,7 @@ function TutorProfile() {
                   course.TutorCourse
                 )
                 return (
-                  <CourseCard
-                    tutorName={
-                      tutorProfile.firstName + " " + tutorProfile.lastName
-                    }
-                    course={formattedCourse}
-                    key={formattedCourse.id}
-                  />
+                  <CourseCard course={formattedCourse} key={formattedCourse.id} />
                 )
               })}
             </Container>
