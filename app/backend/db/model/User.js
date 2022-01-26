@@ -35,6 +35,9 @@ User.init(
             type: DataTypes.STRING,
             // allowNull: false,
         },
+        rating: {
+            type: DataTypes.DECIMAL(4, 2),
+        },
         dateOfBirth: {
             type: DataTypes.DATEONLY,
         },

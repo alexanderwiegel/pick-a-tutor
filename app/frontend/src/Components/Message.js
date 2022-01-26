@@ -17,7 +17,7 @@ function Message(lastMessage) {
           {lm.message}
         </div>
         <Badge pill>
-          {format(new Date(lm.createdAt), "dd.MM.yyyy hh:mm")}
+          {format(new Date(lm.createdAt), "dd.MM.yyyy kk:mm")}
         </Badge>
       </ListGroup.Item>
     </Link >

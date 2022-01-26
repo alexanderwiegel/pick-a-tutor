@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7f9595a3-1274-40e7-ad2a-5080e1e95889",
+		"_postman_id": "c5a6ddcd-c712-4af3-a8db-55d1397e3d97",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1311,7 +1311,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutors?search=&tutor_id=1",
+							"raw": "http://localhost:3001/api/tutors?search=&tutor_id=&rating=",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1328,7 +1328,11 @@
 								},
 								{
 									"key": "tutor_id",
-									"value": "1"
+									"value": ""
+								},
+								{
+									"key": "rating",
+									"value": ""
 								}
 							]
 						}
