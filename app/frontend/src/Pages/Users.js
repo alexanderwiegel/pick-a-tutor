@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import apiEndPoints from '../Components/ApiEndpoints';
-import UserCard from '../Components/UserCard';
+import React, { useEffect, useState } from "react"
+import { Col, Container, Row } from "react-bootstrap"
+import apiEndPoints from '../Components/ApiEndpoints'
+import UserCard from '../Components/UserCard'
 
 const Users = () => {
   const [users, setUsers] = useState([])
@@ -11,16 +11,15 @@ const Users = () => {
     setUsers(() => data.data.data)
   };
 
-  const removeFromState = (blockedUserID) => {
-    const newUsers = users.filter(
-      (user) => user.id != blockedUserID
-    );
-    setUsers(newUsers);
-  };
-
   useEffect(() => {
     getUsers();
   }, []);
+
+  const removeFromState = (blockedUserID) => {
+    const newUsers = users.filter((user) => user.id != blockedUserID)
+    setUsers(newUsers)
+  }
+
 
   return (
     <div className='App'>
@@ -41,6 +40,6 @@ const Users = () => {
       }
     </div >
   )
-};
+}
 
 export default Users;
