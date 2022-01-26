@@ -237,7 +237,7 @@ async function addCourse(course) {
 
 async function addCourseFile(courseID, file) {
   const config = {
-    baseURL: "http://127.0.0.1:3001/api",
+    baseURL: "http://20.113.25.17:3001/api",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "multipart/form-data",
@@ -253,6 +253,8 @@ async function addCourseFile(courseID, file) {
 async function updateCourseDetails(courseID, formData) {
 
 }
+
+
 const apiEndPoints = {
   getTutorData,
   getListofTutors,
@@ -285,6 +287,7 @@ const apiEndPoints = {
   addCourseReview,
   addCourse,
   addCourseFile,
-}
+  updateCourseDetails,
+};
 
 export default apiEndPoints

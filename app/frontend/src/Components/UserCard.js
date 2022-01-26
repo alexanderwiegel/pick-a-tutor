@@ -1,13 +1,13 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import { ButtonGroup } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import apiEndPoints from './ApiEndpoints';
+import React from 'react'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import { ButtonGroup } from 'react-bootstrap'
+import { Link } from "react-router-dom"
+import apiEndPoints from './ApiEndpoints'
 
-function UserCard({ user }) {
+function UserCard({ user, onUserBlock }) {
   const blockUser = async () => {
-    await apiEndPoints.blockUser(user.email)
+    await apiEndPoints.blockUser(user.email).then(function (response) {onUserBlock()})
   }
 
   return (
