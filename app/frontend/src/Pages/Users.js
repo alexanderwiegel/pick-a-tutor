@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import apiEndPoints from '../Components/ApiEndpoints';
-import UserCard from '../Components/UserCard';
+import React, { useEffect, useState } from "react"
+import { Col, Container, Row } from "react-bootstrap"
+import apiEndPoints from '../Components/ApiEndpoints'
+import UserCard from '../Components/UserCard'
 
 const Users = () => {
   const [users, setUsers] = useState([])
@@ -15,6 +15,12 @@ const Users = () => {
     getUsers();
   }, []);
 
+  const removeFromState = (blockedUserID) => {
+    const newUsers = users.filter((user) => user.id != blockedUserID)
+    setUsers(newUsers)
+  }
+
+
   return (
     <div className='App'>
       {
@@ -25,7 +31,7 @@ const Users = () => {
               {/* TODO: add SearchBar without option to choose a category */}
               {/* <SearchBar /> */}
               {users.length > 0 && users.map(user => {
-                return <UserCard user={user} key={user.id}></UserCard>
+                return <UserCard user={user} key={user.id} onUserBlock={() => removeFromState(user.id)}></UserCard>
               })}
             </Col>
             <Col />
@@ -34,6 +40,6 @@ const Users = () => {
       }
     </div >
   )
-};
+}
 
 export default Users;

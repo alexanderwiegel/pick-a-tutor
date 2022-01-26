@@ -5,13 +5,13 @@ import { ButtonGroup } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import apiEndPoints from "./ApiEndpoints"
 
-function ReportedReviewCard({ course, reviewer, reporter, reviewText, reportComment, id }) {
+function ReportedReviewCard({ course, reviewer, reporter, reviewText, reportComment, id, handleOnAcceptOrReject }) {
   const deleteReview = async (reviewId) => {
-    await apiEndPoints.deleteReview(reviewId)
+    await apiEndPoints.deleteReview(reviewId).then(function () { handleOnAcceptOrReject() })
   }
 
   const rejectReport = async (reviewId) => {
-    await apiEndPoints.rejectReport(reviewId)
+    await apiEndPoints.rejectReport(reviewId).then(function () { handleOnAcceptOrReject() })
   }
 
   return (
