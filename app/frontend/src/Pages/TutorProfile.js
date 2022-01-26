@@ -72,7 +72,7 @@ function TutorProfile() {
                   <Button
                     variant="outline-primary"
                     style={{ margin: "5px" }}
-                    href={"/editTutorProfile/" + id}
+                    href={"/editTutorProfile"}
                   >
                     Edit profile
                   </Button>
