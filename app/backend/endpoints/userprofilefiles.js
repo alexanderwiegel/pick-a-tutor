@@ -82,6 +82,7 @@ const getallbyuserfilestatus = async (req, res, next) => {
     const userprofilefiles = await UserProfileFiles.findAll({
         where: {
             userId: req.params.userId,
+            fileTitle: req.params.fileTitle,
             approvalStatus: req.params.approvalStatus,
         }, include: [User]
     });

@@ -5,15 +5,16 @@ import { ButtonGroup, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import apiEndPoints from './ApiEndpoints';
 
-function FileCard({ user, file }) {
+function FileCard({ user, file, handleOnAcceptOrReject }) {
   var pFile = file.tutorId == null
 
   // TODO: update parent state to show updated data
   const updateFile = async (status) => {
     pFile ?
-      await apiEndPoints.updateProfileFile(file.id, file.userId, status) :
-      await apiEndPoints.updateCourseFile(file.id, status)
+      await apiEndPoints.updateProfileFile(file.id, file.userId, status).then(function (response) { handleOnAcceptOrReject() }) :
+      await apiEndPoints.updateCourseFile(file.id, status).then(function (response) { handleOnAcceptOrReject() })
   }
+
 
   return (
     <>
@@ -24,7 +25,7 @@ function FileCard({ user, file }) {
             <Card.Text>
               {file.fileTitle}
             </Card.Text>
-            <ButtonGroup className="d-flex">
+            <ButtonGroup className='d-flex'>
               <Button onClick={() => updateFile("Rejected")} variant="danger">Reject</Button>
               <Link to={"/chat"} state={{ contact: user }} ><Button>Contact</Button></Link>
               <Button onClick={() => updateFile("Approved")} variant="success">Approve</Button>
