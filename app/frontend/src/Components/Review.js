@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Button, Card, Modal } from "react-bootstrap"
+import { format } from "date-fns"
 import ReviewReportForm from "./ReviewReportForm"
 
 function Review(props) {
@@ -25,7 +26,7 @@ function Review(props) {
 
         <Card.Subtitle>
           {/* TODO: Check if I should show the review creation date or update data */}
-          <h6 className="text-muted">{review.createdAt}</h6>
+          <h6 className="text-muted">{format(new Date(review.createdAt), "dd.MM.yyyy kk:mm")}</h6>
           <div>
             {Array.from({ length: review.rating }, (index) => (
               <i className="bi bi-star-fill" style={{ color: "#ffff00" }} key={index} />
