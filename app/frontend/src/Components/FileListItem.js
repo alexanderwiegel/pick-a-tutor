@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import { Button, ListGroup, Modal } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
+import apiEndPoints from "./ApiEndpoints"
 
 function FileListItem(props) {
   const file = props.file
 
-  const [fileToDelete, setFileToDelete] = useState(0)
+  const [fileToDeleteID, setFileToDeleteID] = useState(0)
   const [isFileDeleteModalOpen, setIsFileDeleteModalOpen] = useState(false)
 
   const handleFileDeleteModalShow = () => {
@@ -16,9 +17,13 @@ function FileListItem(props) {
     setIsFileDeleteModalOpen(false)
   }
 
-  const handleFileDeleteClick = (event) => {
-    handleFileDeleteModalClose()
-    event.preventDefault()
+  const handleFileDeleteClick = async (event) => {
+    await apiEndPoints.deleteCourseFile(fileToDeleteID)
+      .then(function (response) {
+        if (!alert(response.data.message))
+          window.location.reload()
+        event.preventDefault()
+    })
   }
 
   return (
@@ -35,7 +40,7 @@ function FileListItem(props) {
                 variant="outline-danger"
                 className=""
                 onClick={() => {
-                  setFileToDelete(file.id)
+                  setFileToDeleteID(file.id)
                   handleFileDeleteModalShow()
                 }}
               >

@@ -9,7 +9,7 @@ import jwt_decode from "jwt-decode"
 import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 
-function TutorProfileTutorView() {
+function TutorProfile() {
   const status = localStorage.getItem("statusCode")
   const encodedToken = localStorage.getItem("token")
   var token = ""
@@ -54,7 +54,7 @@ function TutorProfileTutorView() {
             <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id == token.id ? "(You)" : ""}</h3>
             <h6>
               {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
-              {4.5}{" "}
+              {4.5}
               <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
               {/* TODO: Add num of reviews from backend */}
               {180})
@@ -99,11 +99,11 @@ function TutorProfileTutorView() {
                   tutorProfile.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
-                      <FileListItem file={file} />
+                      <FileListItem file={file} key={file.id} />
                     ))
                   :
                   tutorProfile.files.map((file) => (
-                    <FileListItem file={file} isThisTutor={true} />
+                    <FileListItem file={file} isThisTutor={true} key={file.id} />
                   ))
               }
             </ListGroup>
@@ -150,6 +150,7 @@ function TutorProfileTutorView() {
                       tutorProfile.firstName + " " + tutorProfile.lastName
                     }
                     course={formattedCourse}
+                    key={formattedCourse.id}
                   />
                 )
               })}
@@ -161,4 +162,4 @@ function TutorProfileTutorView() {
   )
 }
 
-export default TutorProfileTutorView
+export default TutorProfile

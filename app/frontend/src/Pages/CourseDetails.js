@@ -53,15 +53,15 @@ function CourseDetails() {
           {/* TODO: make the text size appropriate related to the image */}
           <Col md={7}>
             <h3>{courseDetails.name}</h3>
-            By{" "}
+            By
             <i>
               <a href={"/tutor/" + courseDetails.User.id}>
                 {courseDetails.User.firstName + " " + courseDetails.User.lastName} {courseDetails.User.id !== token.id ? "" : "(You)"}
               </a>
             </i>
             <br />
-            {courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;{" "}
-            {courseDetails.rating}{" "}
+            {courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
+            {courseDetails.rating}
             <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>
             ({
               // Show the number of unreported reviews, TODO: check the correct way to get the unreported reviews
@@ -97,11 +97,11 @@ function CourseDetails() {
                   courseDetails.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
-                      <FileListItem file={file} />
+                      <FileListItem file={file} key={file.id} />
                     ))
                   :
                   courseDetails.files.map((file) => (
-                    <FileListItem file={file} isThisTutor={true} />
+                    <FileListItem file={file} isThisTutor={true} key={file.id} />
                   ))
               }
             </ListGroup>
@@ -131,10 +131,8 @@ function CourseDetails() {
 
           <div>
             {/* TODO: check the correct way to get the unreported reviews */}
-            {courseDetails.Reviews.filter(
-              (review) => review.reportReview === null
-            ).map((review) => (
-              <Review review={review} />
+            {courseDetails.Reviews.filter((review) => review.reportReview === null).map((review) => (
+              <Review review={review} key={review.id} />
             ))}
           </div>
         </Row>

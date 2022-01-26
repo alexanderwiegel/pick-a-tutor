@@ -49,6 +49,7 @@ function NewCourseReviewForm({ courseID, tutorID }) {
               type="radio"
               id={`ratingRadio-${x}`}
               onChange={handleChange}
+              key={x}
             />
           ))}
           <i
@@ -56,7 +57,7 @@ function NewCourseReviewForm({ courseID, tutorID }) {
             style={{
               color: "#ffff00",
             }}
-          />{" "}
+          />
           stars
         </div>
         <Form.Control

@@ -31,7 +31,8 @@ const Users = () => {
               {/* TODO: add SearchBar without option to choose a category */}
               {/* <SearchBar /> */}
               {users.length > 0 && users.map(user => {
-                return <UserCard user={user} key={user.id} onUserBlock={() => removeFromState(user.id)}></UserCard>
+                if (!user.isAdmin)
+                  return <UserCard user={user} key={user.id} onUserBlock={() => removeFromState(user.id)}></UserCard>
               })}
             </Col>
             <Col />

@@ -19,9 +19,9 @@ class Courses extends React.Component {
 
             {/* Search Results */}
             <Col md={9}></Col>
-            <div class="row">
-              <div class="col-md-3 order-md-first"></div>
-              <div class="col-md-9 order-md-last"></div>
+            <div className="row">
+              <div className="col-md-3 order-md-first"></div>
+              <div className="col-md-9 order-md-last"></div>
             </div>
           </Row>
         </Container>
