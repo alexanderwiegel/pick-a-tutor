@@ -32,6 +32,7 @@ const Home = () => {
 
   useEffect(() => {
     //getUsers()
+    getCourses()
     getEnrolledCourses()
   }, []);
 
@@ -46,7 +47,7 @@ const Home = () => {
           {
             (enrolledCourses && enrolledCourses.length > 0) &&
             enrolledCourses.map((course, index) => (
-              <CardComponent name={`${course.User.firstName} ${course.User.lastName}`} course={course} />
+              <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} />
             ))
           }
           {
@@ -61,8 +62,8 @@ const Home = () => {
         <Container style={{ display: 'flex' }}>
           {
             (courses && courses.length > 0) &&
-            _.shuffle(courses).map((course, index) => (
-              <CardComponent name={`${course.User.firstName} ${course.User.lastName}`} course={course} />
+            _.orderBy(courses, "rating", "desc").map((course, index) => (
+              <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} />
             ))
           }
         </Container>
@@ -74,7 +75,7 @@ const Home = () => {
           {
             (courses && courses.length > 0) &&
             _.orderBy(courses, "createdAt", "asc").map((course, index) => (
-              <CardComponent name={`${course.User.firstName} ${course.User.lastName}`} course={course} />
+              <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} />
             ))
           }
         </Container>
