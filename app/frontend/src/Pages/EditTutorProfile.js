@@ -129,9 +129,9 @@ function EditTutorProfile(props) {
               </Form.Group>
               <h6>
                 {tutorProfile.rating}
-                <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
+                <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> 
                 {/* To Do: Add num of reviews from backend */}
-                {180})
+                
               </h6>
               <Button
                 variant="outline-primary"

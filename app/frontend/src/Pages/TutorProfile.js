@@ -55,9 +55,9 @@ function TutorProfile() {
             <h6>
               {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
               {4.5}
-              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
+              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> 
               {/* TODO: Add num of reviews from backend */}
-              {180})
+              
             </h6>
             {
               // only logged in users should see a button
