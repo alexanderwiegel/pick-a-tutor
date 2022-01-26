@@ -40,7 +40,7 @@ function CardComponentTutor({ name, tutor }) {
           <p style={{ paddingLeft: "4px" }}>
             {/* TODO: Add the right value of rating, once the backend is ready */}
             {tutor.rating}
-            <i class="bi bi-star-fill" style={{ color: "gold" }} />
+            <i className="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
         </Card.Title>
         <br />

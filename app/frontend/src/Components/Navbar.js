@@ -25,7 +25,7 @@ function Navbar() {
   var menuItems = []
 
   status === "Admin" ? menuItems = ["users", "approvals", "messages"] :
-    status === "Tutor" ? menuItems = ["tutortv", "browse", "messages"] :
+    status === "Tutor" ? menuItems = ["tutor", "browse", "messages"] :
       status === "Student" ? menuItems = ["home", "browse", "messages"] :
         menuItems = ["landingPage", "browse"]
 

@@ -49,6 +49,7 @@ function NewCourseReviewForm({ courseID, tutorID }) {
               type="radio"
               id={`ratingRadio-${x}`}
               onChange={handleChange}
+              key={x}
             />
           ))}
           <i

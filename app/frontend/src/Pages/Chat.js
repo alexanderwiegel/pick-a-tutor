@@ -68,10 +68,6 @@ const Chat = () => {
   }
 
   useEffect(() => {
-    ws.onopen = () => {
-      console.log("WebSocket Connected")
-    }
-
     ws.onmessage = (e) => {
       const message = JSON.parse(e.data)
       setMessages([message, ...messages])
@@ -79,7 +75,6 @@ const Chat = () => {
 
     return () => {
       ws.onclose = () => {
-        console.log("WebSocket Disconnected")
         setWs(new WebSocket(URL))
       }
     }
