@@ -40,7 +40,7 @@ function CardComponent({ name, course }) {
           </p>
           <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
             {course.rating}
-            <i class="bi bi-star-fill" style={{ color: "gold" }} />
+            <i className="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
         </Card.Title>
         <Container style={{
@@ -53,7 +53,7 @@ function CardComponent({ name, course }) {
           <Card.Text>
             {/* TODO: Add the routing to the right page */}
             <Link to={`/tutor/${course.UserId}`} style={{ color: 'black' }}>
-              by {name} <i class="bi bi-person-lines-fill" />
+              by {name} <i className="bi bi-person-lines-fill" />
             </Link>
           </Card.Text>
           {localStorage.getItem("user") &&

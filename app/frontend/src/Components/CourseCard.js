@@ -44,7 +44,7 @@ function CourseCard({ tutorName, course }) {
           </p>
           <p style={{ paddingLeft: "4px" }} defaultValue="0.0">
             {course.rating}
-            <i class="bi bi-star-fill" style={{ color: "gold" }} />
+            <i className="bi bi-star-fill" style={{ color: "gold" }} />
             <p style={{ color: "#6a6f73", fontSize: "0.7rem" }} defaultValue="000">
               {/* To Do: Add real num of reviews from the backend */}
               (10)
@@ -58,7 +58,7 @@ function CourseCard({ tutorName, course }) {
             marginTop: "-40px",
           }}
         >
-          meet {tutorName} <i class="bi bi-person-lines-fill" />
+          meet {tutorName} <i className="bi bi-person-lines-fill" />
         </Card.Text>
         <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>
           {course.description}
