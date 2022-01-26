@@ -14,6 +14,7 @@ import apiEndPoints from "./ApiEndpoints";
 import FileListItem from "../Components/FileListItem";
 import CourseImage1 from "../images/course1.jpg";
 
+
 function CourseDetailsForm({ isNewCourse, courseDetails }) {
   const formReducer = (state, event) => {
     return {
@@ -24,6 +25,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
   const [formData, setFormData] = useReducer(formReducer, {});
 
   const handleChange = (event) => {
+    console.log(event)
     let newFormData = {};
     newFormData.name = event.target.name;
     switch (newFormData.name) {
@@ -33,15 +35,31 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
       case "img":
         newFormData.value = Array.from(event.target.files)[0];
         break;
+      case "isFull":
+        newFormData.value = event.target.checked
+        break;
+      
       default:
-        newFormData.value = event.target.value;
+        newFormData.value = event.target.value
     }
 
     setFormData(newFormData);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  
+  const handleSubmit = async (event) => {
+    console.log('in submit course details form')
+    const response = (isNewCourse) ? await apiEndPoints.addNewCourse(formData) : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
+    console.log("Submiteed course form details")
+    console.log(response)
+    if (!response.data.success)
+      alert('Failure ' + response.data.message)
+    else if (window.confirm('Success ' + response.data.message))
+      window.location.reload();
+
+
+
+    event.preventDefault()
   };
 
   return (
@@ -103,7 +121,17 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                   placeholder="0"
                   className="mb-2"
                   onChange={handleChange}
-                  style={{ width: "55px" }}
+                  style={{ width: "90px" }}
+                />
+              </Form.Group>
+              <Form.Group controlId='isFull'>
+                <Form.Check
+                  name='isFull'
+                  type='checkbox'
+                  id='isFullCheckbox'
+                  label='Check if course if full'
+                  checked={isNewCourse ? false : (courseDetails.isFull === true)}
+                  onClick={handleChange}
                 />
               </Form.Group>
             </Row>
@@ -156,7 +184,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             {!isNewCourse &&
               <ListGroup variant="flush">
                 {courseDetails.files.map((file) => (
-                  <FileListItem file={file} isThisTutor={true} editMode={true} />
+                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} />
                 ))}
               </ListGroup>
             }
