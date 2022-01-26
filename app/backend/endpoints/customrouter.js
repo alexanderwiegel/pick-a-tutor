@@ -54,19 +54,21 @@ router.get("/tutorofmonth", TutorOfMonth.tutorofmonth);
 //*******User Profile Files Routes*******
 router.get(
     "/getallprofilefilesbyuserid/:userId",
-    authgeneral,
     userprofilefiles.getallbyuserid
 );
+// FIXME: not used?
 router.get(
     "/getallprofilefilesbyfileid/:fileId",
     authgeneral,
     userprofilefiles.getallbyfileid
 );
+// FIXME: auth admin?
 router.get(
     "/getallprofilefilesbystatus/:approvalStatus",
     authgeneral,
     userprofilefiles.getallbystatus
 );
+// FIXME: not used?
 router.get(
     "/getallprofilefilesbyuserstatus/:userId/:fileTitle/:approvalStatus",
     authgeneral,
