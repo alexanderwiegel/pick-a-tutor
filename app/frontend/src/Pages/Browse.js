@@ -6,7 +6,7 @@ import CardComponentTutor from "../Components/CardComponentTutor";
 import SearchComponent from "../Components/SearchComponent";
 import { Container, ToggleButton, Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap';
 import Sort from "../Components/Sort";
-import _, { split } from "lodash";
+import _, { split, startCase } from "lodash";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 function Browse(props) {
@@ -22,9 +22,7 @@ function Browse(props) {
   const [searchKeyword, setSearchKeyword] = useState("")
 
   const getUsers = async (subject = "") => {
-    console.log(" i am here")
     const data = await apiEndPoints.getListofTutors(subject)
-    console.log('users are here', data.data.data)
     setUsers(() => data.data.data)
   };
 
@@ -40,16 +38,24 @@ function Browse(props) {
         return order === 'asc' ? _.orderBy(preVal, o => +o.rating, ['asc']) : _.orderBy(preVal, o => +o.rating, ['desc'])
     })
   }
+  const sortUsers = (order) => {
+    setUsers(preVal => {
+      return order === 'asc' ? _.orderBy(preVal, o => +o.rating, ['asc']) : _.orderBy(preVal, o => +o.rating, ['desc'])
+    })
+  }
 
   const filterResults = async (keyword) => {
-    console.log(keyword ? keyword : searchKeyword)
-    console.log(minPrice, maxPrice, starValue)
-    const data = await apiEndPoints.getFilteredResult(keyword ? keyword : searchKeyword, minPrice, maxPrice, starValue)
-    console.log(data)
-    setCourses(() => data.data.data)
+    if (category === "course") {
+      const response = await apiEndPoints.getFilteredResult(keyword ? keyword : searchKeyword, minPrice, maxPrice, starValue)
+      setCourses(() => response.data.data)
+    } else {
+      const response = await apiEndPoints.getFilteredTutor(searchKeyword, starValue)
+      setUsers(() => response.data.data)
+    }
   }
 
   const _setCategory = (value) => {
+    console.log(value)
     setCategory(() => value)
   }
 
@@ -70,8 +76,22 @@ function Browse(props) {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      filterResults(location.state?.search);
+    setTimeout(async () => {
+      if (location.state?.search)
+        setSearchKeyword(preVal => location.state?.search)
+
+      if (location.state?.source === "/" || location.pathname === "/browse")
+        filterResults(location.state?.search);
+      if (location.state?.source === "/home") {
+        _setCategory(location.state?.category)
+        if (location.state?.category === "course") {
+          const response = await apiEndPoints.getFilteredResult(location.state?.search)
+          setCourses(() => response.data.data)
+        } else {
+          const response = await apiEndPoints.getFilteredTutor(location.state?.search)
+          setUsers(() => response.data.data)
+        }
+      }
       setTimeout(() => {
         setLoading(() => false)
       }, 200)
@@ -253,7 +273,6 @@ function Browse(props) {
                     <FloatingLabel controlId="floatingInputGrid" label="Min Price">
                       <Form.Control
                         placeholder="Min Price"
-                        // TODO : get min price on form.control
                         onChange={(e) => setMinPrice(() => e.currentTarget?.value)}
                       />
                     </FloatingLabel>
@@ -262,7 +281,6 @@ function Browse(props) {
                     <FloatingLabel controlId="floatingInputGrid" label="Max Price">
                       <Form.Control
                         placeholder="Max Price"
-                        // TODO : get min price on form.control
                         onChange={(e) => setMaxPrice(() => e.currentTarget?.value)}
                       />
                     </FloatingLabel>
@@ -273,8 +291,6 @@ function Browse(props) {
             <Container>
               <Row>
                 <div className="col text-center">
-                  {/* TODO : Do the on press here!!! */}
-                  {/* onClick={getResults()} */}
                   <Button style={{ backgroundColor: '#00b7ff', borderColor: '#00b7ff', width: '100%' }} onClick={() => filterResults(undefined)}>Apply Filters</Button>
                 </div>
               </Row>
@@ -284,7 +300,7 @@ function Browse(props) {
           </div>
           <div style={{ width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Sort sortCourses={sortCourses} category={category} />
+              <Sort sortCourses={sortCourses} sortUsers={sortUsers} category={category} />
             </div>
             <div className="main-content">
               <div className="wrapper" style={{ justifyContent: 'space-evenly' }}>
@@ -294,13 +310,12 @@ function Browse(props) {
                 }
                 {
                   (category === "tutor" && users.length > 0 && !loading) &&
-                  users.map(user => <CardComponentTutor tutor={user} name={user.firstName} />
+                  users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} />
                   )
                 }
-
                 {
                   (category === "course" && courses.length > 0 && !loading) &&
-                  courses.map(course => <CardComponent course={course} name={course.User.firstName} price={course.coursePricePerHour} />)
+                  courses.map(course => <CardComponent course={course} name={course.User?.firstName + " " + course.User?.lastName} price={course.coursePricePerHour} />)
                 }
                 {
                   (category === "tutor" && users.length === 0 && !loading) &&

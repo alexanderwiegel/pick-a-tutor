@@ -1,22 +1,31 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useLocation, useNavigate } from 'react-router';
 
 const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses, setSearchKeyword }) => {
   const [search, setSearch] = useState('');
-  const [option, setOption] = useState(false);
+  const [option, setOption] = useState("course");
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const toggle = () => {
-    setOption(preVal => {
-      setCategory(!preVal ? "tutor" : "course")
-      return !preVal
-    })
+    if (category === "course") {
+      getUsers(search)
+    }
+    setCategory(category === "tutor" ? "course" : "tutor")
   }
   const searchByKeyword = () => {
-    if (category === "tutor")
-      getUsers(search)
-    else
-      getCourses(search)
+    if (location.pathname === "/home") {
+      navigate("/browse",
+        { state: { search, source: location.pathname, category } }
+      )
+    } else {
+      if (category === "tutor")
+        getUsers(search)
+      else
+        getCourses(search)
+    }
   }
   useEffect(() => {
     if (setSearchKeyword)
@@ -26,11 +35,11 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
   return (
     <div id="search" style={{ backgroundColor: '#ffffff' }}>
       <div className='search-input' style={{ width: '60%' }}>
-        <button onClick={toggle} className={'toggle-button ' + (option ? 'toggle-close' : '')}>
-          {option ? 'Tutor' : 'Course'}
+        <button onClick={toggle} className={'toggle-button ' + (category === "tutor" ? 'toggle-close' : '')}>
+          {category === "tutor" ? 'Tutor' : 'Course'}
           {/* course=False tutor=True */}
         </button>
-        <input placeholder='Search here ...' style={{ fontSize: '1rem' }} onChange={(e) => setSearch(e.target.value)} />
+        <input type="text" placeholder='Search here ...' style={{ fontSize: '1rem' }} defaultValue={location.state?.search} onChange={(e) => setSearch(e.target.value)} />
         <div onClick={searchByKeyword} style={{ display: 'grid', alignContent: 'center' }}>
           <i className="bi bi-search" style={{ fontSize: '1.5rem', margin: '5px', paddingRight: '10px', cursor: 'pointer' }} />
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Toggle from './Toggle';
-const Sort = ({ sortCourses, category }) => {
+const Sort = ({ sortCourses, sortUsers, category }) => {
   const [price, setPrice] = useState(0)
   const [rating, setRating] = useState(0)
   return (
@@ -8,9 +8,9 @@ const Sort = ({ sortCourses, category }) => {
       Apply sorting :
       {
         category === "course" &&
-        <Toggle sortCourses={sortCourses} name="Price" />
+        <Toggle sortCourses={sortCourses} name="Price" category={category} />
       }
-      <Toggle sortCourses={sortCourses} name="Rating" />
+      <Toggle sortCourses={sortCourses} sortUsers={sortUsers} name="Rating" category={category} />
     </div>
   );
 };

@@ -142,6 +142,11 @@ async function getFilteredResult(course, minPrice, maxPrice, rating) {
     `tutor_courses_home?course_name=${course}&price_min=${minPrice}&price_max=${maxPrice}&rating=${rating}`
   )
 }
+async function getFilteredTutor(search, rating) {
+  return await axiosInstance.get(
+    `tutors?search=${search}&rating=${rating}&id=`
+  )
+}
 
 async function getEnrolledCourses() {
   return await axiosInstance.get("enrolledstudentcourses")
@@ -287,7 +292,12 @@ const apiEndPoints = {
   addCourseReview,
   addCourse,
   addCourseFile,
+<<<<<<< HEAD
+  getFilteredTutor
+}
+=======
   updateCourseDetails,
 };
+>>>>>>> origin/milestone3
 
 export default apiEndPoints

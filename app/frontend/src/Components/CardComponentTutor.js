@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Link } from "react-router-dom";
 
 
 
@@ -40,7 +41,7 @@ function CardComponentTutor({ name, tutor }) {
 
           <p style={{ paddingLeft: "4px" }}>
             {/* TODO: Add the right value of rating, once the backend is ready */}
-            4.5
+            {tutor.rating}
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
         </Card.Title>
@@ -63,7 +64,10 @@ function CardComponentTutor({ name, tutor }) {
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}
           >
-            Meet {name}
+            {/* TODO : check and send tutor id (tutor.id) and link it to the next page */}
+            <Link to={`/tutor/${tutor.id}`} state={{ id: tutor.id }} style={{ color: '#ffffff' }}>
+              Meet {name}
+            </Link>
           </Button>
         </div>
       </Card.Body>

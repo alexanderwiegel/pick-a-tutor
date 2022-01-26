@@ -13,9 +13,13 @@ class Toggle extends React.Component {
   render() {
     const sort = () => {
       this.setState({ isLow: !this.state.isLow })
-      this.props.name === 'Price'
-        ? this.props.sortCourses("coursePricePerHour", this.state.isLow ? "des" : "asc")
-        : this.props.sortCourses("rating", this.state.isLow ? "des" : "asc")
+      if (this.props.category === "course") {
+        this.props.name === 'Price'
+          ? this.props.sortCourses("coursePricePerHour", this.state.isLow ? "des" : "asc")
+          : this.props.sortCourses("rating", this.state.isLow ? "des" : "asc")
+      } else {
+        this.props.sortUsers(this.state.isLow ? "des" : "asc")
+      }
     }
     return (
       <div style={{}}>
