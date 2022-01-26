@@ -142,6 +142,11 @@ async function getFilteredResult(course, minPrice, maxPrice, rating) {
     `tutor_courses_home?course_name=${course}&price_min=${minPrice}&price_max=${maxPrice}&rating=${rating}`
   )
 }
+async function getFilteredTutor(search, rating) {
+  return await axiosInstance.get(
+    `tutors?search=${search}&rating=${rating}&id=`
+  )
+}
 
 async function getEnrolledCourses() {
   return await axiosInstance.get("enrolledstudentcourses")
@@ -197,6 +202,14 @@ async function getTutorProfile(tutorID) {
   // To Do: search how to return multiple objects so I could return the tutorData and tutorFilesData promise object as is to the caller function so if there is an error, it could be handled there
   return Object.assign(tutorData.data.data[0], {
     files: tutorFilesData.data.data,
+  })
+}
+
+async function getTutorById(id) {
+  return await axiosInstance.get("/tutors", {
+    params: {
+      tutor_id: id
+    }
   })
 }
 
@@ -315,13 +328,15 @@ const apiEndPoints = {
   getTutorCourses,
   reportReview,
   getTutorProfile,
+  getTutorById,
   getCourseReviews,
   getTutorFiles,
   addCourseReview,
   addNewCourse,
   addCourseFile,
+  getFilteredTutor,
   updateCourseDetails,
   deleteCourseFile,
-};
+}
 
 export default apiEndPoints

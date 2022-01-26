@@ -68,7 +68,7 @@ router.get(
     userprofilefiles.getallbystatus
 );
 router.get(
-    "/getallprofilefilesbyuserstatus/:userId/:approvalStatus",
+    "/getallprofilefilesbyuserstatus/:userId/:fileTitle/:approvalStatus",
     authgeneral,
     userprofilefiles.getallbyuserfilestatus
 );

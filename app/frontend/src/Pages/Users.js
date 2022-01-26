@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Col, Container, Row } from "react-bootstrap"
-import apiEndPoints from '../Components/ApiEndpoints'
-import UserCard from '../Components/UserCard'
+import apiEndPoints from "../Components/ApiEndpoints"
+import UserCard from "../Components/UserCard"
 
 const Users = () => {
   const [users, setUsers] = useState([])
@@ -9,11 +9,11 @@ const Users = () => {
   const getUsers = async () => {
     const data = await apiEndPoints.getAllUsers()
     setUsers(() => data.data.data)
-  };
+  }
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    getUsers()
+  }, [])
 
   const removeFromState = (blockedUserID) => {
     const newUsers = users.filter((user) => user.id != blockedUserID)
@@ -22,7 +22,7 @@ const Users = () => {
 
 
   return (
-    <div className='App'>
+    <div className="App">
       {
         <Container>
           <Row>
@@ -42,4 +42,4 @@ const Users = () => {
   )
 }
 
-export default Users;
+export default Users

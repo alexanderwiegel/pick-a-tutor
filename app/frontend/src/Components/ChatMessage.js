@@ -1,7 +1,7 @@
-import React from "react";
-import { Card, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
+import React from "react"
+import { Card, Col, Row } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import jwt_decode from "jwt-decode"
 
 function ChatMessage(message) {
   const userId = jwt_decode(localStorage.getItem("token")).id
@@ -24,4 +24,4 @@ function ChatMessage(message) {
   )
 }
 
-export default ChatMessage;
+export default ChatMessage

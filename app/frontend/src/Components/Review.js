@@ -3,7 +3,7 @@ import { Button, Card, Modal } from "react-bootstrap"
 import ReviewReportForm from "./ReviewReportForm"
 
 function Review(props) {
-  const status = localStorage.getItem('statusCode')
+  const status = localStorage.getItem("statusCode")
   const review = props.review
 
   const [reviewToReport, setreviewToReport] = useState(0)

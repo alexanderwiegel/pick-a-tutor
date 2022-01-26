@@ -1,23 +1,16 @@
-import React from "react";
-import { Card, Button, Container } from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { Link } from "react-router-dom";
-import apiEndPoints from "./ApiEndpoints";
+import React from "react"
+import { Card, Button, Container } from "react-bootstrap"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import { Link } from "react-router-dom"
+import apiEndPoints from "./ApiEndpoints"
 
 function CardComponent({ name, course }) {
   const requestEnrollment = async () => {
     const response = await apiEndPoints.requestEnrollment(course.CourseId)
-    console.log(response);
   }
-
   return (
     <Card
-      style={{
-        fontSize: "1rem",
-        borderColor: "transparent",
-        minWidth: "270px",
-      }}
-    >
+      style={{ fontSize: "1rem", borderColor: "transparent", minWidth: "270px" }}>
       <div
         className="d-flex justify-content-center"
         style={{ paddingTop: "20px" }}
@@ -45,7 +38,7 @@ function CardComponent({ name, course }) {
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
             {course.coursePricePerHour}€/h
           </p>
-          <p style={{ paddingLeft: "4px", marginBottom: '0px' }}>
+          <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
             {course.rating}
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
@@ -53,35 +46,35 @@ function CardComponent({ name, course }) {
         <Container style={{
           fontSize: "0.8rem",
           color: "#6a6f73",
-          display: 'flex',
+          display: "flex",
           justifyContent: "space-between",
           padding: 0
         }}>
           <Card.Text>
-            meet {name} <i class="bi bi-person-lines-fill" />
+            {/* TODO: Add the routing to the right page */}
+            <Link to={`/tutor/${course.UserId}`} style={{ color: 'black' }}>
+              by {name} <i class="bi bi-person-lines-fill" />
+            </Link>
           </Card.Text>
-          {localStorage.getItem('user') &&
+          {localStorage.getItem("user") &&
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", }} onClick={requestEnrollment}>Request</Card.Link>
-              <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
+              <Card.Link style={{ cursor: 'pointer' }} onClick={requestEnrollment}>Request</Card.Link>
+              <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
             </div>}
         </Container>
         <Card.Text style={{ fontSize: "0.7rem" }}>
         </Card.Text>
         <div className="d-flex justify-content-center">
           <Button
-            style={{
-              backgroundColor: "#00b7ff",
-              width: "100%",
-              borderColor: "#00b7ff",
-            }}
-          >
-            Course details
+            style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}>
+            <Link to={`/course/${course.CourseId}`} style={{ color: '#ffffff', display: 'block' }}>
+              Course details
+            </Link>
           </Button>
         </div>
       </Card.Body>
     </Card>
-  );
+  )
 }
 
-export default CardComponent;
+export default CardComponent
