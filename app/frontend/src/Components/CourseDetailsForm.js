@@ -81,7 +81,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                 onChange={handleChange}
               />
             </Form.Group>
-            By{" "}
+            By
             <i>
               <a href={"/tutor/" + courseDetails.User.id}>
                 {courseDetails.User.firstName +
@@ -107,7 +107,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                 />
               </Form.Group>
             </Row>
-            {isNewCourse ? 0 : courseDetails.rating}{" "}
+            {isNewCourse ? 0 : courseDetails.rating}
             <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>(
             {
               // Show the number of unreported reviews, TODO: check the correct way to get the unreported reviews
@@ -125,10 +125,10 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
               onClick={handleSubmit}
             >
               Save
-            </Button>{" "}
+            </Button>
             <Button variant="outline-danger" style={{ margin: "5px" }}>
               Cancel
-            </Button>{" "}
+            </Button>
           </Col>
         </Row>
 

@@ -56,7 +56,7 @@ function NewCourseReviewForm({courseID, tutorID}) {
             style={{
               color: "#ffff00",
             }}
-          />{" "}
+          />
           stars
         </div>
         <Form.Control
