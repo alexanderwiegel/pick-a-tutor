@@ -69,6 +69,7 @@ const Approvals = () => {
                           user={upload.User}
                           file={upload}
                           key={upload.id}
+                          handleOnAcceptOrReject={() => removeFromState(upload.id, "pFile")}
                         ></FileCard>
                       ))}
                     {cFiles.length > 0 &&
@@ -77,6 +78,7 @@ const Approvals = () => {
                           user={upload.User}
                           file={upload}
                           key={upload.id}
+                          handleOnAcceptOrReject={() => removeFromState(upload.id, "cFile")}
                         ></FileCard>
                       ))}
                   </Col>
