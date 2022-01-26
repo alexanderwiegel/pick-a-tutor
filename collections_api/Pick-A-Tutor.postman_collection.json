@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c5a6ddcd-c712-4af3-a8db-55d1397e3d97",
+		"_postman_id": "679eb246-6600-430e-89f1-5a843ecc1bc0",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -18,7 +18,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"kylerstark@example.com\",\r\n    \"password\":\"password\"\r\n}",
+							"raw": "{\r\n    \"email\":\"chahat.soni@informatik.hs-fulda.de\",\r\n    \"password\":\"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -57,10 +57,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/users",
+							"raw": "http://20.113.25.17:3001/api/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -755,10 +758,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbystatus/PendingApproval",
+							"raw": "http://20.113.25.17:3001/api/getallprofilefilesbystatus/PendingApproval",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -771,21 +777,25 @@
 					"response": []
 				},
 				{
-					"name": "Get All  files by User and Status",
+					"name": "Get All  files by User, FileTitle and Status",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbyuserstatus/101/PendingApproval",
+							"raw": "http://20.113.25.17:3001/api/getallprofilefilesbyuserstatus/13/TestfilePDF/PendingApproval",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
 								"api",
 								"getallprofilefilesbyuserstatus",
-								"101",
+								"13",
+								"TestfilePDF",
 								"PendingApproval"
 							]
 						}
@@ -1589,7 +1599,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJreWxlcnN0YXJrQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50IjpmYWxzZSwiaXNUdXRvciI6dHJ1ZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MzA1NzI5MiwiZXhwIjoxNjQzMTQzNjkyfQ.ofEodvUAozDrVVDjyaZnW8IR8nhiT7X9bpH4kTUxZiM",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiY2hhaGF0LnNvbmlAaW5mb3JtYXRpay5ocy1mdWxkYS5kZSIsImlzU3R1ZGVudCI6dHJ1ZSwiaXNUdXRvciI6ZmFsc2UsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDMxOTk0NDQsImV4cCI6MTY0MzI4NTg0NH0.KRnNROKu0edqCg6vVNU5Uacp6M4gIvaxBmElctvlLLs",
 				"type": "string"
 			}
 		]
