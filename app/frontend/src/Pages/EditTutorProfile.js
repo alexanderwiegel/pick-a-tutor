@@ -145,7 +145,7 @@ function EditTutorProfile(props) {
               <h3>Files</h3>
               <ListGroup variant="flush">
                 {tutorProfile.files.map((file) => (
-                  <FileListItem file={file} isThisTutor={true} editMode={true} />
+                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} />
                 ))}
 
                 <ListGroup.Item>
@@ -205,6 +205,7 @@ function EditTutorProfile(props) {
                         tutorProfile.firstName + " " + tutorProfile.lastName
                       }
                       course={formattedCourse}
+                      key={formattedCourse.id}
                     />
                   )
                 })}
