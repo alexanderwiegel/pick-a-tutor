@@ -1,6 +1,6 @@
-import React from "react";
-import { Card, Button } from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import React from "react"
+import { Card, Button } from "react-bootstrap"
+import "bootstrap-icons/font/bootstrap-icons.css"
 
 
 
@@ -50,14 +50,14 @@ function CardComponentTutor({ name, tutor }) {
             fontSize: "0.8rem",
             color: "#6a6f73",
             marginTop: "-40px",
-            display: 'flex'
+            display: "flex"
           }}
         >
           {
             tutor?.Courses.map(course => <p>{course.name}</p>)
           }
         </Card.Text>
-        <Card.Text style={{ fontSize: '0.7rem', marginTop: '-10px' }}>
+        <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>
         </Card.Text>
         <div className="d-flex justify-content-center">
           <Button
@@ -68,7 +68,7 @@ function CardComponentTutor({ name, tutor }) {
         </div>
       </Card.Body>
     </Card>
-  );
+  )
 }
 
-export default CardComponentTutor;
+export default CardComponentTutor

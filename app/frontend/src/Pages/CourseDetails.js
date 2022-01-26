@@ -10,7 +10,7 @@ import FileListItem from "../Components/FileListItem"
 import Review from "../Components/Review"
 
 function CourseDetails() {
-  const status = localStorage.getItem('statusCode')
+  const status = localStorage.getItem("statusCode")
   const encodedToken = localStorage.getItem("token")
   var token = ""
   if (encodedToken) token = jwt_decode(encodedToken)

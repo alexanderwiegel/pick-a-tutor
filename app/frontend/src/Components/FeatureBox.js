@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react"
 
 function FeatureBox(props) {
   return (
-    <div className='a-box'>
-      <div className='a-b-img'>
+    <div className="a-box">
+      <div className="a-b-img">
         <img src={props.image} />
       </div>
-      <div className='s-b-text'>
+      <div className="s-b-text">
         <h2> {props.title} </h2>
         <p> {props.subtitle} </p>
       </div>
@@ -14,4 +14,4 @@ function FeatureBox(props) {
   )
 }
 
-export default FeatureBox;
+export default FeatureBox

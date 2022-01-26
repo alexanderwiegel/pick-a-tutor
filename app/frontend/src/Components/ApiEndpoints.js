@@ -297,6 +297,6 @@ const apiEndPoints = {
   addCourse,
   addCourseFile,
   updateCourseDetails,
-};
+}
 
 export default apiEndPoints

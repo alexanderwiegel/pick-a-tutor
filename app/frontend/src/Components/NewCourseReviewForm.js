@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import apiEndPoints from "./ApiEndpoints";
+import React, { useState } from "react"
+import { Form, Button } from "react-bootstrap"
+import apiEndPoints from "./ApiEndpoints"
 
-function NewCourseReviewForm({courseID, tutorID}) {
-  const [reviewText, setReviewText] = useState("");
-  const [rating, setRating] = useState(0);
+function NewCourseReviewForm({ courseID, tutorID }) {
+  const [reviewText, setReviewText] = useState("")
+  const [rating, setRating] = useState(0)
 
   const handleChange = (event) => {
-    const target = event.target;
+    const target = event.target
     const value =
-      target.type === "radio" ? parseInt(target.value, 10) : target.value;
-    const name = target.name;
+      target.type === "radio" ? parseInt(target.value, 10) : target.value
+    const name = target.name
 
-    console.log("Value from " + name + " is " + value);
+    console.log("Value from " + name + " is " + value)
 
-    name === "reviewText" ? setReviewText(value) : setRating(value);
-  };
+    name === "reviewText" ? setReviewText(value) : setRating(value)
+  }
 
   const handleSubmit = async (event) => {
     const review = {
@@ -26,14 +26,14 @@ function NewCourseReviewForm({courseID, tutorID}) {
       text: reviewText
     }
 
-    const response = await apiEndPoints.addCourseReview(review);
-    console.log("Submit review");
-    console.log(review);
-    console.log(response);
-   
-    if(!alert(response.data.message)){window.location.reload();}
-    event.preventDefault();
-  };
+    const response = await apiEndPoints.addCourseReview(review)
+    console.log("Submit review")
+    console.log(review)
+    console.log(response)
+
+    if (!alert(response.data.message)) { window.location.reload() }
+    event.preventDefault()
+  }
 
   return (
     <Form >
@@ -68,11 +68,11 @@ function NewCourseReviewForm({courseID, tutorID}) {
           onChange={handleChange}
         />
       </Form.Group>
-      <Button  variant="outline-dark" onClick={handleSubmit}>
+      <Button variant="outline-dark" onClick={handleSubmit}>
         Submit
       </Button>
     </Form>
-  );
+  )
 }
 
-export default NewCourseReviewForm;
+export default NewCourseReviewForm

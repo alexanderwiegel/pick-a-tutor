@@ -1,13 +1,13 @@
-import React from "react";
-import { Card, Button, Container } from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { Link } from "react-router-dom";
-import apiEndPoints from "./ApiEndpoints";
+import React from "react"
+import { Card, Button, Container } from "react-bootstrap"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import { Link } from "react-router-dom"
+import apiEndPoints from "./ApiEndpoints"
 
 function CardComponent({ name, course }) {
   const requestEnrollment = async () => {
     const response = await apiEndPoints.requestEnrollment(course.CourseId)
-    console.log(response);
+    console.log(response)
   }
 
   return (
@@ -45,7 +45,7 @@ function CardComponent({ name, course }) {
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
             {course.coursePricePerHour}€/h
           </p>
-          <p style={{ paddingLeft: "4px", marginBottom: '0px' }}>
+          <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
             {course.rating}
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
@@ -53,17 +53,17 @@ function CardComponent({ name, course }) {
         <Container style={{
           fontSize: "0.8rem",
           color: "#6a6f73",
-          display: 'flex',
+          display: "flex",
           justifyContent: "space-between",
           padding: 0
         }}>
           <Card.Text>
             meet {name} <i class="bi bi-person-lines-fill" />
           </Card.Text>
-          {localStorage.getItem('user') &&
+          {localStorage.getItem("user") &&
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", }} onClick={requestEnrollment}>Request</Card.Link>
-              <Card.Link href="#" style={{ textDecoration: 'none', color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
+              <Card.Link href="#" style={{ textDecoration: "none", color: "#6a6f73", }} onClick={requestEnrollment}>Request</Card.Link>
+              <Card.Link href="#" style={{ textDecoration: "none", color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
             </div>}
         </Container>
         <Card.Text style={{ fontSize: "0.7rem" }}>
@@ -81,7 +81,7 @@ function CardComponent({ name, course }) {
         </div>
       </Card.Body>
     </Card>
-  );
+  )
 }
 
-export default CardComponent;
+export default CardComponent

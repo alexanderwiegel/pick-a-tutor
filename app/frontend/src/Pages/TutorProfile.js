@@ -10,7 +10,7 @@ import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 
 function TutorProfileTutorView() {
-  const status = localStorage.getItem('statusCode')
+  const status = localStorage.getItem("statusCode")
   const encodedToken = localStorage.getItem("token")
   var token = ""
   if (encodedToken) token = jwt_decode(encodedToken)
