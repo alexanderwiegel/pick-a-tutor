@@ -58,9 +58,16 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
       window.location.reload();
 
 
-
     event.preventDefault()
   };
+
+  const handleDeleteFile = async (fileToDeleteID) => {
+    await apiEndPoints.deleteCourseFile(fileToDeleteID)
+      .then(function (response) {
+        if (!alert(response.data.message))
+          window.location.reload()
+    })
+  }
 
   return (
     <Container>
@@ -184,7 +191,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             {!isNewCourse &&
               <ListGroup variant="flush">
                 {courseDetails.files.map((file) => (
-                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} />
+                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} onDelete={handleDeleteFile}/>
                 ))}
               </ListGroup>
             }
