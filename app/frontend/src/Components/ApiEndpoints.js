@@ -292,12 +292,8 @@ const apiEndPoints = {
   addCourseReview,
   addCourse,
   addCourseFile,
-<<<<<<< HEAD
-  getFilteredTutor
-}
-=======
+  getFilteredTutor,
   updateCourseDetails,
 };
->>>>>>> origin/milestone3
 
 export default apiEndPoints
