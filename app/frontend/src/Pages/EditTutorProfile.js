@@ -99,7 +99,7 @@ function EditTutorProfile(props) {
               </Form.Group>
               <h6>
                 {/* To Do: add real value of the rating and num of reviews after receiving it from the backend */}
-                {4.5}{" "}
+                {4.5}
                 <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
                 {/* To Do: Add num of reviews from backend */}
                 {180})
@@ -111,14 +111,14 @@ function EditTutorProfile(props) {
                 onClick={handleSubmit}
               >
                 Submit
-              </Button>{" "}
+              </Button>
               <Button
                 variant="outline-danger"
                 style={{ margin: "5px" }}
                 href="/"
               >
                 Cancel
-              </Button>{" "}
+              </Button>
             </Col>
           </Row>
           <Row style={{ marginTop: " 1rem" }}>
@@ -165,7 +165,7 @@ function EditTutorProfile(props) {
                                         onClick={uploadFileOnClick}
                                     >
                                         Upload file
-                                    </Button>{" "} */}
+                                    </Button> */}
                 </ListGroup.Item>
               </ListGroup>
             </div>
@@ -190,7 +190,7 @@ function EditTutorProfile(props) {
                       href="/addCourse"
                     >
                       Add course
-                    </Button>{" "}
+                    </Button>
                   </Card.Body>
                 </Card>
                 {tutorProfile.Courses.map((course) => {

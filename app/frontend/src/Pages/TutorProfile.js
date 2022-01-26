@@ -54,7 +54,7 @@ function TutorProfile() {
             <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id == token.id ? "(You)" : ""}</h3>
             <h6>
               {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
-              {4.5}{" "}
+              {4.5}
               <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
               {/* TODO: Add num of reviews from backend */}
               {180})
