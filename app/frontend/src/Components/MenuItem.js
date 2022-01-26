@@ -1,6 +1,6 @@
-import React from "react";
-import { Badge } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import React from "react"
+import { Badge } from "react-bootstrap"
+import { Link } from "react-router-dom"
 
 function MenuItem(props) {
   //#region Handling special cases
@@ -17,17 +17,17 @@ function MenuItem(props) {
 
   return (
     <li>
-      <Link to={"/" + add} onClick={props.onClick} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>
+      <Link to={"/" + add} onClick={props.onClick} style={{ textDecoration: "none", fontFamily: "inherit" }}>
         {name}
         {
-          name === "approvals" && <Badge bg="light" text="danger" >{props.amountToApprove || 0}</Badge>
+          name === "approvals" && <Badge bg="light" text="danger" >{props.amountToApprove || ""}</Badge>
         }
         {
-          name === "messages" && <Badge bg="light" text="danger" >{props.unreadMessages || 0}</Badge>
+          name === "messages" && <Badge bg="light" text="danger" >{props.unreadMessages || ""}</Badge>
         }
       </Link>
     </li>
-  );
+  )
 }
 
-export default MenuItem;
+export default MenuItem

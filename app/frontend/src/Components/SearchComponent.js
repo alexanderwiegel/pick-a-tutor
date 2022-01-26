@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -45,7 +46,7 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SearchComponent;
+export default SearchComponent

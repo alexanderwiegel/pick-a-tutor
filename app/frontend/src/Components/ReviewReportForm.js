@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import apiEndPoints from "./ApiEndpoints";
+import React, { useState } from "react"
+import { Form, Button } from "react-bootstrap"
+import apiEndPoints from "./ApiEndpoints"
 
 function ReviewReportForm(props) {
-  const [reportText, setReportText] = useState("");
+  const [reportText, setReportText] = useState("")
 
   const handleChange = (event) => {
-    setReportText(event.target.value);
-  };
+    setReportText(event.target.value)
+  }
 
   const handleSubmit = (event) => {
     const response = apiEndPoints.reportReview(
       props.reviewID,
       reportText
-    );
-    alert("A report was submitted: " + reportText);
-    console.log("response: " + response);
-    event.preventDefault();
-  };
+    )
+    alert("A report was submitted: " + reportText)
+    console.log("response: " + response)
+    event.preventDefault()
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -34,7 +34,7 @@ function ReviewReportForm(props) {
         Submit
       </Button>
     </Form>
-  );
+  )
 }
 
-export default ReviewReportForm;
+export default ReviewReportForm

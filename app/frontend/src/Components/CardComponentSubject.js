@@ -1,8 +1,8 @@
-import React from "react";
-import { Card, Button, Container } from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { Link } from "react-router-dom";
-import apiEndPoints from "./ApiEndpoints";
+import React from "react"
+import { Card, Button, Container } from "react-bootstrap"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import { Link } from "react-router-dom"
+import apiEndPoints from "./ApiEndpoints"
 
 function CardComponent({ name, course }) {
   const requestEnrollment = async () => {
@@ -38,7 +38,7 @@ function CardComponent({ name, course }) {
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
             {course.coursePricePerHour}€/h
           </p>
-          <p style={{ paddingLeft: "4px", marginBottom: '0px' }}>
+          <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
             {course.rating}
             <i class="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
@@ -46,7 +46,7 @@ function CardComponent({ name, course }) {
         <Container style={{
           fontSize: "0.8rem",
           color: "#6a6f73",
-          display: 'flex',
+          display: "flex",
           justifyContent: "space-between",
           padding: 0
         }}>
@@ -56,7 +56,7 @@ function CardComponent({ name, course }) {
               by {name} <i class="bi bi-person-lines-fill" />
             </Link>
           </Card.Text>
-          {localStorage.getItem('user') &&
+          {localStorage.getItem("user") &&
             <div style={{ display: "flex", flexDirection: "column" }}>
               <Card.Link style={{ cursor: 'pointer' }} onClick={requestEnrollment}>Request</Card.Link>
               <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
@@ -74,7 +74,7 @@ function CardComponent({ name, course }) {
         </div>
       </Card.Body>
     </Card>
-  );
+  )
 }
 
-export default CardComponent;
+export default CardComponent

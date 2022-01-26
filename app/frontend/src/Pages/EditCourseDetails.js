@@ -31,12 +31,12 @@ function EditCourseDetails() {
     let newFormData = {}
     newFormData.name = event.target.name
     switch (newFormData.name) {
-      case 'files':
+      case "files":
         newFormData.value = Array.from(event.target.files)
     }
     setFormData({
       name: event.target.name,
-      value: (event.target.name === 'files') ? Array.from(event.target.files) : event.target.value,
+      value: (event.target.name === "files") ? Array.from(event.target.files) : event.target.value,
     })
     /* const target = event.target
     const value = target.value
