@@ -276,17 +276,17 @@ async function updateCourseDetails(courseID, formData) {
       .then(function (results) {
         console.log("all files uploaded")
         console.log(results)
-    })
+      })
   }
 
   const requestBody = {}
-  if(formData.coursePricePerHour)
+  if (formData.coursePricePerHour)
     requestBody.coursePricePerHour = formData.coursePricePerHour
-  if(formData.isFull)
+  if (formData.isFull)
     requestBody.isFull = formData.isFull
-  if(formData.name)
+  if (formData.name)
     requestBody.name = formData.name
-  if(formData.description)
+  if (formData.description)
     requestBody.description = formData.description
 
   const response = await axiosInstance.patch(`/tutor_course/${courseID}`, requestBody)
@@ -299,6 +299,53 @@ async function deleteCourseFile(fileID) {
   console.log(response)
   return response;
 }
+
+async function addTutorFile(file) {
+  const config = {
+    baseURL: "http://20.113.25.17:3001/api",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+  var formData = new FormData()
+  formData.append("file", file, file.stream)
+  formData.append("fileTitle", file.name)
+  const response = await axiosInstance.post("createprofilefile", formData, config)
+  console.log("api call upload file " + file.name)
+  console.log(response)
+  return response;
+}
+
+async function deleteTutorFile(fileID) {
+  console.log('in delete course file api call')
+  const response = await axiosInstance.delete(`/deleteuserprofilefile/${fileID}`)
+  console.log(response)
+  return response;
+}
+
+async function updateTutorProfile(tutorEmail, formData) {
+  if (formData.files) {
+    Promise.all(formData.files.map((file) => addTutorFile(file)))
+      .then(function (results) {
+        console.log("all files uploaded")
+        console.log(results)
+      })
+  }
+
+  const requestBody = {}
+  if (formData.firstName)
+    requestBody.firstName = formData.firstName
+  if (formData.lastName)
+    requestBody.lastName = formData.lastName
+  if (formData.description)
+    requestBody.description = formData.description
+
+  const response = await axiosInstance.patch(`/tutors/${tutorEmail}`, requestBody)
+  return response;
+}
+
+
 
 
 const apiEndPoints = {
@@ -337,6 +384,9 @@ const apiEndPoints = {
   getFilteredTutor,
   updateCourseDetails,
   deleteCourseFile,
+  addTutorFile,
+  deleteTutorFile,
+  updateTutorProfile,
 }
 
 export default apiEndPoints

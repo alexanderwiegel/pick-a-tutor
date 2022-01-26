@@ -1,4 +1,4 @@
-import React, { useState, setState, useEffect } from "react"
+import React, { useState, setState, useEffect, useReducer } from "react"
 import {
   Container,
   Row,
@@ -17,13 +17,17 @@ import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 
 function EditTutorProfile(props) {
+  const formReducer = (state, event) => {
+    return {
+      ...state,
+      [event.name]: event.value,
+    };
+  };
+  const [formData, setFormData] = useReducer(formReducer, {});
+
   const [tutorProfile, setTutorProfile] = useState(null)
 
   const id = localStorage.getItem("userID")
-
-  const uploadFileOnClick = () => {
-    document.getElementById("file").click()
-  }
 
   const getTutorProfile = async (tutorID) => {
     const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
@@ -31,22 +35,48 @@ function EditTutorProfile(props) {
   }
 
   useEffect(() => {
-    getTutorProfile(1)
+    getTutorProfile(id)
   }, [])
 
   const handleChange = (event) => {
-    const target = event.target
-    const value = target.value
-    const name = target.name
-    //TODO: handle multiple files
+    console.log(event)
+    let newFormData = {};
+    newFormData.name = event.target.name;
+    switch (newFormData.name) {
+      case "files":
+        newFormData.value = Array.from(event.target.files);
+        break;
+      case "img":
+        newFormData.value = Array.from(event.target.files)[0];
+        break;
 
-    setState({
-      [name]: value,
-    })
-  }
+      default:
+        newFormData.value = event.target.value
+    }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+    setFormData(newFormData);
+  };
+
+
+  const handleSubmit = async (event) => {
+    console.log('in edit tutor profile')
+    await apiEndPoints.updateTutorProfile(tutorProfile.email, formData)
+      .then(function (response) {
+        console.log("Submiteed course form details")
+        console.log(response)
+        if (!alert(response.data.message))
+          window.location.reload()
+
+        event.preventDefault()
+      })
+  };
+
+  const handleDeleteFile = async (fileToDeleteID) => {
+    await apiEndPoints.deleteTutorFile(fileToDeleteID)
+      .then(function (response) {
+        if (!alert(response.data.message))
+          window.location.reload()
+      })
   }
 
   return (
@@ -98,19 +128,17 @@ function EditTutorProfile(props) {
                 />
               </Form.Group>
               <h6>
-                {/* To Do: add real value of the rating and num of reviews after receiving it from the backend */}
-                {4.5}
+                {tutorProfile.rating}
                 <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
                 {/* To Do: Add num of reviews from backend */}
                 {180})
               </h6>
               <Button
-                type="submit"
                 variant="outline-primary"
                 style={{ margin: "5px" }}
                 onClick={handleSubmit}
               >
-                Submit
+                Save
               </Button>
               <Button
                 variant="outline-danger"
@@ -145,7 +173,7 @@ function EditTutorProfile(props) {
               <h3>Files</h3>
               <ListGroup variant="flush">
                 {tutorProfile.files.map((file) => (
-                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} />
+                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} onDelete={handleDeleteFile}/>
                 ))}
 
                 <ListGroup.Item>
@@ -154,18 +182,13 @@ function EditTutorProfile(props) {
                       Upload new files to your profile
                     </Form.Label>
                     <Form.Control
-                      name="file"
+                      name="files"
                       type="file"
                       onChange={handleChange}
+                      multiple
                     />
                   </Form.Group>
-                  {/* <Button
-                                        variant="outline-primary"
-                                        style={{ margin: "5px" }}
-                                        onClick={uploadFileOnClick}
-                                    >
-                                        Upload file
-                                    </Button> */}
+                  
                 </ListGroup.Item>
               </ListGroup>
             </div>
