@@ -199,6 +199,14 @@ async function getTutorProfile(tutorID) {
   })
 }
 
+async function getTutorById(id) {
+  return await axiosInstance.get("/tutors", {
+    params: {
+      tutor_id: id
+    }
+  })
+}
+
 async function getTutorFiles(tutorID) {
   console.log("in get tutor files api call")
   return await axiosInstance.get(`/getallprofilefilesbyuserid/${tutorID}`)
@@ -280,6 +288,7 @@ const apiEndPoints = {
   getTutorCourses,
   reportReview,
   getTutorProfile,
+  getTutorById,
   getCourseReviews,
   getTutorFiles,
   addCourseReview,

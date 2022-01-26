@@ -3,7 +3,7 @@ import { Container, Row, Col, ListGroup, Button, Modal } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import NewCourseReviewForm from "../Components/NewCourseReviewForm"
 import apiEndPoints from "../Components/ApiEndpoints"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import jwt_decode from "jwt-decode"
 import CourseImage1 from "../images/course1.jpg"
 import FileListItem from "../Components/FileListItem"
@@ -73,8 +73,7 @@ function CourseDetails() {
             {
               // only (logged in) users who are not THIS tutor should see the "Contact" button
               status === null ? <div /> : courseDetails.User.id !== token.id ?
-                // TODO: fix forward to Chat
-                <Button variant="outline-primary" href={"/chat/" + courseDetails.User.id}>Contact tutor</Button> :
+                <Link to={"/chat"} state={{ contact: courseDetails.User }}><Button variant="outline-primary">Contact tutor</Button></Link> :
                 <Button variant="outline-primary" style={{ margin: "5px" }} href={"/editCourse/" + id}>Edit Course</Button>
             }
           </Col>

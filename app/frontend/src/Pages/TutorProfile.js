@@ -3,7 +3,7 @@ import { Container, Row, Col, ListGroup, Button, Image, Card } from "react-boots
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import CourseCard from "../Components/CourseCard"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import apiEndPoints from "../Components/ApiEndpoints"
 import jwt_decode from "jwt-decode"
 import tutorImage1 from "../images/tutor1.jpg"
@@ -23,8 +23,16 @@ function TutorProfileTutorView() {
     setTutorProfile(tutorProfile)
   }
 
+  const [tutor, setTutor] = useState([])
+
+  const getTutor = async () => {
+    const data = await apiEndPoints.getTutorById(id)
+    setTutor(() => data.data.data[0])
+  }
+
   useEffect(() => {
     getTutorProfile(id)
+    getTutor()
   }, [])
 
   return (
@@ -57,13 +65,10 @@ function TutorProfileTutorView() {
                 <></> :
                 // only THIS tutor should see the "Edit profile" button, everyone else should see "Contact tutor"
                 id != token.id ?
-                  <Button
-                    variant="outline-primary"
-                    style={{ margin: "5px" }}
-                    href={"/chat/" + tutorProfile.id}
-                  >
-                    Contact tutor
-                  </Button> :
+                  <Link to={"/chat"} state={{ contact: tutor }}>
+                    <Button variant="outline-primary" style={{ margin: "5px" }}>Contact tutor</Button>
+                  </Link>
+                  :
                   <Button
                     variant="outline-primary"
                     style={{ margin: "5px" }}
@@ -119,9 +124,6 @@ function TutorProfileTutorView() {
               >
                 <Card.Body>
                   {
-                    console.log(status)
-                  }
-                  {
                     // users who are not THIS tutor should not see an "Add course" button
                     id != token.id ?
                       <></>
@@ -154,7 +156,7 @@ function TutorProfileTutorView() {
             </Container>
           </Container>
         </Row>
-      </Container>
+      </Container >
     )
   )
 }
