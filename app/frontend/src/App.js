@@ -30,7 +30,7 @@ function App() {
         <Route exact path="/editCourse/:id" element={<PageTemplate><EditCourseDetails /></PageTemplate>} />
         <Route exact path="/addCourse" element={<PageTemplate><AddCourse /></ PageTemplate>} />
         <Route exact path="/tutor/:id" element={<PageTemplate><TutorProfile /></ PageTemplate>} />
-        <Route exact path="/editTutorProfile/:id" element={<PageTemplate><EditTutorProfile /></ PageTemplate>} />
+        <Route exact path="/editTutorProfile" element={<PageTemplate><EditTutorProfile /></ PageTemplate>} />
         <Route exact path="/users" element={<PageTemplate><Users /></PageTemplate>} />
         <Route exact path="/approvals" element={<PageTemplate><Approvals /></PageTemplate>} />
         <Route exact path="/messages" element={<PageTemplate><Messages /></PageTemplate>} />

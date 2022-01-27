@@ -60,7 +60,7 @@ function CourseDetails() {
               </a>
             </i>
             <br />
-            {courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
+            {(courseDetails.coursePricePerHour === null)? 0 : courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
             {courseDetails.rating}
             <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>
             ({
@@ -131,7 +131,7 @@ function CourseDetails() {
 
           <div>
             {/* TODO: check the correct way to get the unreported reviews */}
-            {courseDetails.Reviews.filter((review) => review.reportReview === null).map((review) => (
+            {courseDetails.Reviews.filter((review) => review.reportReview === null).reverse().map((review) => (
               <Review review={review} key={review.id} />
             ))}
           </div>
