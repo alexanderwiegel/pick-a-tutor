@@ -3,6 +3,7 @@ const { Sequelize } = require("sequelize");
 const Op = Sequelize.Op;
 const jwtdecode = require("jwt-decode");
 const User = require("../db/model/User")
+const fs = require("fs");
 
 // // *************************Upload File*****************************
 
@@ -226,3 +227,10 @@ const deleteuserprofilefile = async (req, res, next) => {
 };
 
 exports.deleteuserprofilefile = deleteuserprofilefile;
+
+exports.downloadFile = async (req, res) => {
+    let id = req.query.id;
+    let profileFile = await UserProfileFiles.findOne({where: {id: id}});
+    res.download(profileFile.filePath);
+}
+

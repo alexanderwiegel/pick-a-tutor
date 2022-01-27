@@ -17,7 +17,7 @@ function CardComponent({ name, course }) {
       >
         <Card.Img
           variant="top"
-          src="https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg"
+          src={require("../images/tutor1.jpg")}
           style={{
             height: "150px",
             width: "150px",
@@ -36,7 +36,7 @@ function CardComponent({ name, course }) {
           {course.Course.name}
           <hr />
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
-            {(course.coursePricePerHour === null)? 0 : course.coursePricePerHour}€/h
+            {(course.coursePricePerHour === null) ? 0 : course.coursePricePerHour}€/h
           </p>
           <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
             {course.rating}

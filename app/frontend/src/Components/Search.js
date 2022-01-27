@@ -9,7 +9,7 @@ function Search() {
     <div id="search">
       <h3>Try searching for your subject</h3 >
       <div className='search-input' >
-        <input placeholder='Search here ...' style={{ fontSize: '1rem' }} onChange={(e) => setSearch(e.target.value)} />
+        <input maxLength='40' placeholder='Search here ...' style={{ fontSize: '1rem' }} onChange={(e) => setSearch(e.target.value)} />
         <Link to={'/browse'} state={{
           search: search,
           source: location.pathname
