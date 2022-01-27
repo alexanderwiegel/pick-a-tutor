@@ -157,7 +157,7 @@ async function getCourseDetails(courseID) {
   const allCoursesData = await axiosInstance.get("/tutor_courses")
   const allCourses = allCoursesData.data.data
   // use equality operator == not strict equality operator === because courseID is sent as string
-  let course = allCourses.find((course) => course.id == courseID)
+  let course = allCourses.find((course) => course.CourseId == courseID)
   // clean the course json data and make it more structured
   course = Object.assign(course, course.Course)
   delete course.Course
