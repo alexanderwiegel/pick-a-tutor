@@ -54,9 +54,7 @@ function TutorProfile() {
             <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id == token.id ? "(You)" : ""}</h3>
             <h6>
               {tutorProfile.rating}
-              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
-              {/* TODO: Add num of reviews from backend */}
-              {1})
+              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> ({tutorProfile.nRatings})
             </h6>
             {
               // only logged in users should see a button
