@@ -1,4 +1,4 @@
-import React, { useState, setState, useEffect, useReducer } from "react"
+import React, { useState, useEffect, useReducer } from "react"
 import {
   Container,
   Row,
@@ -17,7 +17,7 @@ import apiEndPoints from "../Components/ApiEndpoints"
 import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 
-function EditTutorProfile(props) {
+function EditTutorProfile() {
   const formReducer = (state, event) => {
     return {
       ...state,
@@ -128,12 +128,6 @@ function EditTutorProfile(props) {
                   onChange={handleChange}
                 />
               </Form.Group>
-              <h6>
-                {tutorProfile.rating}
-                <i className="bi bi-star-fill" style={{ color: "#ffff00" }} />
-                {/* To Do: Add num of reviews from backend */}
-
-              </h6>
 
               <Form.Group controlId="tutorGender">
                 <Form.Label as="b">Gender: </Form.Label> &nbsp;&nbsp;
