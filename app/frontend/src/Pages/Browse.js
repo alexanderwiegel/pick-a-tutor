@@ -8,6 +8,7 @@ import { Container, ToggleButton, Row, Col, FloatingLabel, Form, Button } from '
 import Sort from "../Components/Sort";
 import _, { split, startCase } from "lodash";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import CardComponentTutorOfTheMonth from "../Components/CardComponentTutorOfTheMonth";
 
 function Browse(props) {
   const [users, setUsers] = useState([])
@@ -308,6 +309,7 @@ function Browse(props) {
                   loading &&
                   <h1>Fetching data...</h1>
                 }
+                <CardComponentTutorOfTheMonth />
                 {
                   (category === "tutor" && users.length > 0 && !loading) &&
                   users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} />
