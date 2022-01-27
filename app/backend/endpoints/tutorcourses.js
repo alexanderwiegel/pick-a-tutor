@@ -18,11 +18,11 @@ const getTutorCourses = async (req, res) => {
             where: {
                 UserId: req.query.tutor_id,
             },
-            include: [Course, User, Review],
+            include: [Course, User, {model: Review, include: [{model: User, as: "student"}]}],
         });
     } else {
         tutorCourses = await TutorCourse.findAll({
-            include: [Course, User, Review],
+            include: [Course, User, {model: Review, include: [{model: User, as: "student"}]}],
         });
     }
     if (tutorCourses) {
@@ -102,9 +102,7 @@ const getTutorCoursesHome = async (req, res) => {
             {
                 model: User,
             },
-            {
-                model: Review,
-            },
+            {model: Review, include: [{model: User, as: "student"}]}
         ],
     });
 
