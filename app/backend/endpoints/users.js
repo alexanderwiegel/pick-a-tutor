@@ -187,29 +187,9 @@ const updateuser = async (req, res, next) => {
                     isTutor: req.body.isTutor ?? user.isTutor,
                     isAdmin: req.body.isAdmin ?? user.isAdmin,
                     status: req.body.status ?? user.status,
+                    description: req.body.description ?? userProfile.description,
                 });
 
-                const userProfile = await UserProfile.findOne({
-                    where: { UserId: user.id },
-                });
-
-                if(userProfile){
-                    //console.log("userProfile found");
-                    //console.log("req.body.description: " + req.body.description);
-                    try{
-                        await userProfile.update({
-                            description: req.body.description ?? userProfile.description,
-                        });
-                        //console.log("Inside user Update Area!");
-                    }
-                    catch (e) {
-                        res.json({
-                            success: false,
-                            message: "User " + user.email + " profile description updation failed" + e,
-                            records: user.length,
-                        });
-                    }
-                }
                 res.json({
                     success: true,
                     message: "User '" + user.email + "' successfully updated",
