@@ -52,11 +52,8 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
     const response = (isNewCourse) ? await apiEndPoints.addNewCourse(formData) : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
     console.log("Submiteed course form details")
     console.log(response)
-    if (!response.data.success)
-      alert('Failure ' + response.data.message)
-    else if (window.confirm('Success ' + response.data.message))
+    if (alert(response.data.message))
       window.location.reload();
-
 
     event.preventDefault()
   };
