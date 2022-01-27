@@ -89,6 +89,10 @@ router.delete(
     authgeneral,
     userprofilefiles.deleteuserprofilefile
 );
+router.get(
+    "/downloadprofilefile",
+    userprofilefiles.downloadFile
+)
 
 //*******StudentEnrolledCourses Routes*******
 router.get(
