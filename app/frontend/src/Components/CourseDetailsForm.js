@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer } from "react"
 import {
   Container,
   Row,
@@ -7,12 +7,11 @@ import {
   Button,
   Image,
   Form,
-} from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import { Link } from "react-router-dom";
-import apiEndPoints from "./ApiEndpoints";
-import FileListItem from "../Components/FileListItem";
-import CourseImage1 from "../images/course1.jpg";
+} from "react-bootstrap"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import apiEndPoints from "./ApiEndpoints"
+import FileListItem from "../Components/FileListItem"
+import CourseImage1 from "../images/course1.jpg"
 
 
 function CourseDetailsForm({ isNewCourse, courseDetails }) {
@@ -20,50 +19,50 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
     return {
       ...state,
       [event.name]: event.value,
-    };
-  };
-  const [formData, setFormData] = useReducer(formReducer, {});
+    }
+  }
+  const [formData, setFormData] = useReducer(formReducer, {})
 
   const handleChange = (event) => {
     console.log(event)
-    let newFormData = {};
-    newFormData.name = event.target.name;
+    let newFormData = {}
+    newFormData.name = event.target.name
     switch (newFormData.name) {
       case "files":
-        newFormData.value = Array.from(event.target.files);
-        break;
+        newFormData.value = Array.from(event.target.files)
+        break
       case "img":
-        newFormData.value = Array.from(event.target.files)[0];
-        break;
+        newFormData.value = Array.from(event.target.files)[0]
+        break
       case "isFull":
         newFormData.value = event.target.checked
-        break;
-      
+        break
+
       default:
         newFormData.value = event.target.value
     }
 
-    setFormData(newFormData);
-  };
+    setFormData(newFormData)
+  }
 
-  
+
   const handleSubmit = async (event) => {
     console.log('in submit course details form')
     const response = (isNewCourse) ? await apiEndPoints.addNewCourse(formData) : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
     console.log("Submiteed course form details")
     console.log(response)
     if (alert(response.data.message))
-      window.location.reload();
+      window.location.reload()
 
     event.preventDefault()
-  };
+  }
 
   const handleDeleteFile = async (fileToDeleteID) => {
     await apiEndPoints.deleteCourseFile(fileToDeleteID)
       .then(function (response) {
         if (!alert(response.data.message))
           window.location.reload()
-    })
+      })
   }
 
   return (
@@ -106,9 +105,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             By
             <i>
               <a href={"/tutor/" + courseDetails.User.id}>
-                {courseDetails.User.firstName +
-                  " " +
-                  courseDetails.User.lastName}
+                {" " + courseDetails.User.firstName + " " + courseDetails.User.lastName}
               </a>
             </i>
             <br />
@@ -139,17 +136,6 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                 />
               </Form.Group>
             </Row>
-            {isNewCourse ? 0 : courseDetails.rating}
-            <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>(
-            {
-              // Show the number of unreported reviews, TODO: check the correct way to get the unreported reviews
-              isNewCourse
-                ? 0
-                : courseDetails.Reviews.filter(
-                  (review) => review.reportReview === null
-                ).length
-            }
-            )
             <br />
             <Button
               variant="outline-primary"
@@ -158,7 +144,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             >
               Save
             </Button>
-            <Button variant="outline-danger" style={{ margin: "5px" }} href={isNewCourse? `/tutor/${courseDetails.User.id}`: `/course/${courseDetails.id}`}>
+            <Button variant="outline-danger" style={{ margin: "5px" }} href={isNewCourse ? `/tutor/${courseDetails.User.id}` : `/course/${courseDetails.id}`}>
               Cancel
             </Button>
           </Col>
@@ -188,7 +174,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             {!isNewCourse &&
               <ListGroup variant="flush">
                 {courseDetails.files.map((file) => (
-                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} onDelete={handleDeleteFile}/>
+                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} onDelete={handleDeleteFile} />
                 ))}
               </ListGroup>
             }
@@ -205,7 +191,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
         </Row>
       </Form>
     </Container>
-  );
+  )
 }
 
-export default CourseDetailsForm;
+export default CourseDetailsForm
