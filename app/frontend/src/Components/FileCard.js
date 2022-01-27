@@ -28,7 +28,9 @@ function FileCard({ user, file, handleOnApproveOrReject }) {
         <Card.Body>
           <Form>
             <Card.Text>
-              {file.fileTitle}
+              <a href={"http://20.113.25.17:3001/api/downloadprofilefile?path=" + file.filePath} download={file.fileTitle}>
+                {file.fileTitle}
+              </a>
             </Card.Text>
             <ButtonGroup className='d-flex'>
               <Button onClick={() => updateFile("Rejected")} variant="danger">Reject</Button>
