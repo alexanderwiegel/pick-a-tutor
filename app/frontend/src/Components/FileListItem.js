@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Button, ListGroup, Modal } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
-import apiEndPoints from "./ApiEndpoints"
 
 function FileListItem(props) {
   const file = props.file
@@ -25,7 +24,6 @@ function FileListItem(props) {
   return (
     <ListGroup.Item>
       <div className="d-flex justify-content-between">
-
         <a href={`http://20.113.25.17:3001/api/downloadprofilefile?path=${file.filePath}`} download={`http://20.113.25.17:3001/api/downloadprofilefile?path=${file.filePath}`}>
           {file.fileTitle}
         </a>
