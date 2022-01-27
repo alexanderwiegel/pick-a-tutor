@@ -45,7 +45,7 @@ exports.getReportedReviews = async (req, res) => {
     }
 };
 
-async function calculateNewRating(courseId) {
+exports.calculateNewRating = async function calculateNewRating(courseId) {
     let course = await TutorCourse.findOne({
         where: { id: courseId },
     });
@@ -58,13 +58,16 @@ async function calculateNewRating(courseId) {
     }
     let rating = r_sum / reviews.length;
     rating = Math.round((rating + Number.EPSILON) * 100) / 100;
-    course.rating = rating;
     course.nRatings = reviews.length;
+    if (course.nRatings === 0)
+        course.rating = 0;
+    else
+        course.rating = rating;
     await course.save();
     console.log("New rating for course id: " + courseId + ": " + course.rating);
 }
 
-async function tutorNewRating(tutorId){
+exports.tutorNewRating = async function tutorNewRating(tutorId){
     let user = await User.findOne({
         where: { id: tutorId}
     });
@@ -85,8 +88,11 @@ async function tutorNewRating(tutorId){
     if (tutorReviews.length === 0) return;
     let rating = ratingsSum / tutorReviews.length;
     rating = Math.round((rating + Number.EPSILON) * 100) / 100;
-    user.rating = rating;
     user.nRatings = nRatings;
+    if (nRatings === 0)
+        user.rating = 0;
+    else
+        user.rating = rating;
     await user.save();
     console.log("New rating for tutor id: " + tutorId + ": " + user.rating);
 }
@@ -106,9 +112,8 @@ exports.addReview = async (req, res) => {
         await review.save();
         console.log("Created review: " + review);
 
-        await calculateNewRating(req.body.courseId);
-
-        await tutorNewRating(req.body.tutorId)
+        await exports.calculateNewRating(req.body.courseId);
+        await exports.tutorNewRating(req.body.tutorId)
 
         res.json(new SuccessfulResponse("Review created", [review]));
     } catch (e) {
