@@ -25,10 +25,10 @@ function MenuItem(props) {
       <Link to={"/" + add} onClick={props.onClick} style={{ textDecoration: "none", fontFamily: "inherit" }}>
         {name}
         {
-          name === "approvals" && <Badge bg="light" text="danger" >{props.amountToApprove || ""}</Badge>
+          name === "approvals" && <Badge bg="transparent" text="danger" >{props.amountToApprove || ""}</Badge>
         }
         {
-          name === "messages" && <Badge bg="light" text="danger" >{props.unreadMessages || ""}</Badge>
+          name === "messages" && <Badge bg="transparent" text="danger">{props.unreadMessages || ""}</Badge>
         }
       </Link>
     </li>

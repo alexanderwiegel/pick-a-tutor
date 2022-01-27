@@ -1,16 +1,29 @@
-import React from "react";
-import { Card, Button } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Card, Button, Badge } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router-dom";
+import apiEndPoints from './ApiEndpoints';
+import { useEffect } from 'react';
 
-function CardComponentTutor({ name, tutor }) {
+function CardComponentTutorOfTheMonth(props) {
+  const [bestTutor, setBestTutor] = useState();
+  const getTOTMdata = async () => {
+    const data = await apiEndPoints.getTutorOfTheMonth()
+    setBestTutor(() => data.data.data[0]);
+  };
+  console.log(bestTutor)
+  useEffect(() => {
+    getTOTMdata();
+  }, []);
   return (
     <Card
       style={{
         fontSize: "1rem",
-        borderColor: "transparent",
+        borderColor: "gold",
+        borderWidth: "2px"
       }}
     >
+      <Badge bg="warning" text="danger" >TUTOR OF THE MONTH</Badge>
       <div
         className="d-flex justify-content-center"
         style={{ paddingTop: "20px" }}
@@ -26,6 +39,7 @@ function CardComponentTutor({ name, tutor }) {
         />
       </div>
       <Card.Body>
+
         <Card.Title
           style={{
             display: "flex",
@@ -33,13 +47,12 @@ function CardComponentTutor({ name, tutor }) {
             fontSize: "1rem",
           }}
         >
-          <p>{tutor.firstName}</p>
+          <p>{bestTutor?.firstName}</p>
 
           <hr />
 
           <p style={{ paddingLeft: "4px" }}>
-            {/* TODO: Add the right value of rating, once the backend is ready */}
-            {tutor.rating}
+            {bestTutor?.rating_avg}
             <i className="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
         </Card.Title>
@@ -52,9 +65,10 @@ function CardComponentTutor({ name, tutor }) {
             display: "flex"
           }}
         >
-          {
+          {/* {
             tutor?.Courses.map(course => <p>{course.name}</p>)
-          }
+          } */}
+          {bestTutor?.courseName}
         </Card.Text>
         <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>
         </Card.Text>
@@ -62,15 +76,15 @@ function CardComponentTutor({ name, tutor }) {
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}
           >
-            {/* TODO : check and send tutor id (tutor.id) and link it to the next page */}
-            <Link to={`/tutor/${tutor.id}`} state={{ id: tutor.id }} style={{ color: '#ffffff' }}>
-              Meet {name}
+            {/* TODO: Send state to the profile page of tutor state={{ id: tutor.id }} and to={`/tutor/${tutor.id}`} */}
+            <Link to="/" style={{ color: '#ffffff' }}>
+              Meet {bestTutor?.firstName + " " + bestTutor?.lastName}
             </Link>
           </Button>
         </div>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
-export default CardComponentTutor
+export default CardComponentTutorOfTheMonth;
