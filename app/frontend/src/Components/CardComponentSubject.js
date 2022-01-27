@@ -33,7 +33,7 @@ function CardComponent({ name, course }) {
             fontSize: "1rem",
           }}
         >
-          {course.Course.name}
+          {course.Course?.name}
           <hr />
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
             {(course.coursePricePerHour === null) ? 0 : course.coursePricePerHour}€/h
