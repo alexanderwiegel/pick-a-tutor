@@ -73,13 +73,13 @@ Review.belongsTo(User, { as: "reporter" });
 
     //For UserProfileFiles
     UserProfileFiles.belongsTo(User, {
-    foreignKey: "userId",
+    foreignKey: "UserId",
 });
 User.hasMany(UserProfileFiles);
 
 //For CourseAdditionalInfo
 CourseAdditionalInfo.belongsTo(Course, {
-    foreignKey: "courseId",
+    foreignKey: "CourseId",
 });
 Course.hasMany(CourseAdditionalInfo);
 

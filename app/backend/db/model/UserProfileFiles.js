@@ -6,7 +6,7 @@ class UserProfileFiles extends Model {}
 
 UserProfileFiles.init(
     {
-        userId: {
+        UserId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
