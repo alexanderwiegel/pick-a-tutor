@@ -123,7 +123,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                   size="sm"
                   name="coursePricePerHour"
                   defaultValue={
-                    isNewCourse ? "" : courseDetails.coursePricePerHour
+                    isNewCourse ? 0 : courseDetails.coursePricePerHour
                   }
                   placeholder="0"
                   className="mb-2"

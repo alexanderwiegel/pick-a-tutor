@@ -60,7 +60,7 @@ function CourseDetails() {
               </a>
             </i>
             <br />
-            {courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
+            {(courseDetails.coursePricePerHour === null)? 0 : courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
             {courseDetails.rating}
             <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>
             ({

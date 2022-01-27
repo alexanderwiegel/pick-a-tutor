@@ -40,7 +40,7 @@ function CourseCard({ tutorName, course }) {
 
           <hr />
           <p style={{ marginLeft: "2px", paddingLeft: "4px" }}>
-            {course.coursePricePerHour} €/h
+            {(course.coursePricePerHour === null)? 0 : course.coursePricePerHour} €/h
           </p>
           <p style={{ paddingLeft: "4px" }} defaultValue="0.0">
             {course.rating}
