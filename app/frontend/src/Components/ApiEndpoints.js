@@ -340,6 +340,8 @@ async function updateTutorProfile(tutorEmail, formData) {
     requestBody.lastName = formData.lastName
   if (formData.description)
     requestBody.description = formData.description
+  if (formData.gender)
+    requestBody.gender = formData.gender
 
   const response = await axiosInstance.patch(`/tutors/${tutorEmail}`, requestBody)
   return response;

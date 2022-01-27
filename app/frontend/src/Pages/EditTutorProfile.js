@@ -8,6 +8,7 @@ import {
   Image,
   Card,
   Form,
+  FloatingLabel,
 } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
@@ -129,10 +130,49 @@ function EditTutorProfile(props) {
               </Form.Group>
               <h6>
                 {tutorProfile.rating}
-                <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> 
+                <i className="bi bi-star-fill" style={{ color: "#ffff00" }} />
                 {/* To Do: Add num of reviews from backend */}
-                
+
               </h6>
+
+              <Form.Group controlId="tutorGender">
+                <Form.Label as="b">Gender: </Form.Label> &nbsp;&nbsp;
+                <Form.Check
+                  inline
+                  id="radio-m"
+                  name="gender"
+                  type="radio"
+                  aria-label="radio male"
+                  label="Male"
+                  onClick={handleChange}
+                  defaultChecked={tutorProfile.gender === 0}
+                  value="0"
+                />
+                <Form.Check
+                  inline
+                  id="radio-f"
+                  name="gender"
+                  type="radio"
+                  aria-label="radio female"
+                  label="Female"
+                  defaultChecked={tutorProfile.gender === 1}
+                  onClick={handleChange}
+                  value="1"
+                />
+                <Form.Check
+                  inline
+                  id="radio-d"
+                  name="gender"
+                  type="radio"
+                  aria-label="radio diverse"
+                  label="Diverse"
+                  onClick={handleChange}
+                  defaultChecked={tutorProfile.gender === 2}
+                  value="2"
+                />
+              </Form.Group>
+
+
               <Button
                 variant="outline-primary"
                 style={{ margin: "5px" }}
@@ -173,7 +213,7 @@ function EditTutorProfile(props) {
               <h3>Files</h3>
               <ListGroup variant="flush">
                 {tutorProfile.files.map((file) => (
-                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} onDelete={handleDeleteFile}/>
+                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} onDelete={handleDeleteFile} />
                 ))}
 
                 <ListGroup.Item>
@@ -188,7 +228,7 @@ function EditTutorProfile(props) {
                       multiple
                     />
                   </Form.Group>
-                  
+
                 </ListGroup.Item>
               </ListGroup>
             </div>
@@ -236,7 +276,7 @@ function EditTutorProfile(props) {
             </Container>
           </Row>
         </Form>
-      </Container>
+      </Container >
     )
   )
 }
