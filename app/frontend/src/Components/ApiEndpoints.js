@@ -261,7 +261,7 @@ async function addCourseFile(courseID, file) {
     },
   }
   var formData = new FormData()
-  formData.append("file", file, file.stream)
+  formData.append("file", file, file.name)
   formData.append("fileTitle", file.name)
   formData.append("courseId", courseID)
   const response = await axiosInstance.post("createcoursefile", formData, config)
@@ -309,7 +309,7 @@ async function addTutorFile(file) {
     },
   }
   var formData = new FormData()
-  formData.append("file", file, file.stream)
+  formData.append("file", file, file.name)
   formData.append("fileTitle", file.name)
   const response = await axiosInstance.post("createprofilefile", formData, config)
   console.log("api call upload file " + file.name)
