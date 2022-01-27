@@ -23,7 +23,6 @@ const initialValues = {
 let schema = yup.object().shape({
   email: yup.string().email("Enter valid email address").required("Email is required"),
   password: yup.string().min(5, "Too short").required("Password is required")
-
 });
 
 export default function Login() {
@@ -42,7 +41,7 @@ export default function Login() {
       localStorage.setItem('statusCode', 'Tutor')
       navigate("/")
     }
-    
+
     localStorage.setItem('userID', decoded.id)
   }
 
