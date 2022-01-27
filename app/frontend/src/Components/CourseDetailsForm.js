@@ -52,15 +52,19 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
     const response = (isNewCourse) ? await apiEndPoints.addNewCourse(formData) : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
     console.log("Submiteed course form details")
     console.log(response)
-    if (!response.data.success)
-      alert('Failure ' + response.data.message)
-    else if (window.confirm('Success ' + response.data.message))
+    if (alert(response.data.message))
       window.location.reload();
-
-
 
     event.preventDefault()
   };
+
+  const handleDeleteFile = async (fileToDeleteID) => {
+    await apiEndPoints.deleteCourseFile(fileToDeleteID)
+      .then(function (response) {
+        if (!alert(response.data.message))
+          window.location.reload()
+    })
+  }
 
   return (
     <Container>
@@ -116,7 +120,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                   size="sm"
                   name="coursePricePerHour"
                   defaultValue={
-                    isNewCourse ? "" : courseDetails.coursePricePerHour
+                    isNewCourse ? 0 : courseDetails.coursePricePerHour
                   }
                   placeholder="0"
                   className="mb-2"
@@ -154,7 +158,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             >
               Save
             </Button>
-            <Button variant="outline-danger" style={{ margin: "5px" }}>
+            <Button variant="outline-danger" style={{ margin: "5px" }} href={isNewCourse? `/tutor/${courseDetails.User.id}`: `/course/${courseDetails.id}`}>
               Cancel
             </Button>
           </Col>
@@ -184,7 +188,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             {!isNewCourse &&
               <ListGroup variant="flush">
                 {courseDetails.files.map((file) => (
-                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} />
+                  <FileListItem file={file} isThisTutor={true} editMode={true} key={file.id} onDelete={handleDeleteFile}/>
                 ))}
               </ListGroup>
             }

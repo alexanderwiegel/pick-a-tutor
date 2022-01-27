@@ -56,19 +56,13 @@ function CourseDetails() {
             By
             <i>
               <a href={"/tutor/" + courseDetails.User.id}>
-                {courseDetails.User.firstName + " " + courseDetails.User.lastName} {courseDetails.User.id !== token.id ? "" : "(You)"}
+                {" " + courseDetails.User.firstName + " " + courseDetails.User.lastName} {courseDetails.User.id !== token.id ? "" : "(You)"}
               </a>
             </i>
             <br />
-            {courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
+            {(courseDetails.coursePricePerHour === null) ? 0 : courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
             {courseDetails.rating}
-            <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>
-            ({
-              // Show the number of unreported reviews, TODO: check the correct way to get the unreported reviews
-              courseDetails.Reviews.filter(
-                (review) => review.reportReview === null
-              ).length
-            })
+            <i className="bi bi-star-fill" style={{ color: "#ffff00" }} />({courseDetails.nRatings})
             <br />
             {
               // only (logged in) users who are not THIS tutor should see the "Contact" button
@@ -130,8 +124,7 @@ function CourseDetails() {
           </div>
 
           <div>
-            {/* TODO: check the correct way to get the unreported reviews */}
-            {courseDetails.Reviews.filter((review) => review.reportReview === null).map((review) => (
+            {courseDetails.Reviews.reverse().map((review) => (
               <Review review={review} key={review.id} />
             ))}
           </div>

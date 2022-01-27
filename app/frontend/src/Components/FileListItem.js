@@ -18,12 +18,8 @@ function FileListItem(props) {
   }
 
   const handleFileDeleteClick = async (event) => {
-    await apiEndPoints.deleteCourseFile(fileToDeleteID)
-      .then(function (response) {
-        if (!alert(response.data.message))
-          window.location.reload()
-        event.preventDefault()
-    })
+      props.onDelete(fileToDeleteID)
+      event.preventDefault()
   }
 
   return (

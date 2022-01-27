@@ -18,20 +18,20 @@ function TutorProfile() {
   const [tutorProfile, setTutorProfile] = useState(null)
   const { id } = useParams()
 
-  const getTutorProfile = async (tutorID) => {
-    const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
+  const getTutorProfile = async () => {
+    const tutorProfile = await apiEndPoints.getTutorProfile(id)
     setTutorProfile(tutorProfile)
   }
 
   const [tutor, setTutor] = useState([])
 
   const getTutor = async () => {
-    const data = await apiEndPoints.getTutorById(id)
+    const data = await apiEndPoints.getTutorById()
     setTutor(() => data.data.data[0])
   }
 
   useEffect(() => {
-    getTutorProfile(id)
+    getTutorProfile()
     getTutor()
   }, [])
 
@@ -53,11 +53,8 @@ function TutorProfile() {
           <Col md={7} className="flexColumn">
             <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id == token.id ? "(You)" : ""}</h3>
             <h6>
-              {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
-              {4.5}
-              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
-              {/* TODO: Add num of reviews from backend */}
-              {180})
+              {tutorProfile.rating}
+              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> ({tutorProfile.nRatings})
             </h6>
             {
               // only logged in users should see a button
@@ -69,13 +66,7 @@ function TutorProfile() {
                     <Button variant="outline-primary" style={{ margin: "5px" }}>Contact tutor</Button>
                   </Link>
                   :
-                  <Button
-                    variant="outline-primary"
-                    style={{ margin: "5px" }}
-                    href={"/editTutorProfile/" + id}
-                  >
-                    Edit profile
-                  </Button>
+                  <Button variant="outline-primary" style={{ margin: "5px" }} href={"/editTutorProfile/"}>Edit profile</Button>
             }
           </Col>
         </Row>
@@ -114,30 +105,17 @@ function TutorProfile() {
           <h1>Courses</h1>
           <Container style={{ overflowX: "scroll" }}>
             <Container style={{ display: "flex" }}>
-              <Card
-                style={{
-                  width: "20rem",
-                  fontSize: "1rem",
-                  borderColor: "transparent",
-                  minWidth: "270px",
-                }}
-              >
-                <Card.Body>
-                  {
-                    // users who are not THIS tutor should not see an "Add course" button
-                    id != token.id ?
-                      <></>
-                      :
-                      <Button
-                        variant="outline-primary"
-                        style={{ margin: "5px" }}
-                        href="/addCourse"
-                      >
-                        Add course
-                      </Button>
-                  }
-                </Card.Body>
-              </Card>
+              {
+                // users who are not THIS tutor should not see an "Add course" button
+                id != token.id ?
+                  <></> :
+                  <Card style={{ width: "20rem", fontSize: "1rem", borderColor: "transparent", minWidth: "270px" }}>
+                    <Card.Body>
+                      <Button variant="outline-primary" style={{ margin: "5px" }} href="/addCourse">Add course</Button>
+                    </Card.Body>
+                  </Card>
+              }
+
               {tutorProfile.Courses.map((course) => {
                 // Make the course object structure uniform
                 const formattedCourse = Object.assign(
@@ -145,13 +123,7 @@ function TutorProfile() {
                   course.TutorCourse
                 )
                 return (
-                  <CourseCard
-                    tutorName={
-                      tutorProfile.firstName + " " + tutorProfile.lastName
-                    }
-                    course={formattedCourse}
-                    key={formattedCourse.id}
-                  />
+                  <CourseCard course={formattedCourse} key={formattedCourse.id} />
                 )
               })}
             </Container>

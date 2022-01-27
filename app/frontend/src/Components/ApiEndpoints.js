@@ -157,7 +157,7 @@ async function getCourseDetails(courseID) {
   const allCoursesData = await axiosInstance.get("/tutor_courses")
   const allCourses = allCoursesData.data.data
   // use equality operator == not strict equality operator === because courseID is sent as string
-  let course = allCourses.find((course) => course.id == courseID)
+  let course = allCourses.find((course) => course.CourseId == courseID)
   // clean the course json data and make it more structured
   course = Object.assign(course, course.Course)
   delete course.Course
@@ -300,6 +300,55 @@ async function deleteCourseFile(fileID) {
   return response;
 }
 
+async function addTutorFile(file) {
+  const config = {
+    baseURL: "http://20.113.25.17:3001/api",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+  var formData = new FormData()
+  formData.append("file", file, file.stream)
+  formData.append("fileTitle", file.name)
+  const response = await axiosInstance.post("createprofilefile", formData, config)
+  console.log("api call upload file " + file.name)
+  console.log(response)
+  return response;
+}
+
+async function deleteTutorFile(fileID) {
+  console.log('in delete course file api call')
+  const response = await axiosInstance.delete(`/deleteuserprofilefile/${fileID}`)
+  console.log(response)
+  return response;
+}
+
+async function updateTutorProfile(tutorEmail, formData) {
+  if (formData.files) {
+    Promise.all(formData.files.map((file) => addTutorFile(file)))
+      .then(function (results) {
+        console.log("all files uploaded")
+        console.log(results)
+      })
+  }
+
+  const requestBody = {}
+  if (formData.firstName)
+    requestBody.firstName = formData.firstName
+  if (formData.lastName)
+    requestBody.lastName = formData.lastName
+  if (formData.description)
+    requestBody.description = formData.description
+  if (formData.gender)
+    requestBody.gender = formData.gender
+
+  const response = await axiosInstance.patch(`/tutors/${tutorEmail}`, requestBody)
+  return response;
+}
+
+
+
 
 const apiEndPoints = {
   getTutorData,
@@ -337,6 +386,9 @@ const apiEndPoints = {
   getFilteredTutor,
   updateCourseDetails,
   deleteCourseFile,
+  addTutorFile,
+  deleteTutorFile,
+  updateTutorProfile,
 }
 
 export default apiEndPoints
