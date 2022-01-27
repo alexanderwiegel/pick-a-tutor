@@ -54,8 +54,8 @@ const CardComponentMyCourses = (course) => {
           </Card.Text>
           {localStorage.getItem("user") &&
             <div style={{ display: "flex", flexDirection: "column" }}>
-              {/* {console.log("user id= ", course.course.User.id)} */}
-              <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.course.User.id }} >Contact</Link></Card.Link>
+              {console.log("user id= ", course)}
+              <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.course.User }} >Contact</Link></Card.Link>
             </div>}
         </Container>
         <Card.Text style={{ fontSize: "0.7rem" }}>
@@ -63,7 +63,7 @@ const CardComponentMyCourses = (course) => {
         <div className="d-flex justify-content-center">
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}>
-            <Link to={`/course/${course.course.Course.id}`} style={{ color: '#ffffff', display: 'block' }}>
+            <Link to={`/course/${course.course.Course?.id}`} style={{ color: '#ffffff', display: 'block' }}>
               Course details
             </Link>
           </Button>
