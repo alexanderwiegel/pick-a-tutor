@@ -34,6 +34,9 @@ TutorCourse.init(
         rating: {
             type: DataTypes.DECIMAL(4, 2),
         },
+        nRatings: {
+            type: DataTypes.INTEGER,
+        },
         isFull: {
             type: DataTypes.BOOLEAN,
         },

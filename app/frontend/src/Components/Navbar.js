@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
 import logo from "../images/logos/Tutor.png"
 import MenuItem from "./MenuItem"
 import apiEndPoints from "./ApiEndpoints"
@@ -22,11 +21,11 @@ function Navbar() {
     return localStorage.clear()
   }
 
-  const status = localStorage.getItem('statusCode')
+  const status = localStorage.getItem("statusCode")
   var menuItems = []
 
   status === "Admin" ? menuItems = ["users", "approvals", "messages"] :
-    status === "Tutor" ? menuItems = ["tutortv", "browse", "messages"] :
+    status === "Tutor" ? menuItems = ["tutor", "browse", "messages"] :
       status === "Student" ? menuItems = ["home", "browse", "messages"] :
         menuItems = ["landingPage", "browse"]
 

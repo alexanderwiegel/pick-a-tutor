@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import FileCard from '../Components/FileCard'
-import apiEndPoints from '../Components/ApiEndpoints'
+import React, { useEffect, useState } from "react"
+import FileCard from "../Components/FileCard"
+import apiEndPoints from "../Components/ApiEndpoints"
 import ReportedReviewCard from "../Components/ReportedReviewCard"
-import { Accordion, Col, Container, Row } from 'react-bootstrap'
+import { Accordion, Col, Container, Row } from "react-bootstrap"
 
 const Approvals = () => {
+  //#region constants and functions
   const [pFiles, setPFiles] = useState([])
   const [cFiles, setCFiles] = useState([])
   const [reportedReviews, setReportedReviews] = useState([])
@@ -25,20 +26,21 @@ const Approvals = () => {
     getFiles()
     getReportedReviews()
   }, [])
+  //#endregion
 
   const removeFromState = (objectID, objectType) => {
     switch (objectType) {
-      case 'pFile':
+      case "pFile":
         const newPFiles = pFiles.filter((pFile) => pFile.id != objectID)
         setPFiles(newPFiles)
         break
 
-      case 'cFile':
+      case "cFile":
         const newCFiles = cFiles.filter((cFile) => cFile.id != objectID)
         setCFiles(newCFiles)
         break
 
-      case 'reportedReview':
+      case "reportedReview":
         const newReportedReviews = reportedReviews.filter(
           (reportedReview) => reportedReview.id != objectID
         )
@@ -51,7 +53,7 @@ const Approvals = () => {
   }
 
   return (
-    <div className='App'>
+    <div className="App">
       <Container>
         {<Accordion defaultActiveKey={["0", "1"]} alwaysOpen>
           <Accordion.Item eventKey="0">
@@ -62,12 +64,12 @@ const Approvals = () => {
                 <Col>
                   {
                     pFiles.length > 0 && pFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnAcceptOrReject={() => removeFromState(upload.id, 'pFile')}></FileCard>
+                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnApproveOrReject={() => removeFromState(upload.id, "pFile")}></FileCard>
                     )
                   }
                   {
                     cFiles.length > 0 && cFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnAcceptOrReject={() => removeFromState(upload.id, 'cFile')}></FileCard>
+                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnApproveOrReject={() => removeFromState(upload.id, "cFile")}></FileCard>
                     )
                   }
                 </Col>
@@ -84,14 +86,14 @@ const Approvals = () => {
                   {
                     reportedReviews.length > 0 && reportedReviews.map(reportedReview => {
                       return <ReportedReviewCard
-                        courseName={reportedReview.TutorCourse.Course.name}
-                        reviewer={reportedReview.student.firstName + " " + reportedReview.student.lastName}
-                        reporter={reportedReview.reporter.firstName + " " + reportedReview.reporter.lastName}
+                        course={reportedReview.TutorCourse.Course}
+                        reviewer={reportedReview.student}
+                        reporter={reportedReview.reporter}
                         reviewText={reportedReview.ratingComments}
                         reportComment={reportedReview.reportReviewComments}
                         id={reportedReview.id}
                         key={reportedReview.id}
-                        handleOnAcceptOrReject={() => removeFromState(reportedReview.id, 'reportedReview')}
+                        handleOnApproveOrReject={() => removeFromState(reportedReview.id, "reportedReview")}
                       />
                     })
                   }
@@ -107,4 +109,4 @@ const Approvals = () => {
   )
 }
 
-export default Approvals;
+export default Approvals

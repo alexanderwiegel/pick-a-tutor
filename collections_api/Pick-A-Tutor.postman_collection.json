@@ -1111,6 +1111,16 @@
 				{
 					"name": "Get All Student Enrolled Courses",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiY2hhaGF0LnNvbmlAaW5mb3JtYXRpay5ocy1mdWxkYS5kZSIsImlzU3R1ZGVudCI6dHJ1ZSwiaXNUdXRvciI6ZmFsc2UsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDMxOTQ0NDQsImV4cCI6MTY0MzI4MDg0NH0.FxusdEZq9iZBKLCKixgZAfFwYZYIu1dR-POEmVREcCw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -1167,7 +1177,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjI2NDYzOSwiZXhwIjoxNjQyMzUxMDM5fQ.QNRAbdyzZQrPZQcPQBPsbGV2kFQ3RWdd6SQzloaBp7s",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImVtYWlsIjoiZGVlZ29sZHlAaW5mb3JtYXRpay5ocy1mdWxkYS5kZSIsImlzU3R1ZGVudCI6dHJ1ZSwiaXNUdXRvciI6ZmFsc2UsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDMxMzQ3MTIsImV4cCI6MTY0MzIyMTExMn0.CZ_1-B6ol6nEYNENLFCTt08dOiS1ZmoljHw6xZJAzqA",
 									"type": "string"
 								}
 							]
@@ -1176,7 +1186,12 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"studentId\": 3,\r\n        \"tutorId\": 2,\r\n        \"courseId\": 11,\r\n        \"rating\": 5,\r\n        \"ratingComments\": \"The teacher is awesome!\"\r\n}"
+							"raw": "{\r\n        \"studentId\": 15,\r\n        \"tutorId\": 23,\r\n        \"courseId\": 8,\r\n        \"rating\": 4,\r\n        \"ratingComments\": \"The teacher is very cute!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "http://localhost:3001/api/reviews",
@@ -1392,7 +1407,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJqb2hubnlkQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjpmYWxzZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MjI2NDYzOSwiZXhwIjoxNjQyMzUxMDM5fQ.QNRAbdyzZQrPZQcPQBPsbGV2kFQ3RWdd6SQzloaBp7s",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJqb2huZG9lQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50Ijp0cnVlLCJpc1R1dG9yIjp0cnVlLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2NDMyOTQ2MjAsImV4cCI6MTY0MzM4MTAyMH0.HxyYYfL9pNjF4bYjM0WIJ3Qsgn_6qKvvagjtdVLYksU",
 									"type": "string"
 								}
 							]
@@ -1401,10 +1416,15 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"LastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"isStudent\": true,\r\n        \"isTutor\": false,\r\n        \"isAdmin\": false\r\n}"
+							"raw": "{\r\n        \"firstName\": \"UpdatedFirstName\",\r\n        \"lastName\": \"UpdateLastName\",\r\n        \"gender\": 2,\r\n        \"description\": \"I am eight years of experience in Teaching\",\r\n        \"isStudent\": true,\r\n        \"isTutor\": true,\r\n        \"isAdmin\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/tutors/yes21@example.com",
+							"raw": "http://localhost:3001/api/tutors/johndoe@example.com",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1413,7 +1433,7 @@
 							"path": [
 								"api",
 								"tutors",
-								"yes21@example.com"
+								"johndoe@example.com"
 							]
 						}
 					},

@@ -3,11 +3,11 @@ const search = require("../utils/search");
 const User = require("../db/model/User");
 const Course = require("../db/model/Course");
 const TutorCourse = require("../db/model/TutorCourse");
+const UserProfile = require("../db/model/UserProfile");
 
 const { SuccessfulResponse, FailedResponse } = require("../utils/response");
 const { Op } = require("sequelize");
 const bcryptjs = require("bcryptjs");
-const { Sequelize } = require("sequelize");
 
 const getAllTutors = async (req, res) => {
     var tutors = '';
@@ -42,9 +42,9 @@ const getAllTutors = async (req, res) => {
                 [Op.gte]: rating,
             },
         },
-        include: {
-            model: Course, TutorCourse
-        },
+        include: [
+            Course, TutorCourse, UserProfile
+        ],
     });
 
     return res.json(new SuccessfulResponse("List of tutors", tutors));

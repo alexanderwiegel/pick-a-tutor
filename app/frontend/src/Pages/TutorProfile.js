@@ -3,14 +3,14 @@ import { Container, Row, Col, ListGroup, Button, Image, Card } from "react-boots
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import CourseCard from "../Components/CourseCard"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import apiEndPoints from "../Components/ApiEndpoints"
 import jwt_decode from "jwt-decode"
 import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 
-function TutorProfileTutorView() {
-  const status = localStorage.getItem('statusCode')
+function TutorProfile() {
+  const status = localStorage.getItem("statusCode")
   const encodedToken = localStorage.getItem("token")
   var token = ""
   if (encodedToken) token = jwt_decode(encodedToken)
@@ -18,13 +18,21 @@ function TutorProfileTutorView() {
   const [tutorProfile, setTutorProfile] = useState(null)
   const { id } = useParams()
 
-  const getTutorProfile = async (tutorID) => {
-    const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
+  const getTutorProfile = async () => {
+    const tutorProfile = await apiEndPoints.getTutorProfile(id)
     setTutorProfile(tutorProfile)
   }
 
+  const [tutor, setTutor] = useState([])
+
+  const getTutor = async () => {
+    const data = await apiEndPoints.getTutorById()
+    setTutor(() => data.data.data[0])
+  }
+
   useEffect(() => {
-    getTutorProfile(id)
+    getTutorProfile()
+    getTutor()
   }, [])
 
   return (
@@ -32,6 +40,7 @@ function TutorProfileTutorView() {
       <Container>
         <Row style={{ marginTop: " 1rem" }}>
           <Col md={5}>
+            {console.log(tutorProfile.UserProfile?.profileImagePath)}
             <Image
               // TODO: Switch to dynamically loaded images from the backend
               src={tutorImage1}
@@ -43,34 +52,22 @@ function TutorProfileTutorView() {
             />
           </Col>
           <Col md={7} className="flexColumn">
-            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id !== token.id ? "" : "(You)"}</h3>
+            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id == token.id ? "(You)" : ""}</h3>
             <h6>
-              {/* TODO: add real value of the rating and num of reviews after receiving it from the backend */}
-              {4.5}{" "}
-              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> (
-              {/* TODO: Add num of reviews from backend */}
-              {180})
+              {tutorProfile.rating}
+              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> ({tutorProfile.nRatings})
             </h6>
             {
               // only logged in users should see a button
               status === null ?
                 <></> :
                 // only THIS tutor should see the "Edit profile" button, everyone else should see "Contact tutor"
-                id !== token.id ?
-                  <Button
-                    variant="outline-primary"
-                    style={{ margin: "5px" }}
-                    href={"/chat/" + tutorProfile.id}
-                  >
-                    Contact tutor
-                  </Button> :
-                  <Button
-                    variant="outline-primary"
-                    style={{ margin: "5px" }}
-                    href={"/editTutorProfile/" + id}
-                  >
-                    Edit profile
-                  </Button>
+                id != token.id ?
+                  <Link to={"/chat"} state={{ contact: tutor }}>
+                    <Button variant="outline-primary" style={{ margin: "5px" }}>Contact tutor</Button>
+                  </Link>
+                  :
+                  <Button variant="outline-primary" style={{ margin: "5px" }} href={"/editTutorProfile/"}>Edit profile</Button>
             }
           </Col>
         </Row>
@@ -78,8 +75,7 @@ function TutorProfileTutorView() {
         <Row style={{ marginTop: " 1rem" }}>
           <Col>
             <h3>Description</h3>
-            {/* TODO: add non dummy value from the backend */}
-            {"10 years experience in the academic and the industrial fields."}
+            {tutorProfile.UserProfile?.description}
           </Col>
         </Row>
 
@@ -88,17 +84,17 @@ function TutorProfileTutorView() {
             <h3>Files</h3>
             <ListGroup variant="flush">
               {
-                // TODO: check if this works
+                // TODO: fix this, it is not showing anything for anonymous users
                 // users who are not THIS tutor should only see approved files
-                status && id !== token.id ?
+                id != token.id ?
                   tutorProfile.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
-                      <FileListItem file={file} />
+                      <FileListItem file={file} key={file.id} />
                     ))
                   :
                   tutorProfile.files.map((file) => (
-                    <FileListItem file={file} isThisTutor={true} />
+                    <FileListItem file={file} isThisTutor={true} key={file.id} />
                   ))
               }
             </ListGroup>
@@ -109,31 +105,17 @@ function TutorProfileTutorView() {
           <h1>Courses</h1>
           <Container style={{ overflowX: "scroll" }}>
             <Container style={{ display: "flex" }}>
-              <Card
-                style={{
-                  width: "20rem",
-                  fontSize: "1rem",
-                  borderColor: "transparent",
-                  minWidth: "270px",
-                }}
-              >
-                <Card.Body>
-                  {
-                    // TODO: check if this works
-                    // users who are not THIS tutor should not see an "Add course" button
-                    status && id !== token.id ?
-                      <></>
-                      :
-                      <Button
-                        variant="outline-primary"
-                        style={{ margin: "5px" }}
-                        href="/addCourse"
-                      >
-                        Add course
-                      </Button>
-                  }
-                </Card.Body>
-              </Card>
+              {
+                // users who are not THIS tutor should not see an "Add course" button
+                id != token.id ?
+                  <></> :
+                  <Card style={{ width: "20rem", fontSize: "1rem", borderColor: "transparent", minWidth: "270px" }}>
+                    <Card.Body>
+                      <Button variant="outline-primary" style={{ margin: "5px" }} href="/addCourse">Add course</Button>
+                    </Card.Body>
+                  </Card>
+              }
+
               {tutorProfile.Courses.map((course) => {
                 // Make the course object structure uniform
                 const formattedCourse = Object.assign(
@@ -141,20 +123,15 @@ function TutorProfileTutorView() {
                   course.TutorCourse
                 )
                 return (
-                  <CourseCard
-                    tutorName={
-                      tutorProfile.firstName + " " + tutorProfile.lastName
-                    }
-                    course={formattedCourse}
-                  />
+                  <CourseCard course={formattedCourse} key={formattedCourse.id} />
                 )
               })}
             </Container>
           </Container>
         </Row>
-      </Container>
+      </Container >
     )
   )
 }
 
-export default TutorProfileTutorView
+export default TutorProfile

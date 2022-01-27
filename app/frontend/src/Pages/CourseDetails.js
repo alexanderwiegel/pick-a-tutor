@@ -3,14 +3,14 @@ import { Container, Row, Col, ListGroup, Button, Modal } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import NewCourseReviewForm from "../Components/NewCourseReviewForm"
 import apiEndPoints from "../Components/ApiEndpoints"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import jwt_decode from "jwt-decode"
 import CourseImage1 from "../images/course1.jpg"
 import FileListItem from "../Components/FileListItem"
 import Review from "../Components/Review"
 
 function CourseDetails() {
-  const status = localStorage.getItem('statusCode')
+  const status = localStorage.getItem("statusCode")
   const encodedToken = localStorage.getItem("token")
   var token = ""
   if (encodedToken) token = jwt_decode(encodedToken)
@@ -53,28 +53,21 @@ function CourseDetails() {
           {/* TODO: make the text size appropriate related to the image */}
           <Col md={7}>
             <h3>{courseDetails.name}</h3>
-            By{" "}
+            By
             <i>
               <a href={"/tutor/" + courseDetails.User.id}>
-                {courseDetails.User.firstName + " " + courseDetails.User.lastName} {courseDetails.User.id !== token.id ? "" : "(You)"}
+                {" " + courseDetails.User.firstName + " " + courseDetails.User.lastName} {courseDetails.User.id !== token.id ? "" : "(You)"}
               </a>
             </i>
             <br />
-            {courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;{" "}
-            {courseDetails.rating}{" "}
-            <i className="bi bi-star-fill" style={{ color: "#ffff00" }}></i>
-            ({
-              // Show the number of unreported reviews, TODO: check the correct way to get the unreported reviews
-              courseDetails.Reviews.filter(
-                (review) => review.reportReview === null
-              ).length
-            })
+            {(courseDetails.coursePricePerHour === null) ? 0 : courseDetails.coursePricePerHour} €/Hour &nbsp;&nbsp;&nbsp;&nbsp;
+            {courseDetails.rating}
+            <i className="bi bi-star-fill" style={{ color: "#ffff00" }} />({courseDetails.nRatings})
             <br />
             {
               // only (logged in) users who are not THIS tutor should see the "Contact" button
               status === null ? <div /> : courseDetails.User.id !== token.id ?
-                // TODO: fix forward to Chat
-                <Button variant="outline-primary" href={"/chat/" + courseDetails.User.id}>Contact tutor</Button> :
+                <Link to={"/chat"} state={{ contact: courseDetails.User }}><Button variant="outline-primary">Contact tutor</Button></Link> :
                 <Button variant="outline-primary" style={{ margin: "5px" }} href={"/editCourse/" + id}>Edit Course</Button>
             }
           </Col>
@@ -98,11 +91,11 @@ function CourseDetails() {
                   courseDetails.files
                     .filter((file) => file.approvalStatus === "Approved")
                     .map((file) => (
-                      <FileListItem file={file} />
+                      <FileListItem file={file} key={file.id} />
                     ))
                   :
                   courseDetails.files.map((file) => (
-                    <FileListItem file={file} isThisTutor={true} />
+                    <FileListItem file={file} isThisTutor={true} key={file.id} />
                   ))
               }
             </ListGroup>
@@ -131,11 +124,8 @@ function CourseDetails() {
           </div>
 
           <div>
-            {/* TODO: check the correct way to get the unreported reviews */}
-            {courseDetails.Reviews.filter(
-              (review) => review.reportReview === null
-            ).map((review) => (
-              <Review review={review} />
+            {courseDetails.Reviews.reverse().map((review) => (
+              <Review review={review} key={review.id} />
             ))}
           </div>
         </Row>

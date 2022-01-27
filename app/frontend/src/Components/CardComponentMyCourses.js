@@ -1,13 +1,9 @@
-import React from "react"
+import React from 'react';
 import { Card, Button, Container } from "react-bootstrap"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { Link } from "react-router-dom"
-import apiEndPoints from "./ApiEndpoints"
 
-function CardComponent({ name, course }) {
-  const requestEnrollment = async () => {
-    const response = await apiEndPoints.requestEnrollment(course.CourseId)
-  }
+const CardComponentMyCourses = (course) => {
   return (
     <Card
       style={{ fontSize: "1rem", borderColor: "transparent", minWidth: "270px" }}>
@@ -17,7 +13,7 @@ function CardComponent({ name, course }) {
       >
         <Card.Img
           variant="top"
-          src={require("../images/tutor1.jpg")}
+          src="https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg"
           style={{
             height: "150px",
             width: "150px",
@@ -33,13 +29,13 @@ function CardComponent({ name, course }) {
             fontSize: "1rem",
           }}
         >
-          {course.Course?.name}
+          {course.course.Course.name}
           <hr />
           <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
-            {(course.coursePricePerHour === null) ? 0 : course.coursePricePerHour}€/h
+            {course.course.TutorCourse.coursePricePerHour} €/h
           </p>
           <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
-            {course.rating}
+            {course.course.TutorCourse.rating}
             <i className="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
         </Card.Title>
@@ -51,14 +47,15 @@ function CardComponent({ name, course }) {
           padding: 0
         }}>
           <Card.Text>
-            <Link to={`/tutor/${course.UserId}`} style={{ color: 'black' }}>
-              by {name} <i className="bi bi-person-lines-fill" />
+            {/* TODO: Add the routing to the right page, find userID */}
+            <Link to={`/tutor/${course.course.User.id}`} style={{ color: 'black' }}>
+              by {course.course.User.firstName + " " + course.course.User.lastName} <i className="bi bi-person-lines-fill" />
             </Link>
           </Card.Text>
           {localStorage.getItem("user") &&
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Card.Link style={{ cursor: 'pointer' }} onClick={requestEnrollment}>Request</Card.Link>
-              <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
+              {console.log("user id= ", course)}
+              <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.course.User }} >Contact</Link></Card.Link>
             </div>}
         </Container>
         <Card.Text style={{ fontSize: "0.7rem" }}>
@@ -66,14 +63,14 @@ function CardComponent({ name, course }) {
         <div className="d-flex justify-content-center">
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}>
-            <Link to={`/course/${course.CourseId}`} style={{ color: '#ffffff', display: 'block' }}>
+            <Link to={`/course/${course.course.Course?.id}`} style={{ color: '#ffffff', display: 'block' }}>
               Course details
             </Link>
           </Button>
         </div>
       </Card.Body>
     </Card>
-  )
-}
+  );
+};
 
-export default CardComponent
+export default CardComponentMyCourses;

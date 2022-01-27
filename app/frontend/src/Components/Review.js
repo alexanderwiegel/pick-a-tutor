@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import { Button, Card, Modal } from "react-bootstrap"
+import { format } from "date-fns"
 import ReviewReportForm from "./ReviewReportForm"
 
 function Review(props) {
-  const status = localStorage.getItem('statusCode')
+  const status = localStorage.getItem("statusCode")
   const review = props.review
 
   const [reviewToReport, setreviewToReport] = useState(0)
@@ -20,18 +21,15 @@ function Review(props) {
   return (
     <Card className="mb-2">
       <Card.Body>
-        {/* TODO: Add reviewer name from the backend */}
-        <Card.Title>{"Student name"}</Card.Title>
-
+        <Card.Title>{review.student.firstName + " " + review.student.lastName}</Card.Title>
         <Card.Subtitle>
-          {/* TODO: Check if I should show the review creation date or update data */}
-          <h6 className="text-muted">{review.createdAt}</h6>
+          <h6 className="text-muted">{format(new Date(review.createdAt), "dd.MM.yyyy kk:mm")}</h6>
           <div>
-            {Array.from({ length: review.rating }, () => (
-              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} />
+            {Array.from({ length: review.rating }, (index) => (
+              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} key={index} />
             ))}
-            {Array.from({ length: 5 - Math.floor(review.rating) }, () => (
-              <i className="bi bi-star" style={{ color: "#ffff00" }} />
+            {Array.from({ length: 5 - Math.floor(review.rating) }, (index) => (
+              <i className="bi bi-star" style={{ color: "#ffff00" }} key={index} />
             ))}
             ({review.rating})
           </div>

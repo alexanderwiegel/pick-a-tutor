@@ -7,19 +7,23 @@ const axiosInstance = axios.create({
 
 // Interceptors to log requests
 /* axiosInstance.interceptors.request.use(
-  function (config) {
-    console.log("log request " + config.url)
-    console.log(config)
-    return config
-  },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error)
-  }
-) */
+ function (config) {
+   console.log("log request " + config.url)
+   console.log(config)
+   return config
+ },
+ function (error) {
+   // Do something with request error
+   return Promise.reject(error)
+ }
+)  */
 
 async function getTutorData() {
   return await axiosInstance.get("tutors")
+}
+
+async function getTutorOfTheMonth() {
+  return await axiosInstance.get("tutorofmonth")
 }
 
 async function register(data) {
@@ -142,6 +146,11 @@ async function getFilteredResult(course, minPrice, maxPrice, rating) {
     `tutor_courses_home?course_name=${course}&price_min=${minPrice}&price_max=${maxPrice}&rating=${rating}`
   )
 }
+async function getFilteredTutor(search, rating) {
+  return await axiosInstance.get(
+    `tutors?search=${search}&rating=${rating}&id=`
+  )
+}
 
 async function getEnrolledCourses() {
   return await axiosInstance.get("enrolledstudentcourses")
@@ -152,7 +161,7 @@ async function getCourseDetails(courseID) {
   const allCoursesData = await axiosInstance.get("/tutor_courses")
   const allCourses = allCoursesData.data.data
   // use equality operator == not strict equality operator === because courseID is sent as string
-  let course = allCourses.find((course) => course.id == courseID)
+  let course = allCourses.find((course) => course.CourseId == courseID)
   // clean the course json data and make it more structured
   course = Object.assign(course, course.Course)
   delete course.Course
@@ -194,8 +203,17 @@ async function getTutorProfile(tutorID) {
   /* console.log(tutorData)
   console.log(tutorFilesData)
   console.log(Object.assign(tutorData.data.data[0], {files: tutorFilesData.data.data})) */
+  // To Do: search how to return multiple objects so I could return the tutorData and tutorFilesData promise object as is to the caller function so if there is an error, it could be handled there
   return Object.assign(tutorData.data.data[0], {
     files: tutorFilesData.data.data,
+  })
+}
+
+async function getTutorById(id) {
+  return await axiosInstance.get("/tutors", {
+    params: {
+      tutor_id: id
+    }
   })
 }
 
@@ -214,16 +232,19 @@ async function addCourseReview(review) {
   })
 }
 
-async function addCourse(course) {
+async function addNewCourse(course) {
   // To Do: check later how to add an image and files with the request, read https://stackoverflow.com/questions/43013858/how-to-post-a-file-from-a-form-with-axios
-  const response = await axiosInstance.request("/tutor_course", {
+  const response = await axiosInstance.post("/tutor_course", {
     name: course.name,
     description: course.description,
     coursePricePerHour: course.pricePerHour,
     isFull: false,
   })
 
-  const courseID = response.data.CourseId
+  console.log('In add new course api call')
+  console.log(response)
+
+  const courseID = response.data.data.CourseId
 
   Promise.all(course.files.map((file) => addCourseFile(courseID, file))).then(function (
     results
@@ -244,19 +265,98 @@ async function addCourseFile(courseID, file) {
     },
   }
   var formData = new FormData()
-  formData.append("file", file, file.strea,)
+  formData.append("file", file, file.name)
   formData.append("fileTitle", file.name)
   formData.append("courseId", courseID)
-  return await axiosInstance.post("createcoursefile", formData, config)
+  const response = await axiosInstance.post("createcoursefile", formData, config)
+  console.log("api call upload file " + file.name)
+  console.log(response)
+  return response;
 }
 
 async function updateCourseDetails(courseID, formData) {
+  if (formData.files) {
+    Promise.all(formData.files.map((file) => addCourseFile(courseID, file)))
+      .then(function (results) {
+        console.log("all files uploaded")
+        console.log(results)
+      })
+  }
 
+  const requestBody = {}
+  if (formData.coursePricePerHour)
+    requestBody.coursePricePerHour = formData.coursePricePerHour
+  if (formData.isFull)
+    requestBody.isFull = formData.isFull
+  if (formData.name)
+    requestBody.name = formData.name
+  if (formData.description)
+    requestBody.description = formData.description
+
+  const response = await axiosInstance.patch(`/tutor_course/${courseID}`, requestBody)
+  return response;
 }
+
+async function deleteCourseFile(fileID) {
+  console.log('in delete course file api call')
+  const response = await axiosInstance.delete(`/deletecoursefile/${fileID}`)
+  console.log(response)
+  return response;
+}
+
+async function addTutorFile(file) {
+  const config = {
+    baseURL: "http://20.113.25.17:3001/api",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "multipart/form-data",
+    },
+  }
+  var formData = new FormData()
+  formData.append("file", file, file.name)
+  formData.append("fileTitle", file.name)
+  const response = await axiosInstance.post("createprofilefile", formData, config)
+  console.log("api call upload file " + file.name)
+  console.log(response)
+  return response;
+}
+
+async function deleteTutorFile(fileID) {
+  console.log('in delete course file api call')
+  const response = await axiosInstance.delete(`/deleteuserprofilefile/${fileID}`)
+  console.log(response)
+  return response;
+}
+
+async function updateTutorProfile(tutorEmail, formData) {
+  if (formData.files) {
+    Promise.all(formData.files.map((file) => addTutorFile(file)))
+      .then(function (results) {
+        console.log("all files uploaded")
+        console.log(results)
+      })
+  }
+
+  const requestBody = {}
+  if (formData.firstName)
+    requestBody.firstName = formData.firstName
+  if (formData.lastName)
+    requestBody.lastName = formData.lastName
+  if (formData.description)
+    requestBody.description = formData.description
+  if (formData.gender)
+    requestBody.gender = formData.gender
+
+  const response = await axiosInstance.patch(`/tutors/${tutorEmail}`, requestBody)
+  return response;
+}
+
+
 
 
 const apiEndPoints = {
   getTutorData,
+  getTutorOfTheMonth,
   getListofTutors,
   register,
   login,
@@ -282,12 +382,18 @@ const apiEndPoints = {
   getTutorCourses,
   reportReview,
   getTutorProfile,
+  getTutorById,
   getCourseReviews,
   getTutorFiles,
   addCourseReview,
-  addCourse,
+  addNewCourse,
   addCourseFile,
+  getFilteredTutor,
   updateCourseDetails,
-};
+  deleteCourseFile,
+  addTutorFile,
+  deleteTutorFile,
+  updateTutorProfile,
+}
 
 export default apiEndPoints

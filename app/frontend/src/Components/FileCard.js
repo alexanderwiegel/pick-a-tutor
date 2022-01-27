@@ -1,29 +1,36 @@
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import { ButtonGroup, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import apiEndPoints from './ApiEndpoints';
+import React from "react"
+import Card from "react-bootstrap/Card"
+import Button from "react-bootstrap/Button"
+import { ButtonGroup, Form } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import apiEndPoints from "./ApiEndpoints"
 
-function FileCard({ user, file, handleOnAcceptOrReject }) {
+function FileCard({ user, file, handleOnApproveOrReject }) {
   var pFile = file.tutorId == null
 
-  // TODO: update parent state to show updated data
   const updateFile = async (status) => {
     pFile ?
-      await apiEndPoints.updateProfileFile(file.id, file.userId, status).then(function (response) { handleOnAcceptOrReject() }) :
-      await apiEndPoints.updateCourseFile(file.id, status).then(function (response) { handleOnAcceptOrReject() })
+      await apiEndPoints.updateProfileFile(file.id, file.userId, status).then(function () { handleOnApproveOrReject() }) :
+      await apiEndPoints.updateCourseFile(file.id, status).then(function () { handleOnApproveOrReject() })
   }
-
 
   return (
     <>
-      <Card style={{ width: '20rem' }}>
-        <Card.Header><Link to="">{user.firstName + " " + user.lastName}</Link>{pFile ? "'s profile" : " in course: " + file.Course.name}</Card.Header>
+      <Card style={{ width: "20rem" }}>
+        <Card.Header>
+          {
+            user.isTutor ?
+              // TODO: ask others if it should obviously be a link or not
+              <Link to={"/tutor/" + user.id} style={{ textDecoration: "none", color: "#0f0f0f" }}>{user.firstName} {user.lastName}</Link> :
+              user.firstName + " " + user.lastName
+          }
+          {pFile ? "'s profile" : " in course: " + file.Course.name}</Card.Header>
         <Card.Body>
           <Form>
             <Card.Text>
-              {file.fileTitle}
+              <a href={"http://20.113.25.17:3001/api/downloadprofilefile?path=" + file.filePath} download={file.fileTitle}>
+                {file.fileTitle}
+              </a>
             </Card.Text>
             <ButtonGroup className='d-flex'>
               <Button onClick={() => updateFile("Rejected")} variant="danger">Reject</Button>
@@ -38,4 +45,4 @@ function FileCard({ user, file, handleOnAcceptOrReject }) {
   )
 }
 
-export default FileCard;
+export default FileCard

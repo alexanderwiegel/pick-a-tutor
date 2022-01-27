@@ -5,6 +5,7 @@ const User = require("../db/model/User");
 //const Course = require("../db/model/Course");
 const Review = require("../db/model/Review");
 const TutorCourse = require("../db/model/TutorCourse");
+const UserProfile = require("../db/model/UserProfile");
 const search = require("../utils/search");
 // const auth = require("../auth/check-auth");
 const { Sequelize } = require("sequelize");
@@ -186,7 +187,9 @@ const updateuser = async (req, res, next) => {
                     isTutor: req.body.isTutor ?? user.isTutor,
                     isAdmin: req.body.isAdmin ?? user.isAdmin,
                     status: req.body.status ?? user.status,
+                    description: req.body.description ?? userProfile.description,
                 });
+
                 res.json({
                     success: true,
                     message: "User '" + user.email + "' successfully updated",

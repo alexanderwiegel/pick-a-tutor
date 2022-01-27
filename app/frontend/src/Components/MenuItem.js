@@ -1,6 +1,7 @@
-import React from "react";
-import { Badge } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import React from "react"
+import { Badge } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import jwt_decode from "jwt-decode"
 
 function MenuItem(props) {
   //#region Handling special cases
@@ -9,7 +10,11 @@ function MenuItem(props) {
 
   // Anonymous users and tutors shall see "Home" but will be lead to another page
   if (name === "landingPage") add = ""
-  if (name === "landingPage" || name === "tutortv") {
+  if (name === "tutor") {
+    const token = jwt_decode(localStorage.getItem("token"))
+    add += "/" + token.id
+  }
+  if (name === "landingPage" || name === "tutor") {
     name = "home"
   }
   else if (props.onClick) name = "logout"
@@ -17,17 +22,17 @@ function MenuItem(props) {
 
   return (
     <li>
-      <Link to={"/" + add} onClick={props.onClick} style={{ textDecoration: 'none', fontFamily: 'inherit' }}>
+      <Link to={"/" + add} onClick={props.onClick} style={{ textDecoration: "none", fontFamily: "inherit" }}>
         {name}
         {
-          name === "approvals" && <Badge bg="light" text="danger" >{props.amountToApprove || 0}</Badge>
+          name === "approvals" && <Badge bg="transparent" text="danger" >{props.amountToApprove || ""}</Badge>
         }
         {
-          name === "messages" && <Badge bg="light" text="danger" >{props.unreadMessages || 0}</Badge>
+          name === "messages" && <Badge bg="transparent" text="danger">{props.unreadMessages || ""}</Badge>
         }
       </Link>
     </li>
-  );
+  )
 }
 
-export default MenuItem;
+export default MenuItem

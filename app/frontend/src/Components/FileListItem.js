@@ -5,7 +5,7 @@ import { Trash } from "react-bootstrap-icons"
 function FileListItem(props) {
   const file = props.file
 
-  const [fileToDelete, setFileToDelete] = useState(0)
+  const [fileToDeleteID, setFileToDeleteID] = useState(0)
   const [isFileDeleteModalOpen, setIsFileDeleteModalOpen] = useState(false)
 
   const handleFileDeleteModalShow = () => {
@@ -16,17 +16,18 @@ function FileListItem(props) {
     setIsFileDeleteModalOpen(false)
   }
 
-  const handleFileDeleteClick = (event) => {
-    handleFileDeleteModalClose()
+  const handleFileDeleteClick = async (event) => {
+    props.onDelete(fileToDeleteID)
     event.preventDefault()
   }
 
   return (
     <ListGroup.Item>
       <div className="d-flex justify-content-between">
-        <a href={file.filePath} download={file.filePath}>
+        <a href={`http://20.113.25.17:3001/api/downloadprofilefile?path=${file.filePath}`} download={`http://20.113.25.17:3001/api/downloadprofilefile?path=${file.filePath}`}>
           {file.fileTitle}
         </a>
+
         {props.isThisTutor ? <h6>{file.approvalStatus}</h6> : <></>}
         {
           !props.editMode ? <></> :
@@ -35,7 +36,7 @@ function FileListItem(props) {
                 variant="outline-danger"
                 className=""
                 onClick={() => {
-                  setFileToDelete(file.id)
+                  setFileToDeleteID(file.id)
                   handleFileDeleteModalShow()
                 }}
               >

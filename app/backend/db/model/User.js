@@ -38,6 +38,9 @@ User.init(
         rating: {
             type: DataTypes.DECIMAL(4, 2),
         },
+        nRatings: {
+            type: DataTypes.INTEGER,
+        },
         dateOfBirth: {
             type: DataTypes.DATEONLY,
         },
@@ -53,6 +56,10 @@ User.init(
         isAdmin: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true,
         },
         status: {
             type: DataTypes.BOOLEAN,
