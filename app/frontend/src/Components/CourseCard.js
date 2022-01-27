@@ -15,14 +15,12 @@ function CourseCard({ course }) {
           {course.name}
           <hr />
           <p style={{ marginLeft: "2px", paddingLeft: "4px" }}>
-            {(course.coursePricePerHour === null)? 0 : course.coursePricePerHour} €/h
+            {(course.coursePricePerHour === null) ? 0 : course.coursePricePerHour} €/h
           </p>
           <div style={{ paddingLeft: "4px" }} defaultValue="0.0">
             {course.rating}
             <i className="bi bi-star-fill" style={{ color: "gold" }} />
-            <p style={{ color: "#6a6f73", fontSize: "0.7rem" }} defaultValue="000">
-              {/* To Do: Add real num of reviews from the backend */}
-              (10)
+            <p style={{ color: "#6a6f73", fontSize: "0.7rem" }} defaultValue="000"> ({course.nRatings})
             </p>
           </div>
         </Card.Title>
