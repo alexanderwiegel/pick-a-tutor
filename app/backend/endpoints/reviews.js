@@ -52,13 +52,14 @@ async function calculateNewRating(courseId) {
     let reviews = await Review.findAll({
         where: { courseId: courseId },
     });
-    let r_sum = 0;
+    let r_sum = 0.0;
     for (let i = 0; i < reviews.length; i++) {
-        r_sum = parseFloat(r_sum) + parseFloat(reviews[i].rating);
+        r_sum = r_sum + reviews[i].rating;
     }
-    var rating = r_sum / reviews.length;
+    let rating = r_sum / reviews.length;
     rating = Math.round((rating + Number.EPSILON) * 100) / 100;
     course.rating = rating;
+    course.nRatings = reviews.length;
     await course.save();
     console.log("New rating for course id: " + courseId + ": " + course.rating);
 }
@@ -75,15 +76,19 @@ async function tutorNewRating(tutorId){
              }
         }
     });
-    var ratingsSum = 0;
+    let ratingsSum = 0.0;
+    let nRatings = 0.0;
     for (let i = 0; i < tutorReviews.length; i++){
-        ratingsSum = parseFloat(ratingsSum) + parseFloat(tutorReviews[i].rating);
+        ratingsSum = ratingsSum + tutorReviews[i].rating;
+        nRatings = nRatings + tutorReviews[i].nRatings;
     }
-    var rating = ratingsSum / tutorReviews.length;
+    if (tutorReviews.length === 0) return;
+    let rating = ratingsSum / tutorReviews.length;
     rating = Math.round((rating + Number.EPSILON) * 100) / 100;
     user.rating = rating;
+    user.nRatings = nRatings;
     await user.save();
-    console.log("Tutor new Avg Rating: " + user.rating);
+    console.log("New rating for tutor id: " + tutorId + ": " + user.rating);
 }
 
 exports.addReview = async (req, res) => {

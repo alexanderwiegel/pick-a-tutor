@@ -25,6 +25,7 @@ Message.belongsTo(User, { as: "recipient" });
 User.hasOne(UserProfile);
 UserProfile.belongsTo(User);
 
+User.hasMany(TutorCourse);
 TutorCourse.User = TutorCourse.belongsTo(User);
 TutorCourse.Course = TutorCourse.belongsTo(Course);
 
