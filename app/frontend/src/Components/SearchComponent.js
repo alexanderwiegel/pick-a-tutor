@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -40,7 +39,7 @@ const SearchComponent = ({ category, setCategory, getUsers, setUsers, getCourses
           {category === "tutor" ? 'Tutor' : 'Course'}
           {/* course=False tutor=True */}
         </button>
-        <input type="text" placeholder='Search here ...' style={{ fontSize: '1rem' }} defaultValue={location.state?.search} onChange={(e) => setSearch(e.target.value)} />
+        <input type="text" maxLength='40' placeholder='Search here ...' style={{ fontSize: '1rem' }} defaultValue={location.state?.search} onChange={(e) => setSearch(e.target.value)} />
         <div onClick={searchByKeyword} style={{ display: 'grid', alignContent: 'center' }}>
           <i className="bi bi-search" style={{ fontSize: '1.5rem', margin: '5px', paddingRight: '10px', cursor: 'pointer' }} />
         </div>

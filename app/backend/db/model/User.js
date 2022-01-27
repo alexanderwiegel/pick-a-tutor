@@ -57,6 +57,10 @@ User.init(
             type: DataTypes.BOOLEAN,
             defaultValue: false,
         },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
         status: {
             type: DataTypes.BOOLEAN,
         },
