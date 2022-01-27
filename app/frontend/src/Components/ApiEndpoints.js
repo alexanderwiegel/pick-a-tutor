@@ -22,6 +22,10 @@ async function getTutorData() {
   return await axiosInstance.get("tutors")
 }
 
+async function getTutorOfTheMonth() {
+  return await axiosInstance.get("tutorofmonth")
+}
+
 async function register(data) {
   const gender_val = parseInt(data.gender)
   return await axiosInstance.post("/users", {
@@ -352,6 +356,7 @@ async function updateTutorProfile(tutorEmail, formData) {
 
 const apiEndPoints = {
   getTutorData,
+  getTutorOfTheMonth,
   getListofTutors,
   register,
   login,
