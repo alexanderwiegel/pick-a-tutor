@@ -21,11 +21,8 @@ function Review(props) {
   return (
     <Card className="mb-2">
       <Card.Body>
-        {/* TODO: Add reviewer name from the backend */}
-        <Card.Title>{"Student name"}</Card.Title>
-
+        <Card.Title>{review.student.firstName + " " + review.student.lastName}</Card.Title>
         <Card.Subtitle>
-          {/* TODO: Check if I should show the review creation date or update data */}
           <h6 className="text-muted">{format(new Date(review.createdAt), "dd.MM.yyyy kk:mm")}</h6>
           <div>
             {Array.from({ length: review.rating }, (index) => (

@@ -40,6 +40,7 @@ function TutorProfile() {
       <Container>
         <Row style={{ marginTop: " 1rem" }}>
           <Col md={5}>
+            {console.log(tutorProfile.UserProfile?.profileImagePath)}
             <Image
               // TODO: Switch to dynamically loaded images from the backend
               src={tutorImage1}
@@ -74,8 +75,7 @@ function TutorProfile() {
         <Row style={{ marginTop: " 1rem" }}>
           <Col>
             <h3>Description</h3>
-            {/* TODO: add non dummy value from the backend */}
-            {"10 years experience in the academic and the industrial fields."}
+            {tutorProfile.UserProfile?.description}
           </Col>
         </Row>
 
