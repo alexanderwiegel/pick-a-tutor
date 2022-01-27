@@ -143,7 +143,7 @@ function EditTutorProfile(props) {
               <Button
                 variant="outline-danger"
                 style={{ margin: "5px" }}
-                href="/"
+                href={`/tutor/${tutorProfile.id}`}
               >
                 Cancel
               </Button>
