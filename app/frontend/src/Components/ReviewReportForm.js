@@ -31,7 +31,7 @@ function ReviewReportForm(props) {
           onChange={handleChange}
         />
       </Form.Group>
-      <Button type="submit" variant="outline-dark">
+      <Button variant="outline-dark">
         Submit
       </Button>
     </Form>
