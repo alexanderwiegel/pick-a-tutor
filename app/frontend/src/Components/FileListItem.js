@@ -18,16 +18,18 @@ function FileListItem(props) {
   }
 
   const handleFileDeleteClick = async (event) => {
-      props.onDelete(fileToDeleteID)
-      event.preventDefault()
+    props.onDelete(fileToDeleteID)
+    event.preventDefault()
   }
 
   return (
     <ListGroup.Item>
       <div className="d-flex justify-content-between">
-        <a href={file.filePath} download={file.filePath}>
+
+        <a href={`http://20.113.25.17:3001/api/downloadprofilefile?path=${file.filePath}`} download={`http://20.113.25.17:3001/api/downloadprofilefile?path=${file.filePath}`}>
           {file.fileTitle}
         </a>
+
         {props.isThisTutor ? <h6>{file.approvalStatus}</h6> : <></>}
         {
           !props.editMode ? <></> :
