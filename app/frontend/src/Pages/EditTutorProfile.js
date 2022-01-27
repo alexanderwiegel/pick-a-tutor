@@ -192,10 +192,7 @@ function EditTutorProfile() {
                   as="textarea"
                   rows={8}
                   placeholder="please type a description about yourself"
-                  /* To Do: add non dummy value from the backend */
-                  defaultValue={
-                    "10 years experience in the academic and the industrial fields."
-                  }
+                  defaultValue={tutorProfile.UserProfile.description}
                   style={{ overflowY: "scroll" }}
                   onChange={handleChange}
                 />
