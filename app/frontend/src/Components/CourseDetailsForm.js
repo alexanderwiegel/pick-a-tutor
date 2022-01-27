@@ -161,7 +161,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             >
               Save
             </Button>
-            <Button variant="outline-danger" style={{ margin: "5px" }}>
+            <Button variant="outline-danger" style={{ margin: "5px" }} href={isNewCourse? `/tutor/${courseDetails.User.id}`: `/course/${courseDetails.id}`}>
               Cancel
             </Button>
           </Col>
