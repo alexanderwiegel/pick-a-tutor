@@ -14,7 +14,8 @@ function ReviewReportForm(props) {
       props.reviewID,
       reportText
     )
-    alert("A report was submitted: " + reportText)
+    if (!alert(response.data.message))
+      window.location.reload()
     console.log("response: " + response)
     event.preventDefault()
   }
@@ -25,7 +26,7 @@ function ReviewReportForm(props) {
         <Form.Control
           as="textarea"
           rows={5}
-          placeholder={"Type your report." + props.reviewID}
+          placeholder="Type your report."
           value={reportText}
           onChange={handleChange}
         />
