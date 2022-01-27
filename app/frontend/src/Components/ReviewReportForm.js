@@ -9,19 +9,20 @@ function ReviewReportForm(props) {
     setReportText(event.target.value)
   }
 
-  const handleSubmit = (event) => {
-    const response = apiEndPoints.reportReview(
+  const handleSubmit = async (event) => {
+    await apiEndPoints.reportReview(
       props.reviewID,
       reportText
-    )
-    if (!alert(response.data.message))
-      window.location.reload()
-    console.log("response: " + response)
+    ).then(function (response) {
+      if (!alert(response.data.message))
+        window.location.reload()
+  })
+
     event.preventDefault()
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form >
       <Form.Group className="mb-3" controlId="reportFormTextArea">
         <Form.Control
           as="textarea"
@@ -31,7 +32,7 @@ function ReviewReportForm(props) {
           onChange={handleChange}
         />
       </Form.Group>
-      <Button variant="outline-dark">
+      <Button variant="outline-dark" onClick={handleSubmit}>
         Submit
       </Button>
     </Form>
