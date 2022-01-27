@@ -10,7 +10,6 @@ function AddCourse() {
   const getTutorProfile = async (tutorID) => {
     const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
     setCourseDetails({ User: tutorProfile })
-    console.log(courseDetails)
   }
 
   useEffect(() => {
