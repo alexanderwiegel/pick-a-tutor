@@ -5,6 +5,7 @@ import CardComponent from '../Components/CardComponentSubject';
 import apiEndPoints from '../Components/ApiEndpoints';
 import { Container } from 'react-bootstrap';
 import _ from 'lodash';
+import CardComponentMyCourses from '../Components/CardComponentMyCourses';
 
 const Home = () => {
   const [users, setUsers] = useState([])
@@ -47,7 +48,7 @@ const Home = () => {
           {
             (enrolledCourses && enrolledCourses.length > 0) &&
             enrolledCourses.map((course, index) => (
-              <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} />
+              <CardComponentMyCourses course={course} />
             ))
           }
           {
