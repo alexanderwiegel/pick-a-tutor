@@ -51,7 +51,6 @@ function CardComponent({ name, course }) {
           padding: 0
         }}>
           <Card.Text>
-            {/* TODO: Add the routing to the right page */}
             <Link to={`/tutor/${course.UserId}`} style={{ color: 'black' }}>
               by {name} <i className="bi bi-person-lines-fill" />
             </Link>
