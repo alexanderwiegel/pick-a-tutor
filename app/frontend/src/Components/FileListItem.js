@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { Button, ListGroup, Modal } from "react-bootstrap"
 import { Trash } from "react-bootstrap-icons"
-import apiEndPoints from "./ApiEndpoints"
 
 function FileListItem(props) {
   const file = props.file
@@ -18,14 +17,14 @@ function FileListItem(props) {
   }
 
   const handleFileDeleteClick = async (event) => {
-      props.onDelete(fileToDeleteID)
-      event.preventDefault()
+    props.onDelete(fileToDeleteID)
+    event.preventDefault()
   }
 
   return (
     <ListGroup.Item>
       <div className="d-flex justify-content-between">
-        <a href={file.filePath} download={file.filePath}>
+        <a href={file.filePath} download={file.fileTitle}>
           {file.fileTitle}
         </a>
         {props.isThisTutor ? <h6>{file.approvalStatus}</h6> : <></>}
