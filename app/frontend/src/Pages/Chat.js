@@ -121,7 +121,7 @@ const Chat = () => {
                     value={message} onChange={e => setMessage(e.target.value)}
                     placeholder="Write something..." required />
                 </Col>
-                <Col xs="2" lg="1" className="d-grid"><Button className="fw-bold" type="submit">Send<BiPaperPlane size="2em" /></Button></Col>
+                <Col xs="2" lg="1" className="d-grid"><Button className="fw-bold chat-send" type="submit">Send<BiPaperPlane size="2em" /></Button></Col>
               </Row>
             </Form>
           </Card.Footer>

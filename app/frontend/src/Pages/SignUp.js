@@ -14,6 +14,7 @@ import { Formik, Field } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import apiEndpoints from "../Components/ApiEndpoints";
 import * as yup from "yup";
+import differenceInYears from "date-fns/differenceInYears";
 
 const initialValues = {
   firstName: "",
@@ -30,26 +31,40 @@ const initialValues = {
 const univeristyEmails = ['hs-fulda.de', 'ai.hs-fulda.de', 'informatik.hs-fulda.de'];
 
 let schema = yup.object().shape({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
+  firstName: yup
+    .string()
+    .required("First name is required"),
+  lastName: yup
+    .string()
+    .required("Last name is required"),
   email: yup
     .string()
     .email("Enter valid email address")
     .required("Email is required"),
-  dateOfBirth: yup.date().required("Date of birth is required"),
-  password: yup.string().min(5, "Too short").required("Password is required"),
+  dateOfBirth: yup
+    .date()
+    .required("Date of birth is required")
+    .test("dateOfBirth", "Should be greater than 18", function (value) { return differenceInYears(new Date(), new Date(value)) >= 18; }),
+  password: yup
+    .string()
+    .min(5, "Too short")
+    .required("Password is required"),
   repeatPassword: yup
     .string()
     .required("Repeate password is required")
     .oneOf([yup.ref("password")], "Password must match"),
-  gender: yup.string().required("Gender is required"),
-  role: yup.string().required("Role is required"),
+  gender: yup
+    .string()
+    .required("Gender is required"),
+  role: yup
+    .string()
+    .required("Role is required"),
   tnc: yup
     .boolean()
     .required("The terms and conditions must be accepted.")
     .oneOf([true], "The terms and conditions must be accepted."),
 });
-//TODO : After signup, send students to browse (where nothing is in my courses), and send tutors to create their courses)
+
 const SignUp = () => {
   let navigate = useNavigate();
   return (
@@ -85,24 +100,6 @@ const SignUp = () => {
                   alert(response.data.message)
                 } else {
                   navigate("/login")
-                  // if (response.data.data.isAdmin) {
-                  //   localStorage.setItem('statusCode', 'Admin')
-                  // }
-                  // else if (response.data.data.isStudent) {
-                  //   localStorage.setItem('statusCode', 'Student')
-                  // }
-                  // else {
-                  //   localStorage.setItem('statusCode', 'Tutor')
-                  // }
-
-                  // localStorage.setItem('user', true)
-                  // localStorage.setItem('token', data.data.data.token)
-
-                  // if (response.data.data.isStudent)
-                  //   navigate("/browse")
-
-                  // if (response.data.data.isTutor)
-                  //   navigate("/tutortv")
                 }
               }}
             >
@@ -303,6 +300,7 @@ const SignUp = () => {
                           onChange={
                             props.handleChange
                           }
+                          style={{ margin: '0' }}
                         >
                           <option value="none">
                             Please select here
@@ -348,7 +346,7 @@ const SignUp = () => {
                             name="role"
                             value="student"
                           />
-                          Student
+                          {" "}Student
                         </label>
                         <label>
                           <Field
@@ -356,7 +354,7 @@ const SignUp = () => {
                             name="role"
                             value="tutor"
                           />
-                          Tutor
+                          {" "}Tutor
                         </label>
                       </div>
                       <p
@@ -372,7 +370,7 @@ const SignUp = () => {
                   <Form.Group className="mb-3">
                     <label>
                       <Field type="checkbox" name="tnc" />
-                      Agree to terms and conditions
+                      {" "}Agree to terms and conditions
                     </label>
                   </Form.Group>
                   <p
