@@ -14,6 +14,7 @@ import { Formik, Field } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import apiEndpoints from "../Components/ApiEndpoints";
 import * as yup from "yup";
+import differenceInYears from "date-fns/differenceInYears";
 
 const initialValues = {
   firstName: "",
@@ -36,7 +37,7 @@ let schema = yup.object().shape({
     .string()
     .email("Enter valid email address")
     .required("Email is required"),
-  dateOfBirth: yup.date().required("Date of birth is required"),
+  dateOfBirth: yup.date().required("Date of birth is required").test("dateOfBirth", "Should be greater than 18", function (value) { return differenceInYears(new Date(), new Date(value)) >= 18; }),
   password: yup.string().min(5, "Too short").required("Password is required"),
   repeatPassword: yup
     .string()
@@ -303,6 +304,7 @@ const SignUp = () => {
                           onChange={
                             props.handleChange
                           }
+                          style={{ margin: '0' }}
                         >
                           <option value="none">
                             Please select here
