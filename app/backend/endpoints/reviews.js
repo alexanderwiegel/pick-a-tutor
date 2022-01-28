@@ -128,7 +128,7 @@ exports.reportReview = async (req, res) => {
         let decodedToken = jwt.verify(token, "privatekey");
 
         review.reportReview = Review.REPORTED;
-        review.reportComments = req.body.reportComments;
+        review.reportReviewComments = req.body.reportComments;
         review.reporterId = decodedToken.id;
         await review.save();
         res.json(new SuccessfulResponse("Review reported", [review]));
