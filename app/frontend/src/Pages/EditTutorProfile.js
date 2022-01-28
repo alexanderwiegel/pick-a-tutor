@@ -33,6 +33,7 @@ function EditTutorProfile() {
   const getTutorProfile = async (tutorID) => {
     const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
     setTutorProfile(tutorProfile)
+    console.log(tutorProfile)
   }
 
   useEffect(() => {
@@ -192,7 +193,7 @@ function EditTutorProfile() {
                   as="textarea"
                   rows={8}
                   placeholder="please type a description about yourself"
-                  defaultValue={tutorProfile.UserProfile.description}
+                  defaultValue={tutorProfile.UserProfile?.description}
                   style={{ overflowY: "scroll" }}
                   onChange={handleChange}
                 />
