@@ -24,7 +24,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
   const [formData, setFormData] = useReducer(formReducer, {})
 
   const handleChange = (event) => {
-    console.log(event)
+    //Create newFromData object to get all values, from the form on any change in the input fields
     let newFormData = {}
     newFormData.name = event.target.name
     switch (newFormData.name) {
@@ -37,7 +37,6 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
       case "isFull":
         newFormData.value = event.target.checked
         break
-
       default:
         newFormData.value = event.target.value
     }
@@ -48,12 +47,15 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
 
   const handleSubmit = async (event) => {
     console.log('in submit course details form')
-    const response = (isNewCourse) ? await apiEndPoints.addNewCourse(formData) : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
+    const response = isNewCourse
+      ? await apiEndPoints.addNewCourse(formData)
+      : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
     console.log("Submiteed course form details")
-    console.log(response)
-    if (alert(response.data.message))
-      window.location.reload()
-
+    console.log("response", response)
+    if (response.data.message) {
+      alert(response.data.message)
+      window.location.reload() //Error : if not reloaded there is a error to be fixed!
+    }
     event.preventDefault()
   }
 

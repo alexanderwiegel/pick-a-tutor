@@ -39,7 +39,7 @@ export default function Login() {
     }
     else {
       localStorage.setItem('statusCode', 'Tutor')
-      navigate("/")
+      navigate(`/tutor/${decoded.id}`);
     }
 
     localStorage.setItem('userID', decoded.id)
@@ -107,7 +107,14 @@ export default function Login() {
                       value={props.values.email}
                     />
                   </FloatingLabel>
-
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      color: "red",
+                    }}
+                  >
+                    {props.errors?.email}
+                  </p>
                   <FloatingLabel
                     controlId="floatingPassword"
                     label="Password"
@@ -121,6 +128,14 @@ export default function Login() {
                       value={props.values.password}
                     />
                   </FloatingLabel>
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      color: "red",
+                    }}
+                  >
+                    {props.errors?.password}
+                  </p>
                   <div className="d-flex justify-content-end"><a href="/dashboard">Forgot Password ?</a></div>
                   <br />
 
@@ -134,12 +149,11 @@ export default function Login() {
                   >
                     Sign In
                   </Button>
-                  <p>{props.errors?.email} </p>
-                  <p>{props.errors?.password} </p>
                 </Form>
 
               )}
             </Formik>
+            <br />
             <Button
               variant="outline-primary"
               type="submit"

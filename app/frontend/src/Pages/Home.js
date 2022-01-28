@@ -42,7 +42,7 @@ const Home = () => {
 
     <>
       <SearchComponent getUsers={getUsers} category={category} setCategory={_setCategory} getCourses={getCourses} />
-      {/* <Container><h1>My Courses</h1><hr /></Container>
+      <Container><h1>My Courses</h1><hr /></Container>
       <Container style={{ overflowX: 'scroll' }}>
         <Container style={{ display: 'flex' }}>
           {
@@ -57,7 +57,7 @@ const Home = () => {
           }
         </Container>
       </Container>
-      <br /> */}
+      <br />
       <Container><h1>Recommended Courses</h1><hr /></Container>
       <Container style={{ overflowX: 'scroll' }}>
         <Container style={{ display: 'flex' }}>

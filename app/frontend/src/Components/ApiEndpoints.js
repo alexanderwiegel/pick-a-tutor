@@ -237,7 +237,7 @@ async function addNewCourse(course) {
   const response = await axiosInstance.post("/tutor_course", {
     name: course.name,
     description: course.description,
-    coursePricePerHour: course.pricePerHour,
+    coursePricePerHour: course.coursePricePerHour,
     isFull: false,
   })
 
@@ -246,12 +246,9 @@ async function addNewCourse(course) {
 
   const courseID = response.data.data.CourseId
 
-  Promise.all(course.files.map((file) => addCourseFile(courseID, file))).then(function (
+  Promise.all(course.files && course.files?.map((file) => addCourseFile(courseID, file))).then(function (
     results
-  ) {
-    console.log("all files uploaded")
-    console.log(results)
-  })
+  ) { console.log("after trying to add all files, result = ", results) })
 
   return response
 }
@@ -275,6 +272,7 @@ async function addCourseFile(courseID, file) {
 }
 
 async function updateCourseDetails(courseID, formData) {
+  console.log("in api call updateCourseDetails, the values passed are courseID =", courseID, " and formData =", formData)
   if (formData.files) {
     Promise.all(formData.files.map((file) => addCourseFile(courseID, file)))
       .then(function (results) {

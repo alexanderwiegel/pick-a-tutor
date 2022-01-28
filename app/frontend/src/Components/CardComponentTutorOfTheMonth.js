@@ -9,19 +9,22 @@ function CardComponentTutorOfTheMonth(props) {
   const [bestTutor, setBestTutor] = useState();
   const getTOTMdata = async () => {
     const data = await apiEndPoints.getTutorOfTheMonth()
-    setBestTutor(() => data.data.data[0]);
+    data.data.records > 0 &&
+      setBestTutor(() => data.data.data[0]);
   };
   console.log(bestTutor)
   useEffect(() => {
     getTOTMdata();
   }, []);
   return (
-    <Card
+    bestTutor != undefined &&
+    < Card
       style={{
         fontSize: "1rem",
         borderColor: "gold",
         borderWidth: "2px"
-      }}
+      }
+      }
     >
       <Badge bg="warning" text="danger" >TUTOR OF THE MONTH</Badge>
       <div
@@ -83,7 +86,7 @@ function CardComponentTutorOfTheMonth(props) {
           </Button>
         </div>
       </Card.Body>
-    </Card>
+    </Card >
   );
 }
 
