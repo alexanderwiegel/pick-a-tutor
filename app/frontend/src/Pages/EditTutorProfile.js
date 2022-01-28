@@ -193,7 +193,7 @@ function EditTutorProfile() {
                   as="textarea"
                   rows={8}
                   placeholder="please type a description about yourself"
-                  defaultValue={tutorProfile.UserProfile?.description}
+                  defaultValue={tutorProfile.description}
                   style={{ overflowY: "scroll" }}
                   onChange={handleChange}
                 />
