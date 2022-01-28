@@ -7,7 +7,7 @@ class CourseAdditionalInfo extends Model {}
 
 CourseAdditionalInfo.init(
     {
-        courseId: {
+        CourseId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {

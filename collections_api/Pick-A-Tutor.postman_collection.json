@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c5a6ddcd-c712-4af3-a8db-55d1397e3d97",
+		"_postman_id": "679eb246-6600-430e-89f1-5a843ecc1bc0",
 		"name": "Pick-A-Tutor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -57,10 +57,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/users",
+							"raw": "http://20.113.25.17:3001/api/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -86,10 +89,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users/yes41@example.com",
+							"raw": "http://20.113.25.17:3001/api/users/yes41@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -121,10 +124,10 @@
 							"raw": "{\r\n        \"password\": \"password\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users/yes21@example.com",
+							"raw": "http://20.113.25.17:3001/api/users/yes21@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -151,10 +154,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users/yes40@example.com",
+							"raw": "http://20.113.25.17:3001/api/users/yes40@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -172,10 +175,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/users?search=yes41@example.com",
+							"raw": "http://20.113.25.17:3001/api/users?search=yes41@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -210,10 +213,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users",
+							"raw": "http://20.113.25.17:3001/api/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -233,10 +236,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/users?search=yes21@example.com",
+							"raw": "http://20.113.25.17:3001/api/users?search=yes21@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -278,10 +281,10 @@
 							"raw": "{\r\n        \"status\": false\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users/yes34@example.com",
+							"raw": "http://20.113.25.17:3001/api/users/yes34@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -304,10 +307,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/courses?search=java",
+							"raw": "http://20.113.25.17:3001/api/courses?search=java",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -344,10 +347,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/course/1",
+							"raw": "http://20.113.25.17:3001/api/course/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -379,10 +382,10 @@
 							"raw": "{\r\n        \"name\": \"PHP OOP4\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/course",
+							"raw": "http://20.113.25.17:3001/api/course",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -413,10 +416,10 @@
 							"raw": "{\r\n        \"name\": \"PHP 12z OOP\",\r\n        \"description\": \"PHP OOP is awesome!\"\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/course/8",
+							"raw": "http://20.113.25.17:3001/api/course/8",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -439,10 +442,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallbytutorcourse/1/1",
+							"raw": "http://20.113.25.17:3001/api/getallbytutorcourse/1/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -470,10 +473,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/updatecoursefile/2",
+							"raw": "http://20.113.25.17:3001/api/updatecoursefile/2",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -495,10 +498,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/deletecoursefile/1",
+							"raw": "http://20.113.25.17:3001/api/deletecoursefile/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -536,10 +539,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/createcoursefile",
+							"raw": "http://20.113.25.17:3001/api/createcoursefile",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -556,10 +559,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallcoursefilesbyfileid/3",
+							"raw": "http://20.113.25.17:3001/api/getallcoursefilesbyfileid/3",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -577,10 +580,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallcoursefilesbystatus/PendingApproval",
+							"raw": "http://20.113.25.17:3001/api/getallcoursefilesbystatus/PendingApproval",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -598,10 +601,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallcoursefilesbytutor",
+							"raw": "http://20.113.25.17:3001/api/getallcoursefilesbytutor",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -623,10 +626,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
+							"raw": "http://20.113.25.17:3001/api/getallprofilefilesbyuserid/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -653,10 +656,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/updateprofilefile/5",
+							"raw": "http://20.113.25.17:3001/api/updateprofilefile/5",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -678,10 +681,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/deleteuserprofilefile/1",
+							"raw": "http://20.113.25.17:3001/api/deleteuserprofilefile/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -714,10 +717,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/createprofilefile",
+							"raw": "http://20.113.25.17:3001/api/createprofilefile",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -734,10 +737,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbyfileid/1",
+							"raw": "http://20.113.25.17:3001/api/getallprofilefilesbyfileid/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -755,10 +758,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbystatus/PendingApproval",
+							"raw": "http://20.113.25.17:3001/api/getallprofilefilesbystatus/PendingApproval",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
@@ -771,21 +777,25 @@
 					"response": []
 				},
 				{
-					"name": "Get All  files by User and Status",
+					"name": "Get All  files by User, FileTitle and Status",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbyuserstatus/101/PendingApproval",
+							"raw": "http://20.113.25.17:3001/api/getallprofilefilesbyuserstatus/13/TestfilePDF/PendingApproval",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20",
+								"113",
+								"25",
+								"17"
 							],
 							"port": "3001",
 							"path": [
 								"api",
 								"getallprofilefilesbyuserstatus",
-								"101",
+								"13",
+								"TestfilePDF",
 								"PendingApproval"
 							]
 						}
@@ -813,10 +823,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/uploadmyfile",
+							"raw": "http://20.113.25.17:3001/api/uploadmyfile",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -838,10 +848,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_courses_home?course_name=&price_min=&price_max=&rating=",
+							"raw": "http://20.113.25.17:3001/api/tutor_courses_home?course_name=&price_min=&price_max=&rating=",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -876,10 +886,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_courses?tutor_id=2",
+							"raw": "http://20.113.25.17:3001/api/tutor_courses?tutor_id=2",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -916,10 +926,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_course/5",
+							"raw": "http://20.113.25.17:3001/api/tutor_course/5",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -951,10 +961,10 @@
 							"raw": "{\r\n        \"name\": \"2nd Level Java\",\r\n        \"coursePricePerHour\": 15.50,\r\n        \"isFull\" : 0\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_course",
+							"raw": "http://20.113.25.17:3001/api/tutor_course",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -985,10 +995,10 @@
 							"raw": "{\r\n        \"coursePricePerHour\": 14.50,\r\n        \"isFull\" : 1\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/tutor_course/5",
+							"raw": "http://20.113.25.17:3001/api/tutor_course/5",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1011,10 +1021,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/getallprofilefilesbyuserid/1",
+							"raw": "http://20.113.25.17:3001/api/getallprofilefilesbyuserid/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1036,10 +1046,10 @@
 							"raw": "{\r\n        \"userId\": 1,\r\n        \"tutorCourseId\": 3,\r\n        \"enrolledStatus\": 1\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/updateenrolledcoursestatus",
+							"raw": "http://20.113.25.17:3001/api/updateenrolledcoursestatus",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1060,10 +1070,10 @@
 							"raw": "{\r\n        \"tutorCourseId\": 2,\r\n        \"userId\":1\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/deletestudentcourse",
+							"raw": "http://20.113.25.17:3001/api/deletestudentcourse",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1084,10 +1094,10 @@
 							"raw": "{\r\n        \"tutorCourseId\": 4\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/enrollstudent",
+							"raw": "http://20.113.25.17:3001/api/enrollstudent",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1114,10 +1124,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/enrolledstudentcourses",
+							"raw": "http://20.113.25.17:3001/api/enrolledstudentcourses",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1139,10 +1149,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/reviews?courseId=1",
+							"raw": "http://20.113.25.17:3001/api/reviews?courseId=1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1184,10 +1194,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/reviews",
+							"raw": "http://20.113.25.17:3001/api/reviews",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1218,10 +1228,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/reviews/1/report?id=1",
+							"raw": "http://20.113.25.17:3001/api/reviews/1/report?id=1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1250,10 +1260,10 @@
 							"raw": "{\r\n                \"reportReviewStatus\": false\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/approvereview/1",
+							"raw": "http://20.113.25.17:3001/api/approvereview/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1275,10 +1285,10 @@
 							"raw": "{\r\n        \"tutorCourseId\": 2,\r\n        \"userId\":1\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/deleteReview/1",
+							"raw": "http://20.113.25.17:3001/api/deleteReview/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1301,10 +1311,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutorofmonth",
+							"raw": "http://20.113.25.17:3001/api/tutorofmonth",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1326,10 +1336,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3001/api/tutors?search=&tutor_id=&rating=",
+							"raw": "http://20.113.25.17:3001/api/tutors?search=&tutor_id=&rating=",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1374,10 +1384,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/users/yes31@example.com",
+							"raw": "http://20.113.25.17:3001/api/users/yes31@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1414,10 +1424,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/tutors/johndoe@example.com",
+							"raw": "http://20.113.25.17:3001/api/tutors/johndoe@example.com",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1439,10 +1449,10 @@
 							"raw": "{\r\n    \"firstName\": \"Sometutor\",\r\n    \"lastName\": \"Dohe1\",\r\n    \"email\": \"sometutor.dohe1@ai.hs-fulda.de\",\r\n    \"password\": \"password\",\r\n    \"dateOfBirth\": \"08/05/1995\",\r\n    \"gender\": 1\r\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3001/api/tutors",
+							"raw": "http://20.113.25.17:3001/api/tutors",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"20.113.25.17"
 							],
 							"port": "3001",
 							"path": [
@@ -1609,7 +1619,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJreWxlcnN0YXJrQGV4YW1wbGUuY29tIiwiaXNTdHVkZW50IjpmYWxzZSwiaXNUdXRvciI6dHJ1ZSwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY0MzA1NzI5MiwiZXhwIjoxNjQzMTQzNjkyfQ.ofEodvUAozDrVVDjyaZnW8IR8nhiT7X9bpH4kTUxZiM",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiY2hhaGF0LnNvbmlAaW5mb3JtYXRpay5ocy1mdWxkYS5kZSIsImlzU3R1ZGVudCI6dHJ1ZSwiaXNUdXRvciI6ZmFsc2UsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDMxOTk0NDQsImV4cCI6MTY0MzI4NTg0NH0.KRnNROKu0edqCg6vVNU5Uacp6M4gIvaxBmElctvlLLs",
 				"type": "string"
 			}
 		]
