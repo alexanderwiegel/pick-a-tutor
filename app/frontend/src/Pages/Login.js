@@ -39,7 +39,7 @@ export default function Login() {
     }
     else {
       localStorage.setItem('statusCode', 'Tutor')
-      navigate("/")
+      navigate(`/tutor/${decoded.id}`);
     }
 
     localStorage.setItem('userID', decoded.id)
