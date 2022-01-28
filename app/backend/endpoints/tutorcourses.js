@@ -186,7 +186,7 @@ const postTutorCourse = async (req, res) => {
         let course = Course.build({
             name: req.body.name,
             // Since we do not have a description, putting the name of the course in the description
-            description: req.body.name,
+            description: req.body.description,
         });
 
         await course.save().catch((e) => {
@@ -207,6 +207,7 @@ const postTutorCourse = async (req, res) => {
         CourseId: courseId,
         coursePricePerHour: req.body.coursePricePerHour,
         isFull: req.body.isFull,
+        description: req.body.description,
     });
 /*
     res.json({
@@ -247,6 +248,7 @@ const updateTutorCourse = async (req, res) => {
             await existingTutorCourse.update({
                 coursePricePerHour: req.body.coursePricePerHour,
                 isFull: req.body.isFull,
+                description: req.body.description,
             });
 /*
             return res.json({

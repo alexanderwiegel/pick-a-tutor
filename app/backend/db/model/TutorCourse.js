@@ -34,6 +34,10 @@ TutorCourse.init(
         rating: {
             type: DataTypes.DECIMAL(4, 2),
         },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
         nRatings: {
             type: DataTypes.INTEGER,
         },
