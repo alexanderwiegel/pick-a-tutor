@@ -187,7 +187,7 @@ const updateuser = async (req, res, next) => {
                     isTutor: req.body.isTutor ?? user.isTutor,
                     isAdmin: req.body.isAdmin ?? user.isAdmin,
                     status: req.body.status ?? user.status,
-                    description: req.body.description ?? userProfile.description,
+                    description: req.body.description ?? user.description,
                 });
 
                 res.json({
