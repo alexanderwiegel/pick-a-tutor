@@ -65,7 +65,7 @@ const Chat = () => {
   const submitMessage = (dT, txt) => {
     const message = { senderId: userId, dateTime: dT, text: txt }
     ws.send(JSON.stringify(message))
-    setMessages([message, ...messages])
+    setMessages([...messages, message])
   }
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const Chat = () => {
       let reader = new FileReader();
       reader.onload = () => {
         let message = JSON.parse(reader.result)
-        setMessages([message, ...messages])
+        setMessages([...messages, message])
       }
       reader.readAsText(e.data);
     }
@@ -111,7 +111,7 @@ const Chat = () => {
                 text={message.message}
                 key={message.id} />
             )}
-            {messages.reverse().map((message, index) =>
+            {messages.map((message, index) =>
               <ChatMessage senderId={message.senderId} date={message.dateTime} text={message.text} key={index} />
             )}
           </Card.Body>
