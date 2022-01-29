@@ -53,7 +53,7 @@ function CardComponentTutor({ name, tutor }) {
           }}
         >
           {
-            tutor?.Courses.map(course => <p>{course.name}</p>)
+            tutor?.Courses.map(course => <p key={course.id}>{course.name}</p>)
           }
         </Card.Text>
         <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>
