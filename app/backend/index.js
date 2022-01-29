@@ -1,6 +1,7 @@
 const app = require("express")();
 const endpoints = require("./endpoints/base");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
+require("./WebSocketServer");
 
 app.use(endpoints);
 

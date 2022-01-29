@@ -7,7 +7,7 @@ import apiEndPoints from "../Components/ApiEndpoints"
 import { BiArrowBack, BiPaperPlane } from "react-icons/bi"
 import { Link, useLocation } from "react-router-dom"
 
-const URL = "ws://127.0.0.1:8080"
+const URL = "ws://20.113.25.17:8080"
 
 const Chat = () => {
   const token = jwt_decode(localStorage.getItem("token"))
@@ -69,8 +69,12 @@ const Chat = () => {
 
   useEffect(() => {
     ws.onmessage = (e) => {
-      const message = JSON.parse(e.data)
-      setMessages([message, ...messages])
+      let reader = new FileReader();
+      reader.onload = () => {
+        let message = JSON.parse(reader.result)
+        setMessages([message, ...messages])
+      }
+      reader.readAsText(e.data);
     }
 
     return () => {
