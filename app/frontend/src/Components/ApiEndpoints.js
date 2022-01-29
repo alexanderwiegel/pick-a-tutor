@@ -96,6 +96,14 @@ async function getAllUsers() {
   return await axiosInstance.get("users")
 }
 
+async function getUserById(userId) {
+  return await axiosInstance.get("users", {
+    params: {
+      id: userId
+    }
+  })
+}
+
 async function blockUser(userEmail) {
   return await axiosInstance.delete("users/" + userEmail)
 }
@@ -368,6 +376,7 @@ const apiEndPoints = {
   getUnreadConversations,
   markAsRead,
   getAllUsers,
+  getUserById,
   blockUser,
   getProfileFilesToApprove,
   getCourseFilesToApprove,
