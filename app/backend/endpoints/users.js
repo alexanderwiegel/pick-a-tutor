@@ -10,14 +10,23 @@ const search = require("../utils/search");
 // const auth = require("../auth/check-auth");
 const { Sequelize } = require("sequelize");
 const jwtdecode = require("jwt-decode");
+const {SuccessfulResponse, FailedResponse} = require("../utils/response");
 const Op = Sequelize.Op;
 
 // app.use(express.json());
 
 //************* Get List of All Users & get one by "?search=" ***************
 
-const getallusers = async (req, res, next) => {
-    const users = await User.findAll({
+const getallusers = async (req, res) => {
+    if (req.query.id !== undefined) {
+        try {
+            let user = await User.findOne({where: {id: req.query.id}});
+            return res.json(new SuccessfulResponse("Get one user", [user]));
+        } catch (e) {
+            return res.json(new FailedResponse(e.message));
+        }
+    }
+    let users = await User.findAll({
         //attributes: [[Sequelize.fn('AVG', Sequelize.col('Reviews.rating')), 'ratingAvg']],
             where: {
             [Op.or]: [
@@ -29,12 +38,7 @@ const getallusers = async (req, res, next) => {
         include: [Review]
     });
 
-    res.json({
-        success: true,
-        message: "List of all users",
-        records: users.length,
-        data: users,
-    });
+    res.json(new SuccessfulResponse("List of all users", users));
 };
 
 exports.getallusers = getallusers;
