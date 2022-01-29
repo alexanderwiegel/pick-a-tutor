@@ -33,6 +33,7 @@ function EditTutorProfile() {
   const getTutorProfile = async (tutorID) => {
     const tutorProfile = await apiEndPoints.getTutorProfile(tutorID)
     setTutorProfile(tutorProfile)
+    console.log(tutorProfile)
   }
 
   useEffect(() => {
@@ -139,7 +140,7 @@ function EditTutorProfile() {
                   aria-label="radio male"
                   label="Male"
                   onClick={handleChange}
-                  defaultChecked={tutorProfile.gender === 0}
+                  defaultChecked={tutorProfile.gender == 0}
                   value="0"
                 />
                 <Form.Check
@@ -149,7 +150,7 @@ function EditTutorProfile() {
                   type="radio"
                   aria-label="radio female"
                   label="Female"
-                  defaultChecked={tutorProfile.gender === 1}
+                  defaultChecked={tutorProfile.gender == 1}
                   onClick={handleChange}
                   value="1"
                 />
@@ -161,7 +162,7 @@ function EditTutorProfile() {
                   aria-label="radio diverse"
                   label="Diverse"
                   onClick={handleChange}
-                  defaultChecked={tutorProfile.gender === 2}
+                  defaultChecked={tutorProfile.gender == 2}
                   value="2"
                 />
               </Form.Group>
@@ -192,7 +193,7 @@ function EditTutorProfile() {
                   as="textarea"
                   rows={8}
                   placeholder="please type a description about yourself"
-                  defaultValue={tutorProfile.UserProfile.description}
+                  defaultValue={tutorProfile.description}
                   style={{ overflowY: "scroll" }}
                   onChange={handleChange}
                 />

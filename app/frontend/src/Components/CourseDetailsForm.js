@@ -133,8 +133,8 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                   type='checkbox'
                   id='isFullCheckbox'
                   label='Check if course if full'
-                  checked={isNewCourse ? false : (courseDetails.isFull === true)}
-                  onClick={handleChange}
+                  defaultChecked={isNewCourse ? false : (courseDetails.isFull === true)}
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Row>

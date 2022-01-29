@@ -75,7 +75,7 @@ function TutorProfile() {
         <Row style={{ marginTop: " 1rem" }}>
           <Col>
             <h3>Description</h3>
-            {tutorProfile.UserProfile?.description}
+            {tutorProfile.description}
           </Col>
         </Row>
 
