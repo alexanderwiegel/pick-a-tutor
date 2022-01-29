@@ -9,6 +9,7 @@ RUN npm install
 
 # Expose ports
 EXPOSE 3001
+EXPOSE 8080
 
 # Copy sources
 COPY . .
