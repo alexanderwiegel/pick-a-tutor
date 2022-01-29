@@ -58,6 +58,7 @@ function CardComponent({ name, course }) {
           {localStorage.getItem("user") &&
             <div style={{ display: "flex", flexDirection: "column" }}>
               <Card.Link style={{ cursor: 'pointer' }} onClick={requestEnrollment}>Request</Card.Link>
+              {/* TODO/FIX error: a link cannot appear as a descendant of a link --> remove one */}
               <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.User }} >Contact</Link></Card.Link>
             </div>}
         </Container>
