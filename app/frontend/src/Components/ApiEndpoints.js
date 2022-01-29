@@ -284,7 +284,7 @@ async function updateCourseDetails(courseID, formData) {
   const requestBody = {}
   if (formData.coursePricePerHour)
     requestBody.coursePricePerHour = formData.coursePricePerHour
-  if (formData.isFull)
+  if (formData.isFull !== null)
     requestBody.isFull = formData.isFull
   if (formData.name)
     requestBody.name = formData.name
