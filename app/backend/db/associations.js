@@ -79,7 +79,7 @@ User.hasMany(UserProfileFiles);
 
 //For CourseAdditionalInfo
 CourseAdditionalInfo.belongsTo(Course, {
-    foreignKey: "CourseId",
+    foreignKey: "courseId",
 });
 Course.hasMany(CourseAdditionalInfo);
 

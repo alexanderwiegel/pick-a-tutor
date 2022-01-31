@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
-import apiEndPoints from "../Components/ApiEndpoints";
-import { useLocation } from "react-router-dom";
-import CardComponent from "../Components/CardComponentSubject";
-import CardComponentTutor from "../Components/CardComponentTutor";
-import SearchComponent from "../Components/SearchComponent";
-import { Container, ToggleButton, Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap';
-import Sort from "../Components/Sort";
-import _, { split, startCase } from "lodash";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import CardComponentTutorOfTheMonth from "../Components/CardComponentTutorOfTheMonth";
+import React, { useEffect, useState } from "react"
+import apiEndPoints from "../Components/ApiEndpoints"
+import { useLocation } from "react-router-dom"
+import CardComponent from "../Components/CardComponentSubject"
+import CardComponentTutor from "../Components/CardComponentTutor"
+import SearchComponent from "../Components/SearchComponent"
+import { Container, Row, Col, FloatingLabel, Form, Button } from 'react-bootstrap'
+import Sort from "../Components/Sort"
+import _, { split } from "lodash"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import CardComponentTutorOfTheMonth from "../Components/CardComponentTutorOfTheMonth"
+import RatingFilter from "../Components/RatingFilter"
+import PriceFilter from "../Components/PriceFilter"
 
-function Browse(props) {
+function Browse() {
+  //#region constants and functions
   const [users, setUsers] = useState([])
   const [courses, setCourses] = useState([])
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState("course")
-  const location = useLocation();
+  const location = useLocation()
   const [starValue, setStarValue] = useState(0)
+  const stars = [4, 3, 2, 1]
   const [priceFilter, setPriceFilter] = useState(0)
+  const prices = ["5", "10", "15", "20", "20+"]
   const [minPrice, setMinPrice] = useState()
   const [maxPrice, setMaxPrice] = useState()
   const [searchKeyword, setSearchKeyword] = useState("")
@@ -25,11 +30,11 @@ function Browse(props) {
   const getUsers = async (subject = "") => {
     const data = await apiEndPoints.getListofTutors(subject)
     setUsers(() => data.data.data)
-  };
+  }
 
   const getCourses = async (subject = "") => {
     filterResults(subject)
-  };
+  }
 
   const sortCourses = (sortby, order) => {
     setCourses(preVal => {
@@ -60,7 +65,7 @@ function Browse(props) {
     setCategory(() => value)
   }
 
-  const setPriceRange = (value) => {
+  const _setPriceRange = (value) => {
     setPriceFilter(() => value)
     const priceRange = split(value, "-")
     if (priceRange.length === 2) {
@@ -79,10 +84,10 @@ function Browse(props) {
   useEffect(() => {
     setTimeout(async () => {
       if (location.state?.search)
-        setSearchKeyword(preVal => location.state?.search)
+        setSearchKeyword(() => location.state?.search)
 
       if (location.state?.source === "/" || location.pathname === "/browse")
-        filterResults(location.state?.search);
+        filterResults(location.state?.search)
       if (location.state?.source === "/home") {
         _setCategory(location.state?.category)
         if (location.state?.category === "course") {
@@ -97,7 +102,9 @@ function Browse(props) {
         setLoading(() => false)
       }, 200)
     }, 500)
-  }, []);
+  }, [])
+  //#endregion
+
   return (
     <>
       <SearchComponent getUsers={getUsers}
@@ -121,154 +128,22 @@ function Browse(props) {
             <br />
             <h3>Rating Filters</h3>
             <hr />
-
-
-            <ToggleButton
-              style={{ backgroundColor: starValue === "4" ? "#00b7ffa1" : "transparent", color: starValue === "4" ? "#ffffff" : "black" }}
-              id="4 star"
-              type="checkbox"
-              variant="light"
-              value="4"
-              onChange={(e) => _setStartValue(e.currentTarget.value)}
-            >
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star"></i> & More
-            </ToggleButton>
-            <br />
-            <br />
-
-            <ToggleButton
-              style={{ backgroundColor: starValue === "3" ? "#00b7ffa1" : "transparent", color: starValue === "3" ? "#ffffff" : "black" }}
-              id="3 star"
-              type="checkbox"
-              variant="light"
-              value="3"
-              onChange={(e) => _setStartValue(e.currentTarget.value)}
-            >
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star"></i>
-              <i className="bi bi-star"></i> & More
-            </ToggleButton>
-
-            <br />
-            <br />
-
-            <ToggleButton
-              style={{ backgroundColor: starValue === "2" ? "#00b7ffa1" : "transparent", color: starValue === "2" ? "#ffffff" : "black" }}
-              id="2 star"
-              type="checkbox"
-              variant="light"
-              value="2"
-              onChange={(e) => _setStartValue(e.currentTarget.value)}
-            >
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star"></i>
-              <i className="bi bi-star"></i>
-              <i className="bi bi-star"></i> & More
-            </ToggleButton>
-
-            <br />
-            <br />
-
-
-            <ToggleButton
-              style={{ backgroundColor: starValue === "1" ? "#00b7ffa1" : "transparent", color: starValue === "1" ? "#ffffff" : "black" }}
-              id="1 star"
-              type="checkbox"
-              variant="light"
-              value="1"
-              onChange={(e) => _setStartValue(e.currentTarget.value)}
-            >
-              <i className="bi bi-star-fill" style={{ color: 'gold' }}></i>
-              <i className="bi bi-star"></i>
-              <i className="bi bi-star"></i>
-              <i className="bi bi-star"></i>
-              <i className="bi bi-star"></i> & More
-            </ToggleButton>
-
-            <br />
-            <br />
+            {
+              stars.map(value =>
+                <RatingFilter value={value} starValue={starValue} handleOnChange={_setStartValue} key={value} />
+              )
+            }
             {
               category === "course" &&
               <>
-
                 <h3>Price Filters</h3>
                 <hr />
+                {
+                  prices.map(value =>
+                    <PriceFilter value={value} priceFilter={priceFilter} handleOnChange={_setPriceRange} key={value} />
+                  )
+                }
 
-                <ToggleButton
-                  style={{ backgroundColor: priceFilter === "0-5" ? "#00b7ffa1" : "transparent", color: priceFilter === "0-5" ? "#ffffff" : "black" }}
-                  id="5 Euro"
-                  type="checkbox"
-                  variant="light"
-                  value="0-5"
-                  onChange={(e) => setPriceRange(e.currentTarget.value)}
-                >
-                  0 - 5 €
-                </ToggleButton>
-
-                <br />
-                <br />
-
-                <ToggleButton
-                  style={{ backgroundColor: priceFilter === "5-10" ? "#00b7ffa1" : "transparent", color: priceFilter === "5-10" ? "#ffffff" : "black" }}
-                  id="10 Euro"
-                  type="checkbox"
-                  variant="light"
-                  value="5-10"
-                  onChange={(e) => setPriceRange(e.currentTarget.value)}
-                >
-                  5 - 10 €
-                </ToggleButton>
-
-                <br />
-                <br />
-
-                <ToggleButton
-                  style={{ backgroundColor: priceFilter === "10-15" ? "#00b7ffa1" : "transparent", color: priceFilter === "10-15" ? "#ffffff" : "black" }}
-                  id="15"
-                  type="checkbox"
-                  variant="light"
-                  value="10-15"
-                  onChange={(e) => setPriceRange(e.currentTarget.value)}
-                >
-                  10 - 15 €
-                </ToggleButton>
-
-                <br />
-                <br />
-
-                <ToggleButton
-                  style={{ backgroundColor: priceFilter === "15-20" ? "#00b7ffa1" : "transparent", color: priceFilter === "15-20" ? "#ffffff" : "black" }}
-                  id="20 Euro"
-                  type="checkbox"
-                  variant="light"
-                  value="15-20"
-                  onChange={(e) => setPriceRange(e.currentTarget.value)}
-                >
-                  15 - 20 €
-                </ToggleButton>
-
-                <br />
-                <br />
-
-                <ToggleButton
-                  style={{ backgroundColor: priceFilter === '20+' ? "#00b7ffa1" : "transparent", color: priceFilter === '20+' ? "#ffffff" : "black" }}
-                  id="20 + Euro"
-                  type="checkbox"
-                  variant="light"
-                  value="20+"
-                  onChange={(e) => setPriceRange(e.currentTarget.value)}
-                >
-                  20+ €
-                </ToggleButton>
-                <br />
-                <br />
                 <Row className="g-2" style={{ fontSize: '10px' }}>
                   <Col md>
                     <FloatingLabel controlId="floatingInputGrid" label="Min Price">
@@ -287,7 +162,8 @@ function Browse(props) {
                     </FloatingLabel>
                   </Col>
                 </Row>
-              </>}
+              </>
+            }
             <br />
             <Container>
               <Row>
@@ -306,26 +182,15 @@ function Browse(props) {
             <div className="main-content">
               <div className="wrapper" style={{ justifyContent: 'space-evenly' }}>
                 {
-                  loading &&
-                  <h1>Fetching data...</h1>
-                }
-                <CardComponentTutorOfTheMonth />
-                {
-                  (category === "tutor" && users.length > 0 && !loading) &&
-                  users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} />
-                  )
-                }
-                {
-                  (category === "course" && courses.length > 0 && !loading) &&
-                  courses.map(course => <CardComponent course={course} name={course.User?.firstName + " " + course.User?.lastName} price={course.coursePricePerHour} />)
-                }
-                {
-                  (category === "tutor" && users.length === 0 && !loading) &&
-                  <h1>No tutor found</h1>
-                }
-                {
-                  (category === "course" && courses.length === 0 && !loading) &&
-                  <h1>No course found</h1>
+                  loading ? <h1>Fetching data...</h1> :
+                    <CardComponentTutorOfTheMonth /> &&
+                      category === "tutor" && users.length > 0 ?
+                      users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} key={user.id} />) :
+                      <h1>No tutor found</h1>
+                        ||
+                        category === "course" && courses.length > 0 ?
+                        courses.map(course => <CardComponent course={course} name={course.User?.firstName + " " + course.User?.lastName} price={course.coursePricePerHour} key={course.id} />) :
+                        <h1>No course found</h1>
                 }
               </div>
             </div>
@@ -333,7 +198,7 @@ function Browse(props) {
         </div>
       </Container>
     </>
-  );
+  )
 }
 
-export default Browse;
+export default Browse

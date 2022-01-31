@@ -7,12 +7,12 @@ import apiEndPoints from "../Components/ApiEndpoints"
 import { BiArrowBack, BiPaperPlane } from "react-icons/bi"
 import { Link, useLocation } from "react-router-dom"
 
-const URL = "ws://127.0.0.1:8080"
+const URL = "ws://20.113.25.17:8080"
 
 const Chat = () => {
+  //#region constants and database messaging
   const token = jwt_decode(localStorage.getItem("token"))
   const userId = token.id
-  const userName = token.firstName + " " + token.lastName
   const [conversation, setConversation] = useState([])
   const location = useLocation()
   const contact = location.state?.contact
@@ -31,6 +31,10 @@ const Chat = () => {
     }
   }
 
+  const sendMessage = async (senderId, recipientId, txt) => {
+    await apiEndPoints.sendMessage(senderId, recipientId, txt)
+  }
+
   useEffect(() => {
     getConversation(userId, contact.id)
   }, [userId, contact.id])
@@ -38,9 +42,9 @@ const Chat = () => {
   useEffect(() => {
     markAsRead()
   })
+  //#endregion
 
   //#region Sort messages by date
-
   for (var i = 0; i < conversation.length; i++) {
     conversation[i].createdAt = new Date(conversation[i].createdAt)
   }
@@ -53,32 +57,34 @@ const Chat = () => {
 
   //#endregion
 
+  //#region WebSocket messaging
   const [message, setMessage] = useState([])
   const [messages, setMessages] = useState([])
-  const [ws, setWs] = useState(new WebSocket(URL))
+  const [ws, setWs] = useState(new WebSocket(URL, "echo-protocol"))
 
   const submitMessage = (dT, txt) => {
-    const message = { sender: userName, dateTime: dT, text: txt }
+    const message = { senderId: userId, dateTime: dT, text: txt }
     ws.send(JSON.stringify(message))
-    setMessages([message, ...messages])
-  }
-
-  const sendMessage = async (senderId, recipientId, txt) => {
-    await apiEndPoints.sendMessage(senderId, recipientId, txt)
+    setMessages([...messages, message])
   }
 
   useEffect(() => {
     ws.onmessage = (e) => {
-      const message = JSON.parse(e.data)
-      setMessages([message, ...messages])
+      let reader = new FileReader();
+      reader.onload = () => {
+        let message = JSON.parse(reader.result)
+        setMessages([...messages, message])
+      }
+      reader.readAsText(e.data);
     }
 
     return () => {
       ws.onclose = () => {
-        setWs(new WebSocket(URL))
+        setWs(new WebSocket(URL, "echo-protocol"))
       }
     }
   }, [ws.onmessage, ws.onopen, ws.onclose, messages])
+  //#endregion
 
   return (
     <div className="App">
@@ -98,17 +104,21 @@ const Chat = () => {
           </Card.Header>
           <Card.Body>
             {conversation.map(message =>
-              <ChatMessage sender={message.sender.firstName + " " + message.sender.lastName} id={message.sender.id}
+              <ChatMessage
+                senderName={message.sender.firstName + " " + message.sender.lastName}
+                senderId={message.sender.id}
                 date={format(new Date(message.createdAt), "dd.MM.yyyy kk:mm")}
-                text={message.message} key={message.id} />
+                text={message.message}
+                key={message.id} />
             )}
-            {messages.reverse().map((message, index) =>
-              <ChatMessage sender={message.sender} id={userId} date={message.dateTime} text={message.text} key={index} />
+            {messages.map((message, index) =>
+              <ChatMessage senderId={message.senderId} date={message.dateTime} text={message.text} key={index} />
             )}
           </Card.Body>
           <Card.Footer>
             <Form
               onSubmit={e => {
+
                 e.preventDefault()
                 submitMessage(format(Date.now(), "dd.MM.yyyy kk:mm"), message)
                 setMessage([])
