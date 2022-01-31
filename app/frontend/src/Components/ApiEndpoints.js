@@ -166,13 +166,19 @@ async function getEnrolledCourses() {
 
 async function getCourseDetails(courseID) {
   console.log(`In get course ${courseID} API call.`)
-  const allCoursesData = await axiosInstance.get("/tutor_courses")
+  const allCoursesData = await axiosInstance.get("/tutor_courses_home?course_name=&price_min=&price_max=&rating=")
   const allCourses = allCoursesData.data.data
   // use equality operator == not strict equality operator === because courseID is sent as string
   let course = allCourses.find((course) => course.CourseId == courseID)
-  // clean the course json data and make it more structured
+  /* 
+    Clean the course json data:
+      - The description property in the course.Course object shows the initial set course description, so if a course description
+      is updated, it will still show up and the old value and after merging the course and course.Course properties the old value will override the new one.
+   */
+  delete course.Course.description 
   course = Object.assign(course, course.Course)
   delete course.Course
+  
   const tutorID = course.User.id
   const courseFilesData = await axiosInstance.get(
     `/getallbytutorcourse/${tutorID}/${courseID}/`
@@ -294,8 +300,8 @@ async function updateCourseDetails(courseID, formData) {
     requestBody.coursePricePerHour = formData.coursePricePerHour
   if (formData.isFull !== null)
     requestBody.isFull = formData.isFull
-  if (formData.name)
-    requestBody.name = formData.name
+  /* if (formData.name)
+    requestBody.name = formData.name */
   if (formData.description)
     requestBody.description = formData.description
 
