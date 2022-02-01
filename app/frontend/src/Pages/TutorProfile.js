@@ -52,7 +52,7 @@ function TutorProfile() {
             />
           </Col>
           <Col md={7} className="flexColumn">
-            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {id === token.id ? "(You)" : ""}</h3>
+            <h3>{tutorProfile.firstName + " " + tutorProfile.lastName} {parseInt(id) === token.id ? "(You)" : ""}</h3>
             <h6>
               {tutorProfile.rating}
               <i className="bi bi-star-fill" style={{ color: "#ffff00" }} /> ({tutorProfile.nRatings})
@@ -62,7 +62,7 @@ function TutorProfile() {
               status === null ?
                 <></> :
                 // only THIS tutor should see the "Edit profile" button, everyone else should see "Contact tutor"
-                id !== token.id ?
+                parseInt(id) !== token.id ?
                   <Link to={"/chat"} state={{ contact: tutor }}>
                     <Button variant="outline-primary" style={{ margin: "5px" }}>Contact tutor</Button>
                   </Link>
