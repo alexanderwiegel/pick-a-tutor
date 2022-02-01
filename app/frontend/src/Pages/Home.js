@@ -48,8 +48,8 @@ const Home = () => {
         <Container style={{ display: 'flex' }}>
           {
             (enrolledCourses && enrolledCourses.length > 0) &&
-            enrolledCourses.map((course, index) => (
-              <CardComponentMyCourses course={course} />
+            enrolledCourses.map((course) => (
+              <CardComponentMyCourses course={course} key={course.id} />
             ))
           }
           {
@@ -64,8 +64,8 @@ const Home = () => {
         <Container style={{ display: 'flex' }}>
           {
             (courses && courses.length > 0) &&
-            _.orderBy(courses, "rating", "desc").map((course, index) => (
-              <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} />
+            _.orderBy(courses, "rating", "desc").map((course) => (
+              <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} key={course.id} />
             ))
           }
         </Container>

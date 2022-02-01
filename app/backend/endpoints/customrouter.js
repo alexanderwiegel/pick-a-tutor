@@ -175,7 +175,6 @@ router.delete(
 
 const multer = require("multer");
 const jwtdecode = require("jwt-decode");
-const checkauth_general = require("../auth/checkauth_general");
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, process.env.PROFILE_STORAGE);
