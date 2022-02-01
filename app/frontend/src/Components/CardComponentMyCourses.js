@@ -55,7 +55,7 @@ const CardComponentMyCourses = (course) => {
           {localStorage.getItem("user") &&
             <div style={{ display: "flex", flexDirection: "column" }}>
               {console.log("user id= ", course)}
-              <Card.Link style={{ color: "#6a6f73", marginLeft: 0 }}><Link to={"/chat"} state={{ contact: course.course.User }} >Contact</Link></Card.Link>
+              <Link to={"/chat"} state={{ contact: course.course.User }} >Contact</Link>
             </div>}
         </Container>
         <Card.Text style={{ fontSize: "0.7rem" }}>
