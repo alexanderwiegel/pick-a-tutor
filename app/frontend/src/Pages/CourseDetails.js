@@ -107,8 +107,8 @@ function CourseDetails() {
             <h3>Reviews</h3>
             {
               // check if this works
-              // only (logged in) users who are neither THIS tutor nor an admin should see the "Write review" button
-              status && courseDetails.User.id !== token.id && status !== "Admin" ?
+              // only (logged in) students should see the "Write review" button
+              status && courseDetails.User.id !== token.id && status !== "Admin" && status !== "Tutor" ?
                 <Button variant="outline-primary" onClick={handleReviewModalShow}>
                   Write review
                 </Button> : <div />
