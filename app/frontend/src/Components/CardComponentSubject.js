@@ -7,6 +7,7 @@ import apiEndPoints from "./ApiEndpoints"
 function CardComponent({ name, course }) {
   const requestEnrollment = async () => {
     const response = await apiEndPoints.requestEnrollment(course.CourseId)
+    console.log('the response data = ', response)
   }
   return (
     <Card

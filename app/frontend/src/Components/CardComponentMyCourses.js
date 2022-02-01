@@ -13,7 +13,7 @@ const CardComponentMyCourses = (course) => {
       >
         <Card.Img
           variant="top"
-          src="https://www.diethelmtravel.com/wp-content/uploads/2016/04/bill-gates-wealthiest-person.jpg"
+          src={require("../images/tutor1.jpg")}
           style={{
             height: "150px",
             width: "150px",

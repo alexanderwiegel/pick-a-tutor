@@ -16,6 +16,7 @@ const Home = () => {
   const getUsers = async () => {
     const data = await apiEndPoints.getTutorData()
     setUsers(() => data.data)
+    return users;
   };
 
   const getCourses = async (subject = "") => {
@@ -24,6 +25,7 @@ const Home = () => {
   };
   const getEnrolledCourses = async () => {
     const data = await apiEndPoints.getEnrolledCourses()
+    console.log("getEnrolledCourses data = ", data)
     setEnrolledCourses(() => data.data.data)
   };
 
@@ -32,7 +34,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    //getUsers()
     getCourses()
     getEnrolledCourses()
   }, []);
@@ -75,7 +76,7 @@ const Home = () => {
         <Container style={{ display: 'flex' }}>
           {
             (courses && courses.length > 0) &&
-            _.orderBy(courses, "createdAt", "asc").map((course, index) => (
+            _.orderBy(courses, "createdAt", "desc").map((course, index) => (
               <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} />
             ))
           }
