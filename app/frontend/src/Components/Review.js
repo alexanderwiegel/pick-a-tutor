@@ -6,6 +6,7 @@ import ReviewReportForm from "./ReviewReportForm"
 function Review(props) {
   const status = localStorage.getItem("statusCode")
   const review = props.review
+  var count = 0
 
   const [reviewToReport, setreviewToReport] = useState(0)
   const [isReportFormModalOpen, setReportFormModalOpen] = useState(false)
@@ -25,11 +26,11 @@ function Review(props) {
         <Card.Subtitle>
           <h6 className="text-muted">{format(new Date(review.createdAt), "dd.MM.yyyy kk:mm")}</h6>
           <div>
-            {Array.from({ length: review.rating }, (index) => (
-              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} key={index} />
+            {Array.from({ length: review.rating }, () => (
+              <i className="bi bi-star-fill" style={{ color: "#ffff00" }} key={++count} />
             ))}
-            {Array.from({ length: 5 - Math.floor(review.rating) }, (index) => (
-              <i className="bi bi-star" style={{ color: "#ffff00" }} key={index} />
+            {Array.from({ length: 5 - Math.floor(review.rating) }, () => (
+              <i className="bi bi-star" style={{ color: "#ffff00" }} key={++count} />
             ))}
             ({review.rating})
           </div>
