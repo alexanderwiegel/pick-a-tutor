@@ -5,6 +5,14 @@ const axiosInstance = axios.create({
   headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
 })
 
+function setToken() {
+  axiosInstance.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('token');
+    config.headers.Authorization = token ? `Bearer ${token}` : '';
+    return config;
+  });
+}
+
 // Interceptors to log requests
 /* axiosInstance.interceptors.request.use(
  function (config) {
@@ -361,6 +369,7 @@ async function updateTutorProfile(tutorEmail, formData) {
 
 
 const apiEndPoints = {
+  setToken,
   getTutorData,
   getTutorOfTheMonth,
   getListofTutors,

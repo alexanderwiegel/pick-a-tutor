@@ -14,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from 'yup';
 import apiEndpoints from "../Components/ApiEndpoints";
 import jwt_decode from 'jwt-decode';
+import apiEndPoints from "../Components/ApiEndpoints";
 
 const initialValues = {
   email: "",
@@ -83,6 +84,7 @@ export default function Login() {
                     localStorage.setItem('user', true)
                     localStorage.setItem('token', data.data.data.token)
                     tokenDecode(localStorage.getItem('token'))
+                    apiEndPoints.setToken()
                   }
                   else {
                     console.log('Login reject', data)
