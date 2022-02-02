@@ -76,7 +76,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
               fluid="true"
               thumbnail="true"
               // TODO: Add image from the backend
-              src={CourseImage1}
+              src={(courseDetails.img)?`http://20.113.25.17:3001/api/downloadprofilefile?path=${courseDetails.img.filePath}`: CourseImage1}
               name="submit"
               width="650px"
               height="500px"
@@ -95,14 +95,25 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
           <Col md={7} className="flexColumn">
             <Form.Group controlId="courseName">
               <Form.Label as="b">Course name: </Form.Label>
-              <Form.Control
-                type="text"
-                name="name"
-                defaultValue={isNewCourse ? "" : courseDetails.name}
-                placeholder="Course name"
-                className="mb-2"
-                onChange={handleChange}
-              />
+              {//Disable the name input if this is not a new course
+                (isNewCourse) ?
+                  <Form.Control
+                    type="text"
+                    name="name"
+                    defaultValue=""
+                    placeholder="Course name"
+                    className="mb-2"
+                    onChange={handleChange}
+                  /> :
+                  <Form.Control
+                    type="text"
+                    name="name"
+                    defaultValue={courseDetails.name}
+                    placeholder="Course name"
+                    className="mb-2"
+                    onChange={handleChange}
+                    disabled
+                  />}
             </Form.Group>
             By
             <i>
