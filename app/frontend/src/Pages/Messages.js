@@ -8,6 +8,11 @@ const Messages = () => {
   const userId = jwt_decode(localStorage.getItem("token")).id
   const [conversations, setConversations] = useState([])
 
+  const getConversations = async () => {
+    const data = await apiEndPoints.getAllConversations(userId)
+    setConversations(() => data.data.data)
+  }
+
   useEffect(() => {
     const getConversations = async () => {
       const data = await apiEndPoints.getAllConversations(userId)

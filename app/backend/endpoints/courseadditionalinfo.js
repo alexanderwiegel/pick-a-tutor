@@ -9,7 +9,7 @@ const User = require("../db/model/User")
 
 const getallbyTutorCourse = async (req, res, next) => {
     const courseadditionalinfo = await CourseAdditionalInfo.findAll({
-        where: { tutorId: req.params.tutorId, courseId: req.params.courseId }, include: [Course, User]
+        where: { tutorId: req.params.tutorId, CourseId: req.params.courseId }, include: [Course, User]
     });
 
     res.json({
@@ -88,7 +88,7 @@ const createusercoursefile = async (req, res, next) => {
 
     let coursefile = CourseAdditionalInfo.build({
         tutorId: tutorId,
-        courseId: req.body.courseId,
+        CourseId: req.body.courseId,
         fileTitle: req.body.fileTitle,
         filePath: req.file.path,
         approvalStatus: "PendingApproval",
@@ -113,7 +113,7 @@ const createusercoursefile = async (req, res, next) => {
 
 //     let coursefile = CourseAdditionalInfo.build({
 //         tutorId: tutorId,
-//         courseId: req.body.courseId,
+//         CourseId: req.body.courseId,
 //         fileTitle: req.body.fileTitle,
 //         filePath: req.body.filePath,
 //         approvalStatus: "PendingApproval",

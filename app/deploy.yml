@@ -16,12 +16,6 @@
         chdir:
           /home/azureuser/app
 
-    - name: Set remote backend
-      lineinfile:
-        path: /home/azureuser/app/frontend/src/Components/ApiEndpoints.js
-        regexp: '^  baseURL: "http://127.0.0.1:3001/api",$'
-        line: '  baseURL: "http://20.113.25.17:3001/api",'
-
     - name: Build app services
       shell:
         docker-compose build
