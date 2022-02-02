@@ -31,12 +31,12 @@ const CourseAdditionalInfo = require('../db/model/CourseAdditionalInfo');
 
 const getallbyuserid = async (req, res, next) => {
     const userprofilefiles = await UserProfileFiles.findAll({
-        where: { userId: req.params.userId }, include: [User]
+        where: { UserId: req.params.userId }, include: [User]
     });
 
     res.json({
         success: true,
-        message: "User Porofile Files",
+        message: "User Profile Files",
         records: userprofilefiles.length,
         data: userprofilefiles,
     });
@@ -53,7 +53,7 @@ const getallbyfileid = async (req, res, next) => {
 
     res.json({
         success: true,
-        message: "User Porofile File",
+        message: "User Profile File",
         records: userprofilefiles.length,
         data: userprofilefiles,
     });
@@ -70,7 +70,7 @@ const getallbystatus = async (req, res, next) => {
 
     res.json({
         success: true,
-        message: "User Porofile Files",
+        message: "User Profile Files",
         records: userprofilefiles.length,
         data: userprofilefiles,
     });
@@ -83,7 +83,7 @@ exports.getallbystatus = getallbystatus;
 const getallbyuserfilestatus = async (req, res, next) => {
     const userprofilefiles = await UserProfileFiles.findAll({
         where: {
-            userId: req.params.userId,
+            UserId: req.params.userId,
             fileTitle: req.params.fileTitle,
             approvalStatus: req.params.approvalStatus,
         }, include: [User]
@@ -91,7 +91,7 @@ const getallbyuserfilestatus = async (req, res, next) => {
 
     res.json({
         success: true,
-        message: "User Porofile File",
+        message: "User Profile File",
         records: userprofilefiles.length,
         data: userprofilefiles,
     });
@@ -106,7 +106,7 @@ const createuserprofilefile = async (req, res, next) => {
     var decoded = jwtdecode(token);
 
     let profilefile = UserProfileFiles.build({
-        userId: decoded.id,
+        UserId: decoded.id,
         fileTitle: req.body.fileTitle,
         filePath: req.file.path,
         approvalStatus: "PendingApproval",
@@ -126,7 +126,7 @@ const createuserprofilefile = async (req, res, next) => {
 
 // const createuserprofilefile = async (req, res, next) => {
 //     let profilefile = UserProfileFiles.build({
-//         userId: req.body.userId,
+//         UserId: req.body.userId,
 //         fileTitle: req.body.fileTitle,
 //         filePath: req.body.filePath,
 //         approvalStatus: "PendingApproval",
@@ -156,7 +156,7 @@ const updateuserprofilefile = async (req, res, next) => {
     if (userprofilefile) {
         try {
             await userprofilefile.update({
-                userId: req.body.userId,
+                UserId: req.body.userId,
                 fileTitle: req.body.fileTitle ?? userprofilefile.fileTitle,
                 filePath: req.body.filePath ?? userprofilefile.filePath,
                 approvalStatus: req.body.approvalStatus,
@@ -165,7 +165,7 @@ const updateuserprofilefile = async (req, res, next) => {
                 success: true,
                 message:
                     "User Profile File for user '" +
-                    userprofilefile.userId +
+                    userprofilefile.UserId +
                     "' successfully updated",
                 records: userprofilefile.length,
             });
@@ -174,7 +174,7 @@ const updateuserprofilefile = async (req, res, next) => {
                 success: false,
                 message:
                     "User Profile File for user " +
-                    userprofilefile.userId +
+                    userprofilefile.UserId +
                     " updation failed",
                 records: userprofilefile.length,
             });
