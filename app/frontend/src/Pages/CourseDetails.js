@@ -45,7 +45,7 @@ function CourseDetails() {
           <Col md={5}>
             <img
               // TODO: Add image from the backend
-              src={CourseImage1}
+              src={(courseDetails.img)?`http://20.113.25.17:3001/api/downloadprofilefile?path=${courseDetails.img.filePath}`: CourseImage1}
               className="img-fluid img-thumbnail"
               style={{ height: "500px", width: "650px" }}
             />
@@ -107,8 +107,8 @@ function CourseDetails() {
             <h3>Reviews</h3>
             {
               // check if this works
-              // only (logged in) users who are neither THIS tutor nor an admin should see the "Write review" button
-              status && courseDetails.User.id !== token.id && status !== "Admin" ?
+              // only (logged in) students should see the "Write review" button
+              status && courseDetails.User.id !== token.id && status !== "Admin" && status !== "Tutor" ?
                 <Button variant="outline-primary" onClick={handleReviewModalShow}>
                   Write review
                 </Button> : <div />

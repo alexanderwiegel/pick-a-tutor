@@ -43,7 +43,7 @@ function TutorProfile() {
             {console.log(tutorProfile.UserProfile?.profileImagePath)}
             <Image
               // TODO: Switch to dynamically loaded images from the backend
-              src={tutorImage1}
+              src={(tutorProfile.img)?`http://20.113.25.17:3001/api/downloadprofilefile?path=${tutorProfile.img.filePath}`: tutorImage1}
               fluid={true}
               thumbnail={true}
               className="floatRight"
