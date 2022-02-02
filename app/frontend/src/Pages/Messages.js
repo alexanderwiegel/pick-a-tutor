@@ -10,7 +10,7 @@ const Messages = () => {
 
   const getConversations = async () => {
     const data = await apiEndPoints.getAllConversations(userId)
-    setConversations(data.data.data)
+    setConversations(() => data.data.data)
   }
 
   useEffect(() => {
