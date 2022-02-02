@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button, Badge } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router-dom";
 import apiEndPoints from './ApiEndpoints';
-import { useEffect } from 'react';
 
 function CardComponentTutorOfTheMonth(props) {
+  const [tutorImage, setTutorImage] = useState("")
   const [bestTutor, setBestTutor] = useState();
   const getTOTMdata = async () => {
     const data = await apiEndPoints.getTutorOfTheMonth()
@@ -13,8 +13,10 @@ function CardComponentTutorOfTheMonth(props) {
       setBestTutor(() => data.data.data[0]);
   };
   console.log(bestTutor)
-  useEffect(() => {
+  useEffect(async () => {
     getTOTMdata();
+    const image = await apiEndPoints.getTutorImage(bestTutor.id)
+    setTutorImage(preVal => image?.filePath)
   }, []);
   return (
     bestTutor != undefined &&
@@ -33,7 +35,7 @@ function CardComponentTutorOfTheMonth(props) {
       >
         <Card.Img
           variant="top"
-          src={require("../images/tutor1.jpg")}
+          src={tutorImage ? `http://20.113.25.17:3001/api/downloadprofilefile?path=${tutorImage}` : require("../images/tutor1.jpg")}
           style={{
             height: "150px",
             width: "150px",

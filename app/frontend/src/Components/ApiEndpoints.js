@@ -1,22 +1,22 @@
 import axios from "axios"
 
 const axiosInstance = axios.create({
-  baseURL: "http://20.113.25.17:3001/api",
-  headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+  baseURL: "http://20.113.25.17:3001/api"
 })
 
 // Interceptors to log requests
 axiosInstance.interceptors.request.use(
- function (config) {
-   console.log("log request " + config.url)
-   console.log(config)
-   return config
- },
- function (error) {
-   // Do something with request error
-   return Promise.reject(error)
- }
-) 
+  function (config) {
+    config.headers = {
+      'Authorization': `Bearer ${localStorage.getItem("token")}`
+    }
+    return config
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error)
+  }
+)
 
 async function getTutorData() {
   return await axiosInstance.get("tutors")
@@ -175,10 +175,10 @@ async function getCourseDetails(courseID) {
       - The description property in the course.Course object shows the initial set course description, so if a course description
       is updated, it will still show up and the old value and after merging the course and course.Course properties the old value will override the new one.
    */
-  delete course.Course.description 
+  delete course.Course.description
   course = Object.assign(course, course.Course)
   delete course.Course
-  
+
   const tutorID = course.User.id
   const courseFilesData = await axiosInstance.get(
     `/getallbytutorcourse/${tutorID}/${courseID}/`
@@ -187,7 +187,7 @@ async function getCourseDetails(courseID) {
   const allCourseImages = courseFilesData.data.data.filter((file) => file.fileTitle === 'CourseImage')
   const newestCourseImage = allCourseImages[allCourseImages.length - 1]
   const courseFilesNoImage = courseFilesData.data.data.filter((file) => file.fileTitle !== 'CourseImage')
-  course = Object.assign(course, { files:  courseFilesNoImage, img: newestCourseImage})
+  course = Object.assign(course, { files: courseFilesNoImage, img: newestCourseImage })
   console.log(course)
   return course
 }
@@ -229,6 +229,23 @@ async function getTutorProfile(tutorID) {
     files: tutorFilesNoImage,
     img: newestTutorImage
   })
+}
+
+async function getTutorImage(tutorID) {
+  const tutorFilesData = await axiosInstance.get(
+    `/getallprofilefilesbyuserid/${tutorID}`
+  )
+  const allTutorImages = tutorFilesData.data.data.filter((file) => file.fileTitle === 'TutorImage')
+  const newestTutorImage = allTutorImages[allTutorImages.length - 1]
+  return newestTutorImage
+}
+async function getCourseImage(tutorId, courseID) {
+  const courseFilesData = await axiosInstance.get(
+    `/getallbytutorcourse/${tutorId}/${courseID}/`
+  )
+  const allCourseImages = courseFilesData.data.data.filter((file) => file.fileTitle === 'CourseImage')
+  const newestCourseImage = allCourseImages[allCourseImages.length - 1]
+  return newestCourseImage
 }
 
 async function getTutorById(id) {
@@ -285,7 +302,7 @@ async function addCourseFile(courseID, file, isCourseImage) {
   }
   var formData = new FormData()
   formData.append("file", file, file.name)
-  formData.append("fileTitle", (isCourseImage)? "CourseImage" : file.name)
+  formData.append("fileTitle", (isCourseImage) ? "CourseImage" : file.name)
   formData.append("courseId", courseID)
   const response = await axiosInstance.post("createcoursefile", formData, config)
   console.log("api call upload file " + file.name)
@@ -294,7 +311,7 @@ async function addCourseFile(courseID, file, isCourseImage) {
 }
 
 async function updateCourseDetails(courseID, formData) {
-  if(formData.img) {
+  if (formData.img) {
     const isCourseImage = true
     addCourseFile(courseID, formData.img, isCourseImage)
   }
@@ -339,7 +356,7 @@ async function addTutorFile(file, isTutorImage) {
   }
   var formData = new FormData()
   formData.append("file", file, file.name)
-  formData.append("fileTitle", (isTutorImage)? "TutorImage" : file.name)
+  formData.append("fileTitle", (isTutorImage) ? "TutorImage" : file.name)
   const response = await axiosInstance.post("createprofilefile", formData, config)
   console.log("api call upload file " + file.name)
   console.log(response)
@@ -355,7 +372,7 @@ async function deleteTutorFile(fileID) {
 
 
 async function updateTutorProfile(tutorEmail, formData) {
-  if(formData.img) {
+  if (formData.img) {
     const isTutorImage = true
     addTutorFile(formData.img, isTutorImage)
   }
@@ -427,6 +444,8 @@ const apiEndPoints = {
   addTutorFile,
   deleteTutorFile,
   updateTutorProfile,
+  getTutorImage,
+  getCourseImage
 }
 
 export default apiEndPoints

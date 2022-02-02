@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import apiEndPoints from './ApiEndpoints';
 import { Card, Button, Container } from "react-bootstrap"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import { Link } from "react-router-dom"
 
 const CardComponentMyCourses = (course) => {
+  const [courseImage, setCourseImage] = useState("")
+  useEffect(async () => {
+    const image = await apiEndPoints.getCourseImage(course.UserId, course.CourseId)
+    setCourseImage(preVal => image?.filePath)
+  }, [])
   return (
     <Card
       style={{ fontSize: "1rem", borderColor: "transparent", minWidth: "270px" }}>
@@ -13,7 +19,7 @@ const CardComponentMyCourses = (course) => {
       >
         <Card.Img
           variant="top"
-          src={require("../images/tutor1.jpg")}
+          src={courseImage ? `http://20.113.25.17:3001/api/downloadprofilefile?path=${courseImage}` : require("../images/tutor1.jpg")}
           style={{
             height: "150px",
             width: "150px",
