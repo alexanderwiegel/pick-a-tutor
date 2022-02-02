@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
 })
 
 // Interceptors to log requests
-/* axiosInstance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
  function (config) {
    console.log("log request " + config.url)
    console.log(config)
@@ -16,7 +16,7 @@ const axiosInstance = axios.create({
    // Do something with request error
    return Promise.reject(error)
  }
-)  */
+) 
 
 async function getTutorData() {
   return await axiosInstance.get("tutors")
@@ -166,18 +166,28 @@ async function getEnrolledCourses() {
 
 async function getCourseDetails(courseID) {
   console.log(`In get course ${courseID} API call.`)
-  const allCoursesData = await axiosInstance.get("/tutor_courses")
+  const allCoursesData = await axiosInstance.get("/tutor_courses_home?course_name=&price_min=&price_max=&rating=")
   const allCourses = allCoursesData.data.data
   // use equality operator == not strict equality operator === because courseID is sent as string
   let course = allCourses.find((course) => course.CourseId == courseID)
-  // clean the course json data and make it more structured
+  /* 
+    Clean the course json data:
+      - The description property in the course.Course object shows the initial set course description, so if a course description
+      is updated, it will still show up and the old value and after merging the course and course.Course properties the old value will override the new one.
+   */
+  delete course.Course.description 
   course = Object.assign(course, course.Course)
   delete course.Course
+  
   const tutorID = course.User.id
   const courseFilesData = await axiosInstance.get(
     `/getallbytutorcourse/${tutorID}/${courseID}/`
   )
-  course = Object.assign(course, { files: courseFilesData.data.data })
+
+  const allCourseImages = courseFilesData.data.data.filter((file) => file.fileTitle === 'CourseImage')
+  const newestCourseImage = allCourseImages[allCourseImages.length - 1]
+  const courseFilesNoImage = courseFilesData.data.data.filter((file) => file.fileTitle !== 'CourseImage')
+  course = Object.assign(course, { files:  courseFilesNoImage, img: newestCourseImage})
   console.log(course)
   return course
 }
@@ -212,8 +222,12 @@ async function getTutorProfile(tutorID) {
   console.log(tutorFilesData)
   console.log(Object.assign(tutorData.data.data[0], {files: tutorFilesData.data.data})) */
   // To Do: search how to return multiple objects so I could return the tutorData and tutorFilesData promise object as is to the caller function so if there is an error, it could be handled there
+  const allTutorImages = tutorFilesData.data.data.filter((file) => file.fileTitle === 'TutorImage')
+  const newestTutorImage = allTutorImages[allTutorImages.length - 1]
+  const tutorFilesNoImage = tutorFilesData.data.data.filter((file) => file.fileTitle !== 'TutorImage')
   return Object.assign(tutorData.data.data[0], {
-    files: tutorFilesData.data.data,
+    files: tutorFilesNoImage,
+    img: newestTutorImage
   })
 }
 
@@ -261,7 +275,7 @@ async function addNewCourse(course) {
   return response
 }
 
-async function addCourseFile(courseID, file) {
+async function addCourseFile(courseID, file, isCourseImage) {
   const config = {
     baseURL: "http://20.113.25.17:3001/api",
     headers: {
@@ -271,7 +285,7 @@ async function addCourseFile(courseID, file) {
   }
   var formData = new FormData()
   formData.append("file", file, file.name)
-  formData.append("fileTitle", file.name)
+  formData.append("fileTitle", (isCourseImage)? "CourseImage" : file.name)
   formData.append("courseId", courseID)
   const response = await axiosInstance.post("createcoursefile", formData, config)
   console.log("api call upload file " + file.name)
@@ -280,9 +294,14 @@ async function addCourseFile(courseID, file) {
 }
 
 async function updateCourseDetails(courseID, formData) {
-  console.log("in api call updateCourseDetails, the values passed are courseID =", courseID, " and formData =", formData)
+  if(formData.img) {
+    const isCourseImage = true
+    addCourseFile(courseID, formData.img, isCourseImage)
+  }
+
   if (formData.files) {
-    Promise.all(formData.files.map((file) => addCourseFile(courseID, file)))
+    const isCourseImage = false
+    Promise.all(formData.files.map((file) => addCourseFile(courseID, file, isCourseImage)))
       .then(function (results) {
         console.log("all files uploaded")
         console.log(results)
@@ -294,8 +313,8 @@ async function updateCourseDetails(courseID, formData) {
     requestBody.coursePricePerHour = formData.coursePricePerHour
   if (formData.isFull !== null)
     requestBody.isFull = formData.isFull
-  if (formData.name)
-    requestBody.name = formData.name
+  /* if (formData.name)
+    requestBody.name = formData.name */
   if (formData.description)
     requestBody.description = formData.description
 
@@ -310,7 +329,7 @@ async function deleteCourseFile(fileID) {
   return response;
 }
 
-async function addTutorFile(file) {
+async function addTutorFile(file, isTutorImage) {
   const config = {
     baseURL: "http://20.113.25.17:3001/api",
     headers: {
@@ -320,7 +339,7 @@ async function addTutorFile(file) {
   }
   var formData = new FormData()
   formData.append("file", file, file.name)
-  formData.append("fileTitle", file.name)
+  formData.append("fileTitle", (isTutorImage)? "TutorImage" : file.name)
   const response = await axiosInstance.post("createprofilefile", formData, config)
   console.log("api call upload file " + file.name)
   console.log(response)
@@ -334,9 +353,16 @@ async function deleteTutorFile(fileID) {
   return response;
 }
 
+
 async function updateTutorProfile(tutorEmail, formData) {
+  if(formData.img) {
+    const isTutorImage = true
+    addTutorFile(formData.img, isTutorImage)
+  }
+
   if (formData.files) {
-    Promise.all(formData.files.map((file) => addTutorFile(file)))
+    const isTutorImage = false;
+    Promise.all(formData.files.map((file) => addTutorFile(file, isTutorImage)))
       .then(function (results) {
         console.log("all files uploaded")
         console.log(results)
