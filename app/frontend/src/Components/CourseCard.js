@@ -1,14 +1,21 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Card, Button } from "react-bootstrap"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import CourseImage1 from "../images/course1.jpg"
+import apiEndPoints from "./ApiEndpoints"
 
 function CourseCard({ course }) {
-  return (
+  const [courseImage, setCourseImage] = useState("")
+
+  useEffect(async () => {
+    const image = await apiEndPoints.getCourseImage(course.UserId, course.CourseId)
+    setCourseImage(preVal => image?.filePath) 
+  }, [])
+  return ( 
     <Card style={{ width: "20rem", fontSize: "1rem", borderColor: "transparent", minWidth: "270px" }}>
       <div className="d-flex justify-content-center" style={{ paddingTop: "20px" }}>
         {/* TODO: Add course image from backend */}
-        <Card.Img variant="top" src={CourseImage1} style={{ borderRadius: "5px" }} />
+        <Card.Img variant="top" src={courseImage ? `http://20.113.25.17:3001/api/downloadprofilefile?path=${courseImage}` : CourseImage1} style={{ borderRadius: "5px" }} />
       </div>
       <Card.Body>
         <Card.Title style={{ display: "flex", justifyContent: "space-between", fontSize: "1rem" }}>
