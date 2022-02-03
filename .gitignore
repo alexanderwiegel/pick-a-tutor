@@ -7,6 +7,7 @@
 .env*
 package-lock.json
 yarn.lock
+*.code-workspace
 
 # Folders
 .expo/
@@ -15,3 +16,5 @@ yarn.lock
 build/
 coverage/
 node_modules/
+app/backend/storage/courseuploads/
+app/backend/storage/profileuploads/

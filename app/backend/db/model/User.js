@@ -21,19 +21,25 @@ User.init(
     {
         firstName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         lastName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
+            // allowNull: false,
+        },
+        rating: {
+            type: DataTypes.DECIMAL(4, 2),
+        },
+        nRatings: {
+            type: DataTypes.INTEGER,
         },
         dateOfBirth: {
             type: DataTypes.DATEONLY,
@@ -49,6 +55,11 @@ User.init(
         },
         isAdmin: {
             type: DataTypes.BOOLEAN,
+            defaultValue: false,
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: true,
         },
         status: {
             type: DataTypes.BOOLEAN,

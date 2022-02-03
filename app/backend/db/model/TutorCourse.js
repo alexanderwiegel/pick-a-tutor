@@ -7,15 +7,12 @@ class TutorCourse extends Model {}
 
 TutorCourse.init(
     {
-        courseId: {
+        id: {
             type: DataTypes.INTEGER,
-            allowNull: false,
-            references: {
-                model: Course,
-                key: "id",
-            },
+            primaryKey: true,
+            autoIncrement: true,
         },
-        userId: {
+        UserId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
@@ -23,8 +20,26 @@ TutorCourse.init(
                 key: "id",
             },
         },
+        CourseId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            references: {
+                model: Course,
+                key: "id",
+            },
+        },
         coursePricePerHour: {
             type: DataTypes.DECIMAL(4, 2),
+        },
+        rating: {
+            type: DataTypes.DECIMAL(4, 2),
+        },
+        description: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+        },
+        nRatings: {
+            type: DataTypes.INTEGER,
         },
         isFull: {
             type: DataTypes.BOOLEAN,
