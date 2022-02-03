@@ -32,7 +32,6 @@ const Home = () => {
   }
 
   useEffect(() => {
-    //getUsers()
     getCourses()
     getEnrolledCourses()
   }, []);
@@ -75,7 +74,7 @@ const Home = () => {
         <Container style={{ display: 'flex' }}>
           {
             (courses && courses.length > 0) &&
-            _.orderBy(courses, "createdAt", "asc").map((course) => (
+            _.orderBy(courses, "createdAt", "desc").map((course) => (
               <CardComponent name={`${course.User?.firstName} ${course.User?.lastName}`} course={course} key={course.id} />
             ))
           }

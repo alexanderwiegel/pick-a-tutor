@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router-dom";
+import apiEndPoints from "./ApiEndpoints";
 
 function CardComponentTutor({ name, tutor }) {
+  const [tutorImage, setTutorImage] = useState("")
+  useEffect(async () => {
+    const image = await apiEndPoints.getTutorImage(tutor.id)
+    setTutorImage(preVal => image?.filePath)
+  }, [])
   return (
     <Card
       style={{
@@ -17,7 +23,7 @@ function CardComponentTutor({ name, tutor }) {
       >
         <Card.Img
           variant="top"
-          src={require("../images/tutor1.jpg")}
+          src={tutorImage ? `http://20.113.25.17:3001/api/downloadprofilefile?path=${tutorImage}` : require("../images/tutor1.jpg")}
           style={{
             height: "150px",
             width: "150px",
@@ -38,7 +44,6 @@ function CardComponentTutor({ name, tutor }) {
           <hr />
 
           <p style={{ paddingLeft: "4px" }}>
-            {/* TODO: Add the right value of rating, once the backend is ready */}
             {tutor.rating}
             <i className="bi bi-star-fill" style={{ color: "gold" }} />
           </p>
@@ -62,7 +67,6 @@ function CardComponentTutor({ name, tutor }) {
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}
           >
-            {/* TODO : check and send tutor id (tutor.id) and link it to the next page */}
             <Link to={`/tutor/${tutor.id}`} state={{ id: tutor.id }} style={{ color: '#ffffff' }}>
               Meet {name}
             </Link>
