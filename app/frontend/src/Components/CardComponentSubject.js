@@ -7,10 +7,8 @@ import apiEndPoints from "./ApiEndpoints"
 function CardComponent({ name, course }) {
   const [courseImage, setCourseImage] = useState("")
   const [isRequest, setIsRequested] = useState(false)
-  console.log("Course = ", course)
   const requestEnrollment = async () => {
     const response = await apiEndPoints.requestEnrollment(course.CourseId)
-    console.log(response.data)
     if (response.data.success) {
       setIsRequested(preVal => true);
       alert("Your request for enrollment has been put to the tutor!")

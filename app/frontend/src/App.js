@@ -15,6 +15,7 @@ import Users from "./Pages/Users"
 import Approvals from "./Pages/Approvals"
 import Messages from "./Pages/Messages"
 import Chat from "./Pages/Chat"
+import ForgotPassword from "./Pages/ForgotPassword"
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PageTemplate><LandingPage /></ PageTemplate>} />
         <Route exact path="/signup" element={<SignUp />} />
+        <Route exact path="/forgotp" element={<ForgotPassword />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<PageTemplate><Home /></PageTemplate>} />
         <Route exact path="/browse" element={<PageTemplate><Browse /></PageTemplate>} />
