@@ -32,17 +32,18 @@ const CardComponentMyCourses = (course) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontSize: "1rem",
+            fontSize: "0.8rem",
           }}
         >
           {course.course.Course.name}
           <hr />
-          <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
+          <p style={{ marginLeft: "2px", paddingLeft: "4px", minWidth: '33.33%' }}>
             {course.course.TutorCourse.coursePricePerHour} €/h
           </p>
-          <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
+          <p style={{ paddingLeft: "4px", marginBottom: "0px", minWidth: '33.33%' }}>
             {course.course.TutorCourse.rating}
             <i className="bi bi-star-fill" style={{ color: "gold" }} />
+            ({course.course.TutorCourse.nRatings})
           </p>
         </Card.Title>
         <Container style={{
@@ -52,7 +53,7 @@ const CardComponentMyCourses = (course) => {
           justifyContent: "space-between",
           padding: 0
         }}>
-          <Card.Text>
+          <Card.Text style={{ fontSize: '0.7rem' }}>
             {/* TODO: Add the routing to the right page, find userID */}
             <Link to={`/tutor/${course.course.User.id}`} style={{ color: 'black' }}>
               by {course.course.User.firstName + " " + course.course.User.lastName} <i className="bi bi-person-lines-fill" />

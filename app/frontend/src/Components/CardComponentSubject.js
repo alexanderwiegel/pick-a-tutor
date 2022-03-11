@@ -40,17 +40,18 @@ function CardComponent({ name, course }) {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontSize: "1rem",
+            fontSize: "0.8rem",
           }}
         >
           {course.Course?.name}
           <hr />
-          <p style={{ marginLeft: "2px", paddingLeft: "4px", }}>
+          <p style={{ marginLeft: "2px", paddingLeft: "4px", minWidth: "33.33%" }}>
             {(course.coursePricePerHour === null) ? 0 : course.coursePricePerHour}€/h
           </p>
-          <p style={{ paddingLeft: "4px", marginBottom: "0px" }}>
+          <p style={{ paddingLeft: "4px", marginBottom: "0px", minWidth: '33.33%' }}>
             {course.rating}
             <i className="bi bi-star-fill" style={{ color: "gold" }} />
+            ({course.nRatings})
           </p>
         </Card.Title>
         <Container style={{
@@ -60,7 +61,7 @@ function CardComponent({ name, course }) {
           justifyContent: "space-between",
           padding: 0
         }}>
-          <Card.Text>
+          <Card.Text style={{ fontSize: '0.7rem' }}>
             <Link to={`/tutor/${course.UserId}`} style={{ color: 'black' }}>
               by {name} <i className="bi bi-person-lines-fill" />
             </Link>
