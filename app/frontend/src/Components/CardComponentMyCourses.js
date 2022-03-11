@@ -53,14 +53,13 @@ const CardComponentMyCourses = (course) => {
           justifyContent: "space-between",
           padding: 0
         }}>
-          <Card.Text style={{ fontSize: '0.7rem' }}>
-            {/* TODO: Add the routing to the right page, find userID */}
+          <Card.Text style={{ fontSize: '0.7rem', marginBottom: 0 }}>
             <Link to={`/tutor/${course.course.User.id}`} style={{ color: 'black' }}>
               by {course.course.User.firstName + " " + course.course.User.lastName} <i className="bi bi-person-lines-fill" />
             </Link>
           </Card.Text>
           {localStorage.getItem("user") &&
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "column", fontSize: '0.7rem' }}>
               <Link to={"/chat"} state={{ contact: course.course.User }} >Contact</Link>
             </div>}
         </Container>

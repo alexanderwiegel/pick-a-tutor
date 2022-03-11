@@ -67,7 +67,7 @@ function CardComponent({ name, course }) {
             </Link>
           </Card.Text>
           {localStorage.getItem("user") &&
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "column", fontSize: '0.7rem' }}>
               <Card.Link style={{ cursor: 'pointer' }} onClick={requestEnrollment}>Request</Card.Link>
               <Link to={"/chat"} state={{ contact: course.User }} >Contact</Link>
             </div>}
