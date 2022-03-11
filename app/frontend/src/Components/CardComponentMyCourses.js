@@ -69,7 +69,7 @@ const CardComponentMyCourses = (course) => {
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}>
             <Link to={`/course/${course.course.Course?.id}`} style={{ color: '#ffffff', display: 'block' }}>
-              Course details
+              <i class="bi bi-info-circle"></i> Course details
             </Link>
           </Button>
         </div>

@@ -78,7 +78,7 @@ function CardComponent({ name, course }) {
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}>
             <Link to={`/course/${course.CourseId}`} style={{ color: '#ffffff', display: 'block' }}>
-              Course details
+              <i class="bi bi-info-circle"></i> Course details
             </Link>
           </Button>
         </div>
