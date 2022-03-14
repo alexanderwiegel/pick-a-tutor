@@ -21,7 +21,7 @@ const Messages = () => {
     <div className="App">
       <Container>
         <ListGroup>
-          {conversations.map(message =>
+          {conversations.reverse().map(message =>
             <Message lastMessage={message[0]} key={message[0].id} />
           )}
         </ListGroup>
