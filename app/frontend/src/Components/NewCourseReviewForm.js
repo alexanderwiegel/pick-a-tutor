@@ -1,8 +1,14 @@
 import React, { useState } from "react"
 import { Form, Button } from "react-bootstrap"
 import apiEndPoints from "./ApiEndpoints"
+import * as yup from 'yup';
 
 function NewCourseReviewForm({ courseID, tutorID }) {
+  const schema = yup.object().shape({
+    reviewText: yup.string().required("Review text is required"),
+    rating: yup.number().required("Review rating is required").positive().integer(),
+  });
+
   const [reviewText, setReviewText] = useState("")
   const [rating, setRating] = useState(0)
 
@@ -18,21 +24,29 @@ function NewCourseReviewForm({ courseID, tutorID }) {
   }
 
   const handleSubmit = async (event) => {
-    const review = {
-      writerID: parseInt(localStorage.getItem("userID")),
-      courseID: courseID,
-      courseTutorID: tutorID,
-      rating: rating,
-      text: reviewText
-    }
 
-    const response = await apiEndPoints.addCourseReview(review)
-    console.log("Submit review")
-    console.log(review)
-    console.log(response)
 
-    if (!alert(response.data.message)) { window.location.reload() }
-    event.preventDefault()
+    await schema.validate({ reviewText: reviewText, rating: rating }).then(async function (submittedReview) {
+      const review = {
+        writerID: parseInt(localStorage.getItem("userID")),
+        courseID: courseID,
+        courseTutorID: tutorID,
+        rating: submittedReview.rating,
+        text: submittedReview.reviewText
+      }
+      const response = await apiEndPoints.addCourseReview(review)
+      console.log("Submit review")
+      console.log(review)
+      console.log(response)
+
+      if (!alert(response.data.message)) { window.location.reload() }
+      event.preventDefault()
+    }).catch(function (err) {
+      console.log(err);
+      alert("Review is not valid, please enter valid data berfore submission!")
+    });
+
+
   }
 
   return (
