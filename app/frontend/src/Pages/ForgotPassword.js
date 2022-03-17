@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Col,
   Container,
@@ -8,46 +8,30 @@ import {
   FloatingLabel,
   Image
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as yup from 'yup';
-import apiEndpoints from "../Components/ApiEndpoints";
-import jwt_decode from 'jwt-decode';
-import apiEndPoints from "../Components/ApiEndpoints";
 
 const initialValues = {
   email: "",
-  password: ""
+  password: "",
+  repassword: ""
 };
 
 let schema = yup.object().shape({
   email: yup.string().email("Enter valid email address").required("Email is required"),
-  password: yup.string().min(5, "Too short").required("Password is required")
+  password: yup.string().min(5, "Too short").required("Password is required"),
+  repassword: yup.string().min(5, "Too short").required("Password is required").when("password", {
+    is: val => (val && val.length > 0 ? true : false),
+    then: yup.string().oneOf(
+      [yup.ref("password")],
+      "Both password need to be the same"
+    )
+  })
 });
 
-export default function Login() {
-
-  const tokenDecode = (token) => {
-    var decoded = jwt_decode(token);
-    if (decoded.isAdmin) {
-      localStorage.setItem('statusCode', 'Admin')
-      navigate("/approvals")
-    }
-    else if (decoded.isStudent) {
-      localStorage.setItem('statusCode', 'Student')
-      navigate("/home")
-    }
-    else {
-      localStorage.setItem('statusCode', 'Tutor')
-      navigate(`/tutor/${decoded.id}`);
-    }
-
-    localStorage.setItem('userID', decoded.id)
-  }
-
-  let navigate = useNavigate();
-
+const ForgotPassword = () => {
   return (
     <>
       <Container className="mt-6">
@@ -65,29 +49,19 @@ export default function Login() {
                   style={{
                     height: 200,
                     width: 200,
-                    margin: "10% 0 10% 0"
+                    margin: "auto",
                   }}
                 />
               </a>
             </div>
-            <h2 className="text-center">Sign in to Pick-A-Tutor</h2>
+            <h2 className="text-center">Forgot Password?</h2>
             <br />
             <Formik
               initialValues={initialValues}
               validationSchema={schema}
               onSubmit={async (values, actions) => {
-                apiEndpoints.login(values).then(data => {
-                  if (data.data.success) {
-                    localStorage.clear()
-                    localStorage.setItem('user', true)
-                    localStorage.setItem('token', data.data.data.token)
-                    tokenDecode(localStorage.getItem('token'))
-                    apiEndPoints.setToken()
-                  }
-                  else {
-                    alert(data.data.message)
-                  }
-                })
+                console.log("Submitted!")
+                //do the on submit here
               }}
             >
               {(props) => (
@@ -116,12 +90,12 @@ export default function Login() {
                   </p>
                   <FloatingLabel
                     controlId="floatingPassword"
-                    label="Password"
+                    label="New Password"
                   >
 
                     <Form.Control
                       type="password"
-                      placeholder="Password"
+                      placeholder="New Password"
                       name="password"
                       onChange={props.handleChange}
                       value={props.values.password}
@@ -135,7 +109,26 @@ export default function Login() {
                   >
                     {props.errors?.password}
                   </p>
-                  <div className="d-flex justify-content-end"><a href="/forgotp">Forgot Password ?</a></div>
+                  <FloatingLabel
+                    controlId="floatingPassword"
+                    label="Retype New Password"
+                  >
+                    <Form.Control
+                      type="password"
+                      placeholder="Retype New Password"
+                      name="repassword"
+                      onChange={props.handleChange}
+                      value={props.values.repassword}
+                    />
+                  </FloatingLabel>
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      color: "red",
+                    }}
+                  >
+                    {props.errors?.repassword}
+                  </p>
                   <br />
 
 
@@ -143,10 +136,8 @@ export default function Login() {
                     variant="primary"
                     type="submit"
                     style={{ width: "100%" }}
-                  // as={Link}
-                  // to={"/"}
                   >
-                    Sign In
+                    Reset Password
                   </Button>
                 </Form>
 
@@ -167,5 +158,7 @@ export default function Login() {
         </Row>
       </Container>
     </>
-  );
+  )
 }
+
+export default ForgotPassword
