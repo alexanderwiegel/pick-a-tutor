@@ -12,9 +12,12 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 import apiEndPoints from "./ApiEndpoints"
 import FileListItem from "../Components/FileListItem"
 import CourseImage1 from "../images/course1.jpg"
+import * as yup from "yup";
 
 
 function CourseDetailsForm({ isNewCourse, courseDetails }) {
+ 
+
   const formReducer = (state, event) => {
     return {
       ...state,
