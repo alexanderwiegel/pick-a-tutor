@@ -15,12 +15,13 @@ import CourseImage1 from "../images/course1.jpg"
 import * as yup from "yup"
 
 function CourseDetailsForm({ isNewCourse, courseDetails }) {
+  const SUPPORTED_IMG_FORMATS =  ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
   var schema;
   if(isNewCourse) {
     schema = yup.object().shape({
       name: yup.string().required("Course Name is required"),
       description: yup.string().required("Course Name is required"),
-      img: yup.string(),
+      img: yup.mixed().test('fileType', "Unsupported File Format", value => SUPPORTED_IMG_FORMATS.includes(value.type) ),
       isFull: yup.boolean(), 
       coursePricePerHour: yup.number().required().integer().min(0),
       files: yup.array().of(yup.string())
@@ -28,7 +29,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
   }else {
     schema = yup.object().shape({
       description: yup.string(),
-      img: yup.string(),
+      img: yup.mixed().test('fileType', "Unsupported File Format", value => SUPPORTED_IMG_FORMATS.includes(value.type) ),
       isFull: yup.boolean(), 
       coursePricePerHour: yup.number().integer().min(0),
       files: yup.array().of(yup.string())
