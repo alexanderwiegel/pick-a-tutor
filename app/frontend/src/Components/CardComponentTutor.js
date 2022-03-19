@@ -36,7 +36,7 @@ function CardComponentTutor({ name, tutor }) {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            fontSize: "1rem",
+            fontSize: "0.8rem",
           }}
         >
           <p>{tutor.firstName}</p>
@@ -46,6 +46,7 @@ function CardComponentTutor({ name, tutor }) {
           <p style={{ paddingLeft: "4px" }}>
             {tutor.rating}
             <i className="bi bi-star-fill" style={{ color: "gold" }} />
+            ({tutor.nRatings})
           </p>
         </Card.Title>
         <br />
@@ -58,7 +59,7 @@ function CardComponentTutor({ name, tutor }) {
           }}
         >
           {
-            tutor?.Courses.map(course => <p key={course.id}>{course.name}</p>)
+            tutor?.Courses.map(course => <p style={{ fontSize: '0.7rem' }} key={course.id}>{course.name}</p>)
           }
         </Card.Text>
         <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>

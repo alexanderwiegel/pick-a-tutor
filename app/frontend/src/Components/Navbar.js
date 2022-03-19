@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import logo from "../images/logos/Tutor.png"
+import logo from "../images/logos/TutorNav.png"
 import MenuItem from "./MenuItem"
 import apiEndPoints from "./ApiEndpoints"
 
