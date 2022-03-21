@@ -132,7 +132,7 @@ router.get("/reported_reviews", authadmin, reviews.getReportedReviews);
 router.post("/reviews", authstudent, reviews.addReview);
 router.patch("/reviews/:id/report", authgeneral, reviews.reportReview);
 router.patch("/approvereview/:id", authadmin, reviews.approveReview);
-router.delete("/deleteReview/:id", authadmin, reviews.deleteReview);
+router.delete("/deleteReview/:id", authgeneral, reviews.deleteReview);
 
 //*******Course Additional Files Routes*******
 router.get(
