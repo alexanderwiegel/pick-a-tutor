@@ -19,10 +19,10 @@ function FileCard({ user, file, handleOnApproveOrReject }) {
       <Card style={{ width: "20rem" }}>
         <Card.Header>
           {
-            user.isTutor ?
+            user?.isTutor ?
               // TODO: ask others if it should obviously be a link or not
-              <Link to={"/tutor/" + user.id} style={{ textDecoration: "none", color: "#0f0f0f" }}>{user.firstName} {user.lastName}</Link> :
-              user.firstName + " " + user.lastName
+              <Link to={"/tutor/" + user?.id} style={{ textDecoration: "none", color: "#0f0f0f" }}>{user?.firstName} {user?.lastName}</Link> :
+              user?.firstName + " " + user?.lastName
           }
           {pFile ? "'s profile" : " in course: " + file.Course.name}</Card.Header>
         <Card.Body>

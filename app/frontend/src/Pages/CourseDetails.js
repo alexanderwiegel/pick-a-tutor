@@ -45,9 +45,9 @@ function CourseDetails() {
           <Col md={5}>
             <img
               // TODO: Add image from the backend
-              src={(courseDetails.img)?`http://20.113.25.17:3001/api/downloadprofilefile?path=${courseDetails.img.filePath}`: CourseImage1}
+              src={(courseDetails.img) ? `http://20.113.25.17:3001/api/downloadprofilefile?path=${courseDetails.img.filePath}` : CourseImage1}
               className="img-fluid img-thumbnail"
-              style={{ height: "500px", width: "650px" }}
+              style={{ aspectRatio: 3 / 2 }}
             />
           </Col>
           {/* TODO: make the text size appropriate related to the image */}

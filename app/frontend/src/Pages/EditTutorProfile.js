@@ -8,7 +8,6 @@ import {
   Image,
   Card,
   Form,
-  FloatingLabel,
 } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
@@ -16,7 +15,46 @@ import CourseCard from "../Components/CourseCard"
 import apiEndPoints from "../Components/ApiEndpoints"
 import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
+import Alert from 'react-bootstrap/Alert'
+import { useNavigate } from 'react-router-dom'
 import * as yup from "yup"
+
+function EditTutorProfile() {
+  const navigate = useNavigate();
+  const DeleteAccount = ({ email, show, setShow }) => {
+    return (
+      <>
+        <Alert show={show} variant="danger">
+          <Alert.Heading>Delete your account?!</Alert.Heading>
+          <p>
+            Are you sure you want to delete your account ?
+
+            If you want to change your password, simply do so right <a href="/forgotp">here</a>.<br />
+
+            <b>Please note</b>: If you delete your account, you won't be able to reactivate it later.
+          </p>
+          <hr />
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => setShow(false)} style={{ margin: 5 }} variant="danger">
+              Never mind, keep my account
+            </Button>
+            <Button onClick={async () => HandleSubmit(email)} style={{ margin: 5 }} variant="secondary">
+              Delete my account
+            </Button>
+          </div>
+        </Alert>
+      </>
+    );
+  }
+  const HandleSubmit = async (email) => {
+    const response = await apiEndPoints.deleteTutor(email)
+    console.log("data after deletion = ", response)
+    if (response.data.success == true) {
+      localStorage.clear()
+      alert(response.data.message)
+      navigate('/login');
+    }
+  }
 
 function EditTutorProfile() {
   const SUPPORTED_IMG_FORMATS =  ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
@@ -40,6 +78,8 @@ function EditTutorProfile() {
   const [formData, setFormData] = useReducer(formReducer, {});
 
   const [tutorProfile, setTutorProfile] = useState(null)
+
+  const [show, setShow] = useState(false);
 
   const id = localStorage.getItem("userID")
 
@@ -93,6 +133,7 @@ function EditTutorProfile() {
     });
 
   };
+
 
   const handleDeleteFile = async (fileToDeleteID) => {
     await apiEndPoints.deleteTutorFile(fileToDeleteID)
@@ -203,6 +244,14 @@ function EditTutorProfile() {
               >
                 Cancel
               </Button>
+              <Button
+                variant="danger"
+                style={{ margin: "5px" }}
+                onClick={() => setShow(preVal => true)}
+              >
+                Delete Account
+              </Button>
+              <DeleteAccount email={tutorProfile.email} show={show} setShow={setShow} />
             </Col>
           </Row>
           <Row style={{ marginTop: " 1rem" }}>
@@ -293,5 +342,8 @@ function EditTutorProfile() {
     )
   )
 }
+
+
+
 
 export default EditTutorProfile
