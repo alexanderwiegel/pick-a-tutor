@@ -56,14 +56,14 @@ function EditTutorProfile() {
     }
   }
 
-function EditTutorProfile() {
-  const SUPPORTED_IMG_FORMATS =  ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
+
+  const SUPPORTED_IMG_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
   const schema = yup.object().shape({
     firstName: yup.string(),
     lastName: yup.string(),
     gender: yup.number().integer().min(0).max(2),
     description: yup.string(),
-    img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined')? true: SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
+    img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined') ? true : SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
     isFull: yup.boolean(),
     coursePricePerHour: yup.number().integer().min(0),
     files: yup.array().of(yup.string()),
