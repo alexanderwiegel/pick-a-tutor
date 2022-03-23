@@ -10,7 +10,8 @@ function FileCard({ user, file, handleOnApproveOrReject }) {
 
   const updateFile = async (status) => {
     pFile ?
-      await apiEndPoints.updateProfileFile(file.id, file.userId, status).then(function () { handleOnApproveOrReject() }) :
+      await apiEndPoints.updateProfileFile(file.id, file.userId, status)
+        .then(function () { handleOnApproveOrReject() }) :
       await apiEndPoints.updateCourseFile(file.id, status).then(function () { handleOnApproveOrReject() })
   }
 
@@ -21,14 +22,20 @@ function FileCard({ user, file, handleOnApproveOrReject }) {
           {
             user.isTutor ?
               // TODO: ask others if it should obviously be a link or not
-              <Link to={"/tutor/" + user.id} style={{ textDecoration: "none", color: "#0f0f0f" }}>{user.firstName} {user.lastName}</Link> :
+              <Link
+                to={"/tutor/" + user.id}
+                style={{ textDecoration: "none", color: "#0f0f0f" }}>
+                {user.firstName} {user.lastName}
+              </Link> :
               user.firstName + " " + user.lastName
           }
           {pFile ? "'s profile" : " in course: " + file.Course.name}</Card.Header>
         <Card.Body>
           <Form>
             <Card.Text>
-              <a href={"http://20.113.25.17:3001/api/downloadprofilefile?path=" + file.filePath} download={file.fileTitle}>
+              <a
+                href={"http://20.113.25.17:3001/api/downloadprofilefile?path=" + file.filePath}
+                download={file.fileTitle}>
                 {file.fileTitle}
               </a>
             </Card.Text>
