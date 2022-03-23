@@ -12,9 +12,30 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 import apiEndPoints from "./ApiEndpoints"
 import FileListItem from "../Components/FileListItem"
 import CourseImage1 from "../images/course1.jpg"
-
+import * as yup from "yup"
 
 function CourseDetailsForm({ isNewCourse, courseDetails }) {
+  const SUPPORTED_IMG_FORMATS =  ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
+  var schema;
+  if(isNewCourse) {
+    schema = yup.object().shape({
+      name: yup.string().required("Course Name is required"),
+      description: yup.string().required("Course Name is required"),
+      img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined')? true: SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
+      isFull: yup.boolean(), 
+      coursePricePerHour: yup.number().required().integer().min(0),
+      files: yup.array().of(yup.string())
+    })
+  }else {
+    schema = yup.object().shape({
+      description: yup.string(),
+      img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined')? true: SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
+      isFull: yup.boolean(), 
+      coursePricePerHour: yup.number().integer().min(0),
+      files: yup.array().of(yup.string())
+    })
+  }
+
   const formReducer = (state, event) => {
     return {
       ...state,
@@ -47,7 +68,8 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
 
   const handleSubmit = async (event) => {
     console.log('in submit course details form')
-    const response = isNewCourse
+    await schema.validate(formData).then(async function(formData){
+      const response = isNewCourse
       ? await apiEndPoints.addNewCourse(formData)
       : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
     console.log("Submiteed course form details")
@@ -55,8 +77,13 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
     if (response.data.message) {
       alert(response.data.message)
       window.location.reload() //Error : if not reloaded there is a error to be fixed!
+      event.preventDefault()
     }
-    event.preventDefault()
+    }).catch(function (err) {
+      console.log(err);
+      alert("Course data is not valid, please enter valid data berfore submission!")
+    });
+   
   }
 
   const handleDeleteFile = async (fileToDeleteID) => {

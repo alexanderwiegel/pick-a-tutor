@@ -1,4 +1,4 @@
-# Global Distributed Software Developmen Team Members
+# Global Distributed Software Development Team Members
 
 ## Team Member 1:
 

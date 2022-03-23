@@ -16,7 +16,8 @@ import apiEndPoints from "../Components/ApiEndpoints"
 import tutorImage1 from "../images/tutor1.jpg"
 import FileListItem from "../Components/FileListItem"
 import Alert from 'react-bootstrap/Alert'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import * as yup from "yup"
 
 function EditTutorProfile() {
   const navigate = useNavigate();
@@ -54,6 +55,20 @@ function EditTutorProfile() {
       navigate('/login');
     }
   }
+
+function EditTutorProfile() {
+  const SUPPORTED_IMG_FORMATS =  ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
+  const schema = yup.object().shape({
+    firstName: yup.string(),
+    lastName: yup.string(),
+    gender: yup.number().integer().min(0).max(2),
+    description: yup.string(),
+    img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined')? true: SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
+    isFull: yup.boolean(),
+    coursePricePerHour: yup.number().integer().min(0),
+    files: yup.array().of(yup.string()),
+  })
+
   const formReducer = (state, event) => {
     return {
       ...state,
@@ -89,7 +104,9 @@ function EditTutorProfile() {
       case "img":
         newFormData.value = Array.from(event.target.files)[0];
         break;
-
+      /* case "gender":
+        newFormData.value = parseInt(event.target.value);
+        break; */
       default:
         newFormData.value = event.target.value
     }
@@ -100,15 +117,21 @@ function EditTutorProfile() {
 
   const handleSubmit = async (event) => {
     console.log('in edit tutor profile')
-    await apiEndPoints.updateTutorProfile(tutorProfile.email, formData)
-      .then(function (response) {
-        console.log("Submiteed course form details")
-        console.log(response)
-        if (!alert(response.data.message))
-          window.location.reload()
+    await schema.validate(formData).then(async function (formData) {
+      await apiEndPoints.updateTutorProfile(tutorProfile.email, formData)
+        .then(function (response) {
+          console.log("submitted tutor profile form details")
+          console.log(response)
+          if (!alert(response.data.message))
+            window.location.reload()
 
-        event.preventDefault()
-      })
+          event.preventDefault()
+        })
+    }).catch(function (err) {
+      console.log(err);
+      alert("Tutor data is not valid, please enter valid data berfore submission!")
+    });
+
   };
 
 
