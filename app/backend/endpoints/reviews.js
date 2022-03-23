@@ -8,7 +8,10 @@ const jwtDecode = require("jwt-decode");
 const {Sequelize} = require("sequelize");
 const Op = Sequelize.Op;
 
-exports.getReviews = async (req, res) => {
+
+//************* Get All reviews ***************
+
+const getReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
             include: [
@@ -26,7 +29,11 @@ exports.getReviews = async (req, res) => {
     }
 };
 
-exports.getReportedReviews = async (req, res) => {
+exports.getReviews = getReviews;
+
+//************* Get All reported reviews ***************
+
+const getReportedReviews = async (req, res) => {
     try {
         let reviews = await Review.findAll({
             include: [
@@ -45,7 +52,11 @@ exports.getReportedReviews = async (req, res) => {
     }
 };
 
-exports.calculateNewRating = async function calculateNewRating(courseId) {
+exports.getReportedReviews = getReportedReviews;
+
+//************* Calculate review rating ***************
+
+const calculateNewRating = async function calculateNewRating(courseId) {
     let course = await TutorCourse.findOne({
         where: { id: courseId },
     });
@@ -67,7 +78,12 @@ exports.calculateNewRating = async function calculateNewRating(courseId) {
     console.log("New rating for course id: " + courseId + ": " + course.rating);
 }
 
-exports.tutorNewRating = async function tutorNewRating(tutorId){
+exports.calculateNewRating = calculateNewRating;
+
+
+//************* Calculate tutor rating ***************
+
+const tutorNewRating = async function tutorNewRating(tutorId){
     let user = await User.findOne({
         where: { id: tutorId}
     });
@@ -97,7 +113,11 @@ exports.tutorNewRating = async function tutorNewRating(tutorId){
     console.log("New rating for tutor id: " + tutorId + ": " + user.rating);
 }
 
-exports.addReview = async (req, res) => {
+exports.tutorNewRating = tutorNewRating;
+
+//************* Create review ***************
+
+const addReview = async (req, res) => {
     try {
         let token = req.headers["authorization"];
         let decoded = jwtDecode(token);
@@ -121,7 +141,11 @@ exports.addReview = async (req, res) => {
     }
 };
 
-exports.reportReview = async (req, res) => {
+exports.addReview = addReview;
+
+//************* Report a review ***************
+
+const reportReview = async (req, res) => {
     try {
         let review = await Review.findOne({ where: { id: req.params.id } });
         let token = req.headers.authorization.split(" ")[1]; // Bearer Token
@@ -137,9 +161,11 @@ exports.reportReview = async (req, res) => {
     }
 };
 
+exports.reportReview = reportReview;
+
 //************* Approve or Reject Review based on Id and reportReviewStatus" ***************
 
-exports.approveReview = async (req, res) => {
+const approveReview = async (req, res) => {
     const review = await Review.findOne({
         where: { id: req.params.id },
     });
@@ -170,9 +196,11 @@ exports.approveReview = async (req, res) => {
     }
 };
 
+exports.approveReview = approveReview;
+
 //************* Delete review ***************
 
-exports.deleteReview = async (req, res) => {
+const deleteReview = async (req, res) => {
     try {
         let review = await Review.findOne({
             where: { id: req.params.id },
@@ -193,3 +221,8 @@ exports.deleteReview = async (req, res) => {
         return res.json(new FailedResponse(e.message));
     }
 };
+
+exports.deleteReview=deleteReview;
+
+
+
