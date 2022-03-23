@@ -20,7 +20,7 @@ function FileCard({ user, file, handleOnApproveOrReject }) {
       <Card style={{ width: "20rem" }}>
         <Card.Header>
           {
-            user.isTutor ?
+            user?.isTutor ?
               // TODO: ask others if it should obviously be a link or not
               <Link
                 to={"/tutor/" + user.id}
