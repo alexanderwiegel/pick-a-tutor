@@ -15,30 +15,14 @@ const getAllStudentCourses = async (req, res) => {
 
     var token = req.headers["authorization"];
     var decoded = jwtdecode(token);
-/*
-    const [studentcourses, meta] = await db.query(
-        "SELECT d.id as userID,c.id as courseId, b.id as tutorId, d.firstName,d.lastName,c.name as courseName,c.description as courseDescription, b.coursePricePerHour,a.enrolledStatus, b.createdAt as courseCreatedAt FROM student_enrolled_courses a, tutor_courses b,courses c, users d  where a.userId=$userId and a.tutorCourseId=b.CourseId and b.CourseId=c.id and a.userId=d.id and a.deletedAt is null ",
-        {
-            bind: { userId: decoded.id },
-        }
-    );
 
-    const studentallcourses = res.json({
-        success: true,
-        message: "List of all Courses of the student",
-        records: studentcourses.length,
-        data: studentcourses,
-    });
-*/
     const userId = decoded.id;
     try{
         const studentAllCourses = await StudentEnrolledCourses.findAll({
             where : {
                 "UserId" : userId
             },
-            //include: [User,TutorCourse, Course, TutorCourse.User]
             include: [TutorCourse, {model:User, on: {col1: Sequelize.where(Sequelize.col("TutorCourse.UserId"), "=", Sequelize.col("User.id"))}}, Course,Review]
-            //include: [User]
         });
         //console.log("Student enrolled courses details: " + studentAllCourses);
         console.log("Student enrolled courses details");
@@ -47,7 +31,6 @@ const getAllStudentCourses = async (req, res) => {
     catch (e){
         return res.json(new FailedResponse(e.message));
     }
-
 };
 
 exports.getAllStudentCourses = getAllStudentCourses;
@@ -118,10 +101,6 @@ const updateStudentCourse = async (req, res) => {
         userId: req.body.userId,
         enrolledStatus: req.body.enrolledStatus, // 1 - Approved, 0- Not Approved
     });
-
-    // await studentCourse.update().catch((e) => {
-    //     console.log(e);
-    // });
 
     res.json({
         success: true,
