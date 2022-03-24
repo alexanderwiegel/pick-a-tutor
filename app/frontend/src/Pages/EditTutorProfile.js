@@ -48,7 +48,6 @@ function EditTutorProfile() {
   }
   const HandleSubmit = async (email) => {
     const response = await apiEndPoints.deleteTutor(email)
-    console.log("data after deletion = ", response)
     if (response.data.success == true) {
       localStorage.clear()
       alert(response.data.message)

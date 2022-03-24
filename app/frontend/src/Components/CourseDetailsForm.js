@@ -1,4 +1,4 @@
-import React, { useReducer } from "react"
+import React, { useReducer, useState } from "react"
 import {
   Container,
   Row,
@@ -12,25 +12,61 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 import apiEndPoints from "./ApiEndpoints"
 import FileListItem from "../Components/FileListItem"
 import CourseImage1 from "../images/course1.jpg"
+import Alert from 'react-bootstrap/Alert'
+import { useNavigate } from 'react-router-dom'
 import * as yup from "yup"
 
 function CourseDetailsForm({ isNewCourse, courseDetails }) {
-  const SUPPORTED_IMG_FORMATS =  ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const DeleteCourse = ({ courseId, show, setShow }) => {
+    return (
+      <>
+        <Alert show={show} variant="danger">
+          <Alert.Heading>Delete {courseDetails.description} ?!</Alert.Heading>
+          <p>
+            Are you sure you want to delete your course "<b><i>{courseDetails.description}</i></b>" ?
+
+            <b>Please note</b>: If you delete your course, you won't be able to reactivate it later.
+          </p>
+          <hr />
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => setShow(false)} style={{ margin: 5 }} variant="danger">
+              Never mind, keep my course
+            </Button>
+            <Button onClick={async () => HandleSubmit(courseId)} style={{ margin: 5 }} variant="secondary">
+              Delete course
+            </Button>
+          </div>
+        </Alert>
+      </>
+    );
+  }
+  const HandleSubmit = async (courseId) => {
+    const response = await apiEndPoints.deleteTutor(courseId)
+    console.log("data after deletion = ", response)
+    if (response.data.success == true) {
+      alert(response.data.message)
+      window.location.reload()
+    }
+  }
+
+  const SUPPORTED_IMG_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png']
   var schema;
-  if(isNewCourse) {
+  if (isNewCourse) {
     schema = yup.object().shape({
       name: yup.string().required("Course Name is required"),
       description: yup.string().required("Course Name is required"),
-      img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined')? true: SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
-      isFull: yup.boolean(), 
+      img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined') ? true : SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
+      isFull: yup.boolean(),
       coursePricePerHour: yup.number().required().integer().min(0),
       files: yup.array().of(yup.string())
     })
-  }else {
+  } else {
     schema = yup.object().shape({
       description: yup.string(),
-      img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined')? true: SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
-      isFull: yup.boolean(), 
+      img: yup.mixed().test('fileType', "Unsupported File Format", value => (typeof value === 'undefined') ? true : SUPPORTED_IMG_FORMATS.includes(value.type)), // if no image is uploaded return true, because it tries to validate the image even if there is no files selected
+      isFull: yup.boolean(),
       coursePricePerHour: yup.number().integer().min(0),
       files: yup.array().of(yup.string())
     })
@@ -68,22 +104,22 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
 
   const handleSubmit = async (event) => {
     console.log('in submit course details form')
-    await schema.validate(formData).then(async function(formData){
+    await schema.validate(formData).then(async function (formData) {
       const response = isNewCourse
-      ? await apiEndPoints.addNewCourse(formData)
-      : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
-    console.log("Submiteed course form details")
-    console.log("response", response)
-    if (response.data.message) {
-      alert(response.data.message)
-      window.location.reload() //Error : if not reloaded there is a error to be fixed!
-      event.preventDefault()
-    }
+        ? await apiEndPoints.addNewCourse(formData)
+        : await apiEndPoints.updateCourseDetails(courseDetails.id, formData)
+      console.log("Submiteed course form details")
+      console.log("response", response)
+      if (response.data.message) {
+        alert(response.data.message)
+        window.location.reload() //Error : if not reloaded there is a error to be fixed!
+        event.preventDefault()
+      }
     }).catch(function (err) {
       console.log(err);
       alert("Course data is not valid, please enter valid data berfore submission!")
     });
-   
+
   }
 
   const handleDeleteFile = async (fileToDeleteID) => {
@@ -187,6 +223,14 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
             <Button variant="outline-danger" style={{ margin: "5px" }} href={isNewCourse ? `/tutor/${courseDetails.User.id}` : `/course/${courseDetails.id}`}>
               Cancel
             </Button>
+            <Button
+              variant="danger"
+              style={{ margin: "5px" }}
+              onClick={() => setShow(preVal => true)}
+            >
+              Delete Course
+            </Button>
+            <DeleteCourse courseId={courseDetails.CourseId} show={show} setShow={setShow} />
           </Col>
         </Row>
 

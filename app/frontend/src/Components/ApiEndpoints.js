@@ -147,6 +147,10 @@ async function deleteTutor(tutorEmail) {
   return await axiosInstance.delete(`/users/${tutorEmail}`)
 }
 
+async function deleteCourse(courseId) {
+  return await axiosInstance.delete(`/tutor_course/${courseId}`)
+}
+
 async function rejectReport(reviewId) {
   return await axiosInstance.patch("/approvereview/" + reviewId)
 }
@@ -457,7 +461,8 @@ const apiEndPoints = {
   updateTutorProfile,
   getTutorImage,
   getCourseImage,
-  deleteTutor
+  deleteTutor,
+  deleteCourse
 }
 
 export default apiEndPoints
