@@ -12,10 +12,9 @@ function CardComponentTutorOfTheMonth(props) {
     data.data.records > 0 &&
       setBestTutor(() => data.data.data[0]);
   };
-  console.log(bestTutor)
   useEffect(async () => {
     getTOTMdata();
-    const image = await apiEndPoints.getTutorImage(bestTutor.id)
+    const image = await apiEndPoints.getTutorImage(bestTutor?.tutorId)
     setTutorImage(preVal => image?.filePath)
   }, []);
   return (
@@ -70,9 +69,6 @@ function CardComponentTutorOfTheMonth(props) {
             display: "flex"
           }}
         >
-          {/* {
-            tutor?.Courses.map(course => <p>{course.name}</p>)
-          } */}
           {bestTutor?.courseName}
         </Card.Text>
         <Card.Text style={{ fontSize: "0.7rem", marginTop: "-10px" }}>
@@ -81,9 +77,8 @@ function CardComponentTutorOfTheMonth(props) {
           <Button
             style={{ backgroundColor: "#00b7ff", width: "100%", borderColor: "#00b7ff" }}
           >
-            {/* TODO: Send state to the profile page of tutor state={{ id: tutor.id }} and to={`/tutor/${tutor.id}`} */}
-            <Link to="/" style={{ color: '#ffffff' }}>
-              Meet {bestTutor?.firstName + " " + bestTutor?.lastName}
+            <Link to={`/tutor/${bestTutor.tutorId}`} state={{ id: bestTutor.tutorId }} style={{ color: '#ffffff' }}>
+              Meet {bestTutor.firstName + " " + bestTutor.lastName}
             </Link>
           </Button>
         </div>
