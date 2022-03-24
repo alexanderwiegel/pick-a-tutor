@@ -103,7 +103,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
               fluid="true"
               thumbnail="true"
               // TODO: Add image from the backend
-              src={(courseDetails.img)?`http://20.113.25.17:3001/api/downloadprofilefile?path=${courseDetails.img.filePath}`: CourseImage1}
+              src={(courseDetails.img) ? `http://20.113.25.17:3001/api/downloadprofilefile?path=${courseDetails.img.filePath}` : CourseImage1}
               name="submit"
               width="650px"
               height="500px"
@@ -170,7 +170,7 @@ function CourseDetailsForm({ isNewCourse, courseDetails }) {
                   name='isFull'
                   type='checkbox'
                   id='isFullCheckbox'
-                  label='Check if course if full'
+                  label='Check if course is full'
                   defaultChecked={isNewCourse ? false : (courseDetails.isFull === true)}
                   onChange={handleChange}
                 />

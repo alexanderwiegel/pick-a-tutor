@@ -182,14 +182,19 @@ function Browse() {
               <div className="wrapper" style={{ justifyContent: 'space-evenly' }}>
                 {
                   loading ? <h1>Fetching data...</h1> :
-                    <CardComponentTutorOfTheMonth /> &&
-                      category === "tutor" && users.length > 0 ?
-                      users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} key={user.id} />) :
-                      <h1>No tutor found</h1>
-                        ||
-                        category === "course" && courses.length > 0 ?
-                        courses.map(course => <CardComponent course={course} name={course.User?.firstName + " " + course.User?.lastName} price={course.coursePricePerHour} key={course.id} />) :
-                        <h1>No course found</h1>
+                    <>
+                      <CardComponentTutorOfTheMonth />
+                      {
+
+                        category === "tutor" && users.length > 0 ?
+                          users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} key={user.id} />) :
+                          <h1>No tutor found</h1>
+                            ||
+                            category === "course" && courses.length > 0 ?
+                            courses.map(course => <CardComponent course={course} name={course.User?.firstName + " " + course.User?.lastName} price={course.coursePricePerHour} key={course.id} />) :
+                            <h1>No course found</h1>
+                      }
+                    </>
                 }
               </div>
             </div>

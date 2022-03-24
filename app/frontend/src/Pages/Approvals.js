@@ -64,12 +64,22 @@ const Approvals = () => {
                 <Col>
                   {
                     pFiles.length > 0 && pFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnApproveOrReject={() => removeFromState(upload.id, "pFile")}></FileCard>
+                      <FileCard
+                        user={upload.User}
+                        file={upload}
+                        key={upload.id}
+                        handleOnApproveOrReject={() => removeFromState(upload.id, "pFile")}
+                      />
                     )
                   }
                   {
                     cFiles.length > 0 && cFiles.map(upload =>
-                      <FileCard user={upload.User} file={upload} key={upload.id} handleOnApproveOrReject={() => removeFromState(upload.id, "cFile")}></FileCard>
+                      <FileCard
+                        user={upload.User}
+                        file={upload}
+                        key={upload.id}
+                        handleOnApproveOrReject={() => removeFromState(upload.id, "cFile")}
+                      />
                     )
                   }
                 </Col>

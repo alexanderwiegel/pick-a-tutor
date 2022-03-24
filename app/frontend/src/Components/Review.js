@@ -2,10 +2,12 @@ import React, { useState } from "react"
 import { Button, Card, Modal } from "react-bootstrap"
 import { format } from "date-fns"
 import ReviewReportForm from "./ReviewReportForm"
+import apiEndPoints from "./ApiEndpoints"
 
 function Review(props) {
   const status = localStorage.getItem("statusCode")
   const review = props.review
+  const id = localStorage.getItem("userID")
   var count = 0
 
   const [reviewToReport, setreviewToReport] = useState(0)
@@ -35,19 +37,23 @@ function Review(props) {
             ({review.rating})
           </div>
         </Card.Subtitle>
-
         <Card.Text>{review.ratingComments}</Card.Text>
-
         {
-          status &&
-          <Button variant="outline-danger"
-            onClick={() => {
-              setreviewToReport(review.id)
-              handleReportModalShow()
-            }}
-          >Report</Button>
+          (status && review.studentId == id) ?
+            <Button variant="outline-danger"
+              onClick={async () => {
+                const data = await apiEndPoints.deleteReview(review.id)
+                alert("Your review has been deleted successfully!")
+                window.location.reload(false);
+              }}
+            >Delete</Button>
+            : <Button variant="outline-danger"
+              onClick={() => {
+                setreviewToReport(review.id)
+                handleReportModalShow()
+              }}
+            >Report</Button>
         }
-
         <Modal show={isReportFormModalOpen} onHide={handleReportModalClose} centered>
           <Modal.Header closeButton>
             <Modal.Title>
