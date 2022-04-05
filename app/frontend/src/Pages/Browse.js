@@ -12,6 +12,7 @@ import CardComponentTutorOfTheMonth from "../Components/CardComponentTutorOfTheM
 import RatingFilter from "../Components/RatingFilter"
 import PriceFilter from "../Components/PriceFilter"
 
+
 function Browse() {
   //#region constants and functions
   const [users, setUsers] = useState([])
@@ -61,7 +62,6 @@ function Browse() {
   }
 
   const _setCategory = (value) => {
-    console.log(value)
     setCategory(() => value)
   }
 
@@ -73,19 +73,18 @@ function Browse() {
       setMaxPrice(() => priceRange[1])
     } else {
       setMinPrice(() => priceRange[20])
-      setMaxPrice(() => null)
+      setMaxPrice(() => undefined)
     }
   }
 
   const _setStartValue = (value) => {
-    setStarValue(() => value)
+    setStarValue((preVal) => value)
   }
 
   useEffect(() => {
     setTimeout(async () => {
       if (location.state?.search)
         setSearchKeyword(() => location.state?.search)
-
       if (location.state?.source === "/" || location.pathname === "/browse")
         filterResults(location.state?.search)
       if (location.state?.source === "/home") {
@@ -124,9 +123,9 @@ function Browse() {
         <div className="detail-page">
           <div className="side-bar">
             <br />
-            <label htmlFor="filter" className='hide' style={{ marginLeft: '10px' }}><i className="bi bi-x-circle-fill" style={{ height: '20px', width: '20px' }}></i></label>
+            <label htmlFor="filter" className='hide' style={{ marginLeft: '10px' }}><i class="bi bi-x-lg"></i></label>
             <br />
-            <h3>Rating Filters</h3>
+            <h4>Rating Filters</h4>
             <hr />
             {
               stars.map(value =>
@@ -136,7 +135,7 @@ function Browse() {
             {
               category === "course" &&
               <>
-                <h3>Price Filters</h3>
+                <h4>Price Filters</h4>
                 <hr />
                 {
                   prices.map(value =>
@@ -183,14 +182,19 @@ function Browse() {
               <div className="wrapper" style={{ justifyContent: 'space-evenly' }}>
                 {
                   loading ? <h1>Fetching data...</h1> :
-                    <CardComponentTutorOfTheMonth /> &&
-                      category === "tutor" && users.length > 0 ?
-                      users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} key={user.id} />) :
-                      <h1>No tutor found</h1>
-                        ||
-                        category === "course" && courses.length > 0 ?
-                        courses.map(course => <CardComponent course={course} name={course.User?.firstName + " " + course.User?.lastName} price={course.coursePricePerHour} key={course.id} />) :
-                        <h1>No course found</h1>
+                    <>
+                      <CardComponentTutorOfTheMonth />
+                      {
+
+                        category === "tutor" && users.length > 0 ?
+                          users.map(user => <CardComponentTutor tutor={user} name={user.firstName + " " + user.lastName} key={user.id} />) :
+                          <h1>No tutor found</h1>
+                            ||
+                            category === "course" && courses.length > 0 ?
+                            courses.map(course => <CardComponent course={course} name={course.User?.firstName + " " + course.User?.lastName} price={course.coursePricePerHour} key={course.id} />) :
+                            <h1>No course found</h1>
+                      }
+                    </>
                 }
               </div>
             </div>

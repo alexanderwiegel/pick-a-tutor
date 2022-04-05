@@ -13,7 +13,7 @@ function Message(lastMessage) {
     <Link to={"/chat"} state={{ contact: contact }} style={{ textDecoration: "none" }}>
       <ListGroup.Item className="d-flex justify-content-between align-items-start">
         <div className="ms-2 me-auto">
-          <div className="fw-bold">{contact.firstName + " " + contact.lastName}</div>
+          <div className="fw-bold">{contact?.firstName + " " + contact?.lastName}</div>
           {lm.message}
         </div>
         <Badge pill>

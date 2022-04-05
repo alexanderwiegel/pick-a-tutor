@@ -6,7 +6,7 @@ const Footer = () => {
     <div className="container" style={{ width: "100%" }}>
       <div className="footer-bottom">
         <hr />
-        <p className="text-md-center">&copy; Copyright {new Date().getFullYear()} - Fulda University of Applied Sciences. All Rights Reserved.</p>
+        <p className="text-md-center">Fulda University of Applied Sciences Software Engineering Project, Fall 2021 For Demonstration Only</p>
       </div>
     </div>
   )

@@ -57,7 +57,6 @@ export default function Login() {
             md={6}
             sm={12}
             className="m-auto"
-
           >
             <div className="d-flex justify-content-center">
               <a href={"/"}>
@@ -66,7 +65,7 @@ export default function Login() {
                   style={{
                     height: 200,
                     width: 200,
-                    margin: "auto",
+                    margin: "10% 0 10% 0"
                   }}
                 />
               </a>
@@ -80,14 +79,12 @@ export default function Login() {
                 apiEndpoints.login(values).then(data => {
                   if (data.data.success) {
                     localStorage.clear()
-                    console.log('Logged In', data)
                     localStorage.setItem('user', true)
                     localStorage.setItem('token', data.data.data.token)
                     tokenDecode(localStorage.getItem('token'))
                     apiEndPoints.setToken()
                   }
                   else {
-                    console.log('Login reject', data)
                     alert(data.data.message)
                   }
                 })
@@ -138,7 +135,7 @@ export default function Login() {
                   >
                     {props.errors?.password}
                   </p>
-                  <div className="d-flex justify-content-end"><a href="/dashboard">Forgot Password ?</a></div>
+                  <div className="d-flex justify-content-end"><a href="/forgotp">Forgot Password ?</a></div>
                   <br />
 
 
